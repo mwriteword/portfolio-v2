@@ -59,7 +59,7 @@ export default function Home() {
             </div>
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-base text-gray-600 leading-relaxed">
+            <p className="text-base leading-relaxed text-[#FFFFFF]">
               Hey, I'm Vernon — a content designer with a background in linguistics, editorial strategy, and product writing. I work at the intersection of language and experience, crafting copy that's clear, intentional, and human.
             </p>
             <p className="mt-3 text-base text-gray-600 leading-relaxed">
