@@ -1,4 +1,55 @@
-import { Mail, Linkedin, FileText } from "lucide-react";
+import { Mail, Linkedin, FileText, ArrowUpRight } from "lucide-react";
+
+const caseStudies = [
+  {
+    id: 1,
+    title: "Rewriting the onboarding flow for a fintech app",
+    emoji: "🏦",
+    bg: "#1e3a5f",
+    accent: "#3b82f6",
+    href: "#",
+  },
+  {
+    id: 2,
+    title: "Content system design for a B2B SaaS product",
+    emoji: "🗂️",
+    bg: "#1a3a2a",
+    accent: "#22c55e",
+    href: "#",
+  },
+  {
+    id: 3,
+    title: "Error message audit and rewrite",
+    emoji: "⚠️",
+    bg: "#3a2a10",
+    accent: "#f59e0b",
+    href: "#",
+  },
+  {
+    id: 4,
+    title: "Voice and tone guide for a consumer brand",
+    emoji: "🎙️",
+    bg: "#2a1a3a",
+    accent: "#a855f7",
+    href: "#",
+  },
+  {
+    id: 5,
+    title: "Microcopy for a checkout redesign",
+    emoji: "🛒",
+    bg: "#3a1a1a",
+    accent: "#ef4444",
+    href: "#",
+  },
+  {
+    id: 6,
+    title: "Help center content strategy and IA",
+    emoji: "📖",
+    bg: "#1a2a3a",
+    accent: "#06b6d4",
+    href: "#",
+  },
+];
 
 export default function Home() {
   return (
@@ -43,7 +94,7 @@ export default function Home() {
         </div>
 
         {/* Avatar + Bio */}
-        <div className="flex flex-col sm:flex-row items-start gap-6">
+        <div className="flex flex-col sm:flex-row items-start gap-6 mb-24">
           <div className="shrink-0">
             <div className="w-24 h-24 rounded-full bg-gray-200 overflow-hidden">
               <img
@@ -63,6 +114,48 @@ export default function Home() {
             <p className="mt-3 text-base leading-relaxed text-[#ffffff]">
               I've worked across SaaS, fintech, and consumer products — helping teams ship better words, faster. Whether it's microcopy, onboarding flows, or content systems, I care deeply about how language shapes the way people feel about a product.
             </p>
+          </div>
+        </div>
+
+        {/* Case Studies */}
+        <div className="mb-4">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-[#888888] mb-8">
+            Words I have written
+          </h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            {caseStudies.map((study) => (
+              <a
+                key={study.id}
+                href={study.href}
+                className="group block"
+              >
+                {/* Tile */}
+                <div
+                  className="relative w-full aspect-square rounded-xl flex items-center justify-center text-4xl overflow-hidden transition-all duration-300 ease-out group-hover:scale-[1.03] group-hover:shadow-2xl"
+                  style={{ backgroundColor: study.bg }}
+                >
+                  <span className="transition-transform duration-300 group-hover:scale-110">
+                    {study.emoji}
+                  </span>
+                  {/* Arrow on hover */}
+                  <div className="absolute top-3 right-3 opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200">
+                    <ArrowUpRight
+                      className="w-4 h-4"
+                      style={{ color: study.accent }}
+                    />
+                  </div>
+                  {/* Subtle border glow on hover */}
+                  <div
+                    className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                    style={{ boxShadow: `inset 0 0 0 1.5px ${study.accent}40` }}
+                  />
+                </div>
+                {/* Title below tile */}
+                <p className="mt-3 text-sm font-medium leading-snug text-[#cccccc] group-hover:text-white transition-colors duration-200">
+                  {study.title}
+                </p>
+              </a>
+            ))}
           </div>
         </div>
 
