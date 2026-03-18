@@ -152,13 +152,13 @@ interface ProficiencyConfig {
 const proficiencyConfig: Record<Proficiency, ProficiencyConfig> = {
   "Novice": {
     label: "Novice",
-    labelColor: "#ef4444",
-    dots: [{ color: "#ef4444" }, { color: EMPTY_DOT }, { color: EMPTY_DOT }],
+    labelColor: "#3b82f6",
+    dots: [{ color: "#3b82f6" }, { color: EMPTY_DOT }, { color: EMPTY_DOT }],
   },
   "Novice / Intermediate": {
     label: "Novice / Intermediate",
-    labelColor: "#f97316",
-    dots: [{ color: "#f97316" }, { color: "#f97316", half: true }, { color: EMPTY_DOT }],
+    labelColor: "#22c55e",
+    dots: [{ color: "#22c55e" }, { color: "#22c55e", half: true }, { color: EMPTY_DOT }],
   },
   "Intermediate": {
     label: "Intermediate",
@@ -167,13 +167,13 @@ const proficiencyConfig: Record<Proficiency, ProficiencyConfig> = {
   },
   "Intermediate / Advanced": {
     label: "Intermediate / Advanced",
-    labelColor: "#22c55e",
-    dots: [{ color: "#22c55e" }, { color: "#22c55e" }, { color: "#22c55e", half: true }],
+    labelColor: "#f97316",
+    dots: [{ color: "#f97316" }, { color: "#f97316" }, { color: "#f97316", half: true }],
   },
   "Advanced": {
     label: "Advanced",
-    labelColor: "#3b82f6",
-    dots: [{ color: "#3b82f6" }, { color: "#3b82f6" }, { color: "#3b82f6" }],
+    labelColor: "#ef4444",
+    dots: [{ color: "#ef4444" }, { color: "#ef4444" }, { color: "#ef4444" }],
   },
 };
 
