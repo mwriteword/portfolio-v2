@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Mail, Linkedin, FileText, ArrowUpRight } from "lucide-react";
 
 const caseStudies = [
@@ -35,7 +36,87 @@ const caseStudies = [
   },
 ];
 
+type Proficiency = "Expert" | "Proficient" | "Familiar";
+
+interface Tool {
+  id: number;
+  name: string;
+  proficiency: Proficiency;
+  bullets: string[];
+}
+
+const tools: Tool[] = [
+  {
+    id: 1,
+    name: "Figma",
+    proficiency: "Expert",
+    bullets: [
+      "Designed and annotated content-heavy UI flows for multiple product teams",
+      "Built and maintained content component libraries used across design systems",
+      "Facilitated content critique sessions directly in Figma with designers",
+    ],
+  },
+  {
+    id: 2,
+    name: "Confluence & Jira",
+    proficiency: "Expert",
+    bullets: [
+      "Authored and maintained documentation across multiple product areas",
+      "Created content briefs, voice & tone guides, and style documentation",
+      "Tracked content work end-to-end using Jira epics and sprint boards",
+    ],
+  },
+  {
+    id: 3,
+    name: "Contentful",
+    proficiency: "Proficient",
+    bullets: [
+      "Published and structured content entries across localized product experiences",
+      "Collaborated with engineers on content model and field taxonomy design",
+      "Managed content migrations and QA for major product releases",
+    ],
+  },
+  {
+    id: 4,
+    name: "Google Workspace",
+    proficiency: "Expert",
+    bullets: [
+      "Primary tool for all long-form content strategy, briefs, and documentation",
+      "Built shared decks to align cross-functional teams on content direction",
+      "Used Sheets for content audits, taxonomies, and editorial calendars",
+    ],
+  },
+  {
+    id: 5,
+    name: "Notion",
+    proficiency: "Proficient",
+    bullets: [
+      "Built and maintained portfolio and personal knowledge base",
+      "Structured team wikis and content ops documentation",
+      "Used databases to manage content inventories and project tracking",
+    ],
+  },
+  {
+    id: 6,
+    name: "Miro",
+    proficiency: "Familiar",
+    bullets: [
+      "Facilitated content strategy workshops and journey mapping sessions",
+      "Used for IA and content hierarchy diagramming",
+      "Collaborated on cross-team alignment boards during discovery phases",
+    ],
+  },
+];
+
+const proficiencyConfig: Record<Proficiency, { label: string; color: string; bars: number }> = {
+  Expert:     { label: "Expert",     color: "#3b82f6", bars: 3 },
+  Proficient: { label: "Proficient", color: "#a855f7", bars: 2 },
+  Familiar:   { label: "Familiar",   color: "#f59e0b", bars: 1 },
+};
+
 export default function Home() {
+  const [activeTool, setActiveTool] = useState<Tool | null>(null);
+
   return (
     <main className="min-h-screen text-gray-900 bg-[#2e2e2e]">
       <div className="max-w-3xl mx-auto px-6 py-20">
@@ -102,7 +183,7 @@ export default function Home() {
         </div>
 
         {/* Case Studies */}
-        <div className="mb-4">
+        <div className="mb-24">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-[#888888] mb-8">
             Words I have written
           </h2>
@@ -113,7 +194,6 @@ export default function Home() {
                 href={study.href}
                 className="group block"
               >
-                {/* Tile */}
                 <div
                   className="relative w-full aspect-square rounded-xl flex items-center justify-center text-2xl overflow-hidden transition-all duration-300 ease-out group-hover:scale-[1.03] group-hover:shadow-2xl"
                   style={{ backgroundColor: study.bg }}
@@ -121,25 +201,109 @@ export default function Home() {
                   <span className="transition-transform duration-300 group-hover:scale-110">
                     {study.emoji}
                   </span>
-                  {/* Arrow on hover */}
                   <div className="absolute top-3 right-3 opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200">
-                    <ArrowUpRight
-                      className="w-4 h-4"
-                      style={{ color: study.accent }}
-                    />
+                    <ArrowUpRight className="w-4 h-4" style={{ color: study.accent }} />
                   </div>
-                  {/* Subtle border glow on hover */}
                   <div
                     className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
                     style={{ boxShadow: `inset 0 0 0 1.5px ${study.accent}40` }}
                   />
                 </div>
-                {/* Title below tile */}
                 <p className="mt-3 text-sm font-medium leading-snug text-[#cccccc] group-hover:text-white transition-colors duration-200">
                   {study.title}
                 </p>
               </a>
             ))}
+          </div>
+        </div>
+
+        {/* Tools */}
+        <div className="mb-4">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-[#888888] mb-8">
+            Tools I have used
+          </h2>
+          <div className="flex gap-8 items-start">
+
+            {/* Left: tool list */}
+            <div className="w-44 shrink-0 flex flex-col">
+              {tools.map((tool) => {
+                const isActive = activeTool?.id === tool.id;
+                return (
+                  <button
+                    key={tool.id}
+                    onMouseEnter={() => setActiveTool(tool)}
+                    onClick={() => setActiveTool(tool)}
+                    className={`text-left py-2.5 px-3 rounded-lg text-sm font-medium transition-all duration-150 ${
+                      isActive
+                        ? "bg-white/10 text-white"
+                        : "text-[#888888] hover:text-[#cccccc] hover:bg-white/5"
+                    }`}
+                  >
+                    <span className="flex items-center justify-between">
+                      {tool.name}
+                      {isActive && (
+                        <span className="w-1.5 h-1.5 rounded-full bg-white/60 shrink-0" />
+                      )}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Right: detail panel */}
+            <div className="flex-1 min-h-[220px]">
+              {activeTool ? (
+                <div
+                  key={activeTool.id}
+                  className="animate-in fade-in slide-in-from-bottom-2 duration-200"
+                >
+                  {/* Tool name + proficiency */}
+                  <div className="flex items-center gap-3 mb-5">
+                    <h3 className="text-lg font-semibold text-white">{activeTool.name}</h3>
+                    <div className="flex items-center gap-2">
+                      {/* Pip indicators */}
+                      <div className="flex gap-1">
+                        {[1, 2, 3].map((n) => (
+                          <div
+                            key={n}
+                            className="w-2 h-2 rounded-full transition-colors duration-200"
+                            style={{
+                              backgroundColor:
+                                n <= proficiencyConfig[activeTool.proficiency].bars
+                                  ? proficiencyConfig[activeTool.proficiency].color
+                                  : "#444444",
+                            }}
+                          />
+                        ))}
+                      </div>
+                      <span
+                        className="text-xs font-medium"
+                        style={{ color: proficiencyConfig[activeTool.proficiency].color }}
+                      >
+                        {proficiencyConfig[activeTool.proficiency].label}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Bullet list */}
+                  <ul className="space-y-2.5">
+                    {activeTool.bullets.map((bullet, i) => (
+                      <li key={i} className="flex items-start gap-2.5 text-sm text-[#aaaaaa] leading-relaxed">
+                        <span className="mt-1.5 w-1 h-1 rounded-full bg-[#555555] shrink-0" />
+                        {bullet}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : (
+                <div className="flex flex-col justify-center h-full min-h-[180px] border border-dashed border-[#3a3a3a] rounded-xl px-6">
+                  <p className="text-sm text-[#555555] select-none">
+                    Hover a tool to see experience &amp; proficiency
+                  </p>
+                </div>
+              )}
+            </div>
+
           </div>
         </div>
 
