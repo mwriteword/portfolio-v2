@@ -83,7 +83,7 @@ const tools: Tool[] = [
   {
     id: 4,
     name: "Claude",
-    icon: "https://cdn.simpleicons.org/anthropic/ffffff",
+    icon: "https://cdn.simpleicons.org/claude/ffffff",
     proficiency: "Proficient",
     bullets: [
       "Placeholder bullet one for Claude",
@@ -105,7 +105,7 @@ const tools: Tool[] = [
   {
     id: 6,
     name: "Google Suite",
-    icon: "https://cdn.simpleicons.org/google/ffffff",
+    icon: "__google__",
     proficiency: "Expert",
     bullets: [
       "Placeholder bullet one for Google Suite",
@@ -278,6 +278,15 @@ export default function Home() {
                             xmlns="http://www.w3.org/2000/svg"
                           >
                             <path d="M23.15 2.587L18.21.21a1.494 1.494 0 0 0-1.705.29l-9.46 8.63-4.12-3.128a.999.999 0 0 0-1.276.057L.327 7.261A1 1 0 0 0 .326 8.74L3.899 12 .326 15.26a1 1 0 0 0 .001 1.479L1.65 17.94a.999.999 0 0 0 1.276.057l4.12-3.128 9.46 8.63a1.492 1.492 0 0 0 1.704.29l4.942-2.377A1.5 1.5 0 0 0 24 20.06V3.939a1.5 1.5 0 0 0-.85-1.352zm-5.146 14.861L10.826 12l7.178-5.448v10.896z" />
+                          </svg>
+                        ) : tool.icon === "__google__" ? (
+                          <svg
+                            viewBox="0 0 24 24"
+                            className={`w-4 h-4 shrink-0 transition-opacity duration-150 ${isActive ? "opacity-100" : "opacity-40"}`}
+                            fill="white"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z" />
                           </svg>
                         ) : (
                           <img
