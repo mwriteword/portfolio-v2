@@ -158,7 +158,7 @@ const proficiencyConfig: Record<Proficiency, ProficiencyConfig> = {
   "Novice / Intermediate": {
     label: "Novice / Intermediate",
     labelColor: "#f97316",
-    dots: [{ color: "#ef4444" }, { color: "#f97316", half: true }, { color: EMPTY_DOT }],
+    dots: [{ color: "#f97316" }, { color: "#f97316", half: true }, { color: EMPTY_DOT }],
   },
   "Intermediate": {
     label: "Intermediate",
@@ -168,7 +168,7 @@ const proficiencyConfig: Record<Proficiency, ProficiencyConfig> = {
   "Intermediate / Advanced": {
     label: "Intermediate / Advanced",
     labelColor: "#22c55e",
-    dots: [{ color: "#eab308" }, { color: "#eab308" }, { color: "#22c55e", half: true }],
+    dots: [{ color: "#22c55e" }, { color: "#22c55e" }, { color: "#22c55e", half: true }],
   },
   "Advanced": {
     label: "Advanced",
