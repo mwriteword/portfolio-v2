@@ -62,7 +62,7 @@ export default function Home() {
             <p className="text-base leading-relaxed text-[#FFFFFF]">
               Hey, I'm Vernon — a content designer with a background in linguistics, editorial strategy, and product writing. I work at the intersection of language and experience, crafting copy that's clear, intentional, and human.
             </p>
-            <p className="mt-3 text-base text-gray-600 leading-relaxed">
+            <p className="mt-3 text-base leading-relaxed text-[#ffffff]">
               I've worked across SaaS, fintech, and consumer products — helping teams ship better words, faster. Whether it's microcopy, onboarding flows, or content systems, I care deeply about how language shapes the way people feel about a product.
             </p>
           </div>
