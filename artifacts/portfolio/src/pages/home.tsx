@@ -2,7 +2,7 @@ import { Mail, Linkedin, FileText } from "lucide-react";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white text-gray-900">
+    <main className="min-h-screen text-gray-900 bg-[#2e2e2e]">
       <div className="max-w-3xl mx-auto px-6 py-20">
 
         {/* Hero title */}
