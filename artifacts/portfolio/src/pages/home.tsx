@@ -7,7 +7,7 @@ export default function Home() {
 
         {/* Hero title */}
         <div className="mb-10">
-          <h1 className="sm:text-7xl font-bold tracking-tight text-gray-950 text-[70px]">
+          <h1 className="sm:text-7xl font-bold tracking-tight text-[70px] text-[#ffffff]">
             Vernon Laquindanum
           </h1>
           <h1 className="sm:text-7xl font-bold tracking-tight text-gray-400 mt-1 text-[70px]">
