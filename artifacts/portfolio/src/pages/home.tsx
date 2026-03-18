@@ -86,33 +86,30 @@ const tools: Tool[] = [
     id: 4,
     name: "Claude",
     icon: "https://cdn.simpleicons.org/claude/ffffff",
-    proficiency: "Intermediate",
+    proficiency: "Intermediate / Advanced",
     bullets: [
-      "Placeholder bullet one for Claude",
-      "Placeholder bullet two for Claude",
-      "Placeholder bullet three for Claude",
+      "Built agents with context to perform specific actions",
+      "Used MCP connections to build automation triggers and flows",
     ],
   },
   {
     id: 5,
     name: "Atlassian Suite",
     icon: "https://cdn.simpleicons.org/atlassian/ffffff",
-    proficiency: "Intermediate / Advanced",
+    proficiency: "Advanced",
     bullets: [
-      "Placeholder bullet one for Atlassian Suite",
-      "Placeholder bullet two for Atlassian Suite",
-      "Placeholder bullet three for Atlassian Suite",
+      "Extensive experience using Jira, Confluence, Goals, Projects, Teams, Bitbucket, and Focus",
+      "Have an innate understanding of how apps connect",
+      "Intimately familiar with Admin and End User surfaces",
     ],
   },
   {
     id: 6,
     name: "Google Suite",
     icon: "__google__",
-    proficiency: "Intermediate / Advanced",
+    proficiency: "Advanced",
     bullets: [
-      "Placeholder bullet one for Google Suite",
-      "Placeholder bullet two for Google Suite",
-      "Placeholder bullet three for Google Suite",
+      "Career-long experience using Docs, Sheets, Slides, Forms, and Drive",
     ],
   },
   {
@@ -121,9 +118,8 @@ const tools: Tool[] = [
     icon: "https://cdn.simpleicons.org/notion/ffffff",
     proficiency: "Intermediate",
     bullets: [
-      "Placeholder bullet one for Notion",
-      "Placeholder bullet two for Notion",
-      "Placeholder bullet three for Notion",
+      "Used to build portfolio site",
+      "Crafted relational databases in Notion in personal settings",
     ],
   },
   {
@@ -132,9 +128,8 @@ const tools: Tool[] = [
     icon: "__vscode__",
     proficiency: "Novice",
     bullets: [
-      "Placeholder bullet one for VS Code",
-      "Placeholder bullet two for VS Code",
-      "Placeholder bullet three for VS Code",
+      "Experience using VS Code to edit text strings and other minor UI elements",
+      "Familiarity with basic git usage, plus the commit and PR processes",
     ],
   },
 ];
