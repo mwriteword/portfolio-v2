@@ -41,6 +41,7 @@ type Proficiency = "Expert" | "Proficient" | "Familiar";
 interface Tool {
   id: number;
   name: string;
+  icon: string;
   proficiency: Proficiency;
   bullets: string[];
 }
@@ -49,61 +50,89 @@ const tools: Tool[] = [
   {
     id: 1,
     name: "Figma",
+    icon: "https://cdn.simpleicons.org/figma/ffffff",
     proficiency: "Expert",
     bullets: [
-      "Designed and annotated content-heavy UI flows for multiple product teams",
-      "Built and maintained content component libraries used across design systems",
-      "Facilitated content critique sessions directly in Figma with designers",
+      "Placeholder bullet one for Figma",
+      "Placeholder bullet two for Figma",
+      "Placeholder bullet three for Figma",
     ],
   },
   {
     id: 2,
-    name: "Confluence & Jira",
-    proficiency: "Expert",
+    name: "Replit",
+    icon: "https://cdn.simpleicons.org/replit/ffffff",
+    proficiency: "Proficient",
     bullets: [
-      "Authored and maintained documentation across multiple product areas",
-      "Created content briefs, voice & tone guides, and style documentation",
-      "Tracked content work end-to-end using Jira epics and sprint boards",
+      "Placeholder bullet one for Replit",
+      "Placeholder bullet two for Replit",
+      "Placeholder bullet three for Replit",
     ],
   },
   {
     id: 3,
-    name: "Contentful",
+    name: "v0",
+    icon: "https://cdn.simpleicons.org/v0/ffffff",
     proficiency: "Proficient",
     bullets: [
-      "Published and structured content entries across localized product experiences",
-      "Collaborated with engineers on content model and field taxonomy design",
-      "Managed content migrations and QA for major product releases",
+      "Placeholder bullet one for v0",
+      "Placeholder bullet two for v0",
+      "Placeholder bullet three for v0",
     ],
   },
   {
     id: 4,
-    name: "Google Workspace",
-    proficiency: "Expert",
+    name: "Claude",
+    icon: "https://cdn.simpleicons.org/anthropic/ffffff",
+    proficiency: "Proficient",
     bullets: [
-      "Primary tool for all long-form content strategy, briefs, and documentation",
-      "Built shared decks to align cross-functional teams on content direction",
-      "Used Sheets for content audits, taxonomies, and editorial calendars",
+      "Placeholder bullet one for Claude",
+      "Placeholder bullet two for Claude",
+      "Placeholder bullet three for Claude",
     ],
   },
   {
     id: 5,
-    name: "Notion",
-    proficiency: "Proficient",
+    name: "Atlassian Suite",
+    icon: "https://cdn.simpleicons.org/atlassian/ffffff",
+    proficiency: "Expert",
     bullets: [
-      "Built and maintained portfolio and personal knowledge base",
-      "Structured team wikis and content ops documentation",
-      "Used databases to manage content inventories and project tracking",
+      "Placeholder bullet one for Atlassian Suite",
+      "Placeholder bullet two for Atlassian Suite",
+      "Placeholder bullet three for Atlassian Suite",
     ],
   },
   {
     id: 6,
-    name: "Miro",
+    name: "Google Suite",
+    icon: "https://cdn.simpleicons.org/google/ffffff",
+    proficiency: "Expert",
+    bullets: [
+      "Placeholder bullet one for Google Suite",
+      "Placeholder bullet two for Google Suite",
+      "Placeholder bullet three for Google Suite",
+    ],
+  },
+  {
+    id: 7,
+    name: "Notion",
+    icon: "https://cdn.simpleicons.org/notion/ffffff",
+    proficiency: "Proficient",
+    bullets: [
+      "Placeholder bullet one for Notion",
+      "Placeholder bullet two for Notion",
+      "Placeholder bullet three for Notion",
+    ],
+  },
+  {
+    id: 8,
+    name: "VS Code",
+    icon: "__vscode__",
     proficiency: "Familiar",
     bullets: [
-      "Facilitated content strategy workshops and journey mapping sessions",
-      "Used for IA and content hierarchy diagramming",
-      "Collaborated on cross-team alignment boards during discovery phases",
+      "Placeholder bullet one for VS Code",
+      "Placeholder bullet two for VS Code",
+      "Placeholder bullet three for VS Code",
     ],
   },
 ];
@@ -239,8 +268,27 @@ export default function Home() {
                         : "text-[#888888] hover:text-[#cccccc] hover:bg-white/5"
                     }`}
                   >
-                    <span className="flex items-center justify-between">
-                      {tool.name}
+                    <span className="flex items-center justify-between gap-2">
+                      <span className="flex items-center gap-2.5">
+                        {tool.icon === "__vscode__" ? (
+                          <svg
+                            viewBox="0 0 24 24"
+                            className={`w-4 h-4 shrink-0 transition-opacity duration-150 ${isActive ? "opacity-100" : "opacity-40"}`}
+                            fill="white"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M23.15 2.587L18.21.21a1.494 1.494 0 0 0-1.705.29l-9.46 8.63-4.12-3.128a.999.999 0 0 0-1.276.057L.327 7.261A1 1 0 0 0 .326 8.74L3.899 12 .326 15.26a1 1 0 0 0 .001 1.479L1.65 17.94a.999.999 0 0 0 1.276.057l4.12-3.128 9.46 8.63a1.492 1.492 0 0 0 1.704.29l4.942-2.377A1.5 1.5 0 0 0 24 20.06V3.939a1.5 1.5 0 0 0-.85-1.352zm-5.146 14.861L10.826 12l7.178-5.448v10.896z" />
+                          </svg>
+                        ) : (
+                          <img
+                            src={tool.icon}
+                            alt={tool.name}
+                            className={`w-4 h-4 object-contain transition-opacity duration-150 ${isActive ? "opacity-100" : "opacity-40"}`}
+                            onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                          />
+                        )}
+                        {tool.name}
+                      </span>
                       {isActive && (
                         <span className="w-1.5 h-1.5 rounded-full bg-white/60 shrink-0" />
                       )}
