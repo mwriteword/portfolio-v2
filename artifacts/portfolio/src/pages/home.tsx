@@ -36,7 +36,7 @@ const caseStudies = [
   },
 ];
 
-type Proficiency = "Expert" | "Proficient" | "Familiar";
+type Proficiency = "Intermediate / Advanced" | "Intermediate" | "Novice";
 
 interface Tool {
   id: number;
@@ -51,40 +51,37 @@ const tools: Tool[] = [
     id: 1,
     name: "Figma",
     icon: "https://cdn.simpleicons.org/figma/ffffff",
-    proficiency: "Expert",
+    proficiency: "Intermediate / Advanced",
     bullets: [
-      "Placeholder bullet one for Figma",
-      "Placeholder bullet two for Figma",
-      "Placeholder bullet three for Figma",
+      "Worked with designers to insert UX writing into screens and flows",
+      "Iterated on UI screens with different interactions and content",
+      "Created click-through prototypes and presentation materials",
     ],
   },
   {
     id: 2,
     name: "Replit",
     icon: "https://cdn.simpleicons.org/replit/ffffff",
-    proficiency: "Proficient",
+    proficiency: "Intermediate",
     bullets: [
-      "Placeholder bullet one for Replit",
-      "Placeholder bullet two for Replit",
-      "Placeholder bullet three for Replit",
+      "Used to prototype flows and UI contexts",
+      "Created interactive visuals to convey complicated concepts",
     ],
   },
   {
     id: 3,
     name: "v0",
     icon: "https://cdn.simpleicons.org/v0/ffffff",
-    proficiency: "Proficient",
+    proficiency: "Novice",
     bullets: [
-      "Placeholder bullet one for v0",
-      "Placeholder bullet two for v0",
-      "Placeholder bullet three for v0",
+      "Used to prototype flows and UI contexts",
     ],
   },
   {
     id: 4,
     name: "Claude",
     icon: "https://cdn.simpleicons.org/claude/ffffff",
-    proficiency: "Proficient",
+    proficiency: "Intermediate",
     bullets: [
       "Placeholder bullet one for Claude",
       "Placeholder bullet two for Claude",
@@ -95,7 +92,7 @@ const tools: Tool[] = [
     id: 5,
     name: "Atlassian Suite",
     icon: "https://cdn.simpleicons.org/atlassian/ffffff",
-    proficiency: "Expert",
+    proficiency: "Intermediate / Advanced",
     bullets: [
       "Placeholder bullet one for Atlassian Suite",
       "Placeholder bullet two for Atlassian Suite",
@@ -106,7 +103,7 @@ const tools: Tool[] = [
     id: 6,
     name: "Google Suite",
     icon: "__google__",
-    proficiency: "Expert",
+    proficiency: "Intermediate / Advanced",
     bullets: [
       "Placeholder bullet one for Google Suite",
       "Placeholder bullet two for Google Suite",
@@ -117,7 +114,7 @@ const tools: Tool[] = [
     id: 7,
     name: "Notion",
     icon: "https://cdn.simpleicons.org/notion/ffffff",
-    proficiency: "Proficient",
+    proficiency: "Intermediate",
     bullets: [
       "Placeholder bullet one for Notion",
       "Placeholder bullet two for Notion",
@@ -128,7 +125,7 @@ const tools: Tool[] = [
     id: 8,
     name: "VS Code",
     icon: "__vscode__",
-    proficiency: "Familiar",
+    proficiency: "Novice",
     bullets: [
       "Placeholder bullet one for VS Code",
       "Placeholder bullet two for VS Code",
@@ -138,9 +135,9 @@ const tools: Tool[] = [
 ];
 
 const proficiencyConfig: Record<Proficiency, { label: string; color: string; bars: number }> = {
-  Expert:     { label: "Expert",     color: "#3b82f6", bars: 3 },
-  Proficient: { label: "Proficient", color: "#a855f7", bars: 2 },
-  Familiar:   { label: "Familiar",   color: "#f59e0b", bars: 1 },
+  "Intermediate / Advanced": { label: "Intermediate / Advanced", color: "#3b82f6", bars: 3 },
+  "Intermediate":            { label: "Intermediate",            color: "#a855f7", bars: 2 },
+  "Novice":                  { label: "Novice",                  color: "#f59e0b", bars: 1 },
 };
 
 export default function Home() {
