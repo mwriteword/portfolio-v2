@@ -3,50 +3,34 @@ import { Mail, Linkedin, FileText, ArrowUpRight } from "lucide-react";
 const caseStudies = [
   {
     id: 1,
-    title: "Rewriting the onboarding flow for a fintech app",
-    emoji: "🏦",
+    title: "Goal types & Content Systems — Atlassian",
+    emoji: "🗂️",
     bg: "#1e3a5f",
     accent: "#3b82f6",
     href: "#",
   },
   {
     id: 2,
-    title: "Content system design for a B2B SaaS product",
-    emoji: "🗂️",
+    title: "Content Strategy & Behavior Change — Opower",
+    emoji: "⚡",
     bg: "#1a3a2a",
     accent: "#22c55e",
     href: "#",
   },
   {
     id: 3,
-    title: "Error message audit and rewrite",
-    emoji: "⚠️",
-    bg: "#3a2a10",
-    accent: "#f59e0b",
-    href: "#",
-  },
-  {
-    id: 4,
-    title: "Voice and tone guide for a consumer brand",
-    emoji: "🎙️",
+    title: "SEO & Longform Content — Course Hero",
+    emoji: "📖",
     bg: "#2a1a3a",
     accent: "#a855f7",
     href: "#",
   },
   {
-    id: 5,
-    title: "Microcopy for a checkout redesign",
-    emoji: "🛒",
-    bg: "#3a1a1a",
-    accent: "#ef4444",
-    href: "#",
-  },
-  {
-    id: 6,
-    title: "Help center content strategy and IA",
-    emoji: "📖",
-    bg: "#1a2a3a",
-    accent: "#06b6d4",
+    id: 4,
+    title: "Early Copywriting Works — QuinStreet",
+    emoji: "✍️",
+    bg: "#3a2a10",
+    accent: "#f59e0b",
     href: "#",
   },
 ];
@@ -122,7 +106,7 @@ export default function Home() {
           <h2 className="text-xs font-semibold uppercase tracking-widest text-[#888888] mb-8">
             Words I have written
           </h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {caseStudies.map((study) => (
               <a
                 key={study.id}
@@ -131,7 +115,7 @@ export default function Home() {
               >
                 {/* Tile */}
                 <div
-                  className="relative w-full aspect-square rounded-xl flex items-center justify-center text-4xl overflow-hidden transition-all duration-300 ease-out group-hover:scale-[1.03] group-hover:shadow-2xl"
+                  className="relative w-full aspect-square rounded-xl flex items-center justify-center text-2xl overflow-hidden transition-all duration-300 ease-out group-hover:scale-[1.03] group-hover:shadow-2xl"
                   style={{ backgroundColor: study.bg }}
                 >
                   <span className="transition-transform duration-300 group-hover:scale-110">
