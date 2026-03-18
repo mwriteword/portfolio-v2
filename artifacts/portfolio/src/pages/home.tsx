@@ -10,7 +10,7 @@ export default function Home() {
           <h1 className="sm:text-7xl font-bold tracking-tight text-gray-950 text-[70px]">
             Vernon Laquindanum
           </h1>
-          <h1 className="text-6xl sm:text-7xl font-bold leading-tight tracking-tight text-gray-400 mt-1">
+          <h1 className="sm:text-7xl font-bold tracking-tight text-gray-400 mt-1 text-[70px]">
             💿 Content Design
           </h1>
         </div>
