@@ -36,7 +36,12 @@ const caseStudies = [
   },
 ];
 
-type Proficiency = "Intermediate / Advanced" | "Intermediate" | "Novice";
+type Proficiency =
+  | "Novice"
+  | "Novice / Intermediate"
+  | "Intermediate"
+  | "Intermediate / Advanced"
+  | "Advanced";
 
 interface Tool {
   id: number;
@@ -134,10 +139,42 @@ const tools: Tool[] = [
   },
 ];
 
-const proficiencyConfig: Record<Proficiency, { label: string; color: string; bars: number }> = {
-  "Intermediate / Advanced": { label: "Intermediate / Advanced", color: "#3b82f6", bars: 3 },
-  "Intermediate":            { label: "Intermediate",            color: "#a855f7", bars: 2 },
-  "Novice":                  { label: "Novice",                  color: "#f59e0b", bars: 1 },
+const EMPTY_DOT = "#3a3a3a";
+
+type DotConfig = { color: string; half?: boolean };
+
+interface ProficiencyConfig {
+  label: string;
+  labelColor: string;
+  dots: [DotConfig, DotConfig, DotConfig];
+}
+
+const proficiencyConfig: Record<Proficiency, ProficiencyConfig> = {
+  "Novice": {
+    label: "Novice",
+    labelColor: "#ef4444",
+    dots: [{ color: "#ef4444" }, { color: EMPTY_DOT }, { color: EMPTY_DOT }],
+  },
+  "Novice / Intermediate": {
+    label: "Novice / Intermediate",
+    labelColor: "#f97316",
+    dots: [{ color: "#ef4444" }, { color: "#f97316", half: true }, { color: EMPTY_DOT }],
+  },
+  "Intermediate": {
+    label: "Intermediate",
+    labelColor: "#eab308",
+    dots: [{ color: "#eab308" }, { color: "#eab308" }, { color: EMPTY_DOT }],
+  },
+  "Intermediate / Advanced": {
+    label: "Intermediate / Advanced",
+    labelColor: "#22c55e",
+    dots: [{ color: "#eab308" }, { color: "#eab308" }, { color: "#22c55e", half: true }],
+  },
+  "Advanced": {
+    label: "Advanced",
+    labelColor: "#3b82f6",
+    dots: [{ color: "#3b82f6" }, { color: "#3b82f6" }, { color: "#3b82f6" }],
+  },
 };
 
 export default function Home() {
@@ -317,22 +354,23 @@ export default function Home() {
                     <div className="flex items-center gap-2">
                       {/* Pip indicators */}
                       <div className="flex gap-1">
-                        {[1, 2, 3].map((n) => (
+                        {proficiencyConfig[activeTool.proficiency].dots.map((dot, i) => (
                           <div
-                            key={n}
-                            className="w-2 h-2 rounded-full transition-colors duration-200"
-                            style={{
-                              backgroundColor:
-                                n <= proficiencyConfig[activeTool.proficiency].bars
-                                  ? proficiencyConfig[activeTool.proficiency].color
-                                  : "#444444",
-                            }}
+                            key={i}
+                            className="w-2 h-2 rounded-full transition-all duration-200 overflow-hidden"
+                            style={
+                              dot.half
+                                ? {
+                                    background: `linear-gradient(to right, ${dot.color} 50%, ${EMPTY_DOT} 50%)`,
+                                  }
+                                : { backgroundColor: dot.color }
+                            }
                           />
                         ))}
                       </div>
                       <span
                         className="text-xs font-medium"
-                        style={{ color: proficiencyConfig[activeTool.proficiency].color }}
+                        style={{ color: proficiencyConfig[activeTool.proficiency].labelColor }}
                       >
                         {proficiencyConfig[activeTool.proficiency].label}
                       </span>
