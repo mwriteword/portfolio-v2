@@ -10,9 +10,7 @@ export default function Home() {
           <h1 className="sm:text-7xl font-bold tracking-tight text-[70px] text-[#ffffff]">
             Vernon Laquindanum
           </h1>
-          <h1 className="sm:text-7xl font-bold tracking-tight text-gray-400 mt-1 text-[70px]">
-            💿 Content Design
-          </h1>
+          <h1 className="sm:text-7xl font-bold tracking-tight text-gray-400 mt-1 text-[52px]">Content Design</h1>
         </div>
 
         {/* CTA Buttons */}
