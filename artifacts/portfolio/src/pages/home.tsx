@@ -232,9 +232,9 @@ export default function Home() {
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-base leading-relaxed text-[#ffffff]">I have been in the UX Writing / Content Design space for over 12 years. I went from Copywriter to UX Writer to Content Designer, but at the core of it all, I write words that guide people and create content systems that scale.</p>
-            <p className="mt-3 text-base leading-relaxed text-[#ffffff]">
-              I've worked across SaaS, fintech, and consumer products — helping teams ship better words, faster. Whether it's microcopy, onboarding flows, or content systems, I care deeply about how language shapes the way people feel about a product.
-            </p>
+            <p className="mt-3 text-base leading-relaxed text-[#ffffff]">did this most recently at Atlassian, where I built content systems for their platform apps (FKA Atlas). I was responsible for content across the Goals, Projects, and Teams apps, and had to build systems that were rigid enough to create consistency across the experiences but flexible enough to suit each app’s needs.
+
+            Now, I’m most interested in extending these systems with AI and understanding how the content design craft shifts more towards context engineering and agentic evaluation.</p>
           </div>
         </div>
 
