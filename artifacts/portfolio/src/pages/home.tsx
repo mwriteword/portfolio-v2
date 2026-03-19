@@ -216,6 +216,9 @@ export default function Home() {
           </a>
         </div>
 
+        {/* Intro section headline */}
+        <h2 className="text-[28px] font-semibold text-[#ffffff] mb-4">Hello! You can call me Vern</h2>
+
         {/* Avatar + Bio */}
         <div className="flex flex-row-reverse gap-6 mb-12 items-start flex-wrap">
           <div className="shrink-0">
@@ -230,7 +233,7 @@ export default function Home() {
               />
             </div>
           </div>
-          <div className="flex-1 min-w-0">
+          <div className="w-full">
             <p className="text-base leading-relaxed text-[#ffffff]">I have been in the UX Writing / Content Design space for over 12 years. I went from Copywriter to UX Writer to Content Designer, but at the core of it all, I write words that guide people and create content systems that scale.</p>
             <p className="mt-3 text-base leading-relaxed text-[#ffffff]">did this most recently at Atlassian, where I built content systems for their platform apps (FKA Atlas). I was responsible for content across the Goals, Projects, and Teams apps, and had to build systems that were rigid enough to create consistency across the experiences but flexible enough to suit each app’s needs.
 
