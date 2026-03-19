@@ -8,7 +8,7 @@ const caseStudies = [
     emoji: "🗂️",
     bg: "#1e3a5f",
     accent: "#3b82f6",
-    href: "#",
+    href: "/case-study-1",
   },
   {
     id: 2,
@@ -16,7 +16,7 @@ const caseStudies = [
     emoji: "⚡",
     bg: "#1a3a2a",
     accent: "#22c55e",
-    href: "#",
+    href: "/case-study-2",
   },
   {
     id: 3,
@@ -24,7 +24,7 @@ const caseStudies = [
     emoji: "📖",
     bg: "#2a1a3a",
     accent: "#a855f7",
-    href: "#",
+    href: "/case-study-3",
   },
   {
     id: 4,
@@ -32,7 +32,7 @@ const caseStudies = [
     emoji: "✍️",
     bg: "#3a2a10",
     accent: "#f59e0b",
-    href: "#",
+    href: "/case-study-4",
   },
 ];
 
