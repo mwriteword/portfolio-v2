@@ -394,45 +394,49 @@ export default function Home() {
           </div>
         </div>
 
-      </div>
+        {/* Contact section */}
+        <div className="mb-24">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-[#888888] mb-8">
+            How to contact me
+          </h2>
 
-      {/* ── Contact section ── */}
-      <div className="px-8 md:px-16 lg:px-32 py-20 border-t border-[#3a3a3a]">
-        <p className="text-xs font-semibold tracking-widest uppercase text-[#555555] mb-8">
-          How to contact me
-        </p>
+          <p className="text-[#aaaaaa] text-base mb-10 max-w-md leading-relaxed">
+            I'm ready and open to work. Just shoot me a line and we'll take it from there.
+          </p>
 
-        <p className="text-[#aaaaaa] text-base mb-10 max-w-md leading-relaxed">
-          I'm ready and open to work. Just shoot me a line and we'll take it from there.
-        </p>
+          <div className="flex flex-col gap-5">
+            {/* Email */}
+            <a
+              href="mailto:vjtlaq@gmail.com"
+              className="flex items-center gap-3 group w-fit"
+            >
+              <span className="text-lg">✉️</span>
+              <span className="text-[#aaaaaa] text-sm">Email:</span>
+              <span className="text-white text-sm group-hover:underline underline-offset-2 transition-all">
+                vjtlaq@gmail.com
+              </span>
+            </a>
 
-        <div className="flex flex-col gap-5">
-          {/* Email */}
-          <a
-            href="mailto:vjtlaq@gmail.com"
-            className="flex items-center gap-3 group w-fit"
-          >
-            <span className="text-lg">✉️</span>
-            <span className="text-[#aaaaaa] text-sm">Email:</span>
-            <span className="text-white text-sm group-hover:underline underline-offset-2 transition-all">
-              vjtlaq@gmail.com
-            </span>
-          </a>
-
-          {/* LinkedIn */}
-          <a
-            href="http://linkedin.com/in/vjtlaq"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-3 group w-fit"
-          >
-            <span className="text-lg">👥</span>
-            <span className="text-[#aaaaaa] text-sm">LinkedIn:</span>
-            <span className="text-white text-sm group-hover:underline underline-offset-2 transition-all">
-              linkedin.com/in/vjtlaq
-            </span>
-          </a>
+            {/* LinkedIn */}
+            <a
+              href="http://linkedin.com/in/vjtlaq"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 group w-fit"
+            >
+              <img
+                src="https://cdn.simpleicons.org/linkedin/aaaaaa"
+                alt="LinkedIn"
+                className="w-[18px] h-[18px] object-contain group-hover:opacity-100 opacity-70 transition-opacity"
+              />
+              <span className="text-[#aaaaaa] text-sm">LinkedIn:</span>
+              <span className="text-white text-sm group-hover:underline underline-offset-2 transition-all">
+                linkedin.com/in/vjtlaq
+              </span>
+            </a>
+          </div>
         </div>
+
       </div>
 
     </main>
