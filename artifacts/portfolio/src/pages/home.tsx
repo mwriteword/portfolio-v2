@@ -179,48 +179,45 @@ export default function Home() {
     <main className="min-h-screen text-gray-900 bg-[#2e2e2e]">
       <div className="max-w-3xl mx-auto px-6 py-20">
 
-        {/* Hero title */}
-        <div className="mb-10">
-          <h1 className="font-bold tracking-tight text-[48px] text-[#ffffff]">
-            Vernon Laquindanum
-          </h1>
-          <h1 className="font-bold tracking-tight mt-1 text-[36px] text-[#cccccc]">Content Design</h1>
-        </div>
+        {/* Hero title + Avatar */}
+        <div className="flex gap-8 items-start mb-10">
+          <div className="flex-1">
+            <h1 className="font-bold tracking-tight text-[48px] text-[#ffffff]">
+              Vernon Laquindanum
+            </h1>
+            <h1 className="font-bold tracking-tight mt-1 text-[36px] text-[#cccccc]">Content Design</h1>
 
-        {/* CTA Buttons */}
-        <div className="flex flex-wrap gap-3 mb-8">
-          <a
-            href="mailto:vjtlaq@gmail.com"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-700 text-white text-sm font-medium hover:bg-slate-800 transition-colors"
-          >
-            <Mail className="w-4 h-4" />
-            Email
-          </a>
-          <a
-            href="http://linkedin.com/in/vjtlaq"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-700 text-white text-sm font-medium hover:bg-slate-800 transition-colors"
-          >
-            <Linkedin className="w-4 h-4" />
-            LinkedIn
-          </a>
-          <a
-            href="https://drive.google.com/file/d/1R7rL1Ndgr0b1lKSF8xvW39OA3-Dy7Md_/view?usp=sharing"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-700 text-white text-sm font-medium hover:bg-slate-800 transition-colors"
-          >
-            <FileText className="w-4 h-4" />
-            Resume
-          </a>
-        </div>
+            {/* CTA Buttons */}
+            <div className="flex flex-wrap gap-3 mt-6">
+              <a
+                href="mailto:vjtlaq@gmail.com"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-700 text-white text-sm font-medium hover:bg-slate-800 transition-colors"
+              >
+                <Mail className="w-4 h-4" />
+                Email
+              </a>
+              <a
+                href="http://linkedin.com/in/vjtlaq"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-700 text-white text-sm font-medium hover:bg-slate-800 transition-colors"
+              >
+                <Linkedin className="w-4 h-4" />
+                LinkedIn
+              </a>
+              <a
+                href="https://drive.google.com/file/d/1R7rL1Ndgr0b1lKSF8xvW39OA3-Dy7Md_/view?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-700 text-white text-sm font-medium hover:bg-slate-800 transition-colors"
+              >
+                <FileText className="w-4 h-4" />
+                Resume
+              </a>
+            </div>
+          </div>
 
-        {/* Intro section headline */}
-        <h2 className="text-[28px] font-semibold text-[#ffffff] mb-4">Hello! You can call me Vern</h2>
-
-        {/* Avatar + Bio */}
-        <div className="flex flex-row-reverse gap-6 mb-12 items-start flex-wrap">
+          {/* Avatar */}
           <div className="shrink-0">
             <div className="w-24 h-24 rounded-full bg-gray-200 overflow-hidden">
               <img
@@ -233,14 +230,18 @@ export default function Home() {
               />
             </div>
           </div>
-          <div className="w-full">
-            <p className="text-base leading-relaxed text-[#ffffff]">I have been in the UX Writing / Content Design space for over 12 years. I went from Copywriter to UX Writer to Content Designer, but at the core of it all, I write words that guide people and create content systems that scale.</p>
-            <p className="mt-3 text-base leading-relaxed text-[#ffffff]">did this most recently at Atlassian, where I built content systems for their platform apps (FKA Atlas). I was responsible for content across the Goals, Projects, and Teams apps, and had to build systems that were rigid enough to create consistency across the experiences but flexible enough to suit each app’s needs.
-
-            Now, I’m most interested in extending these systems with AI and understanding how the content design craft shifts more towards context engineering and agentic evaluation.</p>
-          </div>
         </div>
 
+        {/* Intro section headline */}
+        <h2 className="text-[28px] font-semibold text-[#ffffff] mb-4">Hello! You can call me Vern</h2>
+
+        {/* Bio */}
+        <div className="mb-12">
+          <p className="text-base leading-relaxed text-[#ffffff]">I have been in the UX Writing / Content Design space for over 12 years. I went from Copywriter to UX Writer to Content Designer, but at the core of it all, I write words that guide people and create content systems that scale.</p>
+          <p className="mt-3 text-base leading-relaxed text-[#ffffff]">did this most recently at Atlassian, where I built content systems for their platform apps (FKA Atlas). I was responsible for content across the Goals, Projects, and Teams apps, and had to build systems that were rigid enough to create consistency across the experiences but flexible enough to suit each app's needs.
+
+          Now, I'm most interested in extending these systems with AI and understanding how the content design craft shifts more towards context engineering and agentic evaluation.</p>
+        </div>
         {/* Case Studies */}
         <div className="mb-12">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-[#888888] mb-8">
