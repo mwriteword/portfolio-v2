@@ -276,7 +276,7 @@ export default function Home() {
         </div>
 
         {/* Tools */}
-        <div className="mb-4">
+        <div className="mb-24">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-[#888888] mb-8">
             Tools I have used
           </h2>
