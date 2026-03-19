@@ -400,7 +400,7 @@ export default function Home() {
             How to contact me
           </h2>
 
-          <p className="text-[#aaaaaa] text-base mb-10 max-w-md leading-relaxed">
+          <p className="text-[#FFFFFF] text-base mb-10 max-w-md leading-relaxed">
             I'm ready and open to work. Just shoot me a line and we'll take it from there.
           </p>
 
