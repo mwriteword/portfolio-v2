@@ -231,9 +231,7 @@ export default function Home() {
             </div>
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-base leading-relaxed text-[#FFFFFF]">
-              Hey, I'm Vernon — a content designer with a background in linguistics, editorial strategy, and product writing. I work at the intersection of language and experience, crafting copy that's clear, intentional, and human.
-            </p>
+            <p className="text-base leading-relaxed text-[#ffffff]">I have been in the UX Writing / Content Design space for over 12 years. I went from Copywriter to UX Writer to Content Designer, but at the core of it all, I write words that guide people and create content systems that scale.</p>
             <p className="mt-3 text-base leading-relaxed text-[#ffffff]">
               I've worked across SaaS, fintech, and consumer products — helping teams ship better words, faster. Whether it's microcopy, onboarding flows, or content systems, I care deeply about how language shapes the way people feel about a product.
             </p>
@@ -438,7 +436,6 @@ export default function Home() {
         </div>
 
       </div>
-
     </main>
   );
 }
