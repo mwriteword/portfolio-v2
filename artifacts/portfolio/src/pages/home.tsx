@@ -181,10 +181,10 @@ export default function Home() {
 
         {/* Hero title */}
         <div className="mb-10">
-          <h1 className="sm:text-7xl font-bold tracking-tight text-[70px] text-[#ffffff]">
+          <h1 className="font-bold tracking-tight text-[48px] text-[#ffffff]">
             Vernon Laquindanum
           </h1>
-          <h1 className="sm:text-7xl font-bold tracking-tight mt-1 text-[52px] text-[#cccccc]">Content Design</h1>
+          <h1 className="font-bold tracking-tight mt-1 text-[36px] text-[#cccccc]">Content Design</h1>
         </div>
 
         {/* CTA Buttons */}
@@ -217,7 +217,7 @@ export default function Home() {
         </div>
 
         {/* Avatar + Bio */}
-        <div className="flex flex-col sm:flex-row items-start gap-6 mb-24">
+        <div className="flex flex-row-reverse gap-6 mb-24 items-start flex-wrap">
           <div className="shrink-0">
             <div className="w-24 h-24 rounded-full bg-gray-200 overflow-hidden">
               <img
