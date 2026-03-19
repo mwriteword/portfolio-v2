@@ -188,7 +188,7 @@ export default function Home() {
         </div>
 
         {/* CTA Buttons */}
-        <div className="flex flex-wrap gap-3 mb-16">
+        <div className="flex flex-wrap gap-3 mb-8">
           <a
             href="mailto:vjtlaq@gmail.com"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-700 text-white text-sm font-medium hover:bg-slate-800 transition-colors"
@@ -217,7 +217,7 @@ export default function Home() {
         </div>
 
         {/* Avatar + Bio */}
-        <div className="flex flex-row-reverse gap-6 mb-24 items-start flex-wrap">
+        <div className="flex flex-row-reverse gap-6 mb-12 items-start flex-wrap">
           <div className="shrink-0">
             <div className="w-24 h-24 rounded-full bg-gray-200 overflow-hidden">
               <img
@@ -239,7 +239,7 @@ export default function Home() {
         </div>
 
         {/* Case Studies */}
-        <div className="mb-24">
+        <div className="mb-12">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-[#888888] mb-8">
             Words I have written
           </h2>
@@ -274,7 +274,7 @@ export default function Home() {
         </div>
 
         {/* Tools */}
-        <div className="mb-24">
+        <div className="mb-12">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-[#888888] mb-8">
             Tools I have used
           </h2>
@@ -393,7 +393,7 @@ export default function Home() {
         </div>
 
         {/* Contact section */}
-        <div className="mb-24">
+        <div className="mb-12">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-[#888888] mb-8">
             How to contact me
           </h2>
