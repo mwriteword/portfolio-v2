@@ -394,6 +394,8 @@ export default function Home() {
           </div>
         </div>
 
+      </div>
+
       {/* ── Contact section ── */}
       <div className="px-8 md:px-16 lg:px-32 py-20 border-t border-[#3a3a3a]">
         <p className="text-xs font-semibold tracking-widest uppercase text-[#555555] mb-8">
@@ -424,11 +426,7 @@ export default function Home() {
             rel="noopener noreferrer"
             className="flex items-center gap-3 group w-fit"
           >
-            <img
-              src="https://cdn.simpleicons.org/linkedin/aaaaaa"
-              alt="LinkedIn"
-              className="w-[18px] h-[18px] object-contain group-hover:opacity-100 opacity-70 transition-opacity"
-            />
+            <span className="text-lg">👥</span>
             <span className="text-[#aaaaaa] text-sm">LinkedIn:</span>
             <span className="text-white text-sm group-hover:underline underline-offset-2 transition-all">
               linkedin.com/in/vjtlaq
