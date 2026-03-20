@@ -180,41 +180,12 @@ export default function Home() {
       <div className="max-w-3xl mx-auto px-5 py-12 sm:px-6 sm:py-20">
 
         {/* Hero title + Avatar */}
-        <div className="flex gap-5 sm:gap-8 items-start mb-10">
+        <div className="flex gap-5 sm:gap-8 items-start">
           <div className="flex-1 min-w-0">
             <h1 className="font-bold tracking-tight text-[32px] sm:text-[48px] text-[#ffffff]">
               Vernon Laquindanum
             </h1>
             <h1 className="font-bold tracking-tight mt-1 text-[24px] sm:text-[36px] text-[#cccccc]">Content Design</h1>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-wrap gap-2 sm:gap-3 mt-5 sm:mt-6">
-              <a
-                href="mailto:vjtlaq@gmail.com"
-                className="inline-flex items-center gap-2 px-3 sm:px-5 py-2 sm:py-2.5 rounded-lg bg-slate-700 text-white text-sm font-medium hover:bg-slate-800 transition-colors"
-              >
-                <Mail className="w-4 h-4" />
-                Email
-              </a>
-              <a
-                href="http://linkedin.com/in/vjtlaq"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-3 sm:px-5 py-2 sm:py-2.5 rounded-lg bg-slate-700 text-white text-sm font-medium hover:bg-slate-800 transition-colors"
-              >
-                <Linkedin className="w-4 h-4" />
-                LinkedIn
-              </a>
-              <a
-                href="https://drive.google.com/file/d/1R7rL1Ndgr0b1lKSF8xvW39OA3-Dy7Md_/view?usp=sharing"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-3 sm:px-5 py-2 sm:py-2.5 rounded-lg bg-slate-700 text-white text-sm font-medium hover:bg-slate-800 transition-colors"
-              >
-                <FileText className="w-4 h-4" />
-                Resume
-              </a>
-            </div>
           </div>
 
           {/* Avatar */}
@@ -230,6 +201,35 @@ export default function Home() {
               />
             </div>
           </div>
+        </div>
+
+        {/* CTA Buttons */}
+        <div className="flex flex-wrap gap-2 sm:gap-3 mt-5 sm:mt-6 mb-10">
+          <a
+            href="mailto:vjtlaq@gmail.com"
+            className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg bg-slate-700 text-white text-sm font-medium hover:bg-slate-800 transition-colors"
+          >
+            <Mail className="w-4 h-4" />
+            Email
+          </a>
+          <a
+            href="http://linkedin.com/in/vjtlaq"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg bg-slate-700 text-white text-sm font-medium hover:bg-slate-800 transition-colors"
+          >
+            <Linkedin className="w-4 h-4" />
+            LinkedIn
+          </a>
+          <a
+            href="https://drive.google.com/file/d/1R7rL1Ndgr0b1lKSF8xvW39OA3-Dy7Md_/view?usp=sharing"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg bg-slate-700 text-white text-sm font-medium hover:bg-slate-800 transition-colors"
+          >
+            <FileText className="w-4 h-4" />
+            Resume
+          </a>
         </div>
 
         {/* Intro section headline */}
