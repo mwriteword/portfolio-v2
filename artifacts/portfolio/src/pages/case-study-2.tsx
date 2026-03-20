@@ -15,29 +15,25 @@ export default function CaseStudy2() {
         </h1>
 
         {/* Intro Section */}
-        <div className="flex gap-12 mb-12">
+        <div className="flex gap-12 mb-16">
           {/* Left Column - Fields */}
           <div className="flex-shrink-0 w-40">
             <div className="space-y-4">
               <div>
                 <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Role</p>
-                <p className="text-[#ffffff] text-sm">Content Strategist</p>
+                <p className="text-[#ffffff] text-sm">UX Copywriter / Content Lead</p>
               </div>
               <div>
                 <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Company</p>
-                <p className="text-[#ffffff] text-sm">Opower</p>
+                <p className="text-[#ffffff] text-sm">Oracle Utilities - Opower</p>
               </div>
               <div>
-                <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Year</p>
-                <p className="text-[#ffffff] text-sm">2021-2022</p>
+                <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Collaborators</p>
+                <p className="text-[#ffffff] text-sm">UX Designers & UX Researchers</p>
               </div>
               <div>
-                <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Timeline</p>
-                <p className="text-[#ffffff] text-sm">8-10 Months</p>
-              </div>
-              <div>
-                <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Team</p>
-                <p className="text-[#ffffff] text-sm">Design & Marketing</p>
+                <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Date</p>
+                <p className="text-[#ffffff] text-sm">2019</p>
               </div>
             </div>
           </div>
@@ -45,103 +41,83 @@ export default function CaseStudy2() {
           {/* Right Column - Description */}
           <div className="flex-1 space-y-4">
             <p className="text-base leading-relaxed text-[#ffffff]">
-              As the Content Strategist at Opower, I led a large-scale content initiative to create messaging that would drive behavioral change in energy consumption among residential customers. The challenge was balancing technical accuracy with persuasive, accessible messaging.
+              In the evenings when most people are returning home from school or work, the demand for energy gets very high because everyone is cooking, doing laundry, taking showers, watching TV, and other electricity-intensive things all at the same time. Time-of-Use electricity plans were introduced to help utilities mitigate energy load during these "peak hours" by charging less money when the demand is lower and more when the demand is higher.
             </p>
             <p className="text-base leading-relaxed text-[#ffffff]">
-              I designed and implemented a multi-channel communication strategy consisting of three core assets: an intro email to onboard new customers, weekly updates to sustain engagement, and monthly recaps to demonstrate impact. Each piece was strategically crafted to nudge customers toward energy-saving behaviors through psychological principles and data-driven insights.
+              As you may have noticed, this is not an easy concept to explain in 30 seconds or less. Some of the participants in our research sessions were actually on a Time-of-Use rate in real life, but didn't fully understand how it worked (humble-brag: they did after our session with them).
+            </p>
+            <p className="text-base leading-relaxed text-[#ffffff]">
+              In order to sustain actual behavior change, we developed an email communication series to give customers relevant, useful data about their energy use and encourage them to shift their usage away from peak hours.
             </p>
           </div>
         </div>
 
-        {/* THE INTRO EMAIL Section */}
-        <div className="mb-12">
-          <h2 className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-8">The Intro Email</h2>
-          
-          <div className="flex gap-12 items-start mb-8">
-            {/* Text */}
-            <div className="flex-1 space-y-4">
-              <p className="text-base leading-relaxed text-[#ffffff]">
-                The initial touchpoint needed to educate customers on the value of the Opower program while addressing potential skepticism. The email introduces customers to their energy usage and the concept of peer comparison—a key behavioral lever.
-              </p>
-              <p className="text-base leading-relaxed text-[#ffffff]">
-                I focused on clarity and benefit-driven messaging: helping customers understand what they'll learn, why peer comparison matters, and what actions they can take next. The design emphasizes visual hierarchy to guide readers through energy insights and comparisons.
-              </p>
-            </div>
-
-            {/* Placeholder Image */}
-            <div className="flex-shrink-0">
-              <div className="w-64 h-96 bg-[#404040] border border-[#555555] rounded-sm flex items-center justify-center">
-                <span className="text-[#999999] text-sm">Email Design Mockup</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* THE WEEKLY UPDATE Section */}
-        <div className="mb-12">
-          <h2 className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-8">The Weekly Update</h2>
-          
-          <div className="flex gap-12 items-start mb-8">
-            {/* Placeholder Image */}
-            <div className="flex-shrink-0">
-              <div className="w-64 h-96 bg-[#404040] border border-[#555555] rounded-sm flex items-center justify-center">
-                <span className="text-[#999999] text-sm">Weekly Update Mockup</span>
-              </div>
-            </div>
-
-            {/* Text */}
-            <div className="flex-1 space-y-4">
-              <p className="text-base leading-relaxed text-[#ffffff]">
-                The weekly update needed to sustain engagement without feeling repetitive or intrusive. This touchpoint reinforces progress and leverages social proof through peer comparison data—a proven behavioral change mechanism.
-              </p>
-              <p className="text-base leading-relaxed text-[#ffffff]">
-                I crafted messaging around three key pillars: celebrating their progress, showing how they compare to similar neighbors, and suggesting specific actions to save more. The visual hierarchy emphasizes the comparison data while making recommendations feel personalized rather than prescriptive.
-              </p>
-              <p className="text-base leading-relaxed text-[#ffffff]">
-                Key behavioral insights informed the tone: positive reinforcement for savers, gentle nudges for those using more energy, and recognition of seasonal variations in consumption.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* THE MONTHLY RECAP Section */}
-        <div className="mb-12">
-          <h2 className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-8">The Monthly Recap</h2>
-          
+        {/* THE INTRO EMAIL */}
+        <div className="mb-16">
+          <h2 className="text-[24px] font-semibold tracking-tight text-[#ffffff] mb-8">The Intro Email</h2>
           <div className="flex gap-12 items-start">
-            {/* Text */}
             <div className="flex-1 space-y-4">
               <p className="text-base leading-relaxed text-[#ffffff]">
-                The monthly recap serves as a checkpoint to demonstrate broader impact and reinforce long-term value. This is where we aggregated behavioral data and showed cumulative savings—both financial and environmental.
+                The challenge in this email was introducing the Rate Coach series while also re-iterating how Time-of-Use works. In order to keep the email from becoming too copy-heavy, I had limited real estate in the headlines of each module, as well as shorter body copy.
               </p>
               <p className="text-base leading-relaxed text-[#ffffff]">
-                The strategy here was to shift perspective: from "how are you doing this month?" to "look what you've accomplished." I emphasized milestone achievements, environmental impact, and financial savings, all with context about how their actions compare to their community.
-              </p>
-              <p className="text-base leading-relaxed text-[#ffffff]">
-                This recurring message was designed to build a habit and sense of community around energy conservation, making sustainability feel tangible and rewarding rather than like an obligation.
+                Though not as prominent in this email, there is the ultimate goal of long-term behavior change. The primary data visualization shows their average hourly energy use from the last week. The headline gives the graph context, while the subhead prompts the customer into considering what their evening routine looks like, and how they could shift energy use away from peak hours.
               </p>
             </div>
-
-            {/* Placeholder Image */}
-            <div className="flex-shrink-0">
-              <div className="w-64 h-96 bg-[#404040] border border-[#555555] rounded-sm flex items-center justify-center">
-                <span className="text-[#999999] text-sm">Monthly Recap Mockup</span>
-              </div>
+            <div className="flex-shrink-0 w-64">
+              <img
+                src="/images/opower/intro-email.png"
+                alt="Intro email design"
+                className="rounded-lg w-full"
+              />
             </div>
           </div>
         </div>
 
-        {/* Key Learnings / Outcomes Section */}
-        <div className="border-t border-[#555555] pt-12">
-          <h2 className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-6">Outcomes</h2>
-          
-          <div className="space-y-4">
-            <p className="text-base leading-relaxed text-[#ffffff]">
-              The messaging strategy resulted in a cohesive communication framework that increased engagement across all three touchpoints. By applying behavioral economics principles—particularly the power of peer comparison and progress tracking—we created a communication system that motivated customers to sustain energy-saving behaviors over time.
-            </p>
-            <p className="text-base leading-relaxed text-[#ffffff]">
-              This project deepened my understanding of how content strategy bridges the gap between data and human behavior, and how thoughtful messaging can make complex information feel personally relevant and actionable.
-            </p>
+        {/* THE WEEKLY UPDATE */}
+        <div className="mb-16">
+          <h2 className="text-[24px] font-semibold tracking-tight text-[#ffffff] mb-8">The Weekly Update</h2>
+          <div className="flex gap-12 items-start">
+            <div className="flex-shrink-0 w-64">
+              <img
+                src="/images/opower/weekly-update.png"
+                alt="Weekly update email design"
+                className="rounded-lg w-full"
+              />
+            </div>
+            <div className="flex-1 space-y-4">
+              <p className="text-base leading-relaxed text-[#ffffff]">
+                In contrast to the Intro Email, there is a lot less explanation required for this email. Instead, its main goal is to deliver their insights in a quick and easy-to-understand way.
+              </p>
+              <p className="text-base leading-relaxed text-[#ffffff]">
+                The primary headline of the email delivers the main insight we want them to understand: whether they did better or worse than the previous week. We know gamification works, but if you're more subtle about it (i.e. simply showing two data points rather than calling it a game), the idea can feel more organic and self-motivated for the user.
+              </p>
+              <p className="text-base leading-relaxed text-[#ffffff]">
+                Full disclosure: the short tip at the bottom beneath the "Ways to Save" headline was pulled from our tip library and was not written by me.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* THE MONTHLY RECAP */}
+        <div className="mb-16">
+          <h2 className="text-[24px] font-semibold tracking-tight text-[#ffffff] mb-8">The Monthly Recap</h2>
+          <div className="flex gap-12 items-start">
+            <div className="flex-1 space-y-4">
+              <p className="text-base leading-relaxed text-[#ffffff]">
+                This is the ultimate culmination of the weekly update. The headline functions in the same way as the weekly update: the primary insight delivered quickly, which in this case is their week with the lowest peak energy use.
+              </p>
+              <p className="text-base leading-relaxed text-[#ffffff]">
+                If you can consider the rate coach series a "game", this would serve the same mental purpose as a "results screen". The user is shown their energy use over a 4-week period, with a spotlight cast on their week with the lowest cost. In an ideal world, they would think back to that lowest week and consider what they did differently to lower their costs so dramatically.
+              </p>
+            </div>
+            <div className="flex-shrink-0 w-64">
+              <img
+                src="/images/opower/monthly-recap.png"
+                alt="Monthly recap email design"
+                className="rounded-lg w-full"
+              />
+            </div>
           </div>
         </div>
       </div>

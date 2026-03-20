@@ -5,7 +5,7 @@ const caseStudies = [
   {
     id: 1,
     title: "Goal types & Content Systems — Atlassian",
-    emoji: "🗂️",
+    image: "/images/atlassian/atlasheader.png",
     bg: "#1e3a5f",
     accent: "#3b82f6",
     href: "/case-study-1",
@@ -13,7 +13,7 @@ const caseStudies = [
   {
     id: 2,
     title: "Content Strategy & Behavior Change — Opower",
-    emoji: "⚡",
+    image: "/images/opower/tile.webp",
     bg: "#1a3a2a",
     accent: "#22c55e",
     href: "/case-study-2",
@@ -21,7 +21,7 @@ const caseStudies = [
   {
     id: 3,
     title: "SEO & Longform Content — Course Hero",
-    emoji: "📖",
+    image: "/images/coursehero/tile.webp",
     bg: "#2a1a3a",
     accent: "#a855f7",
     href: "/case-study-3",
@@ -29,7 +29,7 @@ const caseStudies = [
   {
     id: 4,
     title: "Early Copywriting Works — QuinStreet",
-    emoji: "✍️",
+    image: "/images/quinstreet/tile.webp",
     bg: "#3a2a10",
     accent: "#f59e0b",
     href: "/case-study-4",
@@ -55,7 +55,7 @@ const tools: Tool[] = [
   {
     id: 1,
     name: "Figma",
-    icon: "https://cdn.simpleicons.org/figma/ffffff",
+    icon: "https://cdn.simpleicons.org/figma",
     proficiency: "Intermediate / Advanced",
     bullets: [
       "Worked with designers to insert UX writing into screens and flows",
@@ -66,7 +66,7 @@ const tools: Tool[] = [
   {
     id: 2,
     name: "Replit",
-    icon: "https://cdn.simpleicons.org/replit/ffffff",
+    icon: "https://cdn.simpleicons.org/replit",
     proficiency: "Intermediate",
     bullets: [
       "Used to prototype flows and UI contexts",
@@ -76,7 +76,7 @@ const tools: Tool[] = [
   {
     id: 3,
     name: "v0",
-    icon: "https://cdn.simpleicons.org/v0/ffffff",
+    icon: "https://cdn.simpleicons.org/v0",
     proficiency: "Novice",
     bullets: [
       "Used to prototype flows and UI contexts",
@@ -85,7 +85,7 @@ const tools: Tool[] = [
   {
     id: 4,
     name: "Claude",
-    icon: "https://cdn.simpleicons.org/claude/ffffff",
+    icon: "https://cdn.simpleicons.org/claude",
     proficiency: "Intermediate / Advanced",
     bullets: [
       "Built agents with context to perform specific actions",
@@ -95,7 +95,7 @@ const tools: Tool[] = [
   {
     id: 5,
     name: "Atlassian Suite",
-    icon: "https://cdn.simpleicons.org/atlassian/ffffff",
+    icon: "https://cdn.simpleicons.org/atlassian",
     proficiency: "Advanced",
     bullets: [
       "Extensive experience using Jira, Confluence, Goals, Projects, Teams, Bitbucket, and Focus",
@@ -106,7 +106,7 @@ const tools: Tool[] = [
   {
     id: 6,
     name: "Google Suite",
-    icon: "__google__",
+    icon: "https://cdn.simpleicons.org/google",
     proficiency: "Advanced",
     bullets: [
       "Career-long experience using Docs, Sheets, Slides, Forms, and Drive",
@@ -115,7 +115,7 @@ const tools: Tool[] = [
   {
     id: 7,
     name: "Notion",
-    icon: "https://cdn.simpleicons.org/notion/ffffff",
+    icon: "https://cdn.simpleicons.org/notion",
     proficiency: "Intermediate",
     bullets: [
       "Used to build portfolio site",
@@ -125,7 +125,7 @@ const tools: Tool[] = [
   {
     id: 8,
     name: "VS Code",
-    icon: "__vscode__",
+    icon: "https://cdn.simpleicons.org/visualstudiocode",
     proficiency: "Novice",
     bullets: [
       "Experience using VS Code to edit text strings and other minor UI elements",
@@ -177,21 +177,21 @@ export default function Home() {
 
   return (
     <main className="min-h-screen text-gray-900 bg-[#2e2e2e]">
-      <div className="max-w-3xl mx-auto px-6 py-20">
+      <div className="max-w-3xl mx-auto px-5 py-12 sm:px-6 sm:py-20">
 
         {/* Hero title + Avatar */}
-        <div className="flex gap-8 items-start mb-10">
-          <div className="flex-1">
-            <h1 className="font-bold tracking-tight text-[48px] text-[#ffffff]">
+        <div className="flex gap-5 sm:gap-8 items-start mb-10">
+          <div className="flex-1 min-w-0">
+            <h1 className="font-bold tracking-tight text-[32px] sm:text-[48px] text-[#ffffff]">
               Vernon Laquindanum
             </h1>
-            <h1 className="font-bold tracking-tight mt-1 text-[36px] text-[#cccccc]">Content Design</h1>
+            <h1 className="font-bold tracking-tight mt-1 text-[24px] sm:text-[36px] text-[#cccccc]">Content Design</h1>
 
             {/* CTA Buttons */}
-            <div className="flex flex-wrap gap-3 mt-6">
+            <div className="flex flex-wrap gap-2 sm:gap-3 mt-5 sm:mt-6">
               <a
                 href="mailto:vjtlaq@gmail.com"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-700 text-white text-sm font-medium hover:bg-slate-800 transition-colors"
+                className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg bg-slate-700 text-white text-sm font-medium hover:bg-slate-800 transition-colors"
               >
                 <Mail className="w-4 h-4" />
                 Email
@@ -200,7 +200,7 @@ export default function Home() {
                 href="http://linkedin.com/in/vjtlaq"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-700 text-white text-sm font-medium hover:bg-slate-800 transition-colors"
+                className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg bg-slate-700 text-white text-sm font-medium hover:bg-slate-800 transition-colors"
               >
                 <Linkedin className="w-4 h-4" />
                 LinkedIn
@@ -209,7 +209,7 @@ export default function Home() {
                 href="https://drive.google.com/file/d/1R7rL1Ndgr0b1lKSF8xvW39OA3-Dy7Md_/view?usp=sharing"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-700 text-white text-sm font-medium hover:bg-slate-800 transition-colors"
+                className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg bg-slate-700 text-white text-sm font-medium hover:bg-slate-800 transition-colors"
               >
                 <FileText className="w-4 h-4" />
                 Resume
@@ -219,9 +219,9 @@ export default function Home() {
 
           {/* Avatar */}
           <div className="shrink-0">
-            <div className="w-24 h-24 rounded-full bg-gray-200 overflow-hidden">
+            <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-full bg-gray-200 overflow-hidden">
               <img
-                src="https://vjtlaq.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fbe7efbf3-2dcd-4e36-8e17-4c59c4ab7e05%2Fb80aa8c3-3a70-4bb9-8617-9a8d7eba895a%2FPhoto_on_3-9-24_at_7.32_PM_2.jpg?table=block&id=02dee1b7-b498-26c9-b2ea-7bf0d4fcb59e&width=250&userId=&cache=v2"
+                src="/images/avatar/illustration.png"
                 alt="Vernon Laquindanum"
                 className="w-full h-full object-cover"
                 onError={(e) => {
@@ -233,7 +233,7 @@ export default function Home() {
         </div>
 
         {/* Intro section headline */}
-        <h2 className="text-[28px] font-semibold text-[#ffffff] mb-4">Hello! You can call me Vern</h2>
+        <h2 className="text-[22px] sm:text-[28px] font-semibold text-[#ffffff] mb-4">Hello! You can call me Vern</h2>
 
         {/* Bio */}
         <div className="mb-12">
@@ -258,9 +258,11 @@ export default function Home() {
                   className="relative w-full aspect-square rounded-xl flex items-center justify-center text-2xl overflow-hidden transition-all duration-300 ease-out group-hover:scale-[1.03] group-hover:shadow-2xl"
                   style={{ backgroundColor: study.bg }}
                 >
-                  <span className="transition-transform duration-300 group-hover:scale-110">
-                    {study.emoji}
-                  </span>
+                  <img
+                    src={study.image}
+                    alt={study.title}
+                    className="absolute inset-0 w-full h-full object-contain p-3 opacity-80 group-hover:opacity-100 transition-all duration-300 group-hover:scale-105"
+                  />
                   <div className="absolute top-3 right-3 opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200">
                     <ArrowUpRight className="w-4 h-4" style={{ color: study.accent }} />
                   </div>
@@ -282,10 +284,10 @@ export default function Home() {
           <h2 className="text-xs font-semibold uppercase tracking-widest text-[#888888] mb-8">
             Tools I have used
           </h2>
-          <div className="flex gap-8 items-start">
+          <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 items-start">
 
             {/* Left: tool list */}
-            <div className="w-44 shrink-0 flex flex-col">
+            <div className="w-full sm:w-44 shrink-0 flex flex-row flex-wrap sm:flex-col gap-1">
               {tools.map((tool) => {
                 const isActive = activeTool?.id === tool.id;
                 return (
@@ -301,32 +303,15 @@ export default function Home() {
                   >
                     <span className="flex items-center justify-between gap-2">
                       <span className="flex items-center gap-2.5">
-                        {tool.icon === "__vscode__" ? (
-                          <svg
-                            viewBox="0 0 24 24"
-                            className={`w-4 h-4 shrink-0 transition-opacity duration-150 ${isActive ? "opacity-100" : "opacity-40"}`}
-                            fill="white"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path d="M23.15 2.587L18.21.21a1.494 1.494 0 0 0-1.705.29l-9.46 8.63-4.12-3.128a.999.999 0 0 0-1.276.057L.327 7.261A1 1 0 0 0 .326 8.74L3.899 12 .326 15.26a1 1 0 0 0 .001 1.479L1.65 17.94a.999.999 0 0 0 1.276.057l4.12-3.128 9.46 8.63a1.492 1.492 0 0 0 1.704.29l4.942-2.377A1.5 1.5 0 0 0 24 20.06V3.939a1.5 1.5 0 0 0-.85-1.352zm-5.146 14.861L10.826 12l7.178-5.448v10.896z" />
-                          </svg>
-                        ) : tool.icon === "__google__" ? (
-                          <svg
-                            viewBox="0 0 24 24"
-                            className={`w-4 h-4 shrink-0 transition-opacity duration-150 ${isActive ? "opacity-100" : "opacity-40"}`}
-                            fill="white"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z" />
-                          </svg>
-                        ) : (
-                          <img
+                        <img
                             src={tool.icon}
                             alt={tool.name}
-                            className={`w-4 h-4 object-contain transition-opacity duration-150 ${isActive ? "opacity-100" : "opacity-40"}`}
+                            className="w-4 h-4 object-contain transition-all duration-150"
+                            style={{
+                              filter: isActive ? "none" : "contrast(0) brightness(1.1)",
+                            }}
                             onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
                           />
-                        )}
                         {tool.name}
                       </span>
                       {isActive && (
@@ -339,7 +324,7 @@ export default function Home() {
             </div>
 
             {/* Right: detail panel */}
-            <div className="flex-1 min-h-[220px]">
+            <div className="flex-1 sm:min-h-[220px]">
               {activeTool ? (
                 <div
                   key={activeTool.id}
@@ -385,7 +370,7 @@ export default function Home() {
                   </ul>
                 </div>
               ) : (
-                <div className="flex flex-col justify-center h-full min-h-[180px] border border-dashed border-[#3a3a3a] rounded-xl px-6">
+                <div className="hidden sm:flex flex-col justify-center h-full min-h-[180px] border border-dashed border-[#3a3a3a] rounded-xl px-6">
                   <p className="text-sm text-[#555555] select-none">
                     Hover a tool to see experience &amp; proficiency
                   </p>
@@ -402,7 +387,7 @@ export default function Home() {
             How to contact me
           </h2>
 
-          <p className="text-[#FFFFFF] text-base mb-10 max-w-md leading-relaxed">
+          <p className="text-[#FFFFFF] text-base mb-6 leading-relaxed">
             I'm ready and open to work. Just shoot me a line and we'll take it from there.
           </p>
 
@@ -426,11 +411,7 @@ export default function Home() {
               rel="noopener noreferrer"
               className="flex items-center gap-3 group w-fit"
             >
-              <img
-                src="https://cdn.simpleicons.org/linkedin/aaaaaa"
-                alt="LinkedIn"
-                className="w-[18px] h-[18px] object-contain group-hover:opacity-100 opacity-70 transition-opacity"
-              />
+              <Linkedin className="w-[18px] h-[18px] text-[#aaaaaa] group-hover:text-white transition-colors" />
               <span className="text-[#aaaaaa] text-sm">LinkedIn:</span>
               <span className="text-white text-sm group-hover:underline underline-offset-2 transition-all">
                 linkedin.com/in/vjtlaq
