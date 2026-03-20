@@ -18,7 +18,7 @@ function Callout({ children }: { children: React.ReactNode }) {
 
 function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">
+    <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">
       {children}
     </h2>
   );
@@ -119,20 +119,20 @@ export default function CaseStudy1() {
         </div>
       )}
 
-      <div className={`max-w-3xl mx-auto px-6 py-20 ${!unlocked ? "blur-sm select-none pointer-events-none" : ""}`}>
+      <div className={`max-w-3xl mx-auto px-5 py-12 sm:px-6 sm:py-20 ${!unlocked ? "blur-sm select-none pointer-events-none" : ""}`}>
         <Link href="/" className="flex items-center gap-2 text-[#3b82f6] hover:text-[#60a5fa] transition-colors mb-8">
           <ArrowLeft className="w-4 h-4" />
           Back
         </Link>
 
-        <h1 className="font-bold tracking-tight text-[48px] text-[#ffffff] mb-12">
+        <h1 className="font-bold tracking-tight text-[28px] sm:text-[48px] text-[#ffffff] mb-8 sm:mb-12">
           Goal Types & Content Systems — Atlassian
         </h1>
 
         {/* Intro: two-column */}
-        <div className="flex gap-12 mb-12">
+        <div className="flex flex-col sm:flex-row gap-6 sm:gap-12 mb-12">
           {/* Left column */}
-          <div className="flex-shrink-0 w-40">
+          <div className="flex-shrink-0 sm:w-40">
             <div className="space-y-4">
               <div>
                 <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Role</p>
@@ -316,7 +316,7 @@ export default function CaseStudy1() {
           </p>
 
           {/* Three-column object model comparison */}
-          <div className="flex gap-8 mb-6">
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 mb-6">
             {[
               ["Goals", "Goals", "Goals", "Goal"],
               ["Teams", "Teams", "Teams", "Team"],
@@ -444,7 +444,7 @@ export default function CaseStudy1() {
           </p>
 
           {/* Three options */}
-          <div className="flex gap-4 mb-6">
+          <div className="flex flex-col sm:flex-row gap-4 mb-6">
             <div className="flex-1 bg-[#3a3a3a] rounded-lg p-4">
               <p className="text-sm text-[#ffffff] leading-relaxed">
                 <span className="font-semibold">OPTION 1:</span> Adopt <Term>Success measures</Term> as the primitive anyway, because this was the most scalable solution, the literal reason we have primitives, and it was already decided that <Term>Goals</Term> would still be the primitive even with <Term>Objectives</Term> as a OOTB type.
@@ -512,23 +512,23 @@ export default function CaseStudy1() {
           </p>
 
           {/* Sentiment stats */}
-          <div className="flex gap-4 mb-6">
-            <div className="flex-1 bg-[#3a3a3a] rounded-lg p-4">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+            <div className="bg-[#3a3a3a] rounded-lg p-4">
               <p className="text-xs text-[#888888] uppercase tracking-widest font-medium mb-2">Positive</p>
               <p className="text-[#22c55e] font-semibold text-sm mb-1">~9 posts (~15%)</p>
               <p className="text-xs text-[#aaaaaa] leading-relaxed">Comments on the announcement post expressing excitement over the feature.</p>
             </div>
-            <div className="flex-1 bg-[#3a3a3a] rounded-lg p-4">
+            <div className="bg-[#3a3a3a] rounded-lg p-4">
               <p className="text-xs text-[#888888] uppercase tracking-widest font-medium mb-2">Mixed/positive</p>
               <p className="text-[#f97316] font-semibold text-sm mb-1">~22 posts (~37%)</p>
               <p className="text-xs text-[#aaaaaa] leading-relaxed">Posts where the direction was praised, but questions, concern, or feedback were noted.</p>
             </div>
-            <div className="flex-1 bg-[#3a3a3a] rounded-lg p-4">
+            <div className="bg-[#3a3a3a] rounded-lg p-4">
               <p className="text-xs text-[#888888] uppercase tracking-widest font-medium mb-2">Negative/critical</p>
               <p className="text-[#ef4444] font-semibold text-sm mb-1">~18 posts (~30%)</p>
               <p className="text-xs text-[#aaaaaa] leading-relaxed">Posts that express frustration over functionality changes or specific aspects of its implementation.</p>
             </div>
-            <div className="flex-1 bg-[#3a3a3a] rounded-lg p-4">
+            <div className="bg-[#3a3a3a] rounded-lg p-4">
               <p className="text-xs text-[#888888] uppercase tracking-widest font-medium mb-2">No sentiment</p>
               <p className="text-[#3b82f6] font-semibold text-sm mb-1">~11 posts (~18%)</p>
               <p className="text-xs text-[#aaaaaa] leading-relaxed">Posts that were troubleshooting, bug reporting, or seeking help/assistance.</p>

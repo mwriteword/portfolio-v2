@@ -4,20 +4,20 @@ import { Link } from "wouter";
 export default function CaseStudy2() {
   return (
     <main className="min-h-screen bg-[#2e2e2e]">
-      <div className="max-w-3xl mx-auto px-6 py-20">
+      <div className="max-w-3xl mx-auto px-5 py-12 sm:px-6 sm:py-20">
         <Link href="/" className="flex items-center gap-2 text-[#22c55e] hover:text-[#4ade80] transition-colors mb-8">
           <ArrowLeft className="w-4 h-4" />
           Back
         </Link>
 
-        <h1 className="font-bold tracking-tight text-[48px] text-[#ffffff] mb-12">
+        <h1 className="font-bold tracking-tight text-[28px] sm:text-[48px] text-[#ffffff] mb-8 sm:mb-12">
           Content Strategy & Behavior Change — Opower
         </h1>
 
         {/* Intro Section */}
-        <div className="flex gap-12 mb-16">
+        <div className="flex flex-col sm:flex-row gap-6 sm:gap-12 mb-12 sm:mb-16">
           {/* Left Column - Fields */}
-          <div className="flex-shrink-0 w-40">
+          <div className="flex-shrink-0 sm:w-40">
             <div className="space-y-4">
               <div>
                 <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Role</p>
@@ -53,9 +53,9 @@ export default function CaseStudy2() {
         </div>
 
         {/* THE INTRO EMAIL */}
-        <div className="mb-16">
-          <h2 className="text-[24px] font-semibold tracking-tight text-[#ffffff] mb-8">The Intro Email</h2>
-          <div className="flex gap-12 items-start">
+        <div className="mb-12 sm:mb-16">
+          <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6 sm:mb-8">The Intro Email</h2>
+          <div className="flex flex-col sm:flex-row gap-6 sm:gap-12 items-start">
             <div className="flex-1 space-y-4">
               <p className="text-base leading-relaxed text-[#ffffff]">
                 The challenge in this email was introducing the Rate Coach series while also re-iterating how Time-of-Use works. In order to keep the email from becoming too copy-heavy, I had limited real estate in the headlines of each module, as well as shorter body copy.
@@ -64,7 +64,7 @@ export default function CaseStudy2() {
                 Though not as prominent in this email, there is the ultimate goal of long-term behavior change. The primary data visualization shows their average hourly energy use from the last week. The headline gives the graph context, while the subhead prompts the customer into considering what their evening routine looks like, and how they could shift energy use away from peak hours.
               </p>
             </div>
-            <div className="flex-shrink-0 w-64">
+            <div className="flex-shrink-0 w-full sm:w-64">
               <img
                 src="/images/opower/intro-email.png"
                 alt="Intro email design"
@@ -75,10 +75,10 @@ export default function CaseStudy2() {
         </div>
 
         {/* THE WEEKLY UPDATE */}
-        <div className="mb-16">
-          <h2 className="text-[24px] font-semibold tracking-tight text-[#ffffff] mb-8">The Weekly Update</h2>
-          <div className="flex gap-12 items-start">
-            <div className="flex-shrink-0 w-64">
+        <div className="mb-12 sm:mb-16">
+          <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6 sm:mb-8">The Weekly Update</h2>
+          <div className="flex flex-col-reverse sm:flex-row gap-6 sm:gap-12 items-start">
+            <div className="flex-shrink-0 w-full sm:w-64">
               <img
                 src="/images/opower/weekly-update.png"
                 alt="Weekly update email design"
@@ -100,9 +100,9 @@ export default function CaseStudy2() {
         </div>
 
         {/* THE MONTHLY RECAP */}
-        <div className="mb-16">
-          <h2 className="text-[24px] font-semibold tracking-tight text-[#ffffff] mb-8">The Monthly Recap</h2>
-          <div className="flex gap-12 items-start">
+        <div className="mb-12 sm:mb-16">
+          <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6 sm:mb-8">The Monthly Recap</h2>
+          <div className="flex flex-col sm:flex-row gap-6 sm:gap-12 items-start">
             <div className="flex-1 space-y-4">
               <p className="text-base leading-relaxed text-[#ffffff]">
                 This is the ultimate culmination of the weekly update. The headline functions in the same way as the weekly update: the primary insight delivered quickly, which in this case is their week with the lowest peak energy use.
@@ -111,7 +111,7 @@ export default function CaseStudy2() {
                 If you can consider the rate coach series a "game", this would serve the same mental purpose as a "results screen". The user is shown their energy use over a 4-week period, with a spotlight cast on their week with the lowest cost. In an ideal world, they would think back to that lowest week and consider what they did differently to lower their costs so dramatically.
               </p>
             </div>
-            <div className="flex-shrink-0 w-64">
+            <div className="flex-shrink-0 w-full sm:w-64">
               <img
                 src="/images/opower/monthly-recap.png"
                 alt="Monthly recap email design"

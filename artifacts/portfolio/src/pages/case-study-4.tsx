@@ -30,20 +30,20 @@ function CaseImg({ src, alt, className = "" }: { src: string; alt: string; class
 export default function CaseStudy4() {
   return (
     <main className="min-h-screen text-gray-900 bg-[#2e2e2e]">
-      <div className="max-w-3xl mx-auto px-6 py-20">
+      <div className="max-w-3xl mx-auto px-5 py-12 sm:px-6 sm:py-20">
         <Link href="/" className="flex items-center gap-2 text-[#f59e0b] hover:text-[#fbbf24] transition-colors mb-8">
           <ArrowLeft className="w-4 h-4" />
           Back
         </Link>
 
-        <h1 className="font-bold tracking-tight text-[48px] text-[#ffffff] mb-12">
+        <h1 className="font-bold tracking-tight text-[28px] sm:text-[48px] text-[#ffffff] mb-8 sm:mb-12">
           Early Copywriting Works — QuinStreet
         </h1>
 
         {/* Intro: two-column */}
-        <div className="flex gap-12 mb-12">
+        <div className="flex flex-col sm:flex-row gap-6 sm:gap-12 mb-12">
           {/* Left column */}
-          <div className="flex-shrink-0 w-40">
+          <div className="flex-shrink-0 sm:w-40">
             <div className="space-y-4">
               <div>
                 <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Role</p>
@@ -66,7 +66,7 @@ export default function CaseStudy4() {
 
         {/* BANNERS */}
         <div className="mb-12">
-          <h2 className="text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">Banners</h2>
+          <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">Banners</h2>
           <p className="text-base leading-relaxed text-[#ffffff] mb-6">
             Serving a variety of verticals, I wrote a numerous many banner ads for both clients and our internal sites. These were often requested frequently and in high volume, allowing more flexible to write salient, eye-catching copy to generate higher interest.
           </p>
@@ -82,7 +82,7 @@ export default function CaseStudy4() {
 
         {/* EMAIL & SOCIAL */}
         <div className="mb-12">
-          <h2 className="text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">Email & Social</h2>
+          <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">Email & Social</h2>
           <p className="text-base leading-relaxed text-[#ffffff] mb-6">
             If there are two things online that are sacred, it's a person's inbox and their news feed. While ultimately invasive, I would always write social media ads and emails with a more personal touch so as to soften the blow of seeing ads in these sacred spaces.
           </p>
@@ -102,7 +102,7 @@ export default function CaseStudy4() {
 
         {/* LANDING PAGES */}
         <div className="mb-12">
-          <h2 className="text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">Landing Pages</h2>
+          <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">Landing Pages</h2>
           <p className="text-base leading-relaxed text-[#ffffff] mb-6">
             Often, we would need dedicated landing pages for a specific client or promotion. Regardless, they would need to capture all of the most important information that a person might need to know before filling out a form or going through a flow.
           </p>

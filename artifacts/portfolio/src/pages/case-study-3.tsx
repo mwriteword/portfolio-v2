@@ -12,20 +12,20 @@ const img4 = "/images/coursehero/screenshot-4.png";
 export default function CaseStudy3() {
   return (
     <main className="min-h-screen text-gray-900 bg-[#2e2e2e]">
-      <div className="max-w-3xl mx-auto px-6 py-20">
+      <div className="max-w-3xl mx-auto px-5 py-12 sm:px-6 sm:py-20">
         <Link href="/" className="flex items-center gap-2 text-[#a855f7] hover:text-[#c084fc] transition-colors mb-8">
           <ArrowLeft className="w-4 h-4" />
           Back
         </Link>
 
-        <h1 className="font-bold tracking-tight text-[48px] text-[#ffffff] mb-12">
+        <h1 className="font-bold tracking-tight text-[28px] sm:text-[48px] text-[#ffffff] mb-8 sm:mb-12">
           SEO & Longform Content — Course Hero
         </h1>
 
         {/* Intro: two-column */}
-        <div className="flex gap-12 mb-12">
+        <div className="flex flex-col sm:flex-row gap-6 sm:gap-12 mb-12">
           {/* Left column */}
-          <div className="flex-shrink-0 w-40">
+          <div className="flex-shrink-0 sm:w-40">
             <div className="space-y-4">
               <div>
                 <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Company</p>
