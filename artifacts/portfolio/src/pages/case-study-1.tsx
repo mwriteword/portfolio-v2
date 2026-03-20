@@ -67,12 +67,14 @@ export default function CaseStudy1() {
   const [unlocked, setUnlocked] = useState(false);
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
+  const [unlockAnim, setUnlockAnim] = useState(false);
   const [, navigate] = useLocation();
 
   const handleSubmit = () => {
     if (password === "hirevern") {
-      setUnlocked(true);
       setError(false);
+      setUnlockAnim(true);
+      setTimeout(() => setUnlocked(true), 650);
     } else {
       setError(true);
     }
@@ -80,13 +82,43 @@ export default function CaseStudy1() {
 
   return (
     <main className="min-h-screen text-gray-900 bg-[#2e2e2e] relative">
+      <style>{`
+        @keyframes unlockPop {
+          0%   { transform: scale(1) rotate(0deg); }
+          25%  { transform: scale(1.5) rotate(-20deg); }
+          55%  { transform: scale(1.3) rotate(12deg); }
+          80%  { transform: scale(1.1) rotate(-5deg); }
+          100% { transform: scale(1) rotate(0deg); }
+        }
+        @keyframes modalFadeOut {
+          0%   { opacity: 1; transform: scale(1); }
+          60%  { opacity: 1; transform: scale(1); }
+          100% { opacity: 0; transform: scale(0.95); }
+        }
+        .lock-emoji {
+          display: inline-block;
+        }
+        .lock-emoji.animating {
+          animation: unlockPop 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards;
+        }
+        .modal-unlocking {
+          animation: modalFadeOut 0.65s ease-in forwards;
+        }
+      `}</style>
+
       {/* Password Modal */}
       {!unlocked && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div className="absolute inset-0 bg-black/60" />
-          <div className="relative bg-[#2e2e2e] border border-[#555555] rounded-xl px-8 py-8 max-w-sm w-full mx-4 shadow-2xl">
-            <p className="text-[#ffffff] text-base leading-relaxed mb-6">
-              Due to proprietary information, this case study is locked. Please enter the password to continue.
+          <div className={`relative bg-[#2e2e2e] border border-[#555555] rounded-xl px-8 py-8 max-w-sm w-full mx-4 shadow-2xl${unlockAnim ? " modal-unlocking" : ""}`}>
+            <h2 className="text-[22px] font-semibold tracking-tight text-[#ffffff] mb-3">
+              <span className={`lock-emoji${unlockAnim ? " animating" : ""}`}>
+                {unlockAnim ? "🔓" : "🔒"}
+              </span>
+              {" "}This case study is locked
+            </h2>
+            <p className="text-[#aaaaaa] text-sm leading-relaxed mb-6">
+              To unlock this case study, enter the password below.
             </p>
             <input
               type="text"
@@ -96,6 +128,7 @@ export default function CaseStudy1() {
               placeholder="Enter password"
               className={`w-full px-4 py-2.5 rounded-lg bg-[#3a3a3a] text-white text-sm border ${error ? "border-red-500" : "border-[#555555]"} focus:outline-none focus:border-[#3b82f6] transition-colors mb-2`}
               autoFocus
+              disabled={unlockAnim}
             />
             {error && (
               <p className="text-red-400 text-xs mb-4">Incorrect password. Please try again.</p>
@@ -104,13 +137,15 @@ export default function CaseStudy1() {
             <div className="flex gap-3 justify-end">
               <button
                 onClick={() => navigate("/")}
-                className="px-5 py-2.5 rounded-lg bg-slate-700 text-white text-sm font-medium hover:bg-slate-800 transition-colors"
+                disabled={unlockAnim}
+                className="px-5 py-2.5 rounded-lg bg-slate-700 text-white text-sm font-medium hover:bg-slate-800 transition-colors disabled:opacity-50"
               >
                 Cancel
               </button>
               <button
                 onClick={handleSubmit}
-                className="px-5 py-2.5 rounded-lg bg-[#3b82f6] text-white text-sm font-medium hover:bg-[#2563eb] transition-colors"
+                disabled={unlockAnim}
+                className="px-5 py-2.5 rounded-lg bg-[#3b82f6] text-white text-sm font-medium hover:bg-[#2563eb] transition-colors disabled:opacity-50"
               >
                 Continue
               </button>
@@ -512,7 +547,7 @@ export default function CaseStudy1() {
           </p>
 
           {/* Sentiment stats */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+          <div className="grid grid-cols-1 min-[480px]:grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
             <div className="bg-[#3a3a3a] rounded-lg p-4">
               <p className="text-xs text-[#888888] uppercase tracking-widest font-medium mb-2">Positive</p>
               <p className="text-[#22c55e] font-semibold text-sm mb-1">~9 posts (~15%)</p>
@@ -524,7 +559,7 @@ export default function CaseStudy1() {
               <p className="text-xs text-[#aaaaaa] leading-relaxed">Posts where the direction was praised, but questions, concern, or feedback were noted.</p>
             </div>
             <div className="bg-[#3a3a3a] rounded-lg p-4">
-              <p className="text-xs text-[#888888] uppercase tracking-widest font-medium mb-2">Negative/critical</p>
+              <p className="text-xs text-[#888888] uppercase tracking-widest font-medium mb-2">Negative/<wbr />critical</p>
               <p className="text-[#ef4444] font-semibold text-sm mb-1">~18 posts (~30%)</p>
               <p className="text-xs text-[#aaaaaa] leading-relaxed">Posts that express frustration over functionality changes or specific aspects of its implementation.</p>
             </div>

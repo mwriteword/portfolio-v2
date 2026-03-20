@@ -106,7 +106,7 @@ const tools: Tool[] = [
   {
     id: 6,
     name: "Google Suite",
-    icon: "https://cdn.simpleicons.org/google",
+    icon: "/images/icons/google.svg",
     proficiency: "Advanced",
     bullets: [
       "Career-long experience using Docs, Sheets, Slides, Forms, and Drive",
@@ -125,11 +125,22 @@ const tools: Tool[] = [
   {
     id: 8,
     name: "VS Code",
-    icon: "https://cdn.simpleicons.org/visualstudiocode",
+    icon: "/images/icons/vscode.svg",
     proficiency: "Novice",
     bullets: [
       "Experience using VS Code to edit text strings and other minor UI elements",
       "Familiarity with basic git usage, plus the commit and PR processes",
+    ],
+  },
+  {
+    id: 9,
+    name: "Github",
+    icon: "https://cdn.simpleicons.org/github/ffffff",
+    proficiency: "Novice / Intermediate",
+    bullets: [
+      "Viewed and managed files in a repo",
+      "Reviewed pull requests and commits",
+      "Light git work editing files in a repository",
     ],
   },
 ];
