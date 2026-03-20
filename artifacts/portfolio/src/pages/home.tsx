@@ -233,12 +233,12 @@ export default function Home() {
         </div>
 
         {/* Intro section headline */}
-        <h2 className="text-[22px] sm:text-[28px] font-semibold text-[#ffffff] mb-4">Hello! You can call me Vern</h2>
+        <h2 className="text-[22px] sm:text-[28px] font-semibold text-[#ffffff] mb-4">Hello! You can call me Vern.</h2>
 
         {/* Bio */}
         <div className="mb-12">
           <p className="text-base leading-relaxed text-[#ffffff]">I have been in the UX Writing / Content Design space for over 12 years. I went from Copywriter to UX Writer to Content Designer, but at the core of it all, I write words that guide people and create content systems that scale.</p>
-          <p className="mt-3 text-base leading-relaxed text-[#ffffff]">did this most recently at Atlassian, where I built content systems for their platform apps (FKA Atlas). I was responsible for content across the Goals, Projects, and Teams apps, and had to build systems that were rigid enough to create consistency across the experiences but flexible enough to suit each app's needs.
+          <p className="mt-3 text-base leading-relaxed text-[#ffffff]">I did this most recently at Atlassian, where I built content systems for their platform apps (FKA Atlas). I was responsible for content across the Goals, Projects, and Teams apps, and had to build systems that were rigid enough to create consistency across the experiences but flexible enough to suit each app's needs.
 
           Now, I'm most interested in extending these systems with AI and understanding how the content design craft shifts more towards context engineering and agentic evaluation.</p>
         </div>

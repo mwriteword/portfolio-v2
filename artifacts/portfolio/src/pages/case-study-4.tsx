@@ -51,7 +51,7 @@ export default function CaseStudy4() {
               </div>
               <div>
                 <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Date</p>
-                <p className="text-[#ffffff] text-sm">Jan 2014 – Mar 2017</p>
+                <p className="text-[#ffffff] text-sm">Jan 2014 - Mar 2017</p>
               </div>
             </div>
           </div>
