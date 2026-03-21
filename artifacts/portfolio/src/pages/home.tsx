@@ -90,6 +90,7 @@ const tools: Tool[] = [
     bullets: [
       "Built agents with context to perform specific actions",
       "Used MCP connections to build automation triggers and flows",
+      "Refined this portfolio using Claude Code and deployed changes to repo",
     ],
   },
   {
