@@ -197,7 +197,7 @@ export default function Home() {
             <h1 className="font-bold tracking-tight text-[32px] sm:text-[48px] text-[#ffffff]">
               Vernon Laquindanum
             </h1>
-            <h1 className="font-bold tracking-tight mt-1 text-[24px] sm:text-[36px] text-[#cccccc]">Content Design</h1>
+            <h2 className="text-[22px] sm:text-[28px] font-semibold text-[#ffffff] mb-4">Content Design, Strategy, and Systems</h2>
           </div>
 
           {/* Avatar */}
@@ -244,16 +244,6 @@ export default function Home() {
           </a>
         </div>
 
-        {/* Intro section headline */}
-        <h2 className="text-[22px] sm:text-[28px] font-semibold text-[#ffffff] mb-4">Hello! You can call me Vern.</h2>
-
-        {/* Bio */}
-        <div className="mb-12">
-          <p className="text-base leading-relaxed text-[#ffffff]">I have been in the UX Writing / Content Design space for over 12 years. I went from Copywriter to UX Writer to Content Designer, but at the core of it all, I write words that guide people and create content systems that scale.</p>
-          <p className="mt-3 text-base leading-relaxed text-[#ffffff]">I did this most recently at Atlassian, where I built content systems for their platform apps (FKA Atlas). I was responsible for content across the Goals, Projects, and Teams apps, and had to build systems that were rigid enough to create consistency across the experiences but flexible enough to suit each app's needs.
-
-          Now, I'm most interested in extending these systems with AI and understanding how the content design craft shifts more towards context engineering and agentic evaluation.</p>
-        </div>
         {/* Case Studies */}
         <div className="mb-12">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-[#888888] mb-8">
@@ -396,13 +386,18 @@ export default function Home() {
         {/* Contact section */}
         <div className="mb-12">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-[#888888] mb-8">
-            How to contact me
+            More about me
           </h2>
+        {/* Intro section headline */}
+        <h2 className="text-[22px] sm:text-[28px] font-semibold text-[#ffffff] mb-4">Hello! You can call me Vern.</h2>
 
-          <p className="text-[#FFFFFF] text-base mb-6 leading-relaxed">
-            I'm ready and open to work. Just shoot me a line and we'll take it from there.
-          </p>
+        {/* Bio */}
+        <div className="mb-12">
+          <p className="text-base leading-relaxed text-[#ffffff]">I have been in the UX Writing / Content Design space for over 12 years. I went from Copywriter to UX Writer to Content Designer, but at the core of it all, I write words that guide people and create content systems that scale.</p>
+          <p className="mt-3 text-base leading-relaxed text-[#ffffff]">I did this most recently at Atlassian, where I built content systems for their platform apps (FKA Atlas). I was responsible for content across the Goals, Projects, and Teams apps, and had to build systems that were rigid enough to create consistency across the experiences but flexible enough to suit each app's needs.</p>
 
+        <p>Now, I'm most interested in extending these systems with AI and understanding how the content design craft shifts more towards context engineering and agentic evaluation. I'm open and ready to work, so just let me know how I can help.</p>
+        </div>
           <div className="flex flex-col gap-5">
             {/* Email */}
             <a
