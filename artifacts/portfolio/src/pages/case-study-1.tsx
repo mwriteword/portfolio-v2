@@ -1,6 +1,20 @@
 import { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { Link, useLocation } from "wouter";
+import { TableOfContents, useTocActiveSection, TocItem } from "../components/TableOfContents";
+
+const tocItems: TocItem[] = [
+  { id: "cs1-elevator", label: "Elevator Breakdown" },
+  { id: "cs1-prologue", label: "Prologue" },
+  { id: "cs1-ch1", label: "Ch. 1: Goals" },
+  { id: "cs1-ch2", label: "Ch. 2: Research" },
+  { id: "cs1-ch3", label: "Ch. 3: Two Models" },
+  { id: "cs1-ch4", label: "Ch. 4: Solution" },
+  { id: "cs1-ch45", label: "Ch. 4.5: Speed Bumps" },
+  { id: "cs1-ch475", label: "Ch. 4.75: Sinkhole" },
+  { id: "cs1-ch5", label: "Ch. 5: Launch" },
+  { id: "cs1-epilogue", label: "Epilogue" },
+];
 
 const atlasHeaderImg = "/images/atlassian/atlasheader.png";
 const goalConnectionsImg = "/images/atlassian/goal-connections.png";
@@ -69,6 +83,7 @@ export default function CaseStudy1() {
   const [error, setError] = useState(false);
   const [unlockAnim, setUnlockAnim] = useState(false);
   const [, navigate] = useLocation();
+  const activeSection = useTocActiveSection(tocItems, unlocked);
 
   const handleSubmit = () => {
     if (password === "hirevern") {
@@ -82,6 +97,7 @@ export default function CaseStudy1() {
 
   return (
     <main className="min-h-screen text-gray-900 bg-[#2e2e2e] relative">
+      {unlocked && <TableOfContents items={tocItems} activeId={activeSection} />}
       <style>{`
         @keyframes unlockPop {
           0%   { transform: scale(1) rotate(0deg); }
@@ -206,7 +222,7 @@ export default function CaseStudy1() {
         </div>
 
         {/* Elevator Breakdown */}
-        <div className="mb-12">
+        <div id="cs1-elevator" className="mb-12 scroll-mt-12">
           <SectionHeading>Elevator Breakdown</SectionHeading>
           <p className="text-base leading-relaxed text-[#ffffff]">
             Our first attempt at OKR support in our goal-setting app failed in early access. This is how we figured out why, resolved a confused content/object model relationship, and the solution we built that got us one step closer to enterprise readiness.
@@ -214,7 +230,7 @@ export default function CaseStudy1() {
         </div>
 
         {/* Prologue */}
-        <div className="mb-12">
+        <div id="cs1-prologue" className="mb-12 scroll-mt-12">
           <SectionHeading>Prologue: An App is Born</SectionHeading>
           <Callout>
             <span className="font-semibold text-white">tl;dr</span> There was once an app called Atlas which let you share weekly project updates and monthly goal updates. Then one day, it was split into four apps: Atlassian Home, Goals, Projects, and Teams.
@@ -242,7 +258,7 @@ export default function CaseStudy1() {
         </div>
 
         {/* Chapter 1 */}
-        <div className="mb-12">
+        <div id="cs1-ch1" className="mb-12 scroll-mt-12">
           <SectionHeading>Chapter 1: What Are Goals Even Anyway?</SectionHeading>
           <Callout>
             <span className="font-semibold text-white">tl;dr</span> Using our single-object-type model in Goals, we created a lightweight type system to introduce custom terms and OKR support. It was not well received.
@@ -281,7 +297,7 @@ export default function CaseStudy1() {
         </div>
 
         {/* Chapter 2 */}
-        <div className="mb-12">
+        <div id="cs1-ch2" className="mb-12 scroll-mt-12">
           <SectionHeading>Chapter 2: Feedback and Research Phase</SectionHeading>
           <Callout>
             <span className="font-semibold text-white">tl;dr</span> Customers felt the model was broken and didn't align with the actual OKR framework. They also really wanted to see OKR language in the app.
@@ -320,7 +336,7 @@ export default function CaseStudy1() {
         </div>
 
         {/* Chapter 3 */}
-        <div className="mb-12">
+        <div id="cs1-ch3" className="mb-12 scroll-mt-12">
           <SectionHeading>Chapter 3: The Two-Model Problem</SectionHeading>
           <Callout>
             <span className="font-semibold text-white">tl;dr</span> Our object model in the platform apps overall were confusing compared to other premium apps. While other apps follow a normal App » Container » Collective object (primitive) » Object type model where every layer has a different name, Goals had Goals (app) » Goals (container) » Goals (primitive) » Goal (default object type).
@@ -403,7 +419,7 @@ export default function CaseStudy1() {
         </div>
 
         {/* Chapter 4 */}
-        <div className="mb-12">
+        <div id="cs1-ch4" className="mb-12 scroll-mt-12">
           <SectionHeading>Chapter 4: Approaching a Solution</SectionHeading>
           <Callout>
             <span className="font-semibold text-white">tl;dr</span> We introduced <Term>Success measures</Term> which were only attached to a parent goal. This solved 2 of the 3 problems.
@@ -463,7 +479,7 @@ export default function CaseStudy1() {
         </div>
 
         {/* Chapter 4.5 */}
-        <div className="mb-12">
+        <div id="cs1-ch45" className="mb-12 scroll-mt-12">
           <SectionHeading>Chapter 4.5: Speed Bumps Incoming…</SectionHeading>
           <Callout>
             <span className="font-semibold text-white">tl;dr</span> In order to appease customer requests, we decided to insert custom user terms into our UI. It went poorly with localization, and we had to scramble for a solution, which ended up being a lot of manual "short-term" resolutions to abide by localization requirements.
@@ -503,7 +519,7 @@ export default function CaseStudy1() {
         </div>
 
         {/* Chapter 4.75 */}
-        <div className="mb-12">
+        <div id="cs1-ch475" className="mb-12 scroll-mt-12">
           <SectionHeading>Chapter 4.75: …Followed by a Sinkhole</SectionHeading>
           <p className="text-base leading-relaxed text-[#ffffff] mb-4">
             I had a regular, fortnightly meeting with the localization PM who covers our apps. I shared the new flow using custom terms, and as expected, they flagged many concerns, most of which boiled down to these:
@@ -532,7 +548,7 @@ export default function CaseStudy1() {
         </div>
 
         {/* Chapter 5 */}
-        <div className="mb-12">
+        <div id="cs1-ch5" className="mb-12 scroll-mt-12">
           <SectionHeading>Chapter 5: And Finally, We Launch</SectionHeading>
           <Callout>
             <span className="font-semibold text-white">tl;dr</span> We release the feature to mostly mixed-to-positive response, and a clear path forward of fast follow improvements.
@@ -576,7 +592,7 @@ export default function CaseStudy1() {
         </div>
 
         {/* Epilogue */}
-        <div className="border-t border-[#555555] pt-12">
+        <div id="cs1-epilogue" className="border-t border-[#555555] pt-12 scroll-mt-12">
           <SectionHeading>Epilogue: Live to Write Another Day</SectionHeading>
           <div className="space-y-4">
             <p className="text-base leading-relaxed text-[#ffffff]">
