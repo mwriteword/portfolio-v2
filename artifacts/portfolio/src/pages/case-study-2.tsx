@@ -1,9 +1,19 @@
 import { ArrowLeft } from "lucide-react";
 import { Link } from "wouter";
+import { TableOfContents, useTocActiveSection, TocItem } from "../components/TableOfContents";
+
+const tocItems: TocItem[] = [
+  { id: "cs2-intro", label: "Intro Email" },
+  { id: "cs2-weekly", label: "Weekly Update" },
+  { id: "cs2-monthly", label: "Monthly Recap" },
+];
 
 export default function CaseStudy2() {
+  const activeSection = useTocActiveSection(tocItems);
+
   return (
     <main className="min-h-screen bg-[#2e2e2e]">
+      <TableOfContents items={tocItems} activeId={activeSection} />
       <div className="max-w-3xl mx-auto px-5 py-12 sm:px-6 sm:py-20">
         <Link href="/" className="flex items-center gap-2 text-[#22c55e] hover:text-[#4ade80] transition-colors mb-8">
           <ArrowLeft className="w-4 h-4" />
@@ -53,7 +63,7 @@ export default function CaseStudy2() {
         </div>
 
         {/* THE INTRO EMAIL */}
-        <div className="mb-12 sm:mb-16">
+        <div id="cs2-intro" className="mb-12 sm:mb-16 scroll-mt-12">
           <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6 sm:mb-8">The Intro Email</h2>
           <div className="flex flex-col sm:flex-row gap-6 sm:gap-12 items-start">
             <div className="flex-1 space-y-4">
@@ -75,7 +85,7 @@ export default function CaseStudy2() {
         </div>
 
         {/* THE WEEKLY UPDATE */}
-        <div className="mb-12 sm:mb-16">
+        <div id="cs2-weekly" className="mb-12 sm:mb-16 scroll-mt-12">
           <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6 sm:mb-8">The Weekly Update</h2>
           <div className="flex flex-col-reverse sm:flex-row gap-6 sm:gap-12 items-start">
             <div className="flex-shrink-0 w-full sm:w-64">
@@ -100,7 +110,7 @@ export default function CaseStudy2() {
         </div>
 
         {/* THE MONTHLY RECAP */}
-        <div className="mb-12 sm:mb-16">
+        <div id="cs2-monthly" className="mb-12 sm:mb-16 scroll-mt-12">
           <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6 sm:mb-8">The Monthly Recap</h2>
           <div className="flex flex-col sm:flex-row gap-6 sm:gap-12 items-start">
             <div className="flex-1 space-y-4">

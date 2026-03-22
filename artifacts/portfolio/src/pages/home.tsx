@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Mail, Linkedin, FileText, ArrowUpRight } from "lucide-react";
+import { TableOfContents, useTocActiveSection, TocItem } from "../components/TableOfContents";
 
 const caseStudies = [
   {
@@ -184,11 +185,20 @@ const proficiencyConfig: Record<Proficiency, ProficiencyConfig> = {
   },
 };
 
+const tocItems: TocItem[] = [
+  { id: "section-work", label: "Work" },
+  { id: "section-tools", label: "Tools" },
+  { id: "section-about", label: "About" },
+];
+
 export default function Home() {
   const [activeTool, setActiveTool] = useState<Tool | null>(null);
+  const activeSection = useTocActiveSection(tocItems);
 
   return (
     <main className="min-h-screen text-gray-900 bg-[#2e2e2e]">
+      <TableOfContents items={tocItems} activeId={activeSection} />
+
       <div className="max-w-3xl mx-auto px-5 py-12 sm:px-6 sm:py-20">
 
         {/* Hero title + Avatar */}
@@ -245,7 +255,7 @@ export default function Home() {
         </div>
 
         {/* Case Studies */}
-        <div className="mb-12">
+        <div id="section-work" className="mb-12 scroll-mt-12">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-[#888888] mb-8">
             Words I have written
           </h2>
@@ -282,7 +292,7 @@ export default function Home() {
         </div>
 
         {/* Tools */}
-        <div className="mb-12">
+        <div id="section-tools" className="mb-12 scroll-mt-12">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-[#888888] mb-8">
             Tools I have used
           </h2>
@@ -383,21 +393,20 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Contact section */}
-        <div className="mb-12">
+        {/* About / Contact */}
+        <div id="section-about" className="mb-12 scroll-mt-12">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-[#888888] mb-8">
             More about me
           </h2>
-        {/* Intro section headline */}
-        <h2 className="text-[22px] sm:text-[28px] font-semibold text-[#ffffff] mb-4">Hello! You can call me Vern.</h2>
+          <h2 className="text-[22px] sm:text-[28px] font-semibold text-[#ffffff] mb-4">Hello! You can call me Vern.</h2>
 
-        {/* Bio */}
-        <div className="mb-12">
-          <p className="text-base leading-relaxed text-[#ffffff]">I have been in the UX Writing / Content Design space for over 12 years. I went from Copywriter to UX Writer to Content Designer, but at the core of it all, I write words that guide people and create content systems that scale.</p>
-          <p className="mt-3 text-base leading-relaxed text-[#ffffff]">I did this most recently at Atlassian, where I built content systems for their platform apps (FKA Atlas). I was responsible for content across the Goals, Projects, and Teams apps, and had to build systems that were rigid enough to create consistency across the experiences but flexible enough to suit each app's needs.</p>
+          {/* Bio */}
+          <div className="mb-12">
+            <p className="text-base leading-relaxed text-[#ffffff]">I have been in the UX Writing / Content Design space for over 12 years. I went from Copywriter to UX Writer to Content Designer, but at the core of it all, I write words that guide people and create content systems that scale.</p>
+            <p className="mt-3 text-base leading-relaxed text-[#ffffff]">I did this most recently at Atlassian, where I built content systems for their platform apps (FKA Atlas). I was responsible for content across the Goals, Projects, and Teams apps, and had to build systems that were rigid enough to create consistency across the experiences but flexible enough to suit each app's needs.</p>
+            <p className="mt-3 text-base leading-relaxed text-[#ffffff]">Now, I'm most interested in extending these systems with AI and understanding how the content design craft shifts more towards context engineering and agentic evaluation. I'm open and ready to work, so just shoot me a ping and let me know how I can help.</p>
+          </div>
 
-          <p className="mt-3 text-base leading-relaxed text-[#ffffff]">Now, I'm most interested in extending these systems with AI and understanding how the content design craft shifts more towards context engineering and agentic evaluation. I'm open and ready to work, so just shoot me a ping and let me know how I can help.</p>
-        </div>
           <div className="flex flex-col gap-5">
             {/* Email */}
             <a
