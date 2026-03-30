@@ -244,7 +244,7 @@ export default function Home() {
             LinkedIn
           </a>
           <a
-            href="https://drive.google.com/file/d/1R7rL1Ndgr0b1lKSF8xvW39OA3-Dy7Md_/view?usp=sharing"
+            href="https://drive.google.com/file/d/1one-srcm0IkcxXvq7vZYGt3XYh5EEeVz/view?usp=drive_link"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg bg-slate-700 text-white text-sm font-medium hover:bg-slate-800 transition-colors"
