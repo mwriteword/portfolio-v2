@@ -1,5 +1,6 @@
 import { ArrowLeft } from "lucide-react";
 import { Link } from "wouter";
+import { SectionHeading } from "../components/SectionHeading";
 
 const bannerFull  = "/images/quinstreet/banner-full.jpeg";
 const banner2col1 = "/images/quinstreet/banner-col-1.jpeg";
@@ -30,7 +31,7 @@ function CaseImg({ src, alt, className = "" }: { src: string; alt: string; class
 export default function CaseStudy4() {
   return (
     <main className="min-h-screen text-gray-900 bg-[#2e2e2e]">
-      <div className="max-w-3xl mx-auto px-5 py-12 sm:px-6 sm:py-20">
+      <div className="max-w-[1120px] w-[90%] mx-auto py-12 sm:py-20">
         <Link href="/" className="flex items-center gap-2 text-[#f59e0b] hover:text-[#fbbf24] transition-colors mb-8">
           <ArrowLeft className="w-4 h-4" />
           Back
@@ -66,7 +67,7 @@ export default function CaseStudy4() {
 
         {/* BANNERS */}
         <div className="mb-12">
-          <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">Banners</h2>
+          <SectionHeading>Banners</SectionHeading>
           <p className="text-base leading-relaxed text-[#ffffff] mb-6">
             Serving a variety of verticals, I wrote a numerous many banner ads for both clients and our internal sites. These were often requested frequently and in high volume, allowing more flexible to write salient, eye-catching copy to generate higher interest.
           </p>
@@ -82,7 +83,7 @@ export default function CaseStudy4() {
 
         {/* EMAIL & SOCIAL */}
         <div className="mb-12">
-          <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">Email & Social</h2>
+          <SectionHeading>Email & Social</SectionHeading>
           <p className="text-base leading-relaxed text-[#ffffff] mb-6">
             If there are two things online that are sacred, it's a person's inbox and their news feed. While ultimately invasive, I would always write social media ads and emails with a more personal touch so as to soften the blow of seeing ads in these sacred spaces.
           </p>
@@ -102,7 +103,7 @@ export default function CaseStudy4() {
 
         {/* LANDING PAGES */}
         <div className="mb-12">
-          <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">Landing Pages</h2>
+          <SectionHeading>Landing Pages</SectionHeading>
           <p className="text-base leading-relaxed text-[#ffffff] mb-6">
             Often, we would need dedicated landing pages for a specific client or promotion. Regardless, they would need to capture all of the most important information that a person might need to know before filling out a form or going through a flow.
           </p>

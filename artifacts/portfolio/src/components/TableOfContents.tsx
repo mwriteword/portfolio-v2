@@ -14,7 +14,7 @@ export function TableOfContents({ items, activeId }: TableOfContentsProps) {
   return (
     <nav
       className="hidden xl:flex flex-col gap-1 fixed top-1/2 -translate-y-1/2 z-10"
-      style={{ left: "calc(50% + 408px)" }}
+      style={{ left: "calc(50% + 584px)" }}
     >
       {items.map((item) => {
         const isActive = activeId === item.id;

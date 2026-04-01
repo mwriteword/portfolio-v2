@@ -14,7 +14,7 @@ export default function CaseStudy2() {
   return (
     <main className="min-h-screen bg-[#2e2e2e]">
       <TableOfContents items={tocItems} activeId={activeSection} />
-      <div className="max-w-3xl mx-auto px-5 py-12 sm:px-6 sm:py-20">
+      <div className="max-w-[1120px] w-[90%] mx-auto py-12 sm:py-20">
         <Link href="/" className="flex items-center gap-2 text-[#22c55e] hover:text-[#4ade80] transition-colors mb-8">
           <ArrowLeft className="w-4 h-4" />
           Back
