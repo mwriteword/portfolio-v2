@@ -12,7 +12,7 @@ const img4 = "/images/coursehero/screenshot-4.png";
 export default function CaseStudy3() {
   return (
     <main className="min-h-screen text-gray-900 bg-[#2e2e2e]">
-      <div className="max-w-3xl mx-auto px-5 py-12 sm:px-6 sm:py-20">
+      <div className="max-w-[1120px] w-[90%] mx-auto py-12 sm:py-20">
         <Link href="/" className="flex items-center gap-2 text-[#a855f7] hover:text-[#c084fc] transition-colors mb-8">
           <ArrowLeft className="w-4 h-4" />
           Back

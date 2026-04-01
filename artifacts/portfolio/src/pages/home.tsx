@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Mail, Linkedin, FileText, ArrowUpRight } from "lucide-react";
 import { TableOfContents, useTocActiveSection, TocItem } from "../components/TableOfContents";
 
@@ -191,6 +191,170 @@ const tocItems: TocItem[] = [
   { id: "section-about", label: "About" },
 ];
 
+function useColumns() {
+  const [cols, setCols] = useState(1);
+  useEffect(() => {
+    const update = () => {
+      const w = window.innerWidth;
+      setCols(w >= 1024 ? 3 : w >= 640 ? 2 : 1);
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+  return cols;
+}
+
+function ToolsSection({ activeTool, setActiveTool }: { activeTool: Tool | null; setActiveTool: (t: Tool | null) => void }) {
+  const cols = useColumns();
+
+  // Chunk tools into rows based on column count
+  const rows: Tool[][] = [];
+  for (let i = 0; i < tools.length; i += cols) {
+    rows.push(tools.slice(i, i + cols));
+  }
+
+  // Find which row contains the active tool
+  const activeRowIdx = activeTool ? rows.findIndex(row => row.some(t => t.id === activeTool.id)) : -1;
+  const isRowOpen = (rowIdx: number) => activeRowIdx === rowIdx;
+
+  return (
+    <div id="section-tools" className="mb-16 sm:mb-20 scroll-mt-12">
+      <h2 className="text-xs font-semibold uppercase tracking-widest text-[#888888] mb-8">
+        Tools I have used
+      </h2>
+      <div className="space-y-4">
+        {rows.map((row, rowIdx) => (
+          <div key={rowIdx}>
+            {/* Card row */}
+            <div className={`grid gap-4 ${cols === 3 ? "grid-cols-3" : cols === 2 ? "grid-cols-2" : "grid-cols-1"}`}>
+              {row.map((tool) => {
+                const config = proficiencyConfig[tool.proficiency];
+                const isActive = activeTool?.id === tool.id;
+                return (
+                  <button
+                    key={tool.id}
+                    onClick={() => setActiveTool(isActive ? null : tool)}
+                    aria-expanded={isActive}
+                    aria-label={`${tool.name} — ${config.label}`}
+                    className={`text-left rounded-xl p-5 transition-all duration-200 border relative overflow-visible ${
+                      isActive
+                        ? "bg-white/[0.06] border-white/10"
+                        : "bg-[#2e2e2e] border-[#3a3a3a] hover:border-[#555555] hover:bg-white/[0.03]"
+                    }`}
+                  >
+                    <div className="flex items-center gap-3 mb-3">
+                      <img
+                        src={tool.icon}
+                        alt={tool.name}
+                        className="w-5 h-5 object-contain"
+                        style={{ filter: isActive ? "none" : "contrast(0) brightness(1.3)" }}
+                        onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                      />
+                      <span className="text-sm font-semibold text-white">{tool.name}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="flex gap-1">
+                        {config.dots.map((dot, i) => (
+                          <div
+                            key={i}
+                            className="w-2 h-2 rounded-full overflow-hidden"
+                            style={
+                              dot.half
+                                ? { background: `linear-gradient(to right, ${dot.color} 50%, ${EMPTY_DOT} 50%)` }
+                                : { backgroundColor: dot.color }
+                            }
+                          />
+                        ))}
+                      </div>
+                      <span className="text-xs font-medium" style={{ color: config.labelColor }}>
+                        {config.label}
+                      </span>
+                    </div>
+                    {/* Speech-bubble notch: filled with detail panel color, overlaps card border */}
+                    {isActive && (
+                      <div
+                        className="absolute left-1/2 -translate-x-1/2 z-10 pointer-events-none"
+                        style={{ bottom: "-12px" }}
+                      >
+                        <svg width="26" height="12" viewBox="0 0 26 12" fill="none" className="block" aria-hidden="true">
+                          <path d="M0 0 L13 11 L26 0 Z" fill="#3a3a3a" />
+                          <line x1="0" y1="0" x2="13" y2="11" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
+                          <line x1="13" y1="11" x2="26" y2="0" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
+                        </svg>
+                      </div>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Detail panel — smooth grid-row animation */}
+            <div
+              className="grid transition-[grid-template-rows] duration-250 ease-out"
+              style={{ gridTemplateRows: isRowOpen(rowIdx) ? "1fr" : "0fr" }}
+            >
+              <div className="overflow-hidden">
+                <div
+                  className="transition-opacity duration-200 ease-out"
+                  style={{
+                    opacity: isRowOpen(rowIdx) ? 1 : 0,
+                    paddingTop: isRowOpen(rowIdx) ? "16px" : "0px",
+                  }}
+                >
+                  {isRowOpen(rowIdx) && activeTool && (
+                    <div className="bg-[#3a3a3a] rounded-xl p-6 border border-white/10">
+                      <div
+                        key={activeTool.id}
+                        className="animate-in fade-in duration-200"
+                      >
+                        <div className="flex items-center gap-3 mb-4">
+                          <img
+                            src={activeTool.icon}
+                            alt={activeTool.name}
+                            className="w-5 h-5 object-contain"
+                          />
+                          <h3 className="text-base font-semibold text-white">{activeTool.name}</h3>
+                          <div className="flex items-center gap-2">
+                            <div className="flex gap-1">
+                              {proficiencyConfig[activeTool.proficiency].dots.map((dot, i) => (
+                                <div
+                                  key={i}
+                                  className="w-2 h-2 rounded-full overflow-hidden"
+                                  style={
+                                    dot.half
+                                      ? { background: `linear-gradient(to right, ${dot.color} 50%, ${EMPTY_DOT} 50%)` }
+                                      : { backgroundColor: dot.color }
+                                  }
+                                />
+                              ))}
+                            </div>
+                            <span className="text-xs font-medium" style={{ color: proficiencyConfig[activeTool.proficiency].labelColor }}>
+                              {proficiencyConfig[activeTool.proficiency].label}
+                            </span>
+                          </div>
+                        </div>
+                        <ul className="space-y-2">
+                          {activeTool.bullets.map((bullet, i) => (
+                            <li key={i} className="flex items-start gap-2.5 text-sm text-[#cccccc] leading-relaxed">
+                              <span className="mt-1.5 w-1 h-1 rounded-full bg-[#555555] shrink-0" />
+                              {bullet}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
   const [activeTool, setActiveTool] = useState<Tool | null>(null);
   const activeSection = useTocActiveSection(tocItems);
@@ -199,34 +363,19 @@ export default function Home() {
     <main className="min-h-screen text-gray-900 bg-[#2e2e2e]">
       <TableOfContents items={tocItems} activeId={activeSection} />
 
-      <div className="max-w-3xl mx-auto px-5 py-12 sm:px-6 sm:py-20">
+      <div className="max-w-[1120px] w-[90%] mx-auto py-12 sm:py-20">
 
-        {/* Hero title + Avatar */}
-        <div className="flex gap-5 sm:gap-8 items-start">
-          <div className="flex-1 min-w-0">
-            <h1 className="font-bold tracking-tight text-[32px] sm:text-[48px] text-[#ffffff]">
-              Vernon Laquindanum
-            </h1>
-            <h2 className="text-[22px] sm:text-[28px] font-semibold text-[#ffffff] mb-4">Content Design, Strategy, and Systems</h2>
-          </div>
+        {/* Hero */}
+        <div className="mb-16 sm:mb-20">
+          <h1 className="font-bold tracking-tight text-[40px] sm:text-[64px] lg:text-[80px] text-white lowercase leading-[0.95]">
+            words i have written.
+          </h1>
+          <p className="text-[16px] sm:text-[20px] text-[#aaaaaa] mt-4 sm:mt-6">
+            A Content Design portfolio by Vernon Laquindanum
+          </p>
 
-          {/* Avatar */}
-          <div className="shrink-0">
-            <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-full bg-gray-200 overflow-hidden">
-              <img
-                src="/images/avatar/illustration.png"
-                alt="Vernon Laquindanum"
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).style.display = "none";
-                }}
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* CTA Buttons */}
-        <div className="flex flex-wrap gap-2 sm:gap-3 mt-5 sm:mt-6 mb-10">
+          {/* CTA Buttons */}
+          <div className="flex flex-wrap gap-2 sm:gap-3 mt-8 sm:mt-10">
           <a
             href="mailto:vjtlaq@gmail.com"
             className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg bg-slate-700 text-white text-sm font-medium hover:bg-slate-800 transition-colors"
@@ -235,7 +384,7 @@ export default function Home() {
             Email
           </a>
           <a
-            href="http://linkedin.com/in/vjtlaq"
+            href="https://linkedin.com/in/vjtlaq"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg bg-slate-700 text-white text-sm font-medium hover:bg-slate-800 transition-colors"
@@ -252,14 +401,15 @@ export default function Home() {
             <FileText className="w-4 h-4" />
             Resume
           </a>
+          </div>
         </div>
 
         {/* Case Studies */}
-        <div id="section-work" className="mb-12 scroll-mt-12">
+        <div id="section-work" className="mb-16 sm:mb-20 scroll-mt-12">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-[#888888] mb-8">
-            Words I have written
+            projects i've worked on
           </h2>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
             {caseStudies.map((study) => (
               <a
                 key={study.id}
@@ -292,147 +442,61 @@ export default function Home() {
         </div>
 
         {/* Tools */}
-        <div id="section-tools" className="mb-12 scroll-mt-12">
-          <h2 className="text-xs font-semibold uppercase tracking-widest text-[#888888] mb-8">
-            Tools I have used
-          </h2>
-          <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 items-start">
-
-            {/* Left: tool list */}
-            <div className="w-full sm:w-44 shrink-0 flex flex-row flex-wrap sm:flex-col gap-1">
-              {tools.map((tool) => {
-                const isActive = activeTool?.id === tool.id;
-                return (
-                  <button
-                    key={tool.id}
-                    onMouseEnter={() => setActiveTool(tool)}
-                    onClick={() => setActiveTool(tool)}
-                    className={`text-left py-2.5 px-3 rounded-lg text-sm font-medium transition-all duration-150 ${
-                      isActive
-                        ? "bg-white/10 text-white"
-                        : "text-[#888888] hover:text-[#cccccc] hover:bg-white/5"
-                    }`}
-                  >
-                    <span className="flex items-center justify-between gap-2">
-                      <span className="flex items-center gap-2.5">
-                        <img
-                            src={tool.icon}
-                            alt={tool.name}
-                            className="w-4 h-4 object-contain transition-all duration-150"
-                            style={{
-                              filter: isActive ? "none" : "contrast(0) brightness(1.1)",
-                            }}
-                            onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
-                          />
-                        {tool.name}
-                      </span>
-                      {isActive && (
-                        <span className="w-1.5 h-1.5 rounded-full bg-white/60 shrink-0" />
-                      )}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Right: detail panel */}
-            <div className="flex-1 sm:min-h-[220px]">
-              {activeTool ? (
-                <div
-                  key={activeTool.id}
-                  className="animate-in fade-in slide-in-from-bottom-2 duration-200"
-                >
-                  {/* Tool name + proficiency */}
-                  <div className="flex items-center gap-3 mb-5">
-                    <h3 className="text-lg font-semibold text-white">{activeTool.name}</h3>
-                    <div className="flex items-center gap-2">
-                      {/* Pip indicators */}
-                      <div className="flex gap-1">
-                        {proficiencyConfig[activeTool.proficiency].dots.map((dot, i) => (
-                          <div
-                            key={i}
-                            className="w-2 h-2 rounded-full transition-all duration-200 overflow-hidden"
-                            style={
-                              dot.half
-                                ? {
-                                    background: `linear-gradient(to right, ${dot.color} 50%, ${EMPTY_DOT} 50%)`,
-                                  }
-                                : { backgroundColor: dot.color }
-                            }
-                          />
-                        ))}
-                      </div>
-                      <span
-                        className="text-xs font-medium"
-                        style={{ color: proficiencyConfig[activeTool.proficiency].labelColor }}
-                      >
-                        {proficiencyConfig[activeTool.proficiency].label}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Bullet list */}
-                  <ul className="space-y-2.5">
-                    {activeTool.bullets.map((bullet, i) => (
-                      <li key={i} className="flex items-start gap-2.5 text-sm text-[#aaaaaa] leading-relaxed">
-                        <span className="mt-1.5 w-1 h-1 rounded-full bg-[#555555] shrink-0" />
-                        {bullet}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ) : (
-                <div className="hidden sm:flex flex-col justify-center h-full min-h-[180px] border border-dashed border-[#3a3a3a] rounded-xl px-6">
-                  <p className="text-sm text-[#555555] select-none">
-                    Hover a tool to see experience &amp; proficiency
-                  </p>
-                </div>
-              )}
-            </div>
-
-          </div>
-        </div>
+        <ToolsSection activeTool={activeTool} setActiveTool={setActiveTool} />
 
         {/* About / Contact */}
-        <div id="section-about" className="mb-12 scroll-mt-12">
+        <div id="section-about" className="mb-16 sm:mb-20 scroll-mt-12">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-[#888888] mb-8">
             More about me
           </h2>
-          <h2 className="text-[22px] sm:text-[28px] font-semibold text-[#ffffff] mb-4">Hello! You can call me Vern.</h2>
 
-          {/* Bio */}
-          <div className="mb-12">
-            <p className="text-base leading-relaxed text-[#ffffff]">I have been in the UX Writing / Content Design space for over 12 years. I went from Copywriter to UX Writer to Content Designer, but at the core of it all, I write words that guide people and create content systems that scale.</p>
-            <p className="mt-3 text-base leading-relaxed text-[#ffffff]">I did this most recently at Atlassian, where I built content systems for their platform apps (FKA Atlas). I was responsible for content across the Goals, Projects, and Teams apps, and had to build systems that were rigid enough to create consistency across the experiences but flexible enough to suit each app's needs.</p>
-            <p className="mt-3 text-base leading-relaxed text-[#ffffff]">Now, I'm most interested in extending these systems with AI and understanding how the content design craft shifts more towards context engineering and agentic evaluation. I'm open and ready to work, so just shoot me a ping and let me know how I can help.</p>
-          </div>
+          <div className="flex flex-col lg:flex-row gap-10 lg:gap-16">
+            {/* Left: Bio */}
+            <div className="flex-1 min-w-0">
+              <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">Hello! You can call me Vern.</h2>
+              <div className="space-y-3">
+                <p className="text-base leading-relaxed text-[#ffffff]">I have been in the UX Writing / Content Design space for over 12 years. I went from Copywriter to UX Writer to Content Designer, but at the core of it all, I write words that guide people and create content systems that scale.</p>
+                <p className="text-base leading-relaxed text-[#ffffff]">I did this most recently at Atlassian, where I built content systems for their platform apps (FKA Atlas). I was responsible for content across the Goals, Projects, and Teams apps, and had to build systems that were rigid enough to create consistency across the experiences but flexible enough to suit each app's needs.</p>
+                <p className="text-base leading-relaxed text-[#ffffff]">Now, I'm most interested in extending these systems with AI and understanding how the content design craft shifts more towards context engineering and agentic evaluation. I'm open and ready to work, so just shoot me a ping and let me know how I can help.</p>
+              </div>
+            </div>
 
-          <div className="flex flex-col gap-5">
-            {/* Email */}
-            <a
-              href="mailto:vjtlaq@gmail.com"
-              className="flex items-center gap-3 group w-fit"
-            >
-              <span className="text-lg">✉️</span>
-              <span className="text-[#aaaaaa] text-sm">Email:</span>
-              <span className="text-white text-sm group-hover:underline underline-offset-2 transition-all">
-                vjtlaq@gmail.com
-              </span>
-            </a>
+            {/* Right: Avatar + Contact */}
+            <div className="lg:w-64 shrink-0 flex flex-col items-start lg:items-center gap-6">
+              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gray-200 overflow-hidden">
+                <img
+                  src="/images/avatar/illustration.png"
+                  alt="Vernon Laquindanum"
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).style.display = "none";
+                  }}
+                />
+              </div>
 
-            {/* LinkedIn */}
-            <a
-              href="http://linkedin.com/in/vjtlaq"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 group w-fit"
-            >
-              <Linkedin className="w-[18px] h-[18px] text-[#aaaaaa] group-hover:text-white transition-colors" />
-              <span className="text-[#aaaaaa] text-sm">LinkedIn:</span>
-              <span className="text-white text-sm group-hover:underline underline-offset-2 transition-all">
-                linkedin.com/in/vjtlaq
-              </span>
-            </a>
+              <div className="flex flex-col gap-4">
+                <a
+                  href="mailto:vjtlaq@gmail.com"
+                  className="flex items-center gap-3 group w-fit"
+                >
+                  <span className="text-lg">✉️</span>
+                  <span className="text-white text-sm group-hover:underline underline-offset-2 transition-all">
+                    vjtlaq@gmail.com
+                  </span>
+                </a>
+                <a
+                  href="https://linkedin.com/in/vjtlaq"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 group w-fit"
+                >
+                  <Linkedin className="w-[18px] h-[18px] text-[#aaaaaa] group-hover:text-white transition-colors" />
+                  <span className="text-white text-sm group-hover:underline underline-offset-2 transition-all">
+                    linkedin.com/in/vjtlaq
+                  </span>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
 

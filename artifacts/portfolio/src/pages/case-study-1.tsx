@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { Link, useLocation } from "wouter";
 import { TableOfContents, useTocActiveSection, TocItem } from "../components/TableOfContents";
+import { SectionHeading } from "../components/SectionHeading";
 
 const tocItems: TocItem[] = [
   { id: "cs1-elevator", label: "Elevator Breakdown" },
@@ -30,13 +31,6 @@ function Callout({ children }: { children: React.ReactNode }) {
   );
 }
 
-function SectionHeading({ children }: { children: React.ReactNode }) {
-  return (
-    <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">
-      {children}
-    </h2>
-  );
-}
 
 function CaseImage({ src, alt, caption }: { src: string; alt: string; caption?: string }) {
   return (
@@ -170,7 +164,7 @@ export default function CaseStudy1() {
         </div>
       )}
 
-      <div className={`max-w-3xl mx-auto px-5 py-12 sm:px-6 sm:py-20 ${!unlocked ? "blur-sm select-none pointer-events-none" : ""}`}>
+      <div className={`max-w-[1120px] w-[90%] mx-auto py-12 sm:py-20 ${!unlocked ? "blur-sm select-none pointer-events-none" : ""}`}>
         <Link href="/" className="flex items-center gap-2 text-[#3b82f6] hover:text-[#60a5fa] transition-colors mb-8">
           <ArrowLeft className="w-4 h-4" />
           Back
