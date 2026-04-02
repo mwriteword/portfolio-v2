@@ -308,32 +308,6 @@ function ToolsSection({ activeTool, setActiveTool }: { activeTool: Tool | null; 
                         key={activeTool.id}
                         className="animate-in fade-in duration-200"
                       >
-                        <div className="flex items-center gap-3 mb-4">
-                          <img
-                            src={activeTool.icon}
-                            alt={activeTool.name}
-                            className="w-5 h-5 object-contain"
-                          />
-                          <h3 className="text-base font-semibold text-white">{activeTool.name}</h3>
-                          <div className="flex items-center gap-2">
-                            <div className="flex gap-1">
-                              {proficiencyConfig[activeTool.proficiency].dots.map((dot, i) => (
-                                <div
-                                  key={i}
-                                  className="w-2 h-2 rounded-full overflow-hidden"
-                                  style={
-                                    dot.half
-                                      ? { background: `linear-gradient(to right, ${dot.color} 50%, ${EMPTY_DOT} 50%)` }
-                                      : { backgroundColor: dot.color }
-                                  }
-                                />
-                              ))}
-                            </div>
-                            <span className="text-xs font-medium" style={{ color: proficiencyConfig[activeTool.proficiency].labelColor }}>
-                              {proficiencyConfig[activeTool.proficiency].label}
-                            </span>
-                          </div>
-                        </div>
                         <ul className="space-y-2">
                           {activeTool.bullets.map((bullet, i) => (
                             <li key={i} className="flex items-start gap-2.5 text-sm text-[#cccccc] leading-relaxed">
