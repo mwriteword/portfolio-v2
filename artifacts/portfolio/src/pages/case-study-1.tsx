@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ArrowLeft } from "lucide-react";
-import { Link, useLocation } from "wouter";
+import { Link } from "wouter";
 import { TableOfContents, useTocActiveSection, TocItem } from "../components/TableOfContents";
 import { SectionHeading } from "../components/SectionHeading";
 
@@ -75,15 +75,12 @@ export default function CaseStudy1() {
   const [unlocked, setUnlocked] = useState(false);
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
-  const [unlockAnim, setUnlockAnim] = useState(false);
-  const [, navigate] = useLocation();
   const activeSection = useTocActiveSection(tocItems, unlocked);
 
   const handleSubmit = () => {
     if (password === "hirevern") {
       setError(false);
-      setUnlockAnim(true);
-      setTimeout(() => setUnlocked(true), 650);
+      setUnlocked(true);
     } else {
       setError(true);
     }
@@ -92,79 +89,8 @@ export default function CaseStudy1() {
   return (
     <main className="min-h-screen text-gray-900 bg-[#2e2e2e] relative">
       {unlocked && <TableOfContents items={tocItems} activeId={activeSection} />}
-      <style>{`
-        @keyframes unlockPop {
-          0%   { transform: scale(1) rotate(0deg); }
-          25%  { transform: scale(1.5) rotate(-20deg); }
-          55%  { transform: scale(1.3) rotate(12deg); }
-          80%  { transform: scale(1.1) rotate(-5deg); }
-          100% { transform: scale(1) rotate(0deg); }
-        }
-        @keyframes modalFadeOut {
-          0%   { opacity: 1; transform: scale(1); }
-          60%  { opacity: 1; transform: scale(1); }
-          100% { opacity: 0; transform: scale(0.95); }
-        }
-        .lock-emoji {
-          display: inline-block;
-        }
-        .lock-emoji.animating {
-          animation: unlockPop 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards;
-        }
-        .modal-unlocking {
-          animation: modalFadeOut 0.65s ease-in forwards;
-        }
-      `}</style>
 
-      {/* Password Modal */}
-      {!unlocked && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <div className="absolute inset-0 bg-black/60" />
-          <div className={`relative bg-[#2e2e2e] border border-[#555555] rounded-xl px-8 py-8 max-w-sm w-full mx-4 shadow-2xl${unlockAnim ? " modal-unlocking" : ""}`}>
-            <h2 className="text-[22px] font-semibold tracking-tight text-[#ffffff] mb-3">
-              <span className={`lock-emoji${unlockAnim ? " animating" : ""}`}>
-                {unlockAnim ? "🔓" : "🔒"}
-              </span>
-              {" "}This case study is locked
-            </h2>
-            <p className="text-[#aaaaaa] text-sm leading-relaxed mb-6">
-              To unlock this case study, enter the password below.
-            </p>
-            <input
-              type="text"
-              value={password}
-              onChange={(e) => { setPassword(e.target.value); setError(false); }}
-              onKeyDown={(e) => { if (e.key === "Enter") handleSubmit(); }}
-              placeholder="Enter password"
-              className={`w-full px-4 py-2.5 rounded-lg bg-[#3a3a3a] text-white text-sm border ${error ? "border-red-500" : "border-[#555555]"} focus:outline-none focus:border-[#3b82f6] transition-colors mb-2`}
-              autoFocus
-              disabled={unlockAnim}
-            />
-            {error && (
-              <p className="text-red-400 text-xs mb-4">Incorrect password. Please try again.</p>
-            )}
-            {!error && <div className="mb-4" />}
-            <div className="flex gap-3 justify-end">
-              <button
-                onClick={() => navigate("/")}
-                disabled={unlockAnim}
-                className="px-5 py-2.5 rounded-lg bg-slate-700 text-white text-sm font-medium hover:bg-slate-800 transition-colors disabled:opacity-50"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleSubmit}
-                disabled={unlockAnim}
-                className="px-5 py-2.5 rounded-lg bg-[#3b82f6] text-white text-sm font-medium hover:bg-[#2563eb] transition-colors disabled:opacity-50"
-              >
-                Continue
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      <div className={`max-w-[1120px] w-[90%] mx-auto py-12 sm:py-20 ${!unlocked ? "blur-sm select-none pointer-events-none" : ""}`}>
+      <div className={`max-w-[1120px] w-[90%] mx-auto pt-12 sm:pt-20 ${unlocked ? "pb-12 sm:pb-20" : "pb-0"}`}>
         <Link href="/" className="flex items-center gap-2 text-[#3b82f6] hover:text-[#60a5fa] transition-colors mb-8">
           <ArrowLeft className="w-4 h-4" />
           Back
@@ -177,7 +103,7 @@ export default function CaseStudy1() {
         {/* Intro: two-column */}
         <div className="flex flex-col sm:flex-row gap-6 sm:gap-12 mb-12">
           {/* Left column */}
-          <div className="flex-shrink-0 sm:w-40">
+          <div className="flex-shrink-0 sm:w-52">
             <div className="space-y-4">
               <div>
                 <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Role</p>
@@ -223,6 +149,7 @@ export default function CaseStudy1() {
           </p>
         </div>
 
+        {unlocked && <>
         {/* Prologue */}
         <div id="cs1-prologue" className="mb-12 scroll-mt-12">
           <SectionHeading>Prologue: An App is Born</SectionHeading>
@@ -601,7 +528,45 @@ export default function CaseStudy1() {
           </div>
         </div>
 
+        </>}
       </div>
+
+      {/* Full-width locked cover — outside the container */}
+      {!unlocked && (
+        <>
+          <div className="h-12" style={{ background: "linear-gradient(to bottom, #2e2e2e, #3a3a3a)" }} />
+          <div className="bg-[#3a3a3a] px-6 py-10 sm:py-16 text-center">
+            <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-3">
+              🔒 Locked content
+            </p>
+            <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-white mb-2">
+              Continue reading?
+            </h2>
+            <p className="text-[#aaaaaa] text-sm leading-relaxed mb-6">
+              The rest of this case study contains proprietary information.<br />Enter the password to read on.
+            </p>
+            <div className="flex gap-2 max-w-xs mx-auto">
+              <input
+                type="text"
+                value={password}
+                onChange={(e) => { setPassword(e.target.value); setError(false); }}
+                onKeyDown={(e) => { if (e.key === "Enter") handleSubmit(); }}
+                placeholder="Enter password"
+                className={`flex-1 px-4 py-2.5 rounded-lg bg-[#2e2e2e] text-white text-sm border ${error ? "border-red-500" : "border-[#555555]"} focus:outline-none focus:border-[#3b82f6] transition-colors`}
+              />
+              <button
+                onClick={handleSubmit}
+                className="px-5 py-2.5 rounded-lg bg-[#3b82f6] text-white text-sm font-medium hover:bg-[#2563eb] transition-colors shrink-0"
+              >
+                Unlock
+              </button>
+            </div>
+            {error && (
+              <p className="text-red-400 text-xs mt-2">Incorrect password. Please try again.</p>
+            )}
+          </div>
+        </>
+      )}
     </main>
   );
 }

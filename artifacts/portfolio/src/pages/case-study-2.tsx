@@ -27,7 +27,7 @@ export default function CaseStudy2() {
         {/* Intro Section */}
         <div className="flex flex-col sm:flex-row gap-6 sm:gap-12 mb-12 sm:mb-16">
           {/* Left Column - Fields */}
-          <div className="flex-shrink-0 sm:w-40">
+          <div className="flex-shrink-0 sm:w-52">
             <div className="space-y-4">
               <div>
                 <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Role</p>
