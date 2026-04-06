@@ -154,10 +154,11 @@ export default function CaseStudy1() {
             <ImageCarousel images={afterImages} label="After" interval={5000} />
           </div>
 
+          <p className="text-base leading-relaxed text-[#ffffff] mb-4">
+            Our first attempt at OKR support in our goal-setting app failed in early access. Once we found out why it failed, we created an entirely new system to support how our customers actually structure OKRs in their organizations.
+          </p>
           <p className="text-base leading-relaxed text-[#ffffff]">
-            Our first attempt at OKR support in our goal-setting app failed in early access. Once we found out why it failed, we created an entirely new system to support how our customers actually structure OKRs in their organizations.</ br></ br>
-
-            As the lead (and only) content designer for the Goals app, I originated a new type system, redefined both our content model and the object model to bring them into alignment, and addressed localization changes in the eleventh hour in order to meet our public roadmap deadline.  Among other things.
+            As the lead (and only) content designer for the Goals app, I originated a new type system, redefined both our content model and the object model to bring them into alignment, and addressed localization changes in the eleventh hour in order to meet our public roadmap deadline. Among other things.
           </p>
         </div>
 

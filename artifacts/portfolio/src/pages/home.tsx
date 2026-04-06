@@ -56,7 +56,7 @@ const tools: Tool[] = [
   {
     id: 1,
     name: "Figma",
-    icon: "https://cdn.simpleicons.org/figma",
+    icon: "/images/icons/figma.svg",
     proficiency: "Intermediate / Advanced",
     bullets: [
       "Worked with designers to insert UX writing into screens and flows",
