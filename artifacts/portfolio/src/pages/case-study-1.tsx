@@ -2,6 +2,7 @@ import { ArrowLeft } from "lucide-react";
 import { Link } from "wouter";
 import { TableOfContents, useTocActiveSection, TocItem } from "../components/TableOfContents";
 import { SectionHeading } from "../components/SectionHeading";
+import { ImageCarousel } from "../components/ImageCarousel";
 
 const tocItems: TocItem[] = [
   { id: "cs1-elevator", label: "Elevator Breakdown" },
@@ -17,10 +18,25 @@ const tocItems: TocItem[] = [
 ];
 
 const atlasHeaderImg = "/images/atlassian/atlasheader.png";
-const goalConnectionsImg = "/images/atlassian/goal-connections.png";
-const projectsDirectoryImg = "/images/atlassian/projects-directory.png";
-const keyResultsImg = "/images/atlassian/key-results.png";
-const localizationImg = "/images/atlassian/localization-workarounds.png";
+const goalPageImg = "/images/atlassian/goalpage.png";
+const goalsQuoteImg = "/images/atlassian/goalsquote.png";
+const projectsDirectoryImg = "/images/atlassian/directory.png";
+const modelImg = "/images/atlassian/model.png";
+const oldGoalPageWithKrsImg = "/images/atlassian/old-goalpage-withkrs.png";
+const localizationAdjustedImg = "/images/atlassian/localization-adjusted.png";
+const quotesImg = "/images/atlassian/quotes.png";
+
+const beforeImages = [
+  { src: "/images/atlassian/before_1.png", alt: "Before: KRs don't make sense without a goal", caption: "Key results don't really make sense without a goal and aren't the same type of object as a goal." },
+  { src: "/images/atlassian/before_2.png", alt: "Before: KRs similar to metrics", caption: "Key results are very similar to metrics, an entirely different object in our model, which made it even harder to know how to add a key result." },
+  { src: "/images/atlassian/before_3.png", alt: "Before: KRs lumped in with sub-goals", caption: "Key results are not the same thing as sub-goals, but they were lumped in all together." },
+];
+
+const afterImages = [
+  { src: "/images/atlassian/after_1.png", alt: "After: KRs added to existing goals", caption: "Key results can only be added to an existing goal or objective, which is done entirely different from how goals are created." },
+  { src: "/images/atlassian/after_2.png", alt: "After: Custom terms and localization workarounds", caption: "Putting custom terms in the UI to include Key Results meant we had to use workaround to support localization." },
+  { src: "/images/atlassian/after_3.png", alt: "After: KRs visually separated from sub-goals", caption: "Key results have a completely different treatment and listing to sub-goals, further separating them in the UI." },
+];
 
 function Callout({ children }: { children: React.ReactNode }) {
   return (
@@ -39,7 +55,7 @@ function CaseImage({ src, alt, caption, wide }: { src: string; alt: string; capt
         alt={alt}
         className={`rounded-lg ${wide ? "w-full" : "max-w-full"}`}
         onError={(e) => {
-          (e.target as HTMLImageElement).closest("figure")!.style.display = "none";
+          (e.target as HTMLImageElement).closest("figure")?.style.setProperty("display", "none");
         }}
       />
       {caption && (
@@ -131,6 +147,13 @@ export default function CaseStudy1() {
         {/* Elevator Breakdown */}
         <div id="cs1-elevator" className="mb-12 scroll-mt-12">
           <SectionHeading>Elevator Breakdown</SectionHeading>
+
+          {/* Before / After showcase */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-4">
+            <ImageCarousel images={beforeImages} label="Before" interval={5000} />
+            <ImageCarousel images={afterImages} label="After" interval={5000} />
+          </div>
+
           <p className="text-base leading-relaxed text-[#ffffff]">
             Our first attempt at OKR support in our goal-setting app failed in early access. This is how we figured out why, resolved a confused content/object model relationship, and the solution we built that got us one step closer to enterprise readiness.
           </p>
@@ -173,6 +196,9 @@ export default function CaseStudy1() {
           <p className="text-base leading-relaxed text-[#ffffff] mb-4">
             Fast forward to late 2024/early 2025 when the Goals app began developing a system to support OKR modeling within goals following a lot of customer feedback requesting these features. This was all a part of our push toward enterprise readiness, since Goals was used by many tech companies most of whom used the OKR framework and any larger enterprise companies <em>require</em> sets of functionality, including OKR representation.
           </p>
+          <div className="float-left mr-6 mb-4 w-[45%] max-w-[480px] [&_figure]:my-0">
+            <CaseImage src={goalPageImg} alt="The goal page in the Goals app" />
+          </div>
           <p className="text-base leading-relaxed text-[#ffffff] mb-4">
             At this point in time, Goals had a very simple object model:
           </p>
@@ -198,6 +224,10 @@ export default function CaseStudy1() {
           <p className="text-base leading-relaxed text-[#ffffff] mb-4">
             Or so we thought.
           </p>
+          <div className="clear-both" />
+          <div className="max-w-[65%] mx-auto">
+            <CaseImage src={goalsQuoteImg} alt="Customer feedback quote about goal types" />
+          </div>
           <p className="text-base leading-relaxed text-[#ffffff]">
             We released the feature in early access to several customers, and received a lot of feedback that it did not fulfill a lot of our customers needs. Which meant it was time to go back to the drawing board.
           </p>
@@ -212,11 +242,6 @@ export default function CaseStudy1() {
           <p className="text-base leading-relaxed text-[#ffffff] mb-4">
             While some customers gave proactive feedback via the community group and other channels, we also had several customer conversations to dig into both the feature's inadequacies and what they were <em>actually</em> looking to create. From all these inputs, a few key themes emerged:
           </p>
-          <CaseImage
-            src={goalConnectionsImg}
-            alt="The goal connections section showing key results lumped in with sub-goals"
-            caption="The goal connections section is shown here, and key results would be lumped in with sub-goals in this model."
-          />
           <ol className="space-y-4 mb-4">
             <li className="flex items-start gap-3 text-base text-[#ffffff] leading-relaxed">
               <span className="text-[#888888] shrink-0 font-medium">1.</span>
@@ -309,11 +334,13 @@ export default function CaseStudy1() {
           <p className="text-base leading-relaxed text-[#ffffff] mb-4">
             To go even further, each app (apart from Home) did not have containers built into the app—each app only featured a directory page with filters and saved views, but no other way to meaningfully group objects together.
           </p>
-          <CaseImage
-            src={projectsDirectoryImg}
-            alt="The projects directory"
-            caption="The projects directory, the patterns and styles of which were adopted for Goals and Teams."
-          />
+          <div className="float-right ml-6 mb-4 w-[45%] max-w-[480px] [&_figure]:my-0">
+            <CaseImage
+              src={projectsDirectoryImg}
+              alt="Goals directory page"
+              caption="Unlike Confluence and Jira, Goals did not have spaces or other container methods to group objects together. Just filters and different ways to slice the directory details."
+            />
+          </div>
           <p className="text-base leading-relaxed text-[#ffffff] mb-4">
             Without any real containers, the next best thing was the title of the page, which you can see in the screenshot above is just the object name… again.
           </p>
@@ -323,6 +350,7 @@ export default function CaseStudy1() {
           <p className="text-base leading-relaxed text-[#ffffff]">
             While an entire content model overhaul across all three of our platform apps was not in the cards for this project, the next best thing was creating an object type system to move forward, with the intent of adding in as much scalability as possible for the other apps.
           </p>
+          <div className="clear-both" />
         </div>
 
         {/* Chapter 4 */}
@@ -370,9 +398,8 @@ export default function CaseStudy1() {
             In addition to supporting OKRs and other custom terms as types (similar to our original iteration), we knew that in order to properly support <Term>Key results</Term> in a framework-accurate way, we'd need to build something distinct from the goal object. Working in close collaboration with the PM and Product Designer on the project, we landed on <Term>Success measures</Term>, which were meant to function as both the primitive and a type in the same way <Term>Goals</Term> does.
           </p>
           <CaseImage
-            src={keyResultsImg}
-            alt="Several key results resting beneath their parent goal"
-            caption="Here you'll see several key results in the wild, resting easily beneath its parent…"
+            src={modelImg}
+            alt="The object model for Goals showing success measures as a separate primitive"
           />
           <p className="text-base leading-relaxed text-[#ffffff] mb-4">
             <Term>Success measures</Term>, used interchangeably with <Term>Key results</Term>, would live primarily on the parent goal and be treated differently from sub-goals. They could only be created on the parent goal page and therefore could not exist without a parent attached.
@@ -447,11 +474,18 @@ export default function CaseStudy1() {
           <p className="text-base leading-relaxed text-[#ffffff] mb-4">
             Working with the lead product designers on our team, we decided to follow Jira's solutions for including custom terms in the UI, which largely required separating out the custom term from any other content as much as possible. That would mean standalone microcopy with just the custom term and other workarounds to make it localizable. It wasn't ideal, but with the public roadmap deadline approaching and dev time being wasted waiting for final designs, we had to move forward.
           </p>
-          <CaseImage
-            src={localizationImg}
-            alt="Examples of localization workarounds for custom terms"
-            caption="Some examples of the localization workarounds we had to do to support custom terms."
-          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <CaseImage
+              src={oldGoalPageWithKrsImg}
+              alt="Original goal page design with key results"
+              caption="This is what we originally designed and was ready to ship before localization problems arose"
+            />
+            <CaseImage
+              src={localizationAdjustedImg}
+              alt="Adjusted content labels for localization"
+              caption="And this is how I adjusted the content labels in the UI to allow localization to proceed."
+            />
+          </div>
         </div>
 
         {/* Chapter 5 */}
@@ -463,8 +497,11 @@ export default function CaseStudy1() {
           <p className="text-base leading-relaxed text-[#ffffff] mb-4">
             We managed to meet the roadmap deadline with a{" "}
             <A href="https://community.atlassian.com/forums/Goals-and-Projects-articles/Goal-Types-and-better-support-for-OKRs-are-coming-soon/ba-p/3151925">progressive release</A>{" "}
-            to our customers. While the announcement was met with generally positive/mixed sentiment, ongoing feedback pointed out further gaps in our experience that showed we were generally moving in the right direction, at least moreso than our original release.
+            to our customers. While the announcement was met with generally positive/mixed sentiment, ongoing feedback pointed out further gaps in our experience that showed we were generally moving in the right direction, at least moreso than our original release. We'd already been testing this model at different points in the design process, but we managed to get in a final round of usability testing a few months before our actual launch.
           </p>
+          <div className="max-w-[65%] mx-auto">
+            <CaseImage src={quotesImg} alt="Usability testing quotes from customers" />
+          </div>
           <p className="text-base leading-relaxed text-[#ffffff] mb-6">
             From the comments on the community thread announcing the feature and individual posts after the announcement, we can glean the following sentiment breakdown:
           </p>
