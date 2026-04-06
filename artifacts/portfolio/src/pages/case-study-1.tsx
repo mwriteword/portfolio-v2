@@ -146,7 +146,7 @@ export default function CaseStudy1() {
 
         {/* Elevator Breakdown */}
         <div id="cs1-elevator" className="mb-12 scroll-mt-12">
-          <SectionHeading>Elevator Breakdown</SectionHeading>
+          <SectionHeading>tl;dr</SectionHeading>
 
           {/* Before / After showcase */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-4">
@@ -155,7 +155,9 @@ export default function CaseStudy1() {
           </div>
 
           <p className="text-base leading-relaxed text-[#ffffff]">
-            Our first attempt at OKR support in our goal-setting app failed in early access. This is how we figured out why, resolved a confused content/object model relationship, and the solution we built that got us one step closer to enterprise readiness.
+            Our first attempt at OKR support in our goal-setting app failed in early access. Once we found out why it failed, we created an entirely new system to support how our customers actually structure OKRs in their organizations.</ br></ br>
+
+            As the lead (and only) content designer for the Goals app, I originated a new type system, redefined both our content model and the object model to bring them into alignment, and addressed localization changes in the eleventh hour in order to meet our public roadmap deadline.  Among other things.
           </p>
         </div>
 
@@ -219,7 +221,7 @@ export default function CaseStudy1() {
           <p className="text-base leading-relaxed text-[#ffffff] mb-4">
             And that was pretty much it. While the initial intention with nested sub-goals <em>was</em> to act as a KR-like object, there were no distinctions between sub-goals treated as an actual sub goal and sub-goals that were KRs. Which brought us to our first iteration of goal types. Due to the typical timeline constraints and{" "}
             <A href="https://www.atlassian.com/roadmap/cloud/goal-types?sortBy=timeFrame&sort=asc&p=14d2d9fd-6d">a public roadmap item we needed to meet</A>
-            , we opted for the simplest solution: give Goals app admins the ability to create custom goal types which would change the name without any significant functionality change. That way, you <em>could</em> distinguish between sub-goals and actual KRs because the type label would indicate as much.
+            , we opted for the simplest solution: give Goals app admins the ability to create custom goal types which would change the name without any significant functionality change. That way, you <em>could</em> distinguish sub-goals and actual KRs because the type label would indicate as much.
           </p>
           <p className="text-base leading-relaxed text-[#ffffff] mb-4">
             Or so we thought.
