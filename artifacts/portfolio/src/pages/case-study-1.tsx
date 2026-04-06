@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "wouter";
 import { TableOfContents, useTocActiveSection, TocItem } from "../components/TableOfContents";
@@ -32,13 +31,13 @@ function Callout({ children }: { children: React.ReactNode }) {
 }
 
 
-function CaseImage({ src, alt, caption }: { src: string; alt: string; caption?: string }) {
+function CaseImage({ src, alt, caption, wide }: { src: string; alt: string; caption?: string; wide?: boolean }) {
   return (
     <figure className="my-6">
       <img
         src={src}
         alt={alt}
-        className="w-full rounded-lg"
+        className={`rounded-lg ${wide ? "w-full" : "max-w-full"}`}
         onError={(e) => {
           (e.target as HTMLImageElement).closest("figure")!.style.display = "none";
         }}
@@ -72,25 +71,13 @@ function A({ href, children }: { href: string; children: React.ReactNode }) {
 }
 
 export default function CaseStudy1() {
-  const [unlocked, setUnlocked] = useState(false);
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
-  const activeSection = useTocActiveSection(tocItems, unlocked);
-
-  const handleSubmit = () => {
-    if (password === "hirevern") {
-      setError(false);
-      setUnlocked(true);
-    } else {
-      setError(true);
-    }
-  };
+  const activeSection = useTocActiveSection(tocItems, true);
 
   return (
     <main className="min-h-screen text-gray-900 bg-[#2e2e2e] relative">
-      {unlocked && <TableOfContents items={tocItems} activeId={activeSection} />}
+      <TableOfContents items={tocItems} activeId={activeSection} />
 
-      <div className={`max-w-[1120px] w-[90%] mx-auto pt-12 sm:pt-20 ${unlocked ? "pb-12 sm:pb-20" : "pb-0"}`}>
+      <div className="max-w-[1120px] w-[90%] mx-auto pt-12 sm:pt-20 pb-12 sm:pb-20">
         <Link href="/" className="flex items-center gap-2 text-[#3b82f6] hover:text-[#60a5fa] transition-colors mb-8">
           <ArrowLeft className="w-4 h-4" />
           Back
@@ -149,7 +136,6 @@ export default function CaseStudy1() {
           </p>
         </div>
 
-        {unlocked && <>
         {/* Prologue */}
         <div id="cs1-prologue" className="mb-12 scroll-mt-12">
           <SectionHeading>Prologue: An App is Born</SectionHeading>
@@ -528,45 +514,7 @@ export default function CaseStudy1() {
           </div>
         </div>
 
-        </>}
       </div>
-
-      {/* Full-width locked cover — outside the container */}
-      {!unlocked && (
-        <>
-          <div className="h-12" style={{ background: "linear-gradient(to bottom, #2e2e2e, #3a3a3a)" }} />
-          <div className="bg-[#3a3a3a] px-6 py-10 sm:py-16 text-center">
-            <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-3">
-              🔒 Locked content
-            </p>
-            <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-white mb-2">
-              Continue reading?
-            </h2>
-            <p className="text-[#aaaaaa] text-sm leading-relaxed mb-6">
-              The rest of this case study contains proprietary information.<br />Enter the password to read on.
-            </p>
-            <div className="flex gap-2 max-w-xs mx-auto">
-              <input
-                type="text"
-                value={password}
-                onChange={(e) => { setPassword(e.target.value); setError(false); }}
-                onKeyDown={(e) => { if (e.key === "Enter") handleSubmit(); }}
-                placeholder="Enter password"
-                className={`flex-1 px-4 py-2.5 rounded-lg bg-[#2e2e2e] text-white text-sm border ${error ? "border-red-500" : "border-[#555555]"} focus:outline-none focus:border-[#3b82f6] transition-colors`}
-              />
-              <button
-                onClick={handleSubmit}
-                className="px-5 py-2.5 rounded-lg bg-[#3b82f6] text-white text-sm font-medium hover:bg-[#2563eb] transition-colors shrink-0"
-              >
-                Unlock
-              </button>
-            </div>
-            {error && (
-              <p className="text-red-400 text-xs mt-2">Incorrect password. Please try again.</p>
-            )}
-          </div>
-        </>
-      )}
     </main>
   );
 }
