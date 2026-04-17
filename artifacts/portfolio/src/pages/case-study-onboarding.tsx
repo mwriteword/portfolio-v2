@@ -149,7 +149,7 @@ export default function CaseStudyOnboarding() {
               At the peak of my time managing 4 separate product areas as the sole content designer on the team, I was unexpectedly made the content lead on a Growth project. This project was a joint effort between Atlassian Home (one of my 4 product areas) and the Growth team, and I was originally meant to be supporting a content designer from Growth. But for some reason (which I never fully learned), the Growth content designer was moved to another project and I was asked to take over and lead content design for the onboarding.
             </p>
             <p className="text-base leading-relaxed text-[#ffffff]">
-              It's never easy taking over a project mid-stream, but it did me a chance to build a fresh content strategy, which is exactly what this project needed.
+              It's never easy taking over a project mid-stream, but it did give me a chance to build a fresh content strategy, which is exactly what this project needed.
             </p>
           </div>
         </div>
@@ -388,7 +388,7 @@ export default function CaseStudyOnboarding() {
           </div>
 
           <p className="text-base leading-relaxed text-[#ffffff]">
-            With the spotlights, we wanted them to be fairly straightforward without treading the same ground as the modal before it. Since it's onboarding for a bundle of apps as well (none of which you're actually seeing in this one), the spotlights served to orient the user on the core purpose of Atlassian Home, plus the platform components that they would be able to access from any app. The second spotlight in particular highlights the primary way users can navigate between the apps they just heard about in the modal and any other Atlassian apps they have access to.
+            With the spotlights, we wanted them to be fairly straightforward without treading the same ground as the modal before it. Since it's onboarding for a bundle of apps as well, the spotlights served to orient the user on the core purpose of Atlassian Home, plus the platform components that they would be able to access from any app. The second spotlight in particular highlights the primary way users can navigate between the apps they just heard about in the modal and any other Atlassian apps they have access to.
           </p>
         </div>
 
@@ -444,14 +444,14 @@ export default function CaseStudyOnboarding() {
             For the onboarding, we wanted something closer to a demo that shows <em>why</em> these apps are all better together. While brand and creative would be creating the video itself, I was tasked with writing the script to best show off each app, plus platform apps and Rovo (Atlassian's AI solution) — all in under 2 minutes.
           </p>
           <p className="text-base leading-relaxed text-[#ffffff] mb-6">
-            I titled this section "anticlimactic" because I don't think the video was published publicly outside of the onboarding, nor do I have any of the script drafts to show my work here. What I can say is that the video gives specific actions associated with an app and then shows how a person or team would move into the next app. My closest approximation to the workflow shown in the video:
+            Unfortunately, the video was not published publicly outside of the onboarding, nor do I have any of the script drafts to show my work here. What I can say is that the video gives specific actions associated with an app and then shows how a person or team would move into the next app. My closest approximation to the workflow shown in the video:
           </p>
 
           <ol className="space-y-3 mb-6">
             {[
               "A person sets up their team in the Teams app and invites everyone to join.",
               "The team then moves to Confluence, where they have a brainstorm session on a Whiteboard.",
-              "Loom's AI assistant joins the call and records the session, automatically generating a Confluence page with the recording embedded, meeting notes, and action items.",
+              "Loom's AI assistant records the session, automatically generating a Confluence page with the recording embedded, meeting notes, and action items.",
               "From the ideas on the whiteboard, the team can create tickets in Jira to help track their work.",
               "Once they've organized all their tasks in Jira, they can connect them to Projects and Goals to collect all the relevant links and share weekly regular updates.",
               <>It ends with a cheeky, <em>"And Rovo connects all of these things together. If you're ready to get started, start a new chat with Rovo and ask, 'What's next?'"</em></>,
