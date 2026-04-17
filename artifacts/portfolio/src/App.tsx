@@ -1,4 +1,4 @@
-import { Switch, Route, Router as WouterRouter } from "wouter";
+import { Switch, Route, Router as WouterRouter, Redirect } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -6,8 +6,8 @@ import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import CaseStudy1 from "@/pages/case-study-1";
 import CaseStudy2 from "@/pages/case-study-2";
-import CaseStudy3 from "@/pages/case-study-3";
-import CaseStudy4 from "@/pages/case-study-4";
+import CaseStudyOnboarding from "@/pages/case-study-onboarding";
+import CaseStudyEarlyWorks from "@/pages/case-study-early-works";
 
 const queryClient = new QueryClient();
 
@@ -17,8 +17,11 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/case-study-1" component={CaseStudy1} />
       <Route path="/case-study-2" component={CaseStudy2} />
-      <Route path="/case-study-3" component={CaseStudy3} />
-      <Route path="/case-study-4" component={CaseStudy4} />
+      <Route path="/case-study-onboarding" component={CaseStudyOnboarding} />
+      <Route path="/case-study-early-works" component={CaseStudyEarlyWorks} />
+      {/* Redirects for old URLs */}
+      <Route path="/case-study-3">{() => <Redirect to="/case-study-early-works" />}</Route>
+      <Route path="/case-study-4">{() => <Redirect to="/case-study-early-works" />}</Route>
       <Route component={NotFound} />
     </Switch>
   );
