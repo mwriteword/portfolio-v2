@@ -1,4 +1,5 @@
-import { ArrowLeft } from "lucide-react";
+import { useState } from "react";
+import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "wouter";
 import { CardCarousel } from "../components/CardCarousel";
 import { SectionHeading } from "../components/SectionHeading";
@@ -102,6 +103,8 @@ function CaseImage({ src, alt, caption, wide }: { src: string; alt: string; capt
 
 export default function CaseStudyOnboarding() {
   const activeId = useTocActiveSection(tocItems);
+  const [modalIdx, setModalIdx] = useState(0);
+  const modalTotal = modalVariants.length;
 
   return (
     <main className="min-h-screen text-gray-900 bg-[#2e2e2e]">
@@ -114,7 +117,7 @@ export default function CaseStudyOnboarding() {
         </Link>
 
         <h1 className="font-bold tracking-tight text-[28px] sm:text-[48px] text-[#ffffff] mb-8 sm:mb-12">
-          End User Onboarding for Teamwork Collection — Atlassian
+          Onboarding & Content Strategy
         </h1>
 
         {/* ── Intro ── */}
@@ -197,7 +200,7 @@ export default function CaseStudyOnboarding() {
             In an attempt to alleviate longstanding confusion around which Atlassian apps should be used for what purpose and when, the product organization began grouping apps into bundles called "collections." Teamwork Collection was the first one to be announced, consisting of Atlassian's core collaboration apps: Jira, Confluence, and Loom.
           </p>
 
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-[620px] mx-auto">
             <CaseImage
               src={twcBundle}
               alt="Atlassian app ecosystem diagram showing how apps are grouped by team type"
@@ -309,45 +312,78 @@ export default function CaseStudyOnboarding() {
             Instead, I made it a content problem and asked, "How can I consolidate some of these user circumstances into similar groupings with slightly more generalized content?" The variants included which apps a user was getting access to, whether they had the additional platform apps enabled, and if they were in the 80% of existing users getting TWC at launch who already had Jira and Confluence. Through ✨content magic✨ (which was actually just painstaking stress-testing and plugging in minute changes across variants), I was able to get the number of variants down to 6.
           </p>
 
-          {/* Modal variants — Option A: full-width rows */}
-          <div className="space-y-6 mb-10">
-            {modalVariants.map((variant) => (
-              <div key={variant.id} className="flex gap-5 items-start">
-                {/* Variant number */}
-                <div className="flex-shrink-0 w-7 h-7 rounded-full bg-[#3b82f6] flex items-center justify-center text-white text-xs font-bold mt-1">
-                  {variant.id}
-                </div>
-                {/* Image + bullets */}
-                <div className="flex flex-col sm:flex-row gap-6 flex-1">
-                  <div className="sm:w-[45%] flex-shrink-0">
-                    <img
-                      src={variant.image}
-                      alt={`Modal variant ${variant.id}`}
-                      className="w-full rounded-lg"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.style.display = "none";
-                        const placeholder = target.nextElementSibling as HTMLElement;
-                        if (placeholder) placeholder.style.display = "flex";
-                      }}
-                    />
-                    <div
-                      className="w-full aspect-video bg-[#3a3a3a] rounded-lg items-center justify-center hidden"
-                    >
-                      <span className="text-[#666666] text-sm">Image coming soon</span>
-                    </div>
-                  </div>
-                  <ul className="flex-1 space-y-2 mt-1">
-                    {variant.bullets.map((bullet, i) => (
-                      <li key={i} className="flex gap-2 text-base leading-relaxed text-[#ffffff]">
-                        <span className="text-[#888888] shrink-0 mt-1">•</span>
-                        <span>{bullet}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+          {/* Modal variants — carousel */}
+          <div className="mb-10">
+            {/* Slide */}
+            <div key={modalIdx} className="flex gap-5 items-start">
+              {/* Numbered badge */}
+              <div className="flex-shrink-0 w-7 h-7 rounded-full bg-[#3b82f6] flex items-center justify-center text-white text-xs font-bold mt-1">
+                {modalVariants[modalIdx].id}
               </div>
-            ))}
+              {/* Image + bullets */}
+              <div className="flex flex-col sm:flex-row gap-6 flex-1">
+                <div className="sm:w-[45%] flex-shrink-0">
+                  <img
+                    src={modalVariants[modalIdx].image}
+                    alt={`Modal variant ${modalVariants[modalIdx].id}`}
+                    className="w-full rounded-lg"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = "none";
+                      const placeholder = target.nextElementSibling as HTMLElement;
+                      if (placeholder) placeholder.style.display = "flex";
+                    }}
+                  />
+                  <div className="w-full aspect-video bg-[#3a3a3a] rounded-lg items-center justify-center hidden">
+                    <span className="text-[#666666] text-sm">Image coming soon</span>
+                  </div>
+                </div>
+                <ul className="flex-1 space-y-2 mt-1">
+                  {modalVariants[modalIdx].bullets.map((bullet, i) => (
+                    <li key={i} className="flex gap-2 text-base leading-relaxed text-[#ffffff]">
+                      <span className="text-[#888888] shrink-0 mt-1">•</span>
+                      <span>{bullet}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Controls: prev — numbered pills — next */}
+            <div className="flex items-center justify-between mt-5 pt-4 border-t border-[#3a3a3a]">
+              <button
+                onClick={() => setModalIdx((i) => (i - 1 + modalTotal) % modalTotal)}
+                className="w-8 h-8 flex items-center justify-center rounded-full bg-[#3a3a3a] text-[#888888] hover:bg-[#4a4a4a] hover:text-white transition-colors"
+                aria-label="Previous variant"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+
+              <div className="flex gap-1.5">
+                {modalVariants.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setModalIdx(i)}
+                    className={`w-7 h-7 rounded-full text-xs font-semibold transition-colors ${
+                      i === modalIdx
+                        ? "bg-[#3b82f6] text-white"
+                        : "bg-[#3a3a3a] text-[#888888] hover:bg-[#4a4a4a] hover:text-white"
+                    }`}
+                    aria-label={`Variant ${i + 1}`}
+                  >
+                    {i + 1}
+                  </button>
+                ))}
+              </div>
+
+              <button
+                onClick={() => setModalIdx((i) => (i + 1) % modalTotal)}
+                className="w-8 h-8 flex items-center justify-center rounded-full bg-[#3a3a3a] text-[#888888] hover:bg-[#4a4a4a] hover:text-white transition-colors"
+                aria-label="Next variant"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
           </div>
 
           {/* Pattern note + Trello example */}

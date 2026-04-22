@@ -14,7 +14,7 @@ const caseStudies = [
   },
   {
     id: 2,
-    title: "End User Onboarding for Teamwork Collection — Atlassian",
+    title: "Onboarding & Content Strategy",
     image: "/images/atlassian/tileonboarding.png",
     bg: "#3a2a10",
     accent: "#f59e0b",
@@ -23,7 +23,7 @@ const caseStudies = [
   },
   {
     id: 3,
-    title: "Content Strategy & Behavior Change — Opower",
+    title: "Behavior Change & UX Writing",
     image: "/images/opower/tile.png",
     bg: "#1a3a2a",
     accent: "#22c55e",
