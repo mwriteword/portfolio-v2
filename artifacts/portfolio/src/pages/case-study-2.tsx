@@ -21,7 +21,7 @@ export default function CaseStudy2() {
         </Link>
 
         <h1 className="font-bold tracking-tight text-[28px] sm:text-[48px] text-[#ffffff] mb-8 sm:mb-12">
-          Behavior Change & UX Writing
+          Behavior Change & UX Writing — Opower
         </h1>
 
         {/* Intro Section */}

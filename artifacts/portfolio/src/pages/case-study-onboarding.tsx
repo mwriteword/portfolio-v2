@@ -117,7 +117,7 @@ export default function CaseStudyOnboarding() {
         </Link>
 
         <h1 className="font-bold tracking-tight text-[28px] sm:text-[48px] text-[#ffffff] mb-8 sm:mb-12">
-          Onboarding & Content Strategy
+          TWC Onboarding & Content Strategy — Atlassian
         </h1>
 
         {/* ── Intro ── */}
