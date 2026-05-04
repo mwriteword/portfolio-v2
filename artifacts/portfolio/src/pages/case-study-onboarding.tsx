@@ -225,10 +225,10 @@ export default function CaseStudyOnboarding() {
           <SectionHeading>The end(user)game strategy</SectionHeading>
 
           <p className="text-base leading-relaxed text-[#ffffff] mb-4">
-            The first thing I did when I took over was write a new content strategy for this particular project. If the other content designer's content was primarily marketing driven, it makes sense given that the TWC content strategy was written for buyers, admins, and general decision makers. After all, TWC was mostly a pricing and packaging change so there wasn't much need for an end user onboarding strategy since access to apps was the only thing really changing.
+            The first thing I did was write a new content strategy for this particular project. The existing TWC content strategy was written for buyers, admins, and general decision makers, so it made sense that the other content designer's work leaned heavily toward marketing. Since TWC was mostly a pricing and packaging change, there wasn't much need for an end user onboarding strategy since access to apps was the only thing really changing.
           </p>
           <p className="text-base leading-relaxed text-[#ffffff] mb-4">
-            One thing I advocated for in particular was avoiding mention of "Teamwork Collection" in both the onboarding and general end user experience. The latter was less important, but for users gaining access to new apps, the name of the bundle that someone several layers of elevation removed from them bought would at best be trivial and at worst confusing. The actual end users, or those who have no say in the buying decision at all, don't need to understand what exactly TWC is — only that they have access to new Atlassian tools.
+            One thing I advocated for in particular was avoiding mention of "Teamwork Collection" in both the onboarding and general end user experience. The name of the collection made sense for the buyer personas, but for users gaining access to new apps, the name of the bundle that their boss's boss's boss's boss bought would at best be trivial and at worst confusing. The actual end users, or those who have no say in the buying decision at all, don't need to understand what exactly TWC is — only that they have access to new Atlassian tools.
           </p>
           <p className="text-base leading-relaxed text-[#ffffff] mb-8">
             I centered the content strategy around the "new tool access" message, with two key audience segments:
