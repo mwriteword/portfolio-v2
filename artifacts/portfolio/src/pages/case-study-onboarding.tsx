@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "wouter";
 import { CardCarousel } from "../components/CardCarousel";
@@ -105,6 +105,14 @@ export default function CaseStudyOnboarding() {
   const activeId = useTocActiveSection(tocItems);
   const [modalIdx, setModalIdx] = useState(0);
   const modalTotal = modalVariants.length;
+
+  // Preload all modal images on mount so navigation is instant
+  useEffect(() => {
+    modalVariants.forEach((v) => {
+      const img = new Image();
+      img.src = v.image;
+    });
+  }, []);
 
   return (
     <main className="min-h-screen text-gray-900 bg-[#2e2e2e]">
@@ -314,28 +322,22 @@ export default function CaseStudyOnboarding() {
 
           {/* Modal variants — carousel */}
           <div className="mb-10">
-            {/* Slide */}
-            <div key={modalIdx} className="flex gap-5 items-start">
+            {/* Slide — no key prop so React reuses the img node and just updates src */}
+            <div className="flex gap-5 items-start">
               {/* Numbered badge */}
               <div className="flex-shrink-0 w-7 h-7 rounded-full bg-[#3b82f6] flex items-center justify-center text-white text-xs font-bold mt-1">
                 {modalVariants[modalIdx].id}
               </div>
               {/* Image + bullets */}
               <div className="flex flex-col sm:flex-row gap-6 flex-1">
+                {/* Aspect-ratio container locks height so layout never shifts */}
                 <div className="sm:w-[45%] flex-shrink-0">
-                  <img
-                    src={modalVariants[modalIdx].image}
-                    alt={`Modal variant ${modalVariants[modalIdx].id}`}
-                    className="w-full rounded-lg"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.style.display = "none";
-                      const placeholder = target.nextElementSibling as HTMLElement;
-                      if (placeholder) placeholder.style.display = "flex";
-                    }}
-                  />
-                  <div className="w-full aspect-video bg-[#3a3a3a] rounded-lg items-center justify-center hidden">
-                    <span className="text-[#666666] text-sm">Image coming soon</span>
+                  <div className="relative w-full rounded-lg overflow-hidden bg-[#3a3a3a]" style={{ aspectRatio: "992/592" }}>
+                    <img
+                      src={modalVariants[modalIdx].image}
+                      alt={`Modal variant ${modalVariants[modalIdx].id}`}
+                      className="absolute inset-0 w-full h-full object-contain"
+                    />
                   </div>
                 </div>
                 <ul className="flex-1 space-y-2 mt-1">
