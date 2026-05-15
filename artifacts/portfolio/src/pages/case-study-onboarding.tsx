@@ -169,16 +169,6 @@ export default function CaseStudyOnboarding() {
         <div id="section-highlights" className="scroll-mt-12 mb-16 sm:mb-20">
           <SectionHeading>Project highlights</SectionHeading>
 
-          {/* Figma embed */}
-          <div className="max-w-4xl mx-auto rounded-lg overflow-hidden mb-6" style={{ height: "480px" }}>
-            <iframe
-              className="w-full h-full"
-              src="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/design/RxIhhlc92dWjGi3PEfp3R9/TWC-Onboarding?node-id=2-381399&t=AYPjoTBWV5f3ALHK-1"
-              allowFullScreen
-              title="TWC Onboarding — Figma prototype"
-            />
-          </div>
-
           <p className="text-base leading-relaxed text-[#ffffff] mb-4">
             To support the launch of Teamwork Collection (TWC), a new app bundle consisting of Jira, Confluence, and Loom, we worked with designers from Growth to deliver an onboarding experience in Atlassian Home.
           </p>
