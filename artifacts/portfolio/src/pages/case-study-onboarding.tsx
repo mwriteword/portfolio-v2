@@ -465,17 +465,14 @@ export default function CaseStudyOnboarding() {
             You might've noticed in the Home screens above that one of the onboarding cards mentions a video. The thought, in our early planning, was that we would plug in whatever standard, "What is Teamwork Collection?" type video to help users understand. But the one the brand team sent, like the overall content strategy, was largely marketing with little to no value for actual end users:
           </p>
 
-          {/* YouTube embed */}
+          {/* Self-hosted video */}
           <div className="max-w-4xl mx-auto mb-6">
-            <div className="relative w-full rounded-lg overflow-hidden" style={{ paddingBottom: "56.25%" }}>
-              <iframe
-                className="absolute inset-0 w-full h-full"
-                src="https://www.youtube.com/embed/DdyYpu1-_fs"
-                title="Teamwork Collection marketing video"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            </div>
+            <video
+              src="/videos/twc-onboarding-video.mp4"
+              controls
+              preload="metadata"
+              className="w-full rounded-lg"
+            />
           </div>
 
           <p className="text-base leading-relaxed text-[#ffffff] mb-4">
