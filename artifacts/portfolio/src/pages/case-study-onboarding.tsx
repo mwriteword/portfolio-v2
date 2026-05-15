@@ -462,7 +462,11 @@ export default function CaseStudyOnboarding() {
           <SectionHeading>Bonus round: the onboarding video script</SectionHeading>
 
           <p className="text-base leading-relaxed text-[#ffffff] mb-4">
-            You might've noticed in the Home screens above that one of the onboarding cards mentions a video. The thought, in our early planning, was that we would plug in whatever standard, "What is Teamwork Collection?" type video to help users understand. But the one the brand team sent, like the overall content strategy, was largely marketing with little to no value for actual end users:
+            You might’ve noticed in the Home screens above that one of onboarding cards mentions a video. The thought, in our early planning, was that we would plug in whatever standard, “What is Teamwork Collection?” type video to help users understand. The only problem was that existing assets were also very heavily marketing focused and weren’t actively helpful for end users.
+          </p>
+
+          <p className="text-base leading-relaxed text-[#ffffff] mb-4">
+            For the onboarding, we wanted something closer to a demo that shows why these apps are all better together. While brand and creative would be creating video itself, I was tasked with writing the script to best show off each app, plus platform apps and Rovo (Atlassian’s AI solution)—all in under 2 minutes.
           </p>
 
           {/* Self-hosted video */}
@@ -475,31 +479,8 @@ export default function CaseStudyOnboarding() {
             />
           </div>
 
-          <p className="text-base leading-relaxed text-[#ffffff] mb-4">
-            For the onboarding, we wanted something closer to a demo that shows <em>why</em> these apps are all better together. While brand and creative would be creating the video itself, I was tasked with writing the script to best show off each app, plus platform apps and Rovo (Atlassian's AI solution) — all in under 2 minutes.
-          </p>
-          <p className="text-base leading-relaxed text-[#ffffff] mb-6">
-            Unfortunately, the video was not published publicly outside of the onboarding, nor do I have any of the script drafts to show my work here. What I can say is that the video gives specific actions associated with an app and then shows how a person or team would move into the next app. My closest approximation to the workflow shown in the video:
-          </p>
-
-          <ol className="space-y-3 mb-6">
-            {[
-              "A person sets up their team in the Teams app and invites everyone to join.",
-              "The team then moves to Confluence, where they have a brainstorm session on a Whiteboard.",
-              "Loom's AI assistant records the session, automatically generating a Confluence page with the recording embedded, meeting notes, and action items.",
-              "From the ideas on the whiteboard, the team can create tickets in Jira to help track their work.",
-              "Once they've organized all their tasks in Jira, they can connect them to Projects and Goals to collect all the relevant links and share weekly regular updates.",
-              <>It ends with a cheeky, <em>"And Rovo connects all of these things together. If you're ready to get started, start a new chat with Rovo and ask, 'What's next?'"</em></>,
-            ].map((item, i) => (
-              <li key={i} className="flex gap-3 text-base leading-relaxed text-[#ffffff]">
-                <span className="text-[#3b82f6] font-semibold shrink-0 w-5 text-right">{i + 1}.</span>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ol>
-
           <p className="text-base leading-relaxed text-[#ffffff]">
-            I wrote several drafts and iterations based on feedback, partnering with both the lead TWC content designer for feedback and a copywriter from the creative/brand team to align with Atlassian's brand voice. In all honesty, the above approximation might be from an earlier version, but the core concept and flow remains valid and should be enough to illustrate the difference between the script I wrote and the marketing video embedded above.
+            I wrote several drafts and iterations based on stakeholder feedback, partnering with both the lead TWC content designer and a copywriter from the creative/brand team to align with Atlassian’s brand voice. We did have to include a mention of TWC since the caveat was that, while it was made for the onboarding, it would need to have flexibility to be used in other contexts. So what we ended up with had to work well for all audiences, and ended up being a nice blend of marketing and user-focused content.
           </p>
         </div>
       </div>
