@@ -495,8 +495,11 @@ export default function CaseStudy1() {
         <div id="cs1-ch5" className="mb-12 scroll-mt-12">
           <SectionHeading>Chapter 5: And Finally, We Launch</SectionHeading>
           <Callout>
-            <span className="font-semibold text-white">tl;dr</span> In the first month of launch, we saw <strong>~1,500 success measures created per day</strong>, which was strong considering we released near the end of the calendar year. We deliberately left the onboarding experience on for about 2 months, which is longer than usual but would give returning users in the new year the opportunity to see it and experiment with the feature ahead of planning for following quarters and the fiscal year.
+            <span className="font-semibold text-white">tl;dr</span> We met our deadline and launched to mostly positive results, with enough feedback to give us a clear path forward.
           </Callout>
+          <p className="text-base leading-relaxed text-[#ffffff] mb-4">
+            In the first month of launch, we saw <strong>~1,500 success measures created per day</strong>, which was strong considering we released near the end of the calendar year. We deliberately left the onboarding experience on for about 2 months, which is longer than usual but would give returning users in the new year the opportunity to see it and experiment with the feature ahead of planning for following quarters and the fiscal year.
+          </p>
           <p className="text-base leading-relaxed text-[#ffffff] mb-4">
             We managed to meet the roadmap deadline with a{" "}
             <A href="https://community.atlassian.com/forums/Goals-and-Projects-articles/Goal-Types-and-better-support-for-OKRs-are-coming-soon/ba-p/3151925">progressive release</A>{" "}
