@@ -495,12 +495,12 @@ export default function CaseStudy1() {
         <div id="cs1-ch5" className="mb-12 scroll-mt-12">
           <SectionHeading>Chapter 5: And Finally, We Launch</SectionHeading>
           <Callout>
-            <span className="font-semibold text-white">tl;dr</span> We release the feature to mostly mixed-to-positive response, and a clear path forward of fast follow improvements.
+            <span className="font-semibold text-white">tl;dr</span> In the first month of launch, we saw <strong>~1,500 success measures created per day</strong>, which was strong considering we released near the end of the calendar year. We deliberately left the onboarding experience on for about 2 months, which is longer than usual but would give returning users in the new year the opportunity to see it and experiment with the feature ahead of planning for following quarters and the fiscal year.
           </Callout>
           <p className="text-base leading-relaxed text-[#ffffff] mb-4">
             We managed to meet the roadmap deadline with a{" "}
             <A href="https://community.atlassian.com/forums/Goals-and-Projects-articles/Goal-Types-and-better-support-for-OKRs-are-coming-soon/ba-p/3151925">progressive release</A>{" "}
-            to our customers. While the announcement was met with generally positive/mixed sentiment, ongoing feedback pointed out further gaps in our experience that showed we were generally moving in the right direction, at least moreso than our original release. We'd already been testing this model at different points in the design process, but we managed to get in a final round of usability testing a few months before our actual launch.
+            to our customers. While the announcement was met with mostly positive sentiment, ongoing feedback pointed out further gaps in our experience that showed we were generally moving in the right direction, at least moreso than our original release. We'd already been testing this model at different points in the design process, but we managed to get in a final round of usability testing a few months before our actual launch.
           </p>
           <div className="max-w-[65%] mx-auto">
             <CaseImage src={quotesImg} alt="Usability testing quotes from customers" />
