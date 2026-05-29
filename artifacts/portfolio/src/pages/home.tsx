@@ -522,6 +522,22 @@ export default function Home() {
               </a>
             ))}
           </div>
+
+          {/* Content System tool — interactive demo */}
+          <a
+            href="/content-system"
+            className="group mt-5 flex items-center justify-between rounded-xl border border-[#3b82f6]/25 bg-[#1e3a5f]/15 px-5 py-4 hover:border-[#3b82f6]/50 hover:bg-[#1e3a5f]/25 transition-all duration-200"
+          >
+            <div>
+              <p className="text-sm font-semibold text-[#cccccc] group-hover:text-white transition-colors">
+                Content System Agent
+              </p>
+              <p className="text-xs text-[#666666] mt-0.5">
+                The content system behind this portfolio — use it to generate, check, or ask
+              </p>
+            </div>
+            <ArrowUpRight className="w-4 h-4 text-[#3b82f6] shrink-0 opacity-0 group-hover:opacity-100 transition-opacity ml-4" />
+          </a>
         </div>
 
         {/* Tools */}
