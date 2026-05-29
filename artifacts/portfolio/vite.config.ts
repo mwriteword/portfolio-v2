@@ -49,6 +49,14 @@ export default defineConfig({
     port,
     host: "0.0.0.0",
     allowedHosts: true,
+    // Proxy /api/* to the local dev API server (api/dev-server.ts).
+    // This only affects `vite dev` — Vercel functions handle /api/* in production.
+    proxy: {
+      "/api": {
+        target: "http://localhost:3001",
+        changeOrigin: true,
+      },
+    },
     fs: {
       strict: true,
       deny: ["**/.*"],
