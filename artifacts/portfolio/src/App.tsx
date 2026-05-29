@@ -8,6 +8,7 @@ import CaseStudy1 from "@/pages/case-study-1";
 import CaseStudy2 from "@/pages/case-study-2";
 import CaseStudyOnboarding from "@/pages/case-study-onboarding";
 import CaseStudyEarlyWorks from "@/pages/case-study-early-works";
+import ContentSystemApp from "@/pages/content-system-app";
 
 const queryClient = new QueryClient();
 
@@ -19,6 +20,7 @@ function Router() {
       <Route path="/case-study-2" component={CaseStudy2} />
       <Route path="/case-study-onboarding" component={CaseStudyOnboarding} />
       <Route path="/case-study-early-works" component={CaseStudyEarlyWorks} />
+      <Route path="/content-system" component={ContentSystemApp} />
       {/* Redirects for old URLs */}
       <Route path="/case-study-3">{() => <Redirect to="/case-study-early-works" />}</Route>
       <Route path="/case-study-4">{() => <Redirect to="/case-study-early-works" />}</Route>
