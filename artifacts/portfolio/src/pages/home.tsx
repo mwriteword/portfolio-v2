@@ -208,20 +208,65 @@ const proficiencyConfig: Record<Proficiency, ProficiencyConfig> = {
   },
 };
 
-const skills: string[] = [
-  "Content design",
-  "UX writing",
-  "Content strategy",
-  "Content systems",
-  "Information architecture",
-  "Taxonomy & naming systems",
-  "Voice and tone",
-  "Content standards",
-  "Design systems",
-  "Localization",
-  "Accessibility",
-  "Prompt/LLM content",
-  "Content evaluation",
+interface SkillCategory {
+  name: string;
+  skills: string[];
+  accent?: boolean;
+}
+
+// AI category (accent) renders as a highlighted full-width block on top;
+// the rest flow into a responsive column grid below.
+const skillCategories: SkillCategory[] = [
+  {
+    name: "AI & Emerging Tech",
+    accent: true,
+    skills: [
+      "Agentic workflow development",
+      "AI-assisted content",
+      "AI-assisted development",
+      "AI prototyping",
+      "Prompt/LLM content",
+    ],
+  },
+  {
+    name: "Content & Writing",
+    skills: [
+      "Content design",
+      "UX writing",
+      "Copywriting",
+      "Content strategy",
+      "SEO content",
+      "Technical writing",
+      "Markdown",
+      "Voice and tone",
+      "Content standards",
+      "Content auditing",
+      "Content evaluation",
+    ],
+  },
+  {
+    name: "Design & Systems",
+    skills: [
+      "Information architecture",
+      "Content systems",
+      "Design systems",
+      "Taxonomy & naming systems",
+      "Object modeling",
+      "Experience modeling",
+      "Accessibility",
+      "Localization",
+    ],
+  },
+  {
+    name: "Research & Leadership",
+    skills: [
+      "User research & synthesis",
+      "Journey mapping",
+      "Cross-functional collaboration",
+      "Workshop design",
+      "Mentorship",
+    ],
+  },
 ];
 
 interface ExperienceRole {
@@ -255,12 +300,28 @@ const experience: ExperienceEntry[] = [
   },
   {
     company: "Opower / Oracle Utilities",
-    span: "Apr 2017 – Jun 2021",
+    span: "Apr 2017 – Jun 2025",
     roles: [
+      {
+        title: "Web Content Specialist (Contract)",
+        dates: "Sept 2024 – Jun 2025",
+        summary: "Part-time contract role brought on to help a former colleague with content quality checks and management for Opower's tip library of 300+ existing energy efficiency tips.",
+      },
       {
         title: "UX Writer",
         dates: "Apr 2017 – Jun 2021",
         summary: "Led content strategy in a regulated utilities environment, applying behavioral science to drive energy-saving behavior.",
+      },
+    ],
+  },
+  {
+    company: "Course Hero",
+    span: "Oct 2019 – Apr 2020",
+    roles: [
+      {
+        title: "Web/SEO Content Writer (Contract)",
+        dates: "Oct 2019 – Apr 2020",
+        summary: "Wrote SEO-driven content for the Textbook Solutions product, plus question revisions to improve search rankings for the solutions.",
       },
     ],
   },
@@ -291,19 +352,52 @@ const tocItems: TocItem[] = [
 ];
 
 function SkillsSection() {
+  const aiCategory = skillCategories.find((c) => c.accent);
+  const columnCategories = skillCategories.filter((c) => !c.accent);
+
   return (
     <div id="section-skills" className="mb-16 sm:mb-20 scroll-mt-12">
-      <h2 className="text-xs font-semibold uppercase tracking-widest text-[#888888] mb-8 text-right">
-        Skills
+      <h2 className="text-xs font-semibold uppercase tracking-widest text-[#888888] mb-8">
+        Skills I have honed
       </h2>
-      <div className="flex flex-wrap justify-end gap-2.5 ml-auto max-w-3xl">
-        {skills.map((skill) => (
-          <span
-            key={skill}
-            className="text-sm text-[#aaaaaa] border border-[#3a3a3a] rounded-full px-4 py-2 hover:border-[#555555] hover:text-white transition-colors duration-200"
-          >
-            {skill}
-          </span>
+
+      {/* AI & Emerging Tech — highlighted full-width block */}
+      {aiCategory && (
+        <div className="rounded-xl border border-[#8b5cf6]/25 bg-[#8b5cf6]/[0.06] p-5 sm:p-6 mb-8">
+          <h3 className="text-xs font-semibold uppercase tracking-widest text-[#a78bfa] mb-4">
+            {aiCategory.name}
+          </h3>
+          <div className="flex flex-wrap gap-2.5">
+            {aiCategory.skills.map((skill) => (
+              <span
+                key={skill}
+                className="text-sm text-[#c4b5fd] border border-[#8b5cf6]/40 rounded-full px-3.5 py-1.5 hover:border-[#a78bfa] hover:text-[#ddd6fe] transition-colors duration-200"
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Remaining categories — responsive column grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {columnCategories.map((category) => (
+          <div key={category.name}>
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-[#777777] mb-4">
+              {category.name}
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {category.skills.map((skill) => (
+                <span
+                  key={skill}
+                  className="text-sm text-[#aaaaaa] border border-[#3a3a3a] rounded-full px-3.5 py-1.5 hover:border-[#555555] hover:text-white transition-colors duration-200"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
         ))}
       </div>
     </div>
@@ -314,7 +408,7 @@ function ExperienceSection() {
   return (
     <div id="section-experience" className="mb-16 sm:mb-20 scroll-mt-12">
       <h2 className="text-xs font-semibold uppercase tracking-widest text-[#888888] mb-8">
-        Experience
+        Places I've worked
       </h2>
       <div className="divide-y divide-[#333333]">
         {experience.map((entry) => (
