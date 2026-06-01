@@ -11,6 +11,8 @@ const caseStudies = [
     accent: "#3b82f6",
     href: "/case-study-1",
     fit: "cover" as const,
+    tags: ["Content Systems", "IA", "Localization"],
+    description: "A new goal type system that brought OKR support to Atlassian's Goals app.",
   },
   {
     id: 2,
@@ -20,6 +22,8 @@ const caseStudies = [
     accent: "#f59e0b",
     href: "/case-study-onboarding",
     fit: "cover" as const,
+    tags: ["Content Strategy", "Onboarding", "UX Writing"],
+    description: "End-to-end onboarding content for the launch of a new multi-app bundle.",
   },
   {
     id: 3,
@@ -29,6 +33,8 @@ const caseStudies = [
     accent: "#22c55e",
     href: "/case-study-2",
     fit: "contain" as const,
+    tags: ["UX Writing", "Behavior Change", "Email"],
+    description: "An email series designed to shift real-world energy-use behavior.",
   },
   {
     id: 4,
@@ -38,6 +44,8 @@ const caseStudies = [
     accent: "#a855f7",
     href: "/case-study-early-works",
     fit: "contain" as const,
+    tags: ["SEO", "Copywriting", "Email"],
+    description: "SEO content and conversion copywriting from my early career.",
   },
 ];
 
@@ -526,6 +534,26 @@ export default function Home() {
                     {company && (
                       <p className="text-xs text-[#555555] mt-0.5">{company}</p>
                     )}
+                    {/* Description — revealed on hover via grid-rows expand */}
+                    <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-[grid-template-rows] duration-300 ease-out">
+                      <div className="overflow-hidden">
+                        <p className="text-xs text-[#999999] leading-relaxed pt-1.5 pr-4">
+                          {study.description}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Skill tags */}
+                  <div className="hidden md:flex items-center gap-1.5 shrink-0">
+                    {study.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-[11px] text-[#888888] border border-[#3a3a3a] rounded-full px-2.5 py-1 group-hover:border-[#4a4a4a] group-hover:text-[#aaaaaa] transition-colors duration-200 whitespace-nowrap"
+                      >
+                        {tag}
+                      </span>
+                    ))}
                   </div>
 
                   {/* Arrow */}
