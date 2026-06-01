@@ -211,50 +211,34 @@ const proficiencyConfig: Record<Proficiency, ProficiencyConfig> = {
 interface SkillCategory {
   name: string;
   skills: string[];
-  accent?: boolean;
 }
 
-// AI category (accent) renders as a highlighted full-width block on top;
-// the rest flow into a responsive column grid below.
+// Four peer categories rendered in a uniform 2x2 grid (AI last).
 const skillCategories: SkillCategory[] = [
-  {
-    name: "AI & Emerging Tech",
-    accent: true,
-    skills: [
-      "Agentic workflow development",
-      "AI-assisted content",
-      "AI-assisted development",
-      "AI prototyping",
-      "Prompt/LLM content",
-    ],
-  },
   {
     name: "Content & Writing",
     skills: [
       "Content design",
       "UX writing",
       "Copywriting",
-      "Content strategy",
       "SEO content",
       "Technical writing",
       "Markdown",
       "Voice and tone",
-      "Content standards",
-      "Content auditing",
-      "Content evaluation",
     ],
   },
   {
-    name: "Design & Systems",
+    name: "Strategy & Systems",
     skills: [
-      "Information architecture",
+      "Content strategy",
       "Content systems",
-      "Design systems",
+      "Content standards",
+      "Content auditing",
+      "Content evaluation",
+      "Information architecture",
       "Taxonomy & naming systems",
       "Object modeling",
-      "Experience modeling",
-      "Accessibility",
-      "Localization",
+      "Design systems",
     ],
   },
   {
@@ -262,9 +246,22 @@ const skillCategories: SkillCategory[] = [
     skills: [
       "User research & synthesis",
       "Journey mapping",
+      "Experience modeling",
+      "Accessibility",
+      "Localization",
       "Cross-functional collaboration",
       "Workshop design",
       "Mentorship",
+    ],
+  },
+  {
+    name: "AI & Emerging Tech",
+    skills: [
+      "Agentic workflow development",
+      "AI-assisted content",
+      "AI-assisted development",
+      "AI prototyping",
+      "Prompt/LLM content",
     ],
   },
 ];
@@ -352,37 +349,14 @@ const tocItems: TocItem[] = [
 ];
 
 function SkillsSection() {
-  const aiCategory = skillCategories.find((c) => c.accent);
-  const columnCategories = skillCategories.filter((c) => !c.accent);
-
   return (
     <div id="section-skills" className="mb-16 sm:mb-20 scroll-mt-12">
-      <h2 className="text-xs font-semibold uppercase tracking-widest text-[#888888] mb-8">
-        Skills I have honed
+      <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">
+        skills i have honed
       </h2>
 
-      {/* AI & Emerging Tech — highlighted full-width block */}
-      {aiCategory && (
-        <div className="rounded-xl border border-[#8b5cf6]/25 bg-[#8b5cf6]/[0.06] p-5 sm:p-6 mb-8">
-          <h3 className="text-xs font-semibold uppercase tracking-widest text-[#a78bfa] mb-4">
-            {aiCategory.name}
-          </h3>
-          <div className="flex flex-wrap gap-2.5">
-            {aiCategory.skills.map((skill) => (
-              <span
-                key={skill}
-                className="text-sm text-[#c4b5fd] border border-[#8b5cf6]/40 rounded-full px-3.5 py-1.5 hover:border-[#a78bfa] hover:text-[#ddd6fe] transition-colors duration-200"
-              >
-                {skill}
-              </span>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Remaining categories — responsive column grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {columnCategories.map((category) => (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
+        {skillCategories.map((category) => (
           <div key={category.name}>
             <h3 className="text-xs font-semibold uppercase tracking-widest text-[#777777] mb-4">
               {category.name}
@@ -407,8 +381,8 @@ function SkillsSection() {
 function ExperienceSection() {
   return (
     <div id="section-experience" className="mb-16 sm:mb-20 scroll-mt-12">
-      <h2 className="text-xs font-semibold uppercase tracking-widest text-[#888888] mb-8">
-        Places I've worked
+      <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">
+        places i've worked
       </h2>
       <div className="divide-y divide-[#333333]">
         {experience.map((entry) => (
@@ -446,8 +420,8 @@ function ToolsSection() {
 
   return (
     <div id="section-tools" className="mb-16 sm:mb-20 scroll-mt-12">
-      <h2 className="text-xs font-semibold uppercase tracking-widest text-[#888888] mb-8">
-        Tools I have used
+      <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">
+        tools i have used
       </h2>
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-6 lg:gap-10">
@@ -709,7 +683,7 @@ export default function Home() {
 
         {/* Case Studies */}
         <div id="section-work" className="mb-16 sm:mb-20 scroll-mt-12">
-          <h2 className="text-xs font-semibold uppercase tracking-widest text-[#888888] mb-8">
+          <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">
             projects i've worked on
           </h2>
           <div className="divide-y divide-[#333333]">
