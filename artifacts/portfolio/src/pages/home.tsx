@@ -210,13 +210,16 @@ const proficiencyConfig: Record<Proficiency, ProficiencyConfig> = {
 
 interface SkillCategory {
   name: string;
+  color: string;
   skills: string[];
 }
 
 // Four peer categories rendered in a uniform 2x2 grid (AI last).
+// `color` (reused from the site's project palette) tints pills on hover.
 const skillCategories: SkillCategory[] = [
   {
     name: "Content & Writing",
+    color: "#3b82f6", // blue
     skills: [
       "Content design",
       "UX writing",
@@ -229,6 +232,7 @@ const skillCategories: SkillCategory[] = [
   },
   {
     name: "Strategy & Systems",
+    color: "#22c55e", // green
     skills: [
       "Content strategy",
       "Content systems",
@@ -243,6 +247,7 @@ const skillCategories: SkillCategory[] = [
   },
   {
     name: "Research & Leadership",
+    color: "#a855f7", // purple
     skills: [
       "User research & synthesis",
       "Journey mapping",
@@ -256,6 +261,7 @@ const skillCategories: SkillCategory[] = [
   },
   {
     name: "AI & Emerging Tech",
+    color: "#ef4444", // red
     skills: [
       "Agentic workflow development",
       "AI-assisted content",
@@ -275,6 +281,9 @@ interface ExperienceRole {
 interface ExperienceEntry {
   company: string;
   span: string;
+  accent: string;
+  monogram: string;
+  logo: string;
   roles: ExperienceRole[];
 }
 
@@ -282,6 +291,9 @@ const experience: ExperienceEntry[] = [
   {
     company: "Atlassian",
     span: "Jul 2021 – Mar 2026",
+    accent: "#3b82f6",
+    monogram: "A",
+    logo: "/images/logos/atlassian.svg",
     roles: [
       {
         title: "Senior Content Designer",
@@ -298,6 +310,9 @@ const experience: ExperienceEntry[] = [
   {
     company: "Opower / Oracle Utilities",
     span: "Apr 2017 – Jun 2025",
+    accent: "#22c55e",
+    monogram: "O",
+    logo: "/images/logos/opower.svg",
     roles: [
       {
         title: "Web Content Specialist (Contract)",
@@ -314,6 +329,9 @@ const experience: ExperienceEntry[] = [
   {
     company: "Course Hero",
     span: "Oct 2019 – Apr 2020",
+    accent: "#a855f7",
+    monogram: "CH",
+    logo: "/images/logos/coursehero.svg",
     roles: [
       {
         title: "Web/SEO Content Writer (Contract)",
@@ -325,6 +343,9 @@ const experience: ExperienceEntry[] = [
   {
     company: "QuinStreet",
     span: "Feb 2014 – Mar 2017",
+    accent: "#ec4899",
+    monogram: "Q",
+    logo: "/images/logos/quinstreet.svg",
     roles: [
       {
         title: "Copywriting Manager",
@@ -352,7 +373,7 @@ function SkillsSection() {
   return (
     <div id="section-skills" className="mb-16 sm:mb-20 scroll-mt-12">
       <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">
-        skills i have honed
+        skills i have honed.
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
@@ -365,7 +386,8 @@ function SkillsSection() {
               {category.skills.map((skill) => (
                 <span
                   key={skill}
-                  className="text-sm text-[#aaaaaa] border border-[#3a3a3a] rounded-full px-3.5 py-1.5 hover:border-[#555555] hover:text-white transition-colors duration-200"
+                  style={{ ["--c" as string]: category.color } as React.CSSProperties}
+                  className="text-sm text-[#aaaaaa] border border-[#3a3a3a] rounded-full px-3.5 py-1.5 hover:border-[var(--c)] hover:text-[var(--c)] transition-colors duration-200"
                 >
                   {skill}
                 </span>
@@ -382,29 +404,73 @@ function ExperienceSection() {
   return (
     <div id="section-experience" className="mb-16 sm:mb-20 scroll-mt-12">
       <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">
-        places i've worked
+        places i've worked.
       </h2>
       <div className="divide-y divide-[#333333]">
-        {experience.map((entry) => (
+        {experience.map((entry, i) => (
           <div
             key={entry.company}
-            className="flex flex-col sm:flex-row gap-2 sm:gap-12 py-6 first:pt-0 last:pb-0"
+            className="group py-4 px-3 -mx-3 rounded-xl hover:bg-[#383838] transition-colors duration-200"
           >
-            {/* Left rail: company + overall span */}
-            <div className="sm:w-52 shrink-0">
-              <p className="text-white text-sm font-semibold">{entry.company}</p>
-              <p className="text-[#888888] text-xs mt-1">{entry.span}</p>
-            </div>
+            {/* Collapsed row — top-aligned so the logo stays anchored on expand */}
+            <div className="flex items-start gap-4">
+              {/* Index (centered against the logo height) */}
+              <span className="h-12 flex items-center text-xs text-[#555555] w-6 shrink-0 font-mono tabular-nums">
+                {String(i + 1).padStart(2, "0")}
+              </span>
 
-            {/* Right: nested roles */}
-            <div className="flex-1 space-y-5">
-              {entry.roles.map((role) => (
-                <div key={role.title}>
-                  <p className="text-white text-sm font-medium">{role.title}</p>
-                  <p className="text-[#888888] text-xs mt-0.5">{role.dates}</p>
-                  <p className="text-[#cccccc] text-sm leading-relaxed mt-1.5">{role.summary}</p>
+              {/* Logo (monogram fallback behind) */}
+              <div
+                className="relative w-12 h-12 rounded-lg shrink-0 overflow-hidden"
+                style={{ backgroundColor: `${entry.accent}1a` }}
+              >
+                <span
+                  className="absolute inset-0 flex items-center justify-center text-base font-bold"
+                  style={{ color: entry.accent }}
+                >
+                  {entry.monogram}
+                </span>
+                <img
+                  src={entry.logo}
+                  alt={entry.company}
+                  className="absolute inset-0 w-full h-full object-contain p-2"
+                  style={{ backgroundColor: `${entry.accent}1a` }}
+                  onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                />
+              </div>
+
+              {/* Company + roles, with dates right-aligned */}
+              <div className="flex-1 min-w-0">
+                {/* First line — vertically centered to the logo */}
+                <div className="h-12 flex items-center">
+                  <div className="flex-1 min-w-0 flex items-baseline justify-between gap-4">
+                    <div className="min-w-0 flex items-baseline gap-x-2 flex-wrap">
+                      <span className="text-sm font-medium text-white">{entry.company}</span>
+                      <span className="text-sm text-[#888888] truncate">
+                        {entry.roles.map((r) => r.title).join(", ")}
+                      </span>
+                    </div>
+                    <span className="text-xs text-[#888888] shrink-0">{entry.span}</span>
+                  </div>
                 </div>
-              ))}
+
+                {/* Expanded detail — per-role dates + summary */}
+                <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-[grid-template-rows] duration-300 ease-out">
+                  <div className="overflow-hidden">
+                    <div className="pt-1 pb-2 space-y-3">
+                      {entry.roles.map((role) => (
+                        <div key={role.title}>
+                          <div className="flex items-baseline gap-2 flex-wrap">
+                            <span className="text-sm font-medium text-white">{role.title}</span>
+                            <span className="text-xs text-[#888888]">{role.dates}</span>
+                          </div>
+                          <p className="text-sm text-[#cccccc] leading-relaxed mt-0.5">{role.summary}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         ))}
@@ -421,7 +487,7 @@ function ToolsSection() {
   return (
     <div id="section-tools" className="mb-16 sm:mb-20 scroll-mt-12">
       <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">
-        tools i have used
+        tools i have used.
       </h2>
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-6 lg:gap-10">
@@ -684,7 +750,7 @@ export default function Home() {
         {/* Case Studies */}
         <div id="section-work" className="mb-16 sm:mb-20 scroll-mt-12">
           <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">
-            projects i've worked on
+            projects i've worked on.
           </h2>
           <div className="divide-y divide-[#333333]">
             {caseStudies.map((study, i) => {
@@ -764,14 +830,14 @@ export default function Home() {
 
         {/* About / Contact */}
         <div id="section-about" className="mb-16 sm:mb-20 scroll-mt-12">
-          <h2 className="text-xs font-semibold uppercase tracking-widest text-[#888888] mb-8">
-            More about me
+          <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">
+            more about me.
           </h2>
 
           <div className="flex flex-col lg:flex-row gap-10 lg:gap-16">
             {/* Left: Bio */}
             <div className="flex-1 min-w-0">
-              <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">Hello! You can call me Vern.</h2>
+              <p className="text-base font-semibold text-[#ffffff] mb-3">Hello! You can call me Vern.</p>
               <div className="space-y-3">
                 <p className="text-base leading-relaxed text-[#ffffff]">I have been in the UX Writing / Content Design space for over 12 years. I went from Copywriter to UX Writer to Content Designer, but at the core of it all, I write words that guide people and create content systems that scale.</p>
                 <p className="text-base leading-relaxed text-[#ffffff]">I did this most recently at Atlassian, where I built content systems for their platform apps (FKA Atlas). I was responsible for content across the Goals, Projects, and Teams apps, and had to build systems that were rigid enough to create consistency across the experiences but flexible enough to suit each app's needs.</p>
