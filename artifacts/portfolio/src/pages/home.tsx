@@ -214,139 +214,116 @@ const tocItems: TocItem[] = [
   { id: "section-about", label: "About" },
 ];
 
-function useColumns() {
-  const [cols, setCols] = useState(1);
-  useEffect(() => {
-    const update = () => {
-      const w = window.innerWidth;
-      setCols(w >= 1024 ? 3 : w >= 640 ? 2 : 1);
-    };
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
-  }, []);
-  return cols;
-}
-
-function ToolsSection({ activeTool, setActiveTool }: { activeTool: Tool | null; setActiveTool: (t: Tool | null) => void }) {
-  const cols = useColumns();
-
-  // Chunk tools into rows based on column count
-  const rows: Tool[][] = [];
-  for (let i = 0; i < tools.length; i += cols) {
-    rows.push(tools.slice(i, i + cols));
-  }
-
-  // Find which row contains the active tool
-  const activeRowIdx = activeTool ? rows.findIndex(row => row.some(t => t.id === activeTool.id)) : -1;
-  const isRowOpen = (rowIdx: number) => activeRowIdx === rowIdx;
+function ToolsSection() {
+  const [selectedId, setSelectedId] = useState(tools[0].id);
+  const selected = tools.find((t) => t.id === selectedId) ?? tools[0];
+  const selConfig = proficiencyConfig[selected.proficiency];
 
   return (
     <div id="section-tools" className="mb-16 sm:mb-20 scroll-mt-12">
       <h2 className="text-xs font-semibold uppercase tracking-widest text-[#888888] mb-8">
         Tools I have used
       </h2>
-      <div className="space-y-4">
-        {rows.map((row, rowIdx) => (
-          <div key={rowIdx}>
-            {/* Card row */}
-            <div className={`grid gap-4 ${cols === 3 ? "grid-cols-3" : cols === 2 ? "grid-cols-2" : "grid-cols-1"}`}>
-              {row.map((tool) => {
-                const config = proficiencyConfig[tool.proficiency];
-                const isActive = activeTool?.id === tool.id;
-                return (
-                  <button
-                    key={tool.id}
-                    onClick={() => setActiveTool(isActive ? null : tool)}
-                    aria-expanded={isActive}
-                    aria-label={`${tool.name} — ${config.label}`}
-                    className={`text-left rounded-xl p-5 transition-all duration-200 border relative overflow-visible ${
-                      isActive
-                        ? "bg-white/[0.06] border-white/10"
-                        : "bg-[#2e2e2e] border-[#3a3a3a] hover:border-[#555555] hover:bg-white/[0.03]"
-                    }`}
-                  >
-                    <div className="flex items-center gap-3 mb-3">
-                      <img
-                        src={tool.icon}
-                        alt={tool.name}
-                        className="w-5 h-5 object-contain"
-                        style={{ filter: isActive ? "none" : "contrast(0) brightness(1.3)" }}
-                        onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
-                      />
-                      <span className="text-sm font-semibold text-white">{tool.name}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="flex gap-1">
-                        {config.dots.map((dot, i) => (
-                          <div
-                            key={i}
-                            className="w-2 h-2 rounded-full overflow-hidden"
-                            style={
-                              dot.half
-                                ? { background: `linear-gradient(to right, ${dot.color} 50%, ${EMPTY_DOT} 50%)` }
-                                : { backgroundColor: dot.color }
-                            }
-                          />
-                        ))}
-                      </div>
-                      <span className="text-xs font-medium" style={{ color: config.labelColor }}>
-                        {config.label}
-                      </span>
-                    </div>
-                    {/* Speech-bubble notch: filled with detail panel color, overlaps card border */}
-                    {isActive && (
-                      <div
-                        className="absolute left-1/2 -translate-x-1/2 z-10 pointer-events-none"
-                        style={{ bottom: "-12px" }}
-                      >
-                        <svg width="26" height="12" viewBox="0 0 26 12" fill="none" className="block" aria-hidden="true">
-                          <path d="M0 0 L13 11 L26 0 Z" fill="#3a3a3a" />
-                          <line x1="0" y1="0" x2="13" y2="11" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
-                          <line x1="13" y1="11" x2="26" y2="0" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
-                        </svg>
-                      </div>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
 
-            {/* Detail panel — smooth grid-row animation */}
-            <div
-              className="grid transition-[grid-template-rows] duration-250 ease-out"
-              style={{ gridTemplateRows: isRowOpen(rowIdx) ? "1fr" : "0fr" }}
-            >
-              <div className="overflow-hidden">
-                <div
-                  className="transition-opacity duration-200 ease-out"
-                  style={{
-                    opacity: isRowOpen(rowIdx) ? 1 : 0,
-                    paddingTop: isRowOpen(rowIdx) ? "16px" : "0px",
-                  }}
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-6 lg:gap-10">
+        {/* Left: tool list */}
+        <div className="flex flex-col gap-0.5">
+          {tools.map((tool) => {
+            const config = proficiencyConfig[tool.proficiency];
+            const isActive = tool.id === selectedId;
+            return (
+              <button
+                key={tool.id}
+                onMouseEnter={() => setSelectedId(tool.id)}
+                onFocus={() => setSelectedId(tool.id)}
+                onClick={() => setSelectedId(tool.id)}
+                aria-pressed={isActive}
+                aria-label={`${tool.name} — ${config.label}`}
+                className={`flex items-center gap-3 rounded-lg pl-2 pr-3 py-2.5 text-left transition-colors duration-200 ${
+                  isActive ? "bg-[#383838]" : "hover:bg-[#333333]"
+                }`}
+              >
+                {/* Accent bar */}
+                <span
+                  className="w-0.5 h-5 rounded-full shrink-0 transition-colors duration-200"
+                  style={{ backgroundColor: isActive ? config.labelColor : "transparent" }}
+                />
+                <img
+                  src={tool.icon}
+                  alt=""
+                  className="w-4 h-4 object-contain shrink-0"
+                  style={{ filter: isActive ? "none" : "contrast(0) brightness(1.3)" }}
+                  onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                />
+                <span
+                  className={`flex-1 text-sm font-medium transition-colors duration-200 ${
+                    isActive ? "text-white" : "text-[#999999]"
+                  }`}
                 >
-                  {isRowOpen(rowIdx) && activeTool && (
-                    <div className="bg-[#3a3a3a] rounded-xl p-6 border border-white/10">
-                      <div
-                        key={activeTool.id}
-                        className="animate-in fade-in duration-200"
-                      >
-                        <ul className="space-y-2">
-                          {activeTool.bullets.map((bullet, i) => (
-                            <li key={i} className="flex items-start gap-2.5 text-sm text-[#cccccc] leading-relaxed">
-                              <span className="mt-1.5 w-1 h-1 rounded-full bg-[#555555] shrink-0" />
-                              {bullet}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  )}
+                  {tool.name}
+                </span>
+                {/* Proficiency dots */}
+                <div className="flex gap-1 shrink-0">
+                  {config.dots.map((dot, i) => (
+                    <div
+                      key={i}
+                      className="w-1.5 h-1.5 rounded-full overflow-hidden"
+                      style={
+                        dot.half
+                          ? { background: `linear-gradient(to right, ${dot.color} 50%, ${EMPTY_DOT} 50%)` }
+                          : { backgroundColor: dot.color }
+                      }
+                    />
+                  ))}
                 </div>
-              </div>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Right: detail panel */}
+        <div className="lg:sticky lg:top-12 self-start w-full">
+          <div
+            key={selected.id}
+            className="bg-[#242424] rounded-xl p-6 sm:p-8 border border-white/5 animate-in fade-in duration-200"
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <img
+                src={selected.icon}
+                alt={selected.name}
+                className="w-7 h-7 object-contain shrink-0"
+                onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+              />
+              <h3 className="text-lg font-semibold text-white">{selected.name}</h3>
             </div>
+            <div className="flex items-center gap-2 mb-5 pb-5 border-b border-white/5">
+              <div className="flex gap-1">
+                {selConfig.dots.map((dot, i) => (
+                  <div
+                    key={i}
+                    className="w-2 h-2 rounded-full overflow-hidden"
+                    style={
+                      dot.half
+                        ? { background: `linear-gradient(to right, ${dot.color} 50%, ${EMPTY_DOT} 50%)` }
+                        : { backgroundColor: dot.color }
+                    }
+                  />
+                ))}
+              </div>
+              <span className="text-xs font-medium" style={{ color: selConfig.labelColor }}>
+                {selConfig.label}
+              </span>
+            </div>
+            <ul className="space-y-3">
+              {selected.bullets.map((bullet, i) => (
+                <li key={i} className="flex items-start gap-2.5 text-sm text-[#cccccc] leading-relaxed">
+                  <span className="mt-1.5 w-1 h-1 rounded-full bg-[#555555] shrink-0" />
+                  {bullet}
+                </li>
+              ))}
+            </ul>
           </div>
-        ))}
+        </div>
       </div>
     </div>
   );
@@ -463,7 +440,6 @@ function CopyEmailButton({ variant = "hero" }: { variant?: "hero" | "footer" }) 
 }
 
 export default function Home() {
-  const [activeTool, setActiveTool] = useState<Tool | null>(null);
   const activeSection = useTocActiveSection(tocItems);
 
   return (
@@ -579,7 +555,7 @@ export default function Home() {
         </div>
 
         {/* Tools */}
-        <ToolsSection activeTool={activeTool} setActiveTool={setActiveTool} />
+        <ToolsSection />
 
         {/* About / Contact */}
         <div id="section-about" className="mb-16 sm:mb-20 scroll-mt-12">
