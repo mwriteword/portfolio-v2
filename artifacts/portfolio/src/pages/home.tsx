@@ -293,7 +293,7 @@ const experience: ExperienceEntry[] = [
     span: "Jul 2021 – Mar 2026",
     accent: "#3b82f6",
     monogram: "A",
-    logo: "/images/logos/atlassian.svg",
+    logo: "/images/logos/atlassian.jpeg",
     roles: [
       {
         title: "Senior Content Designer",
@@ -312,7 +312,7 @@ const experience: ExperienceEntry[] = [
     span: "Apr 2017 – Jun 2025",
     accent: "#22c55e",
     monogram: "O",
-    logo: "/images/logos/opower.svg",
+    logo: "/images/logos/opower.jpeg",
     roles: [
       {
         title: "Web Content Specialist (Contract)",
@@ -331,7 +331,7 @@ const experience: ExperienceEntry[] = [
     span: "Oct 2019 – Apr 2020",
     accent: "#a855f7",
     monogram: "CH",
-    logo: "/images/logos/coursehero.svg",
+    logo: "/images/logos/coursehero.jpeg",
     roles: [
       {
         title: "Web/SEO Content Writer (Contract)",
@@ -345,7 +345,7 @@ const experience: ExperienceEntry[] = [
     span: "Feb 2014 – Mar 2017",
     accent: "#ec4899",
     monogram: "Q",
-    logo: "/images/logos/quinstreet.svg",
+    logo: "/images/logos/quinstreet.jpeg",
     roles: [
       {
         title: "Copywriting Manager",
@@ -433,8 +433,7 @@ function ExperienceSection() {
                 <img
                   src={entry.logo}
                   alt={entry.company}
-                  className="absolute inset-0 w-full h-full object-contain p-2"
-                  style={{ backgroundColor: `${entry.accent}1a` }}
+                  className="absolute inset-0 w-full h-full object-cover"
                   onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
                 />
               </div>
