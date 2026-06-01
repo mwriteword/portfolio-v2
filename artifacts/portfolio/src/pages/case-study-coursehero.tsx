@@ -1,15 +1,24 @@
 import { ArrowLeft } from "lucide-react";
 import { Link } from "wouter";
 
-const img1 = "/images/coursehero/screenshot-1.png";
+/* ── Course Hero images ── */
+const chImg1 = "/images/coursehero/screenshot-1.png";
+const chImg2 = "/images/coursehero/screenshot-2.png";
+const chImg3 = "/images/coursehero/screenshot-3.png";
+const chImg4 = "/images/coursehero/screenshot-4.png";
 
-const img2 = "/images/coursehero/screenshot-2.png";
+function CaseImg({ src, alt }: { src: string; alt: string }) {
+  return (
+    <img
+      src={src}
+      alt={alt}
+      className="rounded-lg w-full"
+      onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+    />
+  );
+}
 
-const img3 = "/images/coursehero/screenshot-3.png";
-
-const img4 = "/images/coursehero/screenshot-4.png";
-
-export default function CaseStudy3() {
+export default function CaseStudyCourseHero() {
   return (
     <main className="min-h-screen text-gray-900 bg-[#2e2e2e]">
       <div className="max-w-[1120px] w-[90%] mx-auto py-12 sm:py-20">
@@ -24,7 +33,6 @@ export default function CaseStudy3() {
 
         {/* Intro: two-column */}
         <div className="flex flex-col sm:flex-row gap-6 sm:gap-12 mb-12">
-          {/* Left column */}
           <div className="flex-shrink-0 sm:w-52">
             <div className="space-y-4">
               <div>
@@ -42,7 +50,6 @@ export default function CaseStudy3() {
             </div>
           </div>
 
-          {/* Right column */}
           <div className="flex-1 space-y-4">
             <p className="text-base leading-relaxed text-[#ffffff]">
               I picked up some extra work as a contractor writing web content for Course Hero, an ed-tech company that provides students with learning resources. Their new Textbook Solutions product required some web descriptions to be written, specifically using search engine-optimized (SEO) phrases.
@@ -58,16 +65,8 @@ export default function CaseStudy3() {
 
         {/* Screenshots */}
         <div className="space-y-6">
-          {[img1, img2, img3, img4].map((src, i) => (
-            <img
-              key={i}
-              src={src}
-              alt={`Course Hero textbook description example ${i + 1}`}
-              className="w-full rounded-lg"
-              onError={(e) => {
-                (e.target as HTMLImageElement).style.display = "none";
-              }}
-            />
+          {[chImg1, chImg2, chImg3, chImg4].map((src, i) => (
+            <CaseImg key={i} src={src} alt={`Course Hero textbook description example ${i + 1}`} />
           ))}
         </div>
       </div>

@@ -1,7 +1,9 @@
 import { ArrowLeft } from "lucide-react";
 import { Link } from "wouter";
 import { SectionHeading } from "../components/SectionHeading";
+import { TableOfContents, useTocActiveSection, TocItem } from "../components/TableOfContents";
 
+/* ── QuinStreet images ── */
 const bannerFull  = "/images/quinstreet/banner-full.jpeg";
 const banner2col1 = "/images/quinstreet/banner-col-1.jpeg";
 const banner2col2 = "/images/quinstreet/banner-col-2.jpeg";
@@ -17,33 +19,43 @@ const email6 = "/images/quinstreet/email-6.png";
 const landing1 = "/images/quinstreet/landing-1.png";
 const landing2 = "/images/quinstreet/landing-2.png";
 
-function CaseImg({ src, alt, className = "" }: { src: string; alt: string; className?: string }) {
+/* ── TOC ── */
+const tocItems: TocItem[] = [
+  { id: "section-banners", label: "Banners" },
+  { id: "section-email", label: "Email & Social" },
+  { id: "section-landing", label: "Landing Pages" },
+];
+
+function CaseImg({ src, alt }: { src: string; alt: string }) {
   return (
     <img
       src={src}
       alt={alt}
-      className={`rounded-lg w-full ${className}`}
+      className="rounded-lg w-full"
       onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
     />
   );
 }
 
-export default function CaseStudy4() {
+export default function CaseStudyQuinStreet() {
+  const activeId = useTocActiveSection(tocItems);
+
   return (
     <main className="min-h-screen text-gray-900 bg-[#2e2e2e]">
+      <TableOfContents items={tocItems} activeId={activeId} />
+
       <div className="max-w-[1120px] w-[90%] mx-auto py-12 sm:py-20">
-        <Link href="/" className="flex items-center gap-2 text-[#f59e0b] hover:text-[#fbbf24] transition-colors mb-8">
+        <Link href="/" className="flex items-center gap-2 text-[#ec4899] hover:text-[#f472b6] transition-colors mb-8">
           <ArrowLeft className="w-4 h-4" />
           Back
         </Link>
 
         <h1 className="font-bold tracking-tight text-[28px] sm:text-[48px] text-[#ffffff] mb-8 sm:mb-12">
-          Early Copywriting Works — QuinStreet
+          Marketing Copywriting — QuinStreet
         </h1>
 
         {/* Intro: two-column */}
         <div className="flex flex-col sm:flex-row gap-6 sm:gap-12 mb-12">
-          {/* Left column */}
           <div className="flex-shrink-0 sm:w-52">
             <div className="space-y-4">
               <div>
@@ -57,7 +69,6 @@ export default function CaseStudy4() {
             </div>
           </div>
 
-          {/* Right column */}
           <div className="flex-1">
             <p className="text-base leading-relaxed text-[#ffffff]">
               While at QuinStreet, a majority of the projects I worked on were digital marketing communications. I worked on a lot of other, bigger projects but I couldn't take those with me for confidentiality reasons. Instead, here's an assortment of some of my favorites from the time.
@@ -66,7 +77,7 @@ export default function CaseStudy4() {
         </div>
 
         {/* BANNERS */}
-        <div className="mb-12">
+        <div id="section-banners" className="scroll-mt-12 mb-12">
           <SectionHeading>Banners</SectionHeading>
           <p className="text-base leading-relaxed text-[#ffffff] mb-6">
             Serving a variety of verticals, I wrote a numerous many banner ads for both clients and our internal sites. These were often requested frequently and in high volume, allowing more flexible to write salient, eye-catching copy to generate higher interest.
@@ -82,7 +93,7 @@ export default function CaseStudy4() {
         </div>
 
         {/* EMAIL & SOCIAL */}
-        <div className="mb-12">
+        <div id="section-email" className="scroll-mt-12 mb-12">
           <SectionHeading>Email & Social</SectionHeading>
           <p className="text-base leading-relaxed text-[#ffffff] mb-6">
             If there are two things online that are sacred, it's a person's inbox and their news feed. While ultimately invasive, I would always write social media ads and emails with a more personal touch so as to soften the blow of seeing ads in these sacred spaces.
@@ -102,7 +113,7 @@ export default function CaseStudy4() {
         </div>
 
         {/* LANDING PAGES */}
-        <div className="mb-12">
+        <div id="section-landing" className="scroll-mt-12 mb-12">
           <SectionHeading>Landing Pages</SectionHeading>
           <p className="text-base leading-relaxed text-[#ffffff] mb-6">
             Often, we would need dedicated landing pages for a specific client or promotion. Regardless, they would need to capture all of the most important information that a person might need to know before filling out a form or going through a flow.
@@ -112,7 +123,6 @@ export default function CaseStudy4() {
             <CaseImg src={landing2} alt="Landing page example 2" />
           </div>
         </div>
-
       </div>
     </main>
   );
