@@ -208,11 +208,142 @@ const proficiencyConfig: Record<Proficiency, ProficiencyConfig> = {
   },
 };
 
+const skills: string[] = [
+  "Content design",
+  "UX writing",
+  "Content strategy",
+  "Content systems",
+  "Information architecture",
+  "Taxonomy & naming systems",
+  "Voice and tone",
+  "Content standards",
+  "Design systems",
+  "Localization",
+  "Accessibility",
+  "Prompt/LLM content",
+  "Content evaluation",
+];
+
+interface ExperienceRole {
+  title: string;
+  dates: string;
+  summary: string;
+}
+
+interface ExperienceEntry {
+  company: string;
+  span: string;
+  roles: ExperienceRole[];
+}
+
+const experience: ExperienceEntry[] = [
+  {
+    company: "Atlassian",
+    span: "Jul 2021 – Mar 2026",
+    roles: [
+      {
+        title: "Senior Content Designer",
+        dates: "Sept 2023 – Mar 2026",
+        summary: "Owned content strategy and systems, shipping enterprise features across four platform apps.",
+      },
+      {
+        title: "Content Designer",
+        dates: "Jul 2021 – Sept 2023",
+        summary: "Sole content designer establishing local standards, patterns, and UX writing frameworks.",
+      },
+    ],
+  },
+  {
+    company: "Opower / Oracle Utilities",
+    span: "Apr 2017 – Jun 2021",
+    roles: [
+      {
+        title: "UX Writer",
+        dates: "Apr 2017 – Jun 2021",
+        summary: "Led content strategy in a regulated utilities environment, applying behavioral science to drive energy-saving behavior.",
+      },
+    ],
+  },
+  {
+    company: "QuinStreet",
+    span: "Feb 2014 – Mar 2017",
+    roles: [
+      {
+        title: "Copywriting Manager",
+        dates: "Jul 2016 – Mar 2017",
+        summary: "Managed team workflows and trained copywriters.",
+      },
+      {
+        title: "UX Copywriter",
+        dates: "Feb 2014 – Jul 2016",
+        summary: "Developed brand voice and UX copy across sites, forms, landing pages, email, and social.",
+      },
+    ],
+  },
+];
+
 const tocItems: TocItem[] = [
   { id: "section-work", label: "Work" },
+  { id: "section-skills", label: "Skills" },
   { id: "section-tools", label: "Tools" },
+  { id: "section-experience", label: "Experience" },
   { id: "section-about", label: "About" },
 ];
+
+function SkillsSection() {
+  return (
+    <div id="section-skills" className="mb-16 sm:mb-20 scroll-mt-12">
+      <h2 className="text-xs font-semibold uppercase tracking-widest text-[#888888] mb-8 text-right">
+        Skills
+      </h2>
+      <div className="flex flex-wrap justify-end gap-2.5 ml-auto max-w-3xl">
+        {skills.map((skill) => (
+          <span
+            key={skill}
+            className="text-sm text-[#aaaaaa] border border-[#3a3a3a] rounded-full px-4 py-2 hover:border-[#555555] hover:text-white transition-colors duration-200"
+          >
+            {skill}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ExperienceSection() {
+  return (
+    <div id="section-experience" className="mb-16 sm:mb-20 scroll-mt-12">
+      <h2 className="text-xs font-semibold uppercase tracking-widest text-[#888888] mb-8">
+        Experience
+      </h2>
+      <div className="divide-y divide-[#333333]">
+        {experience.map((entry) => (
+          <div
+            key={entry.company}
+            className="flex flex-col sm:flex-row gap-2 sm:gap-12 py-6 first:pt-0 last:pb-0"
+          >
+            {/* Left rail: company + overall span */}
+            <div className="sm:w-52 shrink-0">
+              <p className="text-white text-sm font-semibold">{entry.company}</p>
+              <p className="text-[#888888] text-xs mt-1">{entry.span}</p>
+            </div>
+
+            {/* Right: nested roles */}
+            <div className="flex-1 space-y-5">
+              {entry.roles.map((role) => (
+                <div key={role.title}>
+                  <p className="text-white text-sm font-medium">{role.title}</p>
+                  <p className="text-[#888888] text-xs mt-0.5">{role.dates}</p>
+                  <p className="text-[#cccccc] text-sm leading-relaxed mt-1.5">{role.summary}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function ToolsSection() {
   const [selectedId, setSelectedId] = useState(tools[0].id);
@@ -554,8 +685,14 @@ export default function Home() {
           </div>
         </div>
 
+        {/* Skills */}
+        <SkillsSection />
+
         {/* Tools */}
         <ToolsSection />
+
+        {/* Experience */}
+        <ExperienceSection />
 
         {/* About / Contact */}
         <div id="section-about" className="mb-16 sm:mb-20 scroll-mt-12">
