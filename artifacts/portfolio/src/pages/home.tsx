@@ -492,35 +492,50 @@ export default function Home() {
           <h2 className="text-xs font-semibold uppercase tracking-widest text-[#888888] mb-8">
             projects i've worked on
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-            {caseStudies.map((study) => (
-              <a
-                key={study.id}
-                href={study.href}
-                className="group block"
-              >
-                <div
-                  className="relative w-full aspect-square rounded-xl flex items-center justify-center text-2xl overflow-hidden transition-all duration-300 ease-out group-hover:scale-[1.03] group-hover:shadow-2xl"
-                  style={{ backgroundColor: study.bg }}
+          <div className="divide-y divide-[#333333]">
+            {caseStudies.map((study, i) => {
+              const [projectTitle, company] = study.title.split(' — ');
+              return (
+                <a
+                  key={study.id}
+                  href={study.href}
+                  className="group flex items-center gap-4 py-4 px-3 -mx-3 rounded-xl hover:bg-[#383838] transition-colors duration-200"
                 >
-                  <img
-                    src={study.image}
-                    alt={study.title}
-                    className="absolute inset-0 w-full h-full object-contain p-3 opacity-80 group-hover:opacity-100 transition-all duration-300 group-hover:scale-105"
-                  />
-                  <div className="absolute top-3 right-3 opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200">
-                    <ArrowUpRight className="w-4 h-4" style={{ color: study.accent }} />
-                  </div>
+                  {/* Index */}
+                  <span className="text-xs text-[#555555] w-6 shrink-0 font-mono tabular-nums">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+
+                  {/* Thumbnail */}
                   <div
-                    className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                    style={{ boxShadow: `inset 0 0 0 1.5px ${study.accent}40` }}
+                    className="w-16 h-12 rounded-md overflow-hidden shrink-0 flex items-center justify-center"
+                    style={{ backgroundColor: study.bg }}
+                  >
+                    <img
+                      src={study.image}
+                      alt=""
+                      className={`w-full h-full ${study.fit === 'cover' ? 'object-cover' : 'object-contain p-1'}`}
+                    />
+                  </div>
+
+                  {/* Text */}
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium text-[#cccccc] group-hover:text-white transition-colors duration-200 truncate">
+                      {projectTitle}
+                    </p>
+                    {company && (
+                      <p className="text-xs text-[#555555] mt-0.5">{company}</p>
+                    )}
+                  </div>
+
+                  {/* Arrow */}
+                  <ArrowUpRight
+                    className="w-4 h-4 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                    style={{ color: study.accent }}
                   />
-                </div>
-                <p className="mt-3 text-sm font-medium leading-snug text-[#cccccc] group-hover:text-white transition-colors duration-200">
-                  {study.title}
-                </p>
-              </a>
-            ))}
+                </a>
+              );
+            })}
           </div>
         </div>
 
