@@ -148,6 +148,17 @@ const tools: Tool[] = [
     ],
   },
   {
+    id: 10,
+    name: "Contentful",
+    icon: "https://cdn.simpleicons.org/contentful",
+    proficiency: "Intermediate / Advanced",
+    bullets: [
+      "Owned the full Platform Experiences support document set.",
+      "Led a content uplift program that resolved 50+ feedback tickets and increased overall helpfulness rating by 18%.",
+      "Drove a 60+ document migration from Intercom to Contentful.",
+    ],
+  },
+  {
     id: 8,
     name: "VS Code",
     icon: "/images/icons/vscode.svg",
@@ -208,11 +219,275 @@ const proficiencyConfig: Record<Proficiency, ProficiencyConfig> = {
   },
 };
 
+interface SkillCategory {
+  name: string;
+  color: string;
+  skills: string[];
+}
+
+// Four peer categories rendered in a uniform 2x2 grid (AI last).
+// `color` (reused from the site's project palette) tints pills on hover.
+const skillCategories: SkillCategory[] = [
+  {
+    name: "Content & Writing",
+    color: "#3b82f6", // blue
+    skills: [
+      "Content design",
+      "UX writing",
+      "Copywriting",
+      "SEO content",
+      "Technical writing",
+      "Markdown",
+      "Voice and tone",
+    ],
+  },
+  {
+    name: "Strategy & Systems",
+    color: "#22c55e", // green
+    skills: [
+      "Content strategy",
+      "Content systems",
+      "Content standards",
+      "Content auditing",
+      "Content evaluation",
+      "Information architecture",
+      "Taxonomy & naming systems",
+      "Object modeling",
+      "Design systems",
+    ],
+  },
+  {
+    name: "Research & Leadership",
+    color: "#a855f7", // purple
+    skills: [
+      "User research & synthesis",
+      "Journey mapping",
+      "Experience modeling",
+      "Accessibility",
+      "Localization",
+      "Cross-functional collaboration",
+      "Workshop design",
+      "Mentorship",
+    ],
+  },
+  {
+    name: "AI & Emerging Tech",
+    color: "#ef4444", // red
+    skills: [
+      "Agentic workflow development",
+      "AI-assisted content",
+      "AI-assisted development",
+      "AI prototyping",
+      "Prompt/LLM content",
+    ],
+  },
+];
+
+interface ExperienceRole {
+  title: string;
+  dates: string;
+  summary: string;
+}
+
+interface ExperienceEntry {
+  company: string;
+  span: string;
+  accent: string;
+  monogram: string;
+  logo: string;
+  roles: ExperienceRole[];
+}
+
+const experience: ExperienceEntry[] = [
+  {
+    company: "Atlassian",
+    span: "Jul 2021 – Mar 2026",
+    accent: "#3b82f6",
+    monogram: "A",
+    logo: "/images/logos/atlassian.jpeg",
+    roles: [
+      {
+        title: "Senior Content Designer",
+        dates: "Sept 2023 – Mar 2026",
+        summary: "Owned content strategy and wrote all UX content for four platform apps: Home, Goals, Projects, and Teams.",
+      },
+      {
+        title: "Content Designer",
+        dates: "Jul 2021 – Sept 2023",
+        summary: "Drove content for internal resources and procedures for products onboarding to the Atlassian platform. Later, moved to the Teams feature team and eventually Atlas.",
+      },
+    ],
+  },
+  {
+    company: "Opower / Oracle Utilities",
+    span: "Apr 2017 – Jun 2025",
+    accent: "#22c55e",
+    monogram: "O",
+    logo: "/images/logos/opower.jpeg",
+    roles: [
+      {
+        title: "Web Content Specialist (Contract)",
+        dates: "Sept 2024 – Jun 2025",
+        summary: "Part-time contract role brought on to help a former colleague with content quality checks and management for Opower's tip library of 300+ existing energy efficiency tips.",
+      },
+      {
+        title: "UX Writer",
+        dates: "Apr 2017 – Jun 2021",
+        summary: "Led content strategy in a regulated utilities environment, applying behavioral science to drive energy-saving behavior.",
+      },
+    ],
+  },
+  {
+    company: "Course Hero",
+    span: "Oct 2019 – Apr 2020",
+    accent: "#a855f7",
+    monogram: "CH",
+    logo: "/images/logos/coursehero.jpeg",
+    roles: [
+      {
+        title: "Web/SEO Content Writer (Contract)",
+        dates: "Oct 2019 – Apr 2020",
+        summary: "Wrote SEO-driven content for the Textbook Solutions product, plus question revisions to improve search rankings for the solutions.",
+      },
+    ],
+  },
+  {
+    company: "QuinStreet",
+    span: "Feb 2014 – Mar 2017",
+    accent: "#ec4899",
+    monogram: "Q",
+    logo: "/images/logos/quinstreet.jpeg",
+    roles: [
+      {
+        title: "Copywriting Manager",
+        dates: "Jul 2016 – Mar 2017",
+        summary: "Continued copywriting duties, while managing team workflows and mentoring other copywriters.",
+      },
+      {
+        title: "UX Copywriter",
+        dates: "Feb 2014 – Jul 2016",
+        summary: "Developed content experience for several energy efficiency products designed to encourage behavior change, including the flagship Home Energy Report and the Behavior Load-Shaping email series.",
+      },
+    ],
+  },
+];
+
 const tocItems: TocItem[] = [
   { id: "section-work", label: "Work" },
+  { id: "section-skills", label: "Skills" },
   { id: "section-tools", label: "Tools" },
+  { id: "section-experience", label: "Experience" },
   { id: "section-about", label: "About" },
 ];
+
+function SkillsSection() {
+  return (
+    <div id="section-skills" className="mb-16 sm:mb-20 scroll-mt-12">
+      <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">
+        skills i've developed.
+      </h2>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
+        {skillCategories.map((category) => (
+          <div key={category.name}>
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-[#777777] mb-4">
+              {category.name}
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {category.skills.map((skill) => (
+                <span
+                  key={skill}
+                  style={{ ["--c" as string]: category.color } as React.CSSProperties}
+                  className="text-sm text-[#aaaaaa] border border-[#3a3a3a] rounded-full px-3.5 py-1.5 hover:border-[var(--c)] hover:text-[var(--c)] transition-colors duration-200"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ExperienceSection() {
+  return (
+    <div id="section-experience" className="mb-16 sm:mb-20 scroll-mt-12">
+      <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">
+        places i've worked.
+      </h2>
+      <div className="divide-y divide-[#333333]">
+        {experience.map((entry, i) => (
+          <div
+            key={entry.company}
+            className="group py-4 px-3 -mx-3 rounded-xl hover:bg-[#383838] transition-colors duration-200"
+          >
+            {/* Collapsed row — top-aligned so the logo stays anchored on expand */}
+            <div className="flex items-start gap-4">
+              {/* Index (centered against the logo height) */}
+              <span className="h-9 flex items-center text-xs text-[#555555] w-6 shrink-0 font-mono tabular-nums">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+
+              {/* Logo (monogram fallback behind) */}
+              <div
+                className="relative w-9 h-9 rounded-lg shrink-0 overflow-hidden"
+                style={{ backgroundColor: `${entry.accent}1a` }}
+              >
+                <span
+                  className="absolute inset-0 flex items-center justify-center text-sm font-bold"
+                  style={{ color: entry.accent }}
+                >
+                  {entry.monogram}
+                </span>
+                <img
+                  src={entry.logo}
+                  alt={entry.company}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                />
+              </div>
+
+              {/* Company + roles, with dates right-aligned */}
+              <div className="flex-1 min-w-0">
+                {/* First line — vertically centered to the logo */}
+                <div className="h-9 flex items-center">
+                  <div className="flex-1 min-w-0 flex items-baseline justify-between gap-4">
+                    <div className="min-w-0 flex items-baseline gap-x-2 flex-wrap">
+                      <span className="text-sm font-medium text-white">{entry.company}</span>
+                      <span className="text-sm text-[#888888] truncate">
+                        {entry.roles.map((r) => r.title).join(", ")}
+                      </span>
+                    </div>
+                    <span className="text-xs text-[#888888] shrink-0">{entry.span}</span>
+                  </div>
+                </div>
+
+                {/* Expanded detail — per-role dates + summary */}
+                <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-[grid-template-rows] duration-300 ease-out">
+                  <div className="overflow-hidden">
+                    <div className="pt-1 pb-2 space-y-3">
+                      {entry.roles.map((role) => (
+                        <div key={role.title}>
+                          <div className="flex items-baseline gap-2 flex-wrap">
+                            <span className="text-sm font-medium text-white">{role.title}</span>
+                            <span className="text-xs text-[#888888]">{role.dates}</span>
+                          </div>
+                          <p className="text-sm text-[#cccccc] leading-relaxed mt-0.5">{role.summary}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function ToolsSection() {
   const [selectedId, setSelectedId] = useState(tools[0].id);
@@ -221,8 +496,8 @@ function ToolsSection() {
 
   return (
     <div id="section-tools" className="mb-16 sm:mb-20 scroll-mt-12">
-      <h2 className="text-xs font-semibold uppercase tracking-widest text-[#888888] mb-8">
-        Tools I have used
+      <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">
+        tools i've used.
       </h2>
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-6 lg:gap-10">
@@ -450,11 +725,14 @@ export default function Home() {
 
         {/* Hero */}
         <div className="mb-16 sm:mb-20">
+          <p className="text-[16px] sm:text-[20px] text-[#aaaaaa] mb-4 sm:mb-6">
+            Hello! I'm Vern, a Senior Content Designer, and these are
+          </p>
           <h1 className="font-bold tracking-tight text-[40px] sm:text-[64px] lg:text-[80px] text-white lowercase leading-[0.95]">
             words i have written.
           </h1>
           <p className="text-[16px] sm:text-[20px] text-[#aaaaaa] mt-4 sm:mt-6">
-            A Content Design portfolio by Vernon Laquindanum
+            In other words, this is a Content Design Portfolio by Vernon Laquindanum.
           </p>
 
           {/* CTA Buttons */}
@@ -484,8 +762,8 @@ export default function Home() {
 
         {/* Case Studies */}
         <div id="section-work" className="mb-16 sm:mb-20 scroll-mt-12">
-          <h2 className="text-xs font-semibold uppercase tracking-widest text-[#888888] mb-8">
-            projects i've worked on
+          <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">
+            things i've worked on.
           </h2>
           <div className="divide-y divide-[#333333]">
             {caseStudies.map((study, i) => {
@@ -554,23 +832,30 @@ export default function Home() {
           </div>
         </div>
 
+        {/* Skills */}
+        <SkillsSection />
+
         {/* Tools */}
         <ToolsSection />
 
+        {/* Experience */}
+        <ExperienceSection />
+
         {/* About / Contact */}
         <div id="section-about" className="mb-16 sm:mb-20 scroll-mt-12">
-          <h2 className="text-xs font-semibold uppercase tracking-widest text-[#888888] mb-8">
-            More about me
+          <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">
+            more about me.
           </h2>
 
           <div className="flex flex-col lg:flex-row gap-10 lg:gap-16">
             {/* Left: Bio */}
             <div className="flex-1 min-w-0">
-              <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">Hello! You can call me Vern.</h2>
+              <p className="text-base font-semibold text-[#ffffff] mb-3">Hello! You can call me Vern.</p>
               <div className="space-y-3">
-                <p className="text-base leading-relaxed text-[#ffffff]">I have been in the UX Writing / Content Design space for over 12 years. I went from Copywriter to UX Writer to Content Designer, but at the core of it all, I write words that guide people and create content systems that scale.</p>
-                <p className="text-base leading-relaxed text-[#ffffff]">I did this most recently at Atlassian, where I built content systems for their platform apps (FKA Atlas). I was responsible for content across the Goals, Projects, and Teams apps, and had to build systems that were rigid enough to create consistency across the experiences but flexible enough to suit each app's needs.</p>
-                <p className="text-base leading-relaxed text-[#ffffff]">Now, I'm most interested in extending these systems with AI and understanding how the content design craft shifts more towards context engineering and agentic evaluation. I'm open and ready to work, so just shoot me a ping and let me know how I can help.</p>
+                <p className="text-base leading-relaxed text-[#ffffff]">I have been in the UX Writing / Content Design space for over 13 years. I went from Copywriter to UX Writer to Content Designer, but at the core of it all, I write words that guide people and create content systems that scale.</p>
+                <p className="text-base leading-relaxed text-[#ffffff]">I did this most recently at Atlassian, where I built content systems for their platform apps (FKA Atlas). I was responsible for content across the Home, Goals, Projects, and Teams platform apps, and had to build systems that were rigid enough to create consistency across the experiences but flexible enough to suit each app's needs.</p>
+                <p className="text-base leading-relaxed text-[#ffffff]">When I'm not doing content stuff, I'm a father/butler to two small children for a majority of my time. In what remaining time I find, I like to boulder at my local rock climbing gym and play a variety of video games (mostly RPGs of some kind).</p>
+                <p className="text-base leading-relaxed text-[#ffffff]">In any case, I'm open and ready to work. Just give me a shout and let me know how I can help.</p>
               </div>
             </div>
 
