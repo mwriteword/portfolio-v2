@@ -390,23 +390,22 @@ const skillActiveClass: Record<string, string> = {
 };
 
 function SkillsSection() {
-  // Color highlight on hover (desktop) or tap (mobile). A tap lights the pill,
-  // then it auto-fades after 2.5s — purely cosmetic.
-  const [tapped, setTapped] = useState<Set<string>>(new Set());
-  const [hoverKey, setHoverKey] = useState<string | null>(null);
+  // Hover or tap lights a pill in its category color, holds ~1.5s, then slowly
+  // fades back to neutral (quick fade-in, slow fade-out) — purely cosmetic.
+  const [lit, setLit] = useState<Set<string>>(new Set());
   const timers = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
 
   const highlight = (key: string) => {
-    setTapped((prev) => new Set(prev).add(key));
+    setLit((prev) => new Set(prev).add(key));
     if (timers.current[key]) clearTimeout(timers.current[key]);
     timers.current[key] = setTimeout(() => {
-      setTapped((prev) => {
+      setLit((prev) => {
         const next = new Set(prev);
         next.delete(key);
         return next;
       });
       delete timers.current[key];
-    }, 2500);
+    }, 1500);
   };
 
   useEffect(() => () => { Object.values(timers.current).forEach(clearTimeout); }, []);
@@ -426,15 +425,16 @@ function SkillsSection() {
             <div className="flex flex-wrap gap-2">
               {category.skills.map((skill) => {
                 const key = `${category.name}::${skill}`;
-                const active = tapped.has(key) || hoverKey === key;
+                const active = lit.has(key);
                 return (
                   <span
                     key={skill}
                     onClick={() => highlight(key)}
-                    onMouseEnter={() => setHoverKey(key)}
-                    onMouseLeave={() => setHoverKey(null)}
-                    className={`cursor-pointer select-none text-sm rounded-full border px-3.5 py-1.5 transition-colors duration-200 ${
-                      active ? skillActiveClass[category.name] : "text-[#aaaaaa] border-[#3a3a3a]"
+                    onMouseEnter={() => highlight(key)}
+                    className={`cursor-pointer select-none text-sm rounded-full border px-3.5 py-1.5 transition-colors ${
+                      active
+                        ? `duration-200 ${skillActiveClass[category.name]}`
+                        : "duration-1000 text-[#aaaaaa] border-[#3a3a3a]"
                     }`}
                   >
                     {skill}
@@ -478,7 +478,7 @@ function ExperienceSection() {
           return (
             <div
               key={entry.company}
-              onClick={() => setOpenId(isOpen ? null : entry.company)}
+              onClick={() => { setHoverId(null); setOpenId(isOpen ? null : entry.company); }}
               onMouseEnter={() => setHoverId(entry.company)}
               onMouseLeave={() => setHoverId(null)}
               className={`py-4 px-3 -mx-3 rounded-xl cursor-pointer transition-colors duration-200 ${
