@@ -726,13 +726,13 @@ export default function Home() {
         {/* Hero */}
         <div className="mb-16 sm:mb-20">
           <p className="text-[16px] sm:text-[20px] text-[#aaaaaa] mb-4 sm:mb-6">
-            Hello! I'm Vern, a senior content designer, and these are
+            Hello! I'm Vern, a Senior Content Designer, and these are
           </p>
           <h1 className="font-bold tracking-tight text-[40px] sm:text-[64px] lg:text-[80px] text-white lowercase leading-[0.95]">
             words i have written.
           </h1>
           <p className="text-[16px] sm:text-[20px] text-[#aaaaaa] mt-4 sm:mt-6">
-            AKA a Content Design Portfolio by Vernon Laquindanum
+            In other words, this is a Content Design Portfolio by Vernon Laquindanum.
           </p>
 
           {/* CTA Buttons */}
@@ -855,6 +855,7 @@ export default function Home() {
                 <p className="text-base leading-relaxed text-[#ffffff]">I have been in the UX Writing / Content Design space for over 13 years. I went from Copywriter to UX Writer to Content Designer, but at the core of it all, I write words that guide people and create content systems that scale.</p>
                 <p className="text-base leading-relaxed text-[#ffffff]">I did this most recently at Atlassian, where I built content systems for their platform apps (FKA Atlas). I was responsible for content across the Home, Goals, Projects, and Teams platform apps, and had to build systems that were rigid enough to create consistency across the experiences but flexible enough to suit each app's needs.</p>
                 <p className="text-base leading-relaxed text-[#ffffff]">When I'm not doing content stuff, I'm a father/butler to two small children for a majority of my time. In what remaining time I find, I like to boulder at my local rock climbing gym and play a variety of video games (mostly RPGs of some kind).</p>
+                <p className="text-base leading-relaxed text-[#ffffff]">In any case, I'm open and ready to work. Just give me a shout and let me know how I can help.</p>
               </div>
             </div>
 
