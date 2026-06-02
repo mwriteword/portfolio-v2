@@ -566,9 +566,11 @@ function ToolsSection() {
         tools i've used.
       </h2>
 
-      {/* Detail panel — static at the top */}
-      <div className="bg-[#242424] rounded-xl p-6 sm:p-8 border border-white/5 mb-6">
-        <div key={selected.id} className="animate-in fade-in duration-200">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-6 lg:gap-10">
+        {/* Detail panel — stacked on top below lg; right two-thirds on desktop */}
+        <div className="order-1 lg:order-2 lg:sticky lg:top-12 self-start w-full">
+          <div className="bg-[#242424] rounded-xl p-6 sm:p-8 border border-white/5">
+            <div key={selected.id} className="animate-in fade-in duration-200">
           <div className="flex items-center gap-3 mb-4">
             <img
               src={selected.icon}
@@ -601,7 +603,7 @@ function ToolsSection() {
           <div className="relative">
             <ul
               className={`space-y-3 overflow-hidden transition-all duration-300 ease-out ${
-                expanded ? "max-h-[1000px]" : "max-h-[3.5rem]"
+                expanded ? "max-h-[1000px]" : "max-h-[3.5rem] lg:max-h-[1000px]"
               }`}
             >
               {selected.bullets.map((bullet, i) => (
@@ -614,7 +616,7 @@ function ToolsSection() {
             {hasMore && !expanded && (
               <button
                 onClick={() => setExpanded(true)}
-                className="absolute inset-x-0 bottom-0 flex h-12 items-end justify-start bg-gradient-to-t from-[#242424] via-[#242424] to-transparent text-xs font-medium text-[#6ea8ff] hover:text-[#9cc4ff] transition-colors"
+                className="lg:hidden absolute inset-x-0 bottom-0 flex h-12 items-end justify-start bg-gradient-to-t from-[#242424] via-[#242424] to-transparent text-xs font-medium text-[#6ea8ff] hover:text-[#9cc4ff] transition-colors"
               >
                 Show more
               </button>
@@ -624,16 +626,17 @@ function ToolsSection() {
           {hasMore && expanded && (
             <button
               onClick={() => setExpanded(false)}
-              className="mt-3 text-xs font-medium text-[#6ea8ff] hover:text-[#9cc4ff] transition-colors"
+              className="lg:hidden mt-3 text-xs font-medium text-[#6ea8ff] hover:text-[#9cc4ff] transition-colors"
             >
               Show less
             </button>
           )}
+            </div>
+          </div>
         </div>
-      </div>
 
-      {/* Tool list */}
-      <div className="flex flex-col gap-0.5">
+        {/* Tool list — below the panel on mobile; left third on desktop */}
+        <div className="order-2 lg:order-1 flex flex-col gap-0.5">
         {tools.map((tool) => {
           const config = proficiencyConfig[tool.proficiency];
           const isActive = tool.id === selectedId;
@@ -685,6 +688,7 @@ function ToolsSection() {
             </button>
           );
         })}
+        </div>
       </div>
     </div>
   );
