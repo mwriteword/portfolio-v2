@@ -380,7 +380,27 @@ const tocItems: TocItem[] = [
   { id: "section-about", label: "About" },
 ];
 
+// Literal classes per category so Tailwind generates them (utilities are !important
+// here, so inline color can't override — and arbitrary-with-var doesn't generate).
+const skillActiveClass: Record<string, string> = {
+  "Content & Writing": "text-[#3b82f6] border-[#3b82f6]",
+  "Strategy & Systems": "text-[#22c55e] border-[#22c55e]",
+  "Research & Leadership": "text-[#a855f7] border-[#a855f7]",
+  "AI & Emerging Tech": "text-[#ef4444] border-[#ef4444]",
+};
+
 function SkillsSection() {
+  // Color highlight on hover (desktop) or tap (mobile). Tapped pills stay lit
+  // until tapped again — purely cosmetic.
+  const [tapped, setTapped] = useState<Set<string>>(new Set());
+  const [hoverKey, setHoverKey] = useState<string | null>(null);
+  const toggle = (key: string) =>
+    setTapped((prev) => {
+      const next = new Set(prev);
+      next.has(key) ? next.delete(key) : next.add(key);
+      return next;
+    });
+
   return (
     <div id="section-skills" className="mb-16 sm:mb-20 scroll-mt-12">
       <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">
@@ -394,15 +414,23 @@ function SkillsSection() {
               {category.name}
             </h3>
             <div className="flex flex-wrap gap-2">
-              {category.skills.map((skill) => (
-                <span
-                  key={skill}
-                  style={{ ["--c" as string]: category.color } as React.CSSProperties}
-                  className="text-sm text-[#aaaaaa] border border-[#3a3a3a] rounded-full px-3.5 py-1.5 hover:border-[var(--c)] hover:text-[var(--c)] transition-colors duration-200"
-                >
-                  {skill}
-                </span>
-              ))}
+              {category.skills.map((skill) => {
+                const key = `${category.name}::${skill}`;
+                const active = tapped.has(key) || hoverKey === key;
+                return (
+                  <span
+                    key={skill}
+                    onClick={() => toggle(key)}
+                    onMouseEnter={() => setHoverKey(key)}
+                    onMouseLeave={() => setHoverKey(null)}
+                    className={`cursor-pointer select-none text-sm rounded-full border px-3.5 py-1.5 transition-colors duration-200 ${
+                      active ? skillActiveClass[category.name] : "text-[#aaaaaa] border-[#3a3a3a]"
+                    }`}
+                  >
+                    {skill}
+                  </span>
+                );
+              })}
             </div>
           </div>
         ))}
@@ -412,62 +440,86 @@ function SkillsSection() {
 }
 
 function ExperienceSection() {
+  // Expand on hover (desktop) or tap (mobile). Single open at a time; clicking
+  // outside collapses. Height/opacity driven by inline styles for reliability.
+  const [openId, setOpenId] = useState<string | null>(null);
+  const [hoverId, setHoverId] = useState<string | null>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function onDown(e: MouseEvent) {
+      if (sectionRef.current && !sectionRef.current.contains(e.target as Node)) {
+        setOpenId(null);
+      }
+    }
+    document.addEventListener("mousedown", onDown);
+    return () => document.removeEventListener("mousedown", onDown);
+  }, []);
+
   return (
-    <div id="section-experience" className="mb-16 sm:mb-20 scroll-mt-12">
+    <div id="section-experience" ref={sectionRef} className="mb-16 sm:mb-20 scroll-mt-12">
       <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">
         places i've worked.
       </h2>
       <div className="divide-y divide-[#333333]">
-        {experience.map((entry, i) => (
-          <div
-            key={entry.company}
-            className="group py-4 px-3 -mx-3 rounded-xl hover:bg-[#383838] transition-colors duration-200"
-          >
-            {/* Collapsed row — top-aligned so the logo stays anchored on expand */}
-            <div className="flex items-start gap-4">
-              {/* Index (centered against the logo height) */}
-              <span className="h-9 flex items-center text-xs text-[#555555] w-6 shrink-0 font-mono tabular-nums">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-
-              {/* Logo (monogram fallback behind) */}
-              <div
-                className="relative w-9 h-9 rounded-lg shrink-0 overflow-hidden"
-                style={{ backgroundColor: `${entry.accent}1a` }}
-              >
-                <span
-                  className="absolute inset-0 flex items-center justify-center text-sm font-bold"
-                  style={{ color: entry.accent }}
-                >
-                  {entry.monogram}
+        {experience.map((entry, i) => {
+          const isOpen = openId === entry.company;
+          const expanded = isOpen || hoverId === entry.company;
+          return (
+            <div
+              key={entry.company}
+              onClick={() => setOpenId(isOpen ? null : entry.company)}
+              onMouseEnter={() => setHoverId(entry.company)}
+              onMouseLeave={() => setHoverId(null)}
+              className={`py-4 px-3 -mx-3 rounded-xl cursor-pointer transition-colors duration-200 ${
+                expanded ? "bg-[#383838]" : ""
+              }`}
+            >
+              {/* Collapsed row — top-aligned so the logo stays anchored on expand */}
+              <div className="flex items-start gap-4">
+                {/* Index (centered against the logo height) */}
+                <span className="h-9 flex items-center text-xs text-[#555555] w-6 shrink-0 font-mono tabular-nums">
+                  {String(i + 1).padStart(2, "0")}
                 </span>
-                <img
-                  src={entry.logo}
-                  alt={entry.company}
-                  className="absolute inset-0 w-full h-full object-cover"
-                  onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
-                />
-              </div>
 
-              {/* Company + roles, with dates right-aligned */}
-              <div className="flex-1 min-w-0">
-                {/* First line — vertically centered to the logo */}
-                <div className="h-9 flex items-center">
-                  <div className="flex-1 min-w-0 flex items-baseline justify-between gap-4">
-                    <div className="min-w-0 flex items-baseline gap-x-2 flex-wrap">
-                      <span className="text-sm font-medium text-white">{entry.company}</span>
-                      <span className="text-sm text-[#888888] truncate">
-                        {entry.roles.map((r) => r.title).join(", ")}
-                      </span>
-                    </div>
-                    <span className="text-xs text-[#888888] shrink-0">{entry.span}</span>
-                  </div>
+                {/* Logo (monogram fallback behind) */}
+                <div
+                  className="relative w-9 h-9 rounded-lg shrink-0 overflow-hidden"
+                  style={{ backgroundColor: `${entry.accent}1a` }}
+                >
+                  <span
+                    className="absolute inset-0 flex items-center justify-center text-sm font-bold"
+                    style={{ color: entry.accent }}
+                  >
+                    {entry.monogram}
+                  </span>
+                  <img
+                    src={entry.logo}
+                    alt={entry.company}
+                    className="absolute inset-0 w-full h-full object-cover"
+                    onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                  />
                 </div>
 
-                {/* Expanded detail — per-role dates + summary */}
-                <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-[grid-template-rows] duration-300 ease-out">
-                  <div className="overflow-hidden">
-                    <div className="pt-1 pb-2 space-y-3">
+                {/* Company + roles, with dates right-aligned */}
+                <div className="flex-1 min-w-0">
+                  {/* First line — vertically centered to the logo */}
+                  <div className="h-9 flex items-center">
+                    <div className="flex-1 min-w-0 flex items-baseline justify-between gap-4">
+                      <div className="min-w-0 flex items-baseline gap-x-2 flex-wrap">
+                        <span className="text-sm font-medium text-white">{entry.company}</span>
+                        <span className="text-sm text-[#888888] truncate">
+                          {entry.roles.map((r) => r.title).join(", ")}
+                        </span>
+                      </div>
+                      <span className="text-xs text-[#888888] shrink-0">{entry.span}</span>
+                    </div>
+                  </div>
+
+                  {/* Expanded detail — per-role dates + summary.
+                      Conditionally rendered with a fade/slide-in on hover or tap. */}
+                  {expanded && (
+                    <div className="pt-2 space-y-3 animate-in fade-in slide-in-from-top-1 duration-200">
                       {entry.roles.map((role) => (
                         <div key={role.title}>
                           <div className="flex items-baseline gap-2 flex-wrap">
@@ -478,12 +530,12 @@ function ExperienceSection() {
                         </div>
                       ))}
                     </div>
-                  </div>
+                  )}
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
@@ -501,8 +553,8 @@ function ToolsSection() {
       </h2>
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-6 lg:gap-10">
-        {/* Left: tool list */}
-        <div className="flex flex-col gap-0.5">
+        {/* Left: tool list (below the panel on mobile, left column on desktop) */}
+        <div className="order-2 lg:order-1 flex flex-col gap-0.5">
           {tools.map((tool) => {
             const config = proficiencyConfig[tool.proficiency];
             const isActive = tool.id === selectedId;
@@ -556,8 +608,8 @@ function ToolsSection() {
           })}
         </div>
 
-        {/* Right: detail panel */}
-        <div className="lg:sticky lg:top-12 self-start w-full">
+        {/* Right: detail panel (above the list on mobile; sticky so it stays in view) */}
+        <div className="order-1 lg:order-2 sticky top-4 lg:top-12 self-start w-full z-10">
           <div
             key={selected.id}
             className="bg-[#242424] rounded-xl p-6 sm:p-8 border border-white/5 animate-in fade-in duration-200"
