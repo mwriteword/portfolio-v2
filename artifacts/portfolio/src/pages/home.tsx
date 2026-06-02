@@ -148,6 +148,17 @@ const tools: Tool[] = [
     ],
   },
   {
+    id: 10,
+    name: "Contentful",
+    icon: "https://cdn.simpleicons.org/contentful",
+    proficiency: "Intermediate / Advanced",
+    bullets: [
+      "Owned the full Platform Experiences support document set.",
+      "Led a content uplift program that resolved 50+ feedback tickets and increased overall helpfulness rating by 18%.",
+      "Drove a 60+ document migration from Intercom to Contentful.",
+    ],
+  },
+  {
     id: 8,
     name: "VS Code",
     icon: "/images/icons/vscode.svg",
@@ -298,12 +309,12 @@ const experience: ExperienceEntry[] = [
       {
         title: "Senior Content Designer",
         dates: "Sept 2023 – Mar 2026",
-        summary: "Owned content strategy and systems, shipping enterprise features across four platform apps.",
+        summary: "Owned content strategy and wrote all UX content for four platform apps: Home, Goals, Projects, and Teams.",
       },
       {
         title: "Content Designer",
         dates: "Jul 2021 – Sept 2023",
-        summary: "Sole content designer establishing local standards, patterns, and UX writing frameworks.",
+        summary: "Drove content for internal resources and procedures for products onboarding to the Atlassian platform. Later, moved to the Teams feature team and eventually Atlas.",
       },
     ],
   },
@@ -350,12 +361,12 @@ const experience: ExperienceEntry[] = [
       {
         title: "Copywriting Manager",
         dates: "Jul 2016 – Mar 2017",
-        summary: "Managed team workflows and trained copywriters.",
+        summary: "Continued copywriting duties, while managing team workflows and mentoring other copywriters.",
       },
       {
         title: "UX Copywriter",
         dates: "Feb 2014 – Jul 2016",
-        summary: "Developed brand voice and UX copy across sites, forms, landing pages, email, and social.",
+        summary: "Developed content experience for several energy efficiency products designed to encourage behavior change, including the flagship Home Energy Report and the Behavior Load-Shaping email series.",
       },
     ],
   },
@@ -373,7 +384,7 @@ function SkillsSection() {
   return (
     <div id="section-skills" className="mb-16 sm:mb-20 scroll-mt-12">
       <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">
-        skills i have honed.
+        skills i've developed.
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
@@ -486,7 +497,7 @@ function ToolsSection() {
   return (
     <div id="section-tools" className="mb-16 sm:mb-20 scroll-mt-12">
       <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">
-        tools i have used.
+        tools i've used.
       </h2>
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-6 lg:gap-10">
@@ -752,7 +763,7 @@ export default function Home() {
         {/* Case Studies */}
         <div id="section-work" className="mb-16 sm:mb-20 scroll-mt-12">
           <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">
-            projects i've worked on.
+            things i've worked on.
           </h2>
           <div className="divide-y divide-[#333333]">
             {caseStudies.map((study, i) => {
@@ -841,9 +852,9 @@ export default function Home() {
             <div className="flex-1 min-w-0">
               <p className="text-base font-semibold text-[#ffffff] mb-3">Hello! You can call me Vern.</p>
               <div className="space-y-3">
-                <p className="text-base leading-relaxed text-[#ffffff]">I have been in the UX Writing / Content Design space for over 12 years. I went from Copywriter to UX Writer to Content Designer, but at the core of it all, I write words that guide people and create content systems that scale.</p>
-                <p className="text-base leading-relaxed text-[#ffffff]">I did this most recently at Atlassian, where I built content systems for their platform apps (FKA Atlas). I was responsible for content across the Goals, Projects, and Teams apps, and had to build systems that were rigid enough to create consistency across the experiences but flexible enough to suit each app's needs.</p>
-                <p className="text-base leading-relaxed text-[#ffffff]">Now, I'm most interested in extending these systems with AI and understanding how the content design craft shifts more towards context engineering and agentic evaluation. I'm open and ready to work, so just shoot me a ping and let me know how I can help.</p>
+                <p className="text-base leading-relaxed text-[#ffffff]">I have been in the UX Writing / Content Design space for over 13 years. I went from Copywriter to UX Writer to Content Designer, but at the core of it all, I write words that guide people and create content systems that scale.</p>
+                <p className="text-base leading-relaxed text-[#ffffff]">I did this most recently at Atlassian, where I built content systems for their platform apps (FKA Atlas). I was responsible for content across the Home, Goals, Projects, and Teams platform apps, and had to build systems that were rigid enough to create consistency across the experiences but flexible enough to suit each app's needs.</p>
+                <p className="text-base leading-relaxed text-[#ffffff]">When I'm not doing content stuff, I'm a father/butler to two small children for a majority of my time. In what remaining time I find, I like to boulder at my local rock climbing gym and play a variety of video games (mostly RPGs of some kind).</p>
               </div>
             </div>
 
