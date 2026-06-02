@@ -390,16 +390,26 @@ const skillActiveClass: Record<string, string> = {
 };
 
 function SkillsSection() {
-  // Color highlight on hover (desktop) or tap (mobile). Tapped pills stay lit
-  // until tapped again — purely cosmetic.
+  // Color highlight on hover (desktop) or tap (mobile). A tap lights the pill,
+  // then it auto-fades after 2.5s — purely cosmetic.
   const [tapped, setTapped] = useState<Set<string>>(new Set());
   const [hoverKey, setHoverKey] = useState<string | null>(null);
-  const toggle = (key: string) =>
-    setTapped((prev) => {
-      const next = new Set(prev);
-      next.has(key) ? next.delete(key) : next.add(key);
-      return next;
-    });
+  const timers = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
+
+  const highlight = (key: string) => {
+    setTapped((prev) => new Set(prev).add(key));
+    if (timers.current[key]) clearTimeout(timers.current[key]);
+    timers.current[key] = setTimeout(() => {
+      setTapped((prev) => {
+        const next = new Set(prev);
+        next.delete(key);
+        return next;
+      });
+      delete timers.current[key];
+    }, 2500);
+  };
+
+  useEffect(() => () => { Object.values(timers.current).forEach(clearTimeout); }, []);
 
   return (
     <div id="section-skills" className="mb-16 sm:mb-20 scroll-mt-12">
@@ -420,7 +430,7 @@ function SkillsSection() {
                 return (
                   <span
                     key={skill}
-                    onClick={() => toggle(key)}
+                    onClick={() => highlight(key)}
                     onMouseEnter={() => setHoverKey(key)}
                     onMouseLeave={() => setHoverKey(null)}
                     className={`cursor-pointer select-none text-sm rounded-full border px-3.5 py-1.5 transition-colors duration-200 ${
@@ -543,8 +553,12 @@ function ExperienceSection() {
 
 function ToolsSection() {
   const [selectedId, setSelectedId] = useState(tools[0].id);
+  // Expand/collapse is a persistent mode: stays collapsed while browsing tools,
+  // and once expanded stays expanded (across tool changes) until "Show less".
+  const [expanded, setExpanded] = useState(false);
   const selected = tools.find((t) => t.id === selectedId) ?? tools[0];
   const selConfig = proficiencyConfig[selected.proficiency];
+  const hasMore = selected.bullets.length > 1;
 
   return (
     <div id="section-tools" className="mb-16 sm:mb-20 scroll-mt-12">
@@ -552,83 +566,114 @@ function ToolsSection() {
         tools i've used.
       </h2>
 
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-6 lg:gap-10">
-        {/* Left: tool list (below the panel on mobile, left column on desktop) */}
-        <div className="order-2 lg:order-1 flex flex-col gap-0.5">
-          {tools.map((tool) => {
-            const config = proficiencyConfig[tool.proficiency];
-            const isActive = tool.id === selectedId;
-            return (
-              <button
-                key={tool.id}
-                onMouseEnter={() => setSelectedId(tool.id)}
-                onFocus={() => setSelectedId(tool.id)}
-                onClick={() => setSelectedId(tool.id)}
-                aria-pressed={isActive}
-                aria-label={`${tool.name} — ${config.label}`}
-                className={`flex items-center gap-3 rounded-lg pl-2 pr-3 py-2.5 text-left transition-colors duration-200 ${
-                  isActive ? "bg-[#383838]" : "hover:bg-[#333333]"
-                }`}
-              >
-                {/* Accent bar */}
-                <span
-                  className="w-0.5 h-5 rounded-full shrink-0 transition-colors duration-200"
-                  style={{ backgroundColor: isActive ? config.labelColor : "transparent" }}
+      {/* Detail panel — static at the top */}
+      <div className="bg-[#242424] rounded-xl p-6 sm:p-8 border border-white/5 mb-6">
+        <div key={selected.id} className="animate-in fade-in duration-200">
+          <div className="flex items-center gap-3 mb-4">
+            <img
+              src={selected.icon}
+              alt={selected.name}
+              className="w-7 h-7 object-contain shrink-0"
+              onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+            />
+            <h3 className="text-lg font-semibold text-white">{selected.name}</h3>
+          </div>
+          <div className="flex items-center gap-2 mb-5 pb-5 border-b border-white/5">
+            <div className="flex gap-1">
+              {selConfig.dots.map((dot, i) => (
+                <div
+                  key={i}
+                  className="w-2 h-2 rounded-full overflow-hidden"
+                  style={
+                    dot.half
+                      ? { background: `linear-gradient(to right, ${dot.color} 50%, ${EMPTY_DOT} 50%)` }
+                      : { backgroundColor: dot.color }
+                  }
                 />
-                <img
-                  src={tool.icon}
-                  alt=""
-                  className="w-4 h-4 object-contain shrink-0"
-                  style={{ filter: isActive ? "none" : "contrast(0) brightness(1.3)" }}
-                  onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
-                />
-                <span
-                  className={`flex-1 text-sm font-medium transition-colors duration-200 ${
-                    isActive ? "text-white" : "text-[#999999]"
-                  }`}
-                >
-                  {tool.name}
-                </span>
-                {/* Proficiency dots */}
-                <div className="flex gap-1 shrink-0">
-                  {config.dots.map((dot, i) => (
-                    <div
-                      key={i}
-                      className="w-1.5 h-1.5 rounded-full overflow-hidden"
-                      style={
-                        dot.half
-                          ? { background: `linear-gradient(to right, ${dot.color} 50%, ${EMPTY_DOT} 50%)` }
-                          : { backgroundColor: dot.color }
-                      }
-                    />
-                  ))}
-                </div>
-              </button>
-            );
-          })}
-        </div>
+              ))}
+            </div>
+            <span className="text-xs font-medium" style={{ color: selConfig.labelColor }}>
+              {selConfig.label}
+            </span>
+          </div>
 
-        {/* Right: detail panel (above the list on mobile; sticky so it stays in view) */}
-        <div className="order-1 lg:order-2 sticky top-4 lg:top-12 self-start w-full z-10">
-          <div
-            key={selected.id}
-            className="bg-[#242424] rounded-xl p-6 sm:p-8 border border-white/5 animate-in fade-in duration-200"
-          >
-            <div className="flex items-center gap-3 mb-4">
+          {/* Bullets — collapsed clamps to ~first bullet with a fade + "Show more" */}
+          <div className="relative">
+            <ul
+              className={`space-y-3 overflow-hidden transition-all duration-300 ease-out ${
+                expanded ? "max-h-[1000px]" : "max-h-[3.5rem]"
+              }`}
+            >
+              {selected.bullets.map((bullet, i) => (
+                <li key={i} className="flex items-start gap-2.5 text-sm text-[#cccccc] leading-relaxed">
+                  <span className="mt-1.5 w-1 h-1 rounded-full bg-[#555555] shrink-0" />
+                  {bullet}
+                </li>
+              ))}
+            </ul>
+            {hasMore && !expanded && (
+              <button
+                onClick={() => setExpanded(true)}
+                className="absolute inset-x-0 bottom-0 flex h-12 items-end justify-start bg-gradient-to-t from-[#242424] via-[#242424] to-transparent text-xs font-medium text-[#6ea8ff] hover:text-[#9cc4ff] transition-colors"
+              >
+                Show more
+              </button>
+            )}
+          </div>
+
+          {hasMore && expanded && (
+            <button
+              onClick={() => setExpanded(false)}
+              className="mt-3 text-xs font-medium text-[#6ea8ff] hover:text-[#9cc4ff] transition-colors"
+            >
+              Show less
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Tool list */}
+      <div className="flex flex-col gap-0.5">
+        {tools.map((tool) => {
+          const config = proficiencyConfig[tool.proficiency];
+          const isActive = tool.id === selectedId;
+          return (
+            <button
+              key={tool.id}
+              onMouseEnter={() => setSelectedId(tool.id)}
+              onFocus={() => setSelectedId(tool.id)}
+              onClick={() => setSelectedId(tool.id)}
+              aria-pressed={isActive}
+              aria-label={`${tool.name} — ${config.label}`}
+              className={`flex items-center gap-3 rounded-lg pl-2 pr-3 py-2.5 text-left transition-colors duration-200 ${
+                isActive ? "bg-[#383838]" : "hover:bg-[#333333]"
+              }`}
+            >
+              {/* Accent bar */}
+              <span
+                className="w-0.5 h-5 rounded-full shrink-0 transition-colors duration-200"
+                style={{ backgroundColor: isActive ? config.labelColor : "transparent" }}
+              />
               <img
-                src={selected.icon}
-                alt={selected.name}
-                className="w-7 h-7 object-contain shrink-0"
+                src={tool.icon}
+                alt=""
+                className="w-4 h-4 object-contain shrink-0"
+                style={{ filter: isActive ? "none" : "contrast(0) brightness(1.3)" }}
                 onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
               />
-              <h3 className="text-lg font-semibold text-white">{selected.name}</h3>
-            </div>
-            <div className="flex items-center gap-2 mb-5 pb-5 border-b border-white/5">
-              <div className="flex gap-1">
-                {selConfig.dots.map((dot, i) => (
+              <span
+                className={`flex-1 text-sm font-medium transition-colors duration-200 ${
+                  isActive ? "text-white" : "text-[#999999]"
+                }`}
+              >
+                {tool.name}
+              </span>
+              {/* Proficiency dots */}
+              <div className="flex gap-1 shrink-0">
+                {config.dots.map((dot, i) => (
                   <div
                     key={i}
-                    className="w-2 h-2 rounded-full overflow-hidden"
+                    className="w-1.5 h-1.5 rounded-full overflow-hidden"
                     style={
                       dot.half
                         ? { background: `linear-gradient(to right, ${dot.color} 50%, ${EMPTY_DOT} 50%)` }
@@ -637,20 +682,9 @@ function ToolsSection() {
                   />
                 ))}
               </div>
-              <span className="text-xs font-medium" style={{ color: selConfig.labelColor }}>
-                {selConfig.label}
-              </span>
-            </div>
-            <ul className="space-y-3">
-              {selected.bullets.map((bullet, i) => (
-                <li key={i} className="flex items-start gap-2.5 text-sm text-[#cccccc] leading-relaxed">
-                  <span className="mt-1.5 w-1 h-1 rounded-full bg-[#555555] shrink-0" />
-                  {bullet}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+            </button>
+          );
+        })}
       </div>
     </div>
   );
