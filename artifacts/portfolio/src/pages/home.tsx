@@ -415,17 +415,17 @@ function ExperienceSection() {
             {/* Collapsed row — top-aligned so the logo stays anchored on expand */}
             <div className="flex items-start gap-4">
               {/* Index (centered against the logo height) */}
-              <span className="h-12 flex items-center text-xs text-[#555555] w-6 shrink-0 font-mono tabular-nums">
+              <span className="h-10 flex items-center text-xs text-[#555555] w-6 shrink-0 font-mono tabular-nums">
                 {String(i + 1).padStart(2, "0")}
               </span>
 
               {/* Logo (monogram fallback behind) */}
               <div
-                className="relative w-12 h-12 rounded-lg shrink-0 overflow-hidden"
+                className="relative w-10 h-10 rounded-lg shrink-0 overflow-hidden"
                 style={{ backgroundColor: `${entry.accent}1a` }}
               >
                 <span
-                  className="absolute inset-0 flex items-center justify-center text-base font-bold"
+                  className="absolute inset-0 flex items-center justify-center text-sm font-bold"
                   style={{ color: entry.accent }}
                 >
                   {entry.monogram}
@@ -441,7 +441,7 @@ function ExperienceSection() {
               {/* Company + roles, with dates right-aligned */}
               <div className="flex-1 min-w-0">
                 {/* First line — vertically centered to the logo */}
-                <div className="h-12 flex items-center">
+                <div className="h-10 flex items-center">
                   <div className="flex-1 min-w-0 flex items-baseline justify-between gap-4">
                     <div className="min-w-0 flex items-baseline gap-x-2 flex-wrap">
                       <span className="text-sm font-medium text-white">{entry.company}</span>
