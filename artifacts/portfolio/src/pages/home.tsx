@@ -390,7 +390,7 @@ const skillActiveClass: Record<string, string> = {
 };
 
 function SkillsSection() {
-  // Hover or tap lights a pill in its category color, holds ~1.5s, then slowly
+  // Hover or tap lights a pill in its category color, holds ~0.75s, then slowly
   // fades back to neutral (quick fade-in, slow fade-out) — purely cosmetic.
   const [lit, setLit] = useState<Set<string>>(new Set());
   const timers = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
@@ -405,7 +405,7 @@ function SkillsSection() {
         return next;
       });
       delete timers.current[key];
-    }, 1500);
+    }, 750);
   };
 
   useEffect(() => () => { Object.values(timers.current).forEach(clearTimeout); }, []);
