@@ -100,7 +100,7 @@ export default function CaseStudy1() {
         </Link>
 
         <h1 className="font-bold tracking-tight text-[28px] sm:text-[48px] text-[#ffffff] mb-8 sm:mb-12">
-          Goal Types & Content Systems — Atlassian
+          Goal Types & OKR Modeling
         </h1>
 
         {/* Intro: two-column */}
@@ -125,8 +125,8 @@ export default function CaseStudy1() {
                 <p className="text-[#ffffff] text-sm">PM, Product Design, Engineering, Localization</p>
               </div>
               <div>
-                <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Deliverables</p>
-                <p className="text-[#ffffff] text-sm">Content model aligned with object model, Content strategy, Information architecture, Support documentation, In-product UX content</p>
+                <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">In this case study</p>
+                <p className="text-[#ffffff] text-sm">Content Systems, Content Strategy, Localization, Cross-functional Collaboration, UX Writing, Admin experiences, Scalability</p>
               </div>
             </div>
           </div>
