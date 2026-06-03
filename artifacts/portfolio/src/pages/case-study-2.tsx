@@ -21,7 +21,7 @@ export default function CaseStudy2() {
         </Link>
 
         <h1 className="font-bold tracking-tight text-[28px] sm:text-[48px] text-[#ffffff] mb-8 sm:mb-12">
-          Behavior Change & UX Writing — Opower
+          Behavioral Load-Shaping Emails
         </h1>
 
         {/* Intro Section */}
@@ -38,12 +38,16 @@ export default function CaseStudy2() {
                 <p className="text-[#ffffff] text-sm">Oracle Utilities - Opower</p>
               </div>
               <div>
+                <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Timeline</p>
+                <p className="text-[#ffffff] text-sm">~6 months</p>
+              </div>
+              <div>
                 <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Collaborators</p>
                 <p className="text-[#ffffff] text-sm">UX Designers & UX Researchers</p>
               </div>
               <div>
-                <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Date</p>
-                <p className="text-[#ffffff] text-sm">2019</p>
+                <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">In this case study</p>
+                <p className="text-[#ffffff] text-sm">UX Writing, Behavior Change, Regulated Industry, Email Campaign, Data Visualization, Accessibility, Copywriting, Cross-functional Collaboration</p>
               </div>
             </div>
           </div>
