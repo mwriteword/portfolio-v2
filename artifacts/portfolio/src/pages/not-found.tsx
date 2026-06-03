@@ -8,11 +8,11 @@ export default function NotFound() {
         <CardContent className="pt-6">
           <div className="flex mb-4 gap-2">
             <AlertCircle className="h-8 w-8 text-red-500" />
-            <h1 className="text-2xl font-bold text-gray-900">404 Page Not Found</h1>
+            <h1 className="text-2xl font-bold text-gray-900">Oops, page wasn't found.</h1>
           </div>
 
           <p className="mt-4 text-sm text-gray-600">
-            Did you forget to add the page to the router?
+            Frankly not sure how we got here, but glad to know we have an error page and that it works! Anyway, <a href="https://vjtlaq.vercel.app">let's go back to the main site</a>.
           </p>
         </CardContent>
       </Card>
