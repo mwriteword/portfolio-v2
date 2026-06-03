@@ -1,71 +1,76 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { Mail, Linkedin, FileText, ArrowUpRight, Check, Copy } from "lucide-react";
+import { Mail, Linkedin, FileText, ArrowUpRight, Check, Copy, Target, Compass, Bot, BookOpen, PenLine, type LucideIcon } from "lucide-react";
 import { TableOfContents, useTocActiveSection, TocItem } from "../components/TableOfContents";
 
-const caseStudies = [
+interface CaseStudy {
+  id: number;
+  title: string;
+  icon: LucideIcon;
+  bg: string;
+  accent: string;
+  href: string;
+  tags: string[];
+  description: string;
+}
+
+const caseStudies: CaseStudy[] = [
   {
     id: 1,
     title: "Goal Types & OKR Modeling — Atlassian",
-    image: "/images/atlassian/tile.png",
+    icon: Target,
     bg: "#1e3a5f",
     accent: "#3b82f6",
     href: "/case-study-1",
-    fit: "cover" as const,
     tags: ["Content Systems", "Localization", "Object Modeling"],
     description: "A new goal type system that brought OKR support to Atlassian's Goals app.",
   },
   {
     id: 2,
     title: "Teamwork Collection Onboarding — Atlassian",
-    image: "/images/atlassian/tileonboarding.png",
+    icon: Compass,
     bg: "#3a2a10",
     accent: "#f59e0b",
     href: "/case-study-onboarding",
-    fit: "cover" as const,
     tags: ["Content Strategy", "UX Writing", "End-to-end Experience"],
     description: "End-to-end onboarding content for the launch of a new multi-app bundle.",
   },
   {
     id: 3,
     title: "Risk Agent Workflow — Atlassian",
-    image: "/images/atlassian/ai-agentic-tile.png",
+    icon: Bot,
     bg: "#0e3a42",
     accent: "#06b6d4",
     href: "/case-study-agentic",
-    fit: "cover" as const,
     tags: ["AI Content", "Agentic Workflows", "AI Evaluation"],
     description: "An agentic Rovo workflow that turns logged risks into actionable, auto-generated summaries.",
   },
   {
     id: 4,
     title: "Behavioral Load-Shaping Emails — Opower",
-    image: "/images/opower/tile.png",
+    icon: Mail,
     bg: "#1a3a2a",
     accent: "#22c55e",
     href: "/case-study-2",
-    fit: "contain" as const,
     tags: ["UX Writing", "Behavior Change", "Email"],
     description: "An email series designed to shift real-world energy use for utility customers.",
   },
   {
     id: 5,
     title: "Textbook Solutions — Course Hero",
-    image: "/images/coursehero/tile.webp",
+    icon: BookOpen,
     bg: "#2a1a3a",
     accent: "#a855f7",
     href: "/case-study-coursehero",
-    fit: "contain" as const,
     tags: ["SEO", "Web Content", "Longform Writing"],
     description: "Search-optimized textbook descriptions written without access to the source texts.",
   },
   {
     id: 6,
     title: "Copywriting Samples — QuinStreet",
-    image: "/images/quinstreet/tile.png",
+    icon: PenLine,
     bg: "#3a1a2e",
     accent: "#ec4899",
     href: "/case-study-quinstreet",
-    fit: "contain" as const,
     tags: ["Copywriting", "Marketing", "Social Media"],
     description: "A selection of banners, emails, social media posts, and landing pages I wrote for a performance marketing agency.",
   },
@@ -882,6 +887,7 @@ export default function Home() {
           <div className="divide-y divide-[#333333]">
             {caseStudies.map((study, i) => {
               const [projectTitle, company] = study.title.split(' — ');
+              const Icon = study.icon;
               return (
                 <a
                   key={study.id}
@@ -895,15 +901,10 @@ export default function Home() {
 
                   {/* Thumbnail */}
                   <div
-                    className="w-16 h-12 rounded-md overflow-hidden shrink-0 flex items-center justify-center"
+                    className="w-16 h-12 rounded-md shrink-0 flex items-center justify-center"
                     style={{ backgroundColor: study.bg }}
                   >
-                    <img
-                      src={study.image}
-                      alt=""
-                      className={`w-full h-full ${study.fit === 'cover' ? 'object-cover' : 'object-contain p-1'}`}
-                      onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
-                    />
+                    <Icon className="w-6 h-6" strokeWidth={1.75} style={{ color: study.accent }} />
                   </div>
 
                   {/* Text */}
