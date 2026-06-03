@@ -106,7 +106,7 @@ export default function CaseStudyAgentic() {
         <div id="section-demo" className="scroll-mt-12 mb-16 sm:mb-20">
           <SectionHeading>Workflow demo</SectionHeading>
 
-          <div className="max-w-4xl mx-auto mb-3">
+          <div className="w-full mb-3">
             <div className="relative w-full rounded-lg overflow-hidden border border-white/5" style={{ paddingBottom: "62.5%" }}>
               <iframe
                 className="absolute inset-0 w-full h-full"
