@@ -125,7 +125,7 @@ export default function CaseStudyOnboarding() {
         </Link>
 
         <h1 className="font-bold tracking-tight text-[28px] sm:text-[48px] text-[#ffffff] mb-8 sm:mb-12">
-          TWC Onboarding & Content Strategy — Atlassian
+          Teamwork Collection Onboarding
         </h1>
 
         {/* ── Intro ── */}
@@ -142,15 +142,15 @@ export default function CaseStudyOnboarding() {
               </div>
               <div>
                 <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Timeline</p>
-                <p className="text-[#ffffff] text-sm">Winter 2024 – Fall 2025</p>
+                <p className="text-[#ffffff] text-sm">~10 months</p>
               </div>
               <div>
                 <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Collaborators</p>
-                <p className="text-[#ffffff] text-sm">Product Design, Content Designers, Design Leadership</p>
+                <p className="text-[#ffffff] text-sm">Product Design, Content Designers, Design Leadership, Brand & Creative</p>
               </div>
               <div>
-                <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Deliverables</p>
-                <p className="text-[#ffffff] text-sm">Content strategy, in-product flows, onboarding hero video script</p>
+                <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">In this case study</p>
+                <p className="text-[#ffffff] text-sm">Content Strategy, UX Writing, Onboarding, Journey Mapping, End-to-end Experience, Cross-functional Collaboration, Launch Communications</p>
               </div>
             </div>
           </div>
