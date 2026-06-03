@@ -7,6 +7,7 @@ import Home from "@/pages/home";
 import CaseStudy1 from "@/pages/case-study-1";
 import CaseStudy2 from "@/pages/case-study-2";
 import CaseStudyOnboarding from "@/pages/case-study-onboarding";
+import CaseStudyAgentic from "@/pages/case-study-agentic";
 import CaseStudyCourseHero from "@/pages/case-study-coursehero";
 import CaseStudyQuinStreet from "@/pages/case-study-quinstreet";
 
@@ -19,6 +20,7 @@ function Router() {
       <Route path="/case-study-1" component={CaseStudy1} />
       <Route path="/case-study-2" component={CaseStudy2} />
       <Route path="/case-study-onboarding" component={CaseStudyOnboarding} />
+      <Route path="/case-study-agentic" component={CaseStudyAgentic} />
       <Route path="/case-study-coursehero" component={CaseStudyCourseHero} />
       <Route path="/case-study-quinstreet" component={CaseStudyQuinStreet} />
       {/* Redirects for old URLs */}

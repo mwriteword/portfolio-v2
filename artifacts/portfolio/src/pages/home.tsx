@@ -27,6 +27,17 @@ const caseStudies = [
   },
   {
     id: 3,
+    title: "AI Content & Agentic Workflows — Atlassian",
+    image: "/images/atlassian/ai-agentic-tile.png",
+    bg: "#0e3a42",
+    accent: "#06b6d4",
+    href: "/case-study-agentic",
+    fit: "cover" as const,
+    tags: ["Agentic Workflows", "RAG", "AI Content"],
+    description: "An agentic Rovo workflow that turns logged risks into actionable, auto-generated summaries.",
+  },
+  {
+    id: 4,
     title: "Behavior Change & UX Writing — Opower",
     image: "/images/opower/tile.png",
     bg: "#1a3a2a",
@@ -37,7 +48,7 @@ const caseStudies = [
     description: "An email series designed to shift real-world energy-use behavior.",
   },
   {
-    id: 4,
+    id: 5,
     title: "SEO & Longform Content — Course Hero",
     image: "/images/coursehero/tile.webp",
     bg: "#2a1a3a",
@@ -48,7 +59,7 @@ const caseStudies = [
     description: "Search-optimized textbook descriptions written without access to the source texts.",
   },
   {
-    id: 5,
+    id: 6,
     title: "Marketing Copywriting — QuinStreet",
     image: "/images/quinstreet/tile.png",
     bg: "#3a1a2e",
@@ -878,6 +889,7 @@ export default function Home() {
                       src={study.image}
                       alt=""
                       className={`w-full h-full ${study.fit === 'cover' ? 'object-cover' : 'object-contain p-1'}`}
+                      onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
                     />
                   </div>
 
