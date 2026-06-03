@@ -73,7 +73,7 @@ export default function CaseStudyAgentic() {
         </h1>
 
         {/* ── Intro ── */}
-        <div className="flex flex-col sm:flex-row gap-6 sm:gap-12 mb-16">
+        <div className="flex flex-col sm:flex-row gap-6 sm:gap-12 mb-12">
           <div className="flex-shrink-0 sm:w-52">
             <div className="space-y-4">
               <div>
@@ -103,7 +103,7 @@ export default function CaseStudyAgentic() {
         </div>
 
         {/* ── Workflow demo ── */}
-        <div id="section-demo" className="scroll-mt-12 mb-16 sm:mb-20">
+        <div id="section-demo" className="scroll-mt-12 mb-12">
           <SectionHeading>Workflow demo</SectionHeading>
 
           <div className="w-full mb-3">
@@ -127,7 +127,7 @@ export default function CaseStudyAgentic() {
         </div>
 
         {/* ── Context ── */}
-        <div id="section-context" className="scroll-mt-12 mb-16 sm:mb-20">
+        <div id="section-context" className="scroll-mt-12 mb-12">
           <SectionHeading>Context</SectionHeading>
 
           <p className="text-base leading-relaxed text-[#ffffff] mb-4">
@@ -148,7 +148,7 @@ export default function CaseStudyAgentic() {
         </div>
 
         {/* ── Process ── */}
-        <div id="section-process" className="scroll-mt-12 mb-16 sm:mb-20">
+        <div id="section-process" className="scroll-mt-12 mb-12">
           <SectionHeading>Process</SectionHeading>
 
           <p className="text-base leading-relaxed text-[#ffffff] mb-4">
@@ -196,7 +196,7 @@ export default function CaseStudyAgentic() {
         </div>
 
         {/* ── Result ── */}
-        <div id="section-result" className="scroll-mt-12 mb-16 sm:mb-20">
+        <div id="section-result" className="scroll-mt-12 mb-12">
           <SectionHeading>Result</SectionHeading>
 
           <p className="text-base leading-relaxed text-[#ffffff] mb-4">
