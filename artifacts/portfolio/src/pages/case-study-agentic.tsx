@@ -69,7 +69,7 @@ export default function CaseStudyAgentic() {
         </Link>
 
         <h1 className="font-bold tracking-tight text-[28px] sm:text-[48px] text-[#ffffff] mb-8 sm:mb-12">
-          AI Content & Agentic Workflows — Builders Week Demo
+          Risk Agent Workflow
         </h1>
 
         {/* ── Intro ── */}
@@ -91,6 +91,10 @@ export default function CaseStudyAgentic() {
               <div>
                 <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Collaborators</p>
                 <p className="text-[#ffffff] text-sm">Just me 😇</p>
+              </div>
+              <div>
+                <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">In this case study</p>
+                <p className="text-[#ffffff] text-sm">Content Design, Information Architecture, AI Content, Agentic Workflow Development, Agent Evaluation, Prompt Design, Feature Development, Automation</p>
               </div>
             </div>
           </div>
