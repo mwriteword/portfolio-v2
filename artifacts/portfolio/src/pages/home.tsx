@@ -406,25 +406,16 @@ const skillActiveClass: Record<string, string> = {
 };
 
 function SkillsSection() {
-  // Hover or tap lights a pill in its category color, holds ~0.75s, then slowly
-  // fades back to neutral (quick fade-in, slow fade-out) — purely cosmetic.
+  // Hover (or tap) lights a pill in its category color and it stays lit while
+  // hovered. On un-hover it slowly fades back to neutral — the fade starts 0.1s
+  // after leaving and animates over 1.5s. Driven purely by hover state + CSS.
   const [lit, setLit] = useState<Set<string>>(new Set());
-  const timers = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
-
-  const highlight = (key: string) => {
-    setLit((prev) => new Set(prev).add(key));
-    if (timers.current[key]) clearTimeout(timers.current[key]);
-    timers.current[key] = setTimeout(() => {
-      setLit((prev) => {
-        const next = new Set(prev);
-        next.delete(key);
-        return next;
-      });
-      delete timers.current[key];
-    }, 750);
-  };
-
-  useEffect(() => () => { Object.values(timers.current).forEach(clearTimeout); }, []);
+  const setKey = (key: string, on: boolean) =>
+    setLit((prev) => {
+      const next = new Set(prev);
+      on ? next.add(key) : next.delete(key);
+      return next;
+    });
 
   return (
     <div id="section-skills" className="mb-16 sm:mb-20 scroll-mt-12">
@@ -445,12 +436,12 @@ function SkillsSection() {
                 return (
                   <span
                     key={skill}
-                    onClick={() => highlight(key)}
-                    onMouseEnter={() => highlight(key)}
-                    className={`cursor-pointer select-none text-sm rounded-full border px-3.5 py-1.5 transition-colors ${
+                    onMouseEnter={() => setKey(key, true)}
+                    onMouseLeave={() => setKey(key, false)}
+                    className={`cursor-default select-none text-sm rounded-full border px-3.5 py-1.5 transition-colors ${
                       active
-                        ? `duration-200 ${skillActiveClass[category.name]}`
-                        : "duration-300 text-[#aaaaaa] border-[#3a3a3a]"
+                        ? `delay-0 duration-150 ${skillActiveClass[category.name]}`
+                        : "delay-100 duration-[1500ms] text-[#aaaaaa] border-[#3a3a3a]"
                     }`}
                   >
                     {skill}
