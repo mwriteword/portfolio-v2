@@ -28,7 +28,7 @@ export default function CaseStudyCourseHero() {
         </Link>
 
         <h1 className="font-bold tracking-tight text-[28px] sm:text-[48px] text-[#ffffff] mb-8 sm:mb-12">
-          SEO & Longform Content — Course Hero
+          Textbook Solutions
         </h1>
 
         {/* Intro: two-column */}
@@ -36,16 +36,20 @@ export default function CaseStudyCourseHero() {
           <div className="flex-shrink-0 sm:w-52">
             <div className="space-y-4">
               <div>
+                <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Role</p>
+                <p className="text-[#ffffff] text-sm">Web Content Specialist, SEO (Contract)</p>
+              </div>
+              <div>
                 <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Company</p>
                 <p className="text-[#ffffff] text-sm">Course Hero</p>
               </div>
               <div>
-                <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Project Type</p>
-                <p className="text-[#ffffff] text-sm">Contract work</p>
+                <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Timeline</p>
+                <p className="text-[#ffffff] text-sm">~4 months</p>
               </div>
               <div>
-                <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Date</p>
-                <p className="text-[#ffffff] text-sm">11/2019</p>
+                <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">In this case study</p>
+                <p className="text-[#ffffff] text-sm">SEO Content, Longform Content, Web Content,</p>
               </div>
             </div>
           </div>
