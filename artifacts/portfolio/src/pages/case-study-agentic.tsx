@@ -121,11 +121,8 @@ export default function CaseStudyAgentic() {
             </p>
           </div>
 
-          <p className="text-base leading-relaxed text-[#ffffff] mb-4">
-            This demo is a recreation I made of what the intended workflow would've looked like. The actual agent details and instructions were proprietary and I do not have access to the actual assets I created.
-          </p>
           <p className="text-base leading-relaxed text-[#ffffff]">
-            I built the template to be as usable as possible, building the content structure and information architecture in such a way that would surface the most useful, critical information up front.
+            This demo is a recreation I made of what the intended workflow would've looked like. The actual agent details and instructions were proprietary, and I do not have access to the assets I created.
           </p>
         </div>
 
@@ -134,7 +131,7 @@ export default function CaseStudyAgentic() {
           <SectionHeading>Context</SectionHeading>
 
           <p className="text-base leading-relaxed text-[#ffffff] mb-4">
-            In both the Goals and Projects apps, there is a "Risk" feature that lets you catalogue an identified risk over the course of the goal or project lifecycle. The main problem is that it <em>just</em> catalogued the risk, and didn't provide any real action or utility beyond identifying it. In real life, risks have their own lifecycle, where strategies are discussed and decisions are made and mitigation happens to balance the risk. But none of that was happening in our apps — all the actually useful information was kept somewhere else and you would only hope a later project update captures its resolution.
+            In both the Goals and Projects apps, there is a "Risk" feature that lets you catalogue an identified risk over the course of the goal or project lifecycle. The main problem was that it <em>just</em> catalogued the risk, and didn't provide any real action or utility beyond identifying it. In real life, risks have their own lifecycle, where strategies are discussed and decisions are made and mitigation happens to balance the risk. But none of that was happening in our apps — all the useful information was kept somewhere else and you would only hope a later project update would capture its resolution.
           </p>
 
           <div className="max-w-3xl mx-auto">
@@ -155,31 +152,31 @@ export default function CaseStudyAgentic() {
           <SectionHeading>Process</SectionHeading>
 
           <p className="text-base leading-relaxed text-[#ffffff] mb-4">
-            In the actual session, I started with{" "}
+            In the session, I started with{" "}
             <A href="https://www.atlassian.com/software/rovo/studio">Atlassian Studio</A>, a bespoke tool for users to build their own AI tools and agents. I described what the agentic workflow should do and look like, and I started by building the agent profile.
           </p>
           <p className="text-base leading-relaxed text-[#ffffff] mb-4">
-            Using Rovo itself, I created the agent instructions and created the general Confluence template. In order to determine both what information should be in the template and what outputs the agent should generate, I RAG-trained the agent on any and all Risk Summary/Mitigation documents it could find in Atlassian's internal Confluence instance. Rovo found and analyzed docs going back almost 15 years to determine the right template and content to generate.
+            Using Rovo itself, I created the agent instructions and the general Confluence template. In order to determine both what information should be in the template and what outputs the agent should generate, I RAG-trained the agent on any and all Risk Summary/Mitigation documents it could find in Atlassian's internal Confluence instance. Rovo found and analyzed docs going back almost 15 years to determine the right template and content to generate.
           </p>
           <p className="text-base leading-relaxed text-[#ffffff] mb-4">
-            I refined the agent's instructions based on the findings from analyzing those risk documents, making sure it knew how to read the comment/message text against this context and generate content in the template that would actually be useful to the team using it. I built the template to be as usable as possible, building the content structure and information architecture in such a way that would surface the most useful, critical information up front.
+            I refined the agent's instructions based on the findings from analyzing those risk documents, making sure it knew how to read the comment/message text against this context and generate content in the template that stakeholders would find useful.
           </p>
           <p className="text-base leading-relaxed text-[#ffffff] mb-4">
-            Once the agent was able to analyze a risk message and generate a risk summary page, I moved onto the necessary automations within Studio. The automation flow went:
+            Once the agent was able to analyze a risk message and generate a risk summary page, I moved on to the necessary automations within Studio. The automation flow went:
           </p>
 
           <ol className="space-y-3 mb-6">
             <li className="flex gap-3 text-base leading-relaxed text-[#ffffff]">
               <span className="text-[#06b6d4] font-semibold shrink-0 w-5 text-right">1.</span>
-              <span>Agent invoked in a Confluence comment</span>
+              <span>Agent invoked in a Confluence comment.</span>
             </li>
             <li className="text-base leading-relaxed text-[#ffffff]">
               <div className="flex gap-3">
                 <span className="text-[#06b6d4] font-semibold shrink-0 w-5 text-right">2.</span>
-                <span>Run core agent function</span>
+                <span>Run core agent function.</span>
               </div>
               <ul className="mt-2 ml-8 space-y-1.5">
-                {["Analyze comment/thread", "Generate page from template", "Fill out the template with analyzed information"].map((sub, i) => (
+                {["Analyze comment/thread.", "Generate page from template.", "Fill out the template with analyzed information."].map((sub, i) => (
                   <li key={i} className="flex gap-2.5 text-sm text-[#cccccc] leading-relaxed">
                     <span className="text-[#888888] shrink-0">{String.fromCharCode(97 + i)}.</span>
                     <span>{sub}</span>
@@ -203,10 +200,13 @@ export default function CaseStudyAgentic() {
           <SectionHeading>Result</SectionHeading>
 
           <p className="text-base leading-relaxed text-[#ffffff] mb-4">
-            By the end, the agent was able to spit out a filled-out risk summary page, but the intended automation triggering from a Confluence comment was not fully functional. I spent a lot of the last hour digging into the audit logs to try and figure out where the automation was breaking down and what events were or were not actually firing in the automation flow. The session time was called before I could figure out, but I had enough experience by the end to know how to keep refining it further.
+            A big part of my focus was on the content design output of this process: the template and the instructions for how the agent should fill it out. I structured the template for usability, organizing the content and information architecture to surface the most useful, critical information up front. Using findings from the risk artifact assessment, I focused the instructions on how to analyze the source message and surface the right information in the template.
+          </p>
+          <p className="text-base leading-relaxed text-[#ffffff] mb-4">
+            By the end, the agent could produce a filled-out risk summary page, which I tested using logged risks on real Projects. Triggering the workflow from a comment was the one unfinished piece. I spent the last hour of the session digging into the audit logs to find out which events were not firing properly. I'd just found where it was breaking down when the session ended, but I'd learned enough to know where to keep refining.
           </p>
           <p className="text-base leading-relaxed text-[#ffffff]">
-            By this point, inserting Rovo chat and auto-generated summaries felt like table stakes applications of AI. But going through this exercise and actually building the full agentic workflow felt like the first step in applying AI to our apps and feature sets in ways that users would actually find useful.
+            By this point, inserting Rovo chat and auto-generated summaries felt like table-stakes applications of AI. Going through this exercise and building the full agentic workflow felt like the first step in applying AI to our apps and feature sets in ways that users would actually find useful. For risk management, getting the workflow to trigger properly was just the cherry on top. But the real value was in the template and the agent, getting stakeholders up to speed quickly with everything they need to know on one page.
           </p>
         </div>
       </div>
