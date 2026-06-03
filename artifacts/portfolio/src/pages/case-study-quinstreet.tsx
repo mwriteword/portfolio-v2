@@ -51,7 +51,7 @@ export default function CaseStudyQuinStreet() {
         </Link>
 
         <h1 className="font-bold tracking-tight text-[28px] sm:text-[48px] text-[#ffffff] mb-8 sm:mb-12">
-          Marketing Copywriting — QuinStreet
+          Copywriting Samples
         </h1>
 
         {/* Intro: two-column */}
@@ -63,8 +63,16 @@ export default function CaseStudyQuinStreet() {
                 <p className="text-[#ffffff] text-sm">Copywriter</p>
               </div>
               <div>
-                <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Date</p>
+                <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Company</p>
+                <p className="text-[#ffffff] text-sm">QuinStreet</p>
+              </div>
+              <div>
+                <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Timeline</p>
                 <p className="text-[#ffffff] text-sm">Jan 2014 - Mar 2017</p>
+              </div>
+              <div>
+                <p className="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">In this case study</p>
+                <p className="text-[#ffffff] text-sm">Copywriting, Marketing Writing, Social Media Posts, Email, Web Banners, Landing Pages, Lead Gen, Performance Marketing</p>
               </div>
             </div>
           </div>
