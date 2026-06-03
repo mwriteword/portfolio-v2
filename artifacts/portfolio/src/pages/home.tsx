@@ -5,58 +5,69 @@ import { TableOfContents, useTocActiveSection, TocItem } from "../components/Tab
 const caseStudies = [
   {
     id: 1,
-    title: "Goal Types & Content Systems — Atlassian",
+    title: "Goal Types & OKR Modeling — Atlassian",
     image: "/images/atlassian/tile.png",
     bg: "#1e3a5f",
     accent: "#3b82f6",
     href: "/case-study-1",
     fit: "cover" as const,
-    tags: ["Content Systems", "IA", "Localization"],
+    tags: ["Content Systems", "Localization", "Object Modeling"],
     description: "A new goal type system that brought OKR support to Atlassian's Goals app.",
   },
   {
     id: 2,
-    title: "TWC Onboarding & Content Strategy — Atlassian",
+    title: "Teamwork Collection Onboarding — Atlassian",
     image: "/images/atlassian/tileonboarding.png",
     bg: "#3a2a10",
     accent: "#f59e0b",
     href: "/case-study-onboarding",
     fit: "cover" as const,
-    tags: ["Content Strategy", "Onboarding", "UX Writing"],
+    tags: ["Content Strategy", "UX Writing", "End-to-end Experience"],
     description: "End-to-end onboarding content for the launch of a new multi-app bundle.",
   },
   {
     id: 3,
-    title: "Behavior Change & UX Writing — Opower",
+    title: "Risk Agent Workflow — Atlassian",
+    image: "/images/atlassian/ai-agentic-tile.png",
+    bg: "#0e3a42",
+    accent: "#06b6d4",
+    href: "/case-study-agentic",
+    fit: "cover" as const,
+    tags: ["AI Content", "Agentic Workflows", "AI Evaluation"],
+    description: "An agentic Rovo workflow that turns logged risks into actionable, auto-generated summaries.",
+  },
+  {
+    id: 4,
+    title: "Behavioral Load-Shaping Emails — Opower",
     image: "/images/opower/tile.png",
     bg: "#1a3a2a",
     accent: "#22c55e",
     href: "/case-study-2",
     fit: "contain" as const,
     tags: ["UX Writing", "Behavior Change", "Email"],
-    description: "An email series designed to shift real-world energy-use behavior.",
+    description: "An email series designed to shift real-world energy use for utility customers.",
   },
   {
-    id: 4,
-    title: "SEO & Longform Content — Course Hero",
+    id: 5,
+    title: "Textbook Solutions — Course Hero",
     image: "/images/coursehero/tile.webp",
     bg: "#2a1a3a",
     accent: "#a855f7",
     href: "/case-study-coursehero",
     fit: "contain" as const,
-    tags: ["SEO", "Longform", "Web Content"],
+    tags: ["SEO", "Web Content", "Longform Writing"],
     description: "Search-optimized textbook descriptions written without access to the source texts.",
   },
   {
-    id: 5,
-    title: "Marketing Copywriting — QuinStreet",
+    id: 6,
+    title: "Copywriting Samples — QuinStreet",
     image: "/images/quinstreet/tile.png",
     bg: "#3a1a2e",
     accent: "#ec4899",
     href: "/case-study-quinstreet",
     fit: "contain" as const,
-    tags: ["Copywriting", "Email", "Landing Pages"],
-    description: "Banner, email, and landing-page copy across a range of marketing verticals.",
+    tags: ["Copywriting", "Marketing", "Social Media"],
+    description: "A selection of banners, emails, social media posts, and landing pages I wrote for a performance marketing agency.",
   },
 ];
 
@@ -434,7 +445,7 @@ function SkillsSection() {
                     className={`cursor-pointer select-none text-sm rounded-full border px-3.5 py-1.5 transition-colors ${
                       active
                         ? `duration-200 ${skillActiveClass[category.name]}`
-                        : "duration-1000 text-[#aaaaaa] border-[#3a3a3a]"
+                        : "duration-300 text-[#aaaaaa] border-[#3a3a3a]"
                     }`}
                   >
                     {skill}
@@ -449,11 +460,89 @@ function SkillsSection() {
   );
 }
 
+function ExperienceRow({
+  entry,
+  index,
+  isOpen,
+  onToggle,
+}: {
+  entry: ExperienceEntry;
+  index: number;
+  isOpen: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <div
+      onClick={onToggle}
+      className={`py-4 px-3 -mx-3 rounded-xl cursor-pointer transition-colors duration-200 ${
+        isOpen ? "bg-[#383838]" : "hover:bg-[#383838]"
+      }`}
+    >
+      {/* Collapsed row — top-aligned so the logo stays anchored on expand */}
+      <div className="flex items-start gap-4">
+        {/* Index (centered against the logo height) */}
+        <span className="h-9 flex items-center text-xs text-[#555555] w-6 shrink-0 font-mono tabular-nums">
+          {String(index + 1).padStart(2, "0")}
+        </span>
+
+        {/* Logo (monogram fallback behind) */}
+        <div
+          className="relative w-9 h-9 rounded-lg shrink-0 overflow-hidden"
+          style={{ backgroundColor: `${entry.accent}1a` }}
+        >
+          <span
+            className="absolute inset-0 flex items-center justify-center text-sm font-bold"
+            style={{ color: entry.accent }}
+          >
+            {entry.monogram}
+          </span>
+          <img
+            src={entry.logo}
+            alt={entry.company}
+            className="absolute inset-0 w-full h-full object-cover"
+            onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+          />
+        </div>
+
+        {/* Company + roles, with dates right-aligned */}
+        <div className="flex-1 min-w-0">
+          {/* First line — vertically centered to the logo */}
+          <div className="h-9 flex items-center">
+            <div className="flex-1 min-w-0 flex items-baseline justify-between gap-4">
+              <div className="min-w-0 flex items-baseline gap-x-2 flex-wrap">
+                <span className="text-sm font-medium text-white">{entry.company}</span>
+                <span className="text-sm text-[#888888] truncate">
+                  {entry.roles.map((r) => r.title).join(", ")}
+                </span>
+              </div>
+              <span className="text-xs text-[#888888] shrink-0">{entry.span}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Expanded detail — click-only (no hover bounce); fades/slides in.
+          Indented to align under the company name. */}
+      {isOpen && (
+        <div className="pt-2 space-y-3 pl-[5.75rem] animate-in fade-in slide-in-from-top-1 duration-200">
+          {entry.roles.map((role) => (
+            <div key={role.title}>
+              <div className="flex items-baseline gap-2 flex-wrap">
+                <span className="text-sm font-medium text-white">{role.title}</span>
+                <span className="text-xs text-[#888888]">{role.dates}</span>
+              </div>
+              <p className="text-sm text-[#cccccc] leading-relaxed mt-0.5">{role.summary}</p>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function ExperienceSection() {
-  // Expand on hover (desktop) or tap (mobile). Single open at a time; clicking
-  // outside collapses. Height/opacity driven by inline styles for reliability.
+  // Click to expand (single open at a time); clicking outside the section collapses.
   const [openId, setOpenId] = useState<string | null>(null);
-  const [hoverId, setHoverId] = useState<string | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -472,80 +561,15 @@ function ExperienceSection() {
         places i've worked.
       </h2>
       <div className="divide-y divide-[#333333]">
-        {experience.map((entry, i) => {
-          const isOpen = openId === entry.company;
-          const expanded = isOpen || hoverId === entry.company;
-          return (
-            <div
-              key={entry.company}
-              onClick={() => { setHoverId(null); setOpenId(isOpen ? null : entry.company); }}
-              onMouseEnter={() => setHoverId(entry.company)}
-              onMouseLeave={() => setHoverId(null)}
-              className={`py-4 px-3 -mx-3 rounded-xl cursor-pointer transition-colors duration-200 ${
-                expanded ? "bg-[#383838]" : ""
-              }`}
-            >
-              {/* Collapsed row — top-aligned so the logo stays anchored on expand */}
-              <div className="flex items-start gap-4">
-                {/* Index (centered against the logo height) */}
-                <span className="h-9 flex items-center text-xs text-[#555555] w-6 shrink-0 font-mono tabular-nums">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-
-                {/* Logo (monogram fallback behind) */}
-                <div
-                  className="relative w-9 h-9 rounded-lg shrink-0 overflow-hidden"
-                  style={{ backgroundColor: `${entry.accent}1a` }}
-                >
-                  <span
-                    className="absolute inset-0 flex items-center justify-center text-sm font-bold"
-                    style={{ color: entry.accent }}
-                  >
-                    {entry.monogram}
-                  </span>
-                  <img
-                    src={entry.logo}
-                    alt={entry.company}
-                    className="absolute inset-0 w-full h-full object-cover"
-                    onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
-                  />
-                </div>
-
-                {/* Company + roles, with dates right-aligned */}
-                <div className="flex-1 min-w-0">
-                  {/* First line — vertically centered to the logo */}
-                  <div className="h-9 flex items-center">
-                    <div className="flex-1 min-w-0 flex items-baseline justify-between gap-4">
-                      <div className="min-w-0 flex items-baseline gap-x-2 flex-wrap">
-                        <span className="text-sm font-medium text-white">{entry.company}</span>
-                        <span className="text-sm text-[#888888] truncate">
-                          {entry.roles.map((r) => r.title).join(", ")}
-                        </span>
-                      </div>
-                      <span className="text-xs text-[#888888] shrink-0">{entry.span}</span>
-                    </div>
-                  </div>
-
-                  {/* Expanded detail — per-role dates + summary.
-                      Conditionally rendered with a fade/slide-in on hover or tap. */}
-                  {expanded && (
-                    <div className="pt-2 space-y-3 animate-in fade-in slide-in-from-top-1 duration-200">
-                      {entry.roles.map((role) => (
-                        <div key={role.title}>
-                          <div className="flex items-baseline gap-2 flex-wrap">
-                            <span className="text-sm font-medium text-white">{role.title}</span>
-                            <span className="text-xs text-[#888888]">{role.dates}</span>
-                          </div>
-                          <p className="text-sm text-[#cccccc] leading-relaxed mt-0.5">{role.summary}</p>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          );
-        })}
+        {experience.map((entry, i) => (
+          <ExperienceRow
+            key={entry.company}
+            entry={entry}
+            index={i}
+            isOpen={openId === entry.company}
+            onToggle={() => setOpenId(openId === entry.company ? null : entry.company)}
+          />
+        ))}
       </div>
     </div>
   );
@@ -878,6 +902,7 @@ export default function Home() {
                       src={study.image}
                       alt=""
                       className={`w-full h-full ${study.fit === 'cover' ? 'object-cover' : 'object-contain p-1'}`}
+                      onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
                     />
                   </div>
 
