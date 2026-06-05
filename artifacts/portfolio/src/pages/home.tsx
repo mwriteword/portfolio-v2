@@ -583,7 +583,7 @@ function ToolsSection() {
   return (
     <div id="section-tools" className="mb-16 sm:mb-20 scroll-mt-12">
       <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">
-        tools i've used.
+        Tools i've used
       </h2>
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-6 lg:gap-10">
@@ -838,7 +838,7 @@ export default function Home() {
           <p className="text-[16px] sm:text-[20px] text-[#aaaaaa] mb-4 sm:mb-6">
             Hello! I'm Vern, a Senior Content Designer, and these are
           </p>
-          <h1 className="font-bold tracking-tight text-[40px] sm:text-[64px] lg:text-[80px] text-white lowercase leading-[0.95]">
+          <h1 className="font-bold tracking-tight text-[40px] sm:text-[64px] lg:text-[80px] text-white">
             Words I have written.
           </h1>
           <p className="text-[16px] sm:text-[20px] text-[#aaaaaa] mt-4 sm:mt-6">
