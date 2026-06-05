@@ -158,7 +158,14 @@ export default function CaseStudy1() {
             Our first attempt at OKR support in our goal-setting app failed in early access. Once we found out why it failed, we created an entirely new system to support how our customers actually structure OKRs in their organizations.
           </p>
           <p className="text-base leading-relaxed text-[#ffffff]">
-            As the lead (and only) content designer for the Goals app, I originated a new type system, redefined both our content model and the object model to bring them into alignment, and addressed localization changes in the eleventh hour in order to meet our public roadmap deadline. Among other things.
+            As the lead content designer, I developed a new type system which updated our content and object model to bring in a taxonmy that better supported OKR models. I focused on the symbiotic relationship between <term>Objectives</term> and <term>Key results</term>, where you cannot have <term>Key results</term> without an <term>Objective</term>. But rather than make the OKRs the default for everyone, I developed <term>Success measures</term> as a generalized version of a <term>Key result</term> that would pair with the default Object type. 
+            Then, we gave customers the keys to customize their goal types as they saw fit, so they could use <term>Objectives</term> and <term>Key Results</term>, or the more "default" <term>Goals</term> and <term>Success measures</term>, or even <term>KPIs</term> or <term>BHAGs</term> or whatever else they might want. 
+          </p>
+          <p className="text-base leading-relaxed text-[#ffffff]">
+            Which I was opposed to from a scalability perspective, but giving customers that level of customization <em>was</em> a better experience that addressed customer requests. But it caused a bunch of localization issues that I had to resolve in the 11th hour, and plugging in fully custom UGC began causing language clarity problems after launch. 
+          </p>
+          <p className="text-base leading-relaxed text-[#ffffff]">
+            All in all, we delivered the OKR feature and saw ~1,500 success measures created daily for the first month of launch. Feedback in both public and internal channels was mostly positive, with many enterprise clients now willing to adopt the Goals app using this new system. You can read the full story below.
           </p>
         </div>
 
