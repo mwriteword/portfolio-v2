@@ -583,7 +583,7 @@ function ToolsSection() {
   return (
     <div id="section-tools" className="mb-16 sm:mb-20 scroll-mt-12">
       <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">
-        Tools i've used
+        Tools I've used
       </h2>
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-6 lg:gap-10">
