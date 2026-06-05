@@ -420,7 +420,7 @@ function SkillsSection() {
   return (
     <div id="section-skills" className="mb-16 sm:mb-20 scroll-mt-12">
       <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">
-        skills i've developed.
+        Skills I've developed
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
@@ -554,7 +554,7 @@ function ExperienceSection() {
   return (
     <div id="section-experience" ref={sectionRef} className="mb-16 sm:mb-20 scroll-mt-12">
       <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">
-        places i've worked.
+        Places I've worked
       </h2>
       <div className="divide-y divide-[#333333]">
         {experience.map((entry, i) => (
@@ -839,7 +839,7 @@ export default function Home() {
             Hello! I'm Vern, a Senior Content Designer, and these are
           </p>
           <h1 className="font-bold tracking-tight text-[40px] sm:text-[64px] lg:text-[80px] text-white lowercase leading-[0.95]">
-            words i have written.
+            Words I have written.
           </h1>
           <p className="text-[16px] sm:text-[20px] text-[#aaaaaa] mt-4 sm:mt-6">
             In other words, this is a Content Design Portfolio by Vernon Laquindanum.
@@ -873,7 +873,7 @@ export default function Home() {
         {/* Case Studies */}
         <div id="section-work" className="mb-16 sm:mb-20 scroll-mt-12">
           <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">
-            things i've worked on.
+            Things I've worked on
           </h2>
           <div className="divide-y divide-[#333333]">
             {caseStudies.map((study, i) => {
@@ -951,7 +951,7 @@ export default function Home() {
         {/* About / Contact */}
         <div id="section-about" className="mb-16 sm:mb-20 scroll-mt-12">
           <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">
-            more about me.
+            More about me
           </h2>
 
           <div className="flex flex-col lg:flex-row gap-10 lg:gap-16">
