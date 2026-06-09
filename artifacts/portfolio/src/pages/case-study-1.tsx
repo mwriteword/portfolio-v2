@@ -1,19 +1,19 @@
-import { ArrowLeft } from "lucide-react";
-import { Link } from "wouter";
 import { TableOfContents, useTocActiveSection, TocItem } from "../components/TableOfContents";
+import { TopNav } from "../components/TopNav";
+import { Breadcrumbs } from "../components/Breadcrumbs";
 import { SectionHeading } from "../components/SectionHeading";
 import { ImageCarousel } from "../components/ImageCarousel";
 
 const tocItems: TocItem[] = [
-  { id: "cs1-elevator", label: "Elevator Breakdown" },
+  { id: "cs1-elevator", label: "tl;dr" },
   { id: "cs1-prologue", label: "Prologue" },
-  { id: "cs1-ch1", label: "Ch. 1: Goals" },
-  { id: "cs1-ch2", label: "Ch. 2: Research" },
-  { id: "cs1-ch3", label: "Ch. 3: Two Models" },
-  { id: "cs1-ch4", label: "Ch. 4: Solution" },
-  { id: "cs1-ch45", label: "Ch. 4.5: Speed Bumps" },
-  { id: "cs1-ch475", label: "Ch. 4.75: Sinkhole" },
-  { id: "cs1-ch5", label: "Ch. 5: Launch" },
+  { id: "cs1-ch1", label: "1: Goals" },
+  { id: "cs1-ch2", label: "2: Research" },
+  { id: "cs1-ch3", label: "3: Object Models" },
+  { id: "cs1-ch4", label: "4: Solution" },
+  { id: "cs1-ch45", label: "4.5: Custom Terms" },
+  { id: "cs1-ch475", label: "4.75: Localization" },
+  { id: "cs1-ch5", label: "5: Launch" },
   { id: "cs1-epilogue", label: "Epilogue" },
 ];
 
@@ -91,13 +91,11 @@ export default function CaseStudy1() {
 
   return (
     <main className="min-h-screen text-gray-900 bg-[#2e2e2e] relative">
+      <TopNav sections={tocItems} activeSection={activeSection} />
       <TableOfContents items={tocItems} activeId={activeSection} />
 
       <div className="max-w-[1120px] w-[90%] mx-auto pt-12 sm:pt-20 pb-12 sm:pb-20">
-        <Link href="/" className="flex items-center gap-2 text-[#3b82f6] hover:text-[#60a5fa] transition-colors mb-8">
-          <ArrowLeft className="w-4 h-4" />
-          Back
-        </Link>
+        <Breadcrumbs label="Goal Types & OKR Modeling" color="#3b82f6" />
 
         <h1 className="font-bold tracking-tight text-[28px] sm:text-[48px] text-[#ffffff] mb-8 sm:mb-12">
           Goal Types & OKR Modeling

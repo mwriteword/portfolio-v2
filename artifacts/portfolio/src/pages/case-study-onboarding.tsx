@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
-import { Link } from "wouter";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { CardCarousel } from "../components/CardCarousel";
 import { SectionHeading } from "../components/SectionHeading";
 import { TableOfContents, useTocActiveSection, TocItem } from "../components/TableOfContents";
+import { TopNav } from "../components/TopNav";
+import { Breadcrumbs } from "../components/Breadcrumbs";
 
 /* ── Images ── */
 const twcBundle             = "/images/atlassian/onboarding/twc-bundle.png";
@@ -76,12 +77,12 @@ const modalVariants = [
 /* ── TOC ── */
 const tocItems: TocItem[] = [
   { id: "section-highlights",  label: "Project highlights" },
-  { id: "section-background",  label: "Background & context" },
+  { id: "section-background",  label: "Background" },
   { id: "section-strategy",    label: "End user strategy" },
-  { id: "section-modal",       label: "Modal overwhelming" },
-  { id: "section-spotlights",  label: "HubSpot(lights)" },
-  { id: "section-cards",       label: "The card deck" },
-  { id: "section-video",       label: "Onboarding video" },
+  { id: "section-modal",       label: "Modals" },
+  { id: "section-spotlights",  label: "Spotlight tour" },
+  { id: "section-cards",       label: "Card carousel" },
+  { id: "section-video",       label: "Video script" },
 ];
 
 /* ── Shared image component ── */
@@ -116,13 +117,11 @@ export default function CaseStudyOnboarding() {
 
   return (
     <main className="min-h-screen text-gray-900 bg-[#2e2e2e]">
+      <TopNav sections={tocItems} activeSection={activeId} />
       <TableOfContents items={tocItems} activeId={activeId} />
 
       <div className="max-w-[1120px] w-[90%] mx-auto py-12 sm:py-20">
-        <Link href="/" className="flex items-center gap-2 text-[#f59e0b] hover:text-[#fbbf24] transition-colors mb-8">
-          <ArrowLeft className="w-4 h-4" />
-          Back
-        </Link>
+        <Breadcrumbs label="Teamwork Collection Onboarding" color="#f59e0b" />
 
         <h1 className="font-bold tracking-tight text-[28px] sm:text-[48px] text-[#ffffff] mb-8 sm:mb-12">
           Teamwork Collection Onboarding
@@ -168,6 +167,17 @@ export default function CaseStudyOnboarding() {
         {/* ── Project highlights ── */}
         <div id="section-highlights" className="scroll-mt-12 mb-16 sm:mb-20">
           <SectionHeading>Project highlights</SectionHeading>
+
+          <div className="max-w-[620px] mx-auto mb-6">
+            <div className="aspect-video w-full rounded-lg overflow-hidden">
+              <iframe
+                className="w-full h-full border-0"
+                src="https://embed.figma.com/deck/3hLyEHEUyLrz25CqQmS79Y/?embed-host=share"
+                title="TWC onboarding project highlights presentation"
+                allowFullScreen
+              />
+            </div>
+          </div>
 
           <p className="text-base leading-relaxed text-[#ffffff] mb-4">
             To support the launch of Teamwork Collection (TWC), a new app bundle consisting of Jira, Confluence, and Loom, we worked with designers from Growth to deliver an onboarding experience in Atlassian Home.

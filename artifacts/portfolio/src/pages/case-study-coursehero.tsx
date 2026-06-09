@@ -1,5 +1,5 @@
-import { ArrowLeft } from "lucide-react";
-import { Link } from "wouter";
+import { TopNav } from "../components/TopNav";
+import { Breadcrumbs } from "../components/Breadcrumbs";
 
 /* ── Course Hero images ── */
 const chImg1 = "/images/coursehero/screenshot-1.png";
@@ -21,11 +21,9 @@ function CaseImg({ src, alt }: { src: string; alt: string }) {
 export default function CaseStudyCourseHero() {
   return (
     <main className="min-h-screen text-gray-900 bg-[#2e2e2e]">
+      <TopNav />
       <div className="max-w-[1120px] w-[90%] mx-auto py-12 sm:py-20">
-        <Link href="/" className="flex items-center gap-2 text-[#a855f7] hover:text-[#c084fc] transition-colors mb-8">
-          <ArrowLeft className="w-4 h-4" />
-          Back
-        </Link>
+        <Breadcrumbs label="Textbook Solutions" color="#a855f7" />
 
         <h1 className="font-bold tracking-tight text-[28px] sm:text-[48px] text-[#ffffff] mb-8 sm:mb-12">
           Textbook Solutions

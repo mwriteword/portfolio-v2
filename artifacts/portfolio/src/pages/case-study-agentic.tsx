@@ -1,7 +1,7 @@
-import { ArrowLeft } from "lucide-react";
-import { Link } from "wouter";
 import { SectionHeading } from "../components/SectionHeading";
 import { TableOfContents, useTocActiveSection, TocItem } from "../components/TableOfContents";
+import { TopNav } from "../components/TopNav";
+import { Breadcrumbs } from "../components/Breadcrumbs";
 
 /* ── Images ── */
 const riskFeature = "/images/atlassian/agentic/risk-feature.png";
@@ -60,13 +60,11 @@ export default function CaseStudyAgentic() {
 
   return (
     <main className="min-h-screen text-gray-900 bg-[#2e2e2e]">
+      <TopNav sections={tocItems} activeSection={activeId} />
       <TableOfContents items={tocItems} activeId={activeId} />
 
       <div className="max-w-[1120px] w-[90%] mx-auto py-12 sm:py-20">
-        <Link href="/" className="flex items-center gap-2 text-[#06b6d4] hover:text-[#22d3ee] transition-colors mb-8">
-          <ArrowLeft className="w-4 h-4" />
-          Back
-        </Link>
+        <Breadcrumbs label="Risk Agent Workflow" color="#06b6d4" />
 
         <h1 className="font-bold tracking-tight text-[28px] sm:text-[48px] text-[#ffffff] mb-8 sm:mb-12">
           Risk Agent Workflow

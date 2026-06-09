@@ -1,11 +1,12 @@
-import { ArrowLeft } from "lucide-react";
-import { Link } from "wouter";
 import { TableOfContents, useTocActiveSection, TocItem } from "../components/TableOfContents";
+import { TopNav } from "../components/TopNav";
+import { Breadcrumbs } from "../components/Breadcrumbs";
 
 const tocItems: TocItem[] = [
   { id: "cs2-intro", label: "Intro Email" },
   { id: "cs2-weekly", label: "Weekly Update" },
   { id: "cs2-monthly", label: "Monthly Recap" },
+  { id: "cs2-results", label: "Results" },
 ];
 
 export default function CaseStudy2() {
@@ -13,12 +14,10 @@ export default function CaseStudy2() {
 
   return (
     <main className="min-h-screen bg-[#2e2e2e]">
+      <TopNav sections={tocItems} activeSection={activeSection} />
       <TableOfContents items={tocItems} activeId={activeSection} />
       <div className="max-w-[1120px] w-[90%] mx-auto py-12 sm:py-20">
-        <Link href="/" className="flex items-center gap-2 text-[#22c55e] hover:text-[#4ade80] transition-colors mb-8">
-          <ArrowLeft className="w-4 h-4" />
-          Back
-        </Link>
+        <Breadcrumbs label="Behavioral Load-Shaping Emails" color="#22c55e" />
 
         <h1 className="font-bold tracking-tight text-[28px] sm:text-[48px] text-[#ffffff] mb-8 sm:mb-12">
           Behavioral Load-Shaping Emails
@@ -132,6 +131,28 @@ export default function CaseStudy2() {
                 className="rounded-lg w-full"
               />
             </div>
+          </div>
+        </div>
+
+        {/* RESULTS */}
+        <div id="cs2-results" className="mb-12 sm:mb-16 scroll-mt-12">
+          <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6 sm:mb-8">Results</h2>
+          <div className="space-y-4">
+            <p className="text-base leading-relaxed text-[#ffffff]">
+              The core goal of this program was to shift customer energy use outside of peak hours, reducing demand on the grid during the highest-usage hours. So the question is, did this program achieve that? Here's what was reported:
+            </p>
+            <p className="text-base leading-relaxed text-[#ffffff]">
+              The program delivered a 1-2% peak load shift across five utility deployments, with digital engagement reaching 60% among recipients at one utility.
+            </p>
+            <p className="text-base leading-relaxed text-[#ffffff]">
+              As far as the content goes, one of the utility deployment with roughly 800,000 households moving through a time-of-use rate transition saw 3x the amount of email opens and 9x the amount of clickthroughs compared to the utility-industry benchmarks.
+            </p>
+            <p className="text-base leading-relaxed text-[#ffffff]">
+              The email series also improved comprehension on their utility's TOU program, with recipients being 17% more likely to recall the program and 16% more likely to correctly identify their peak-pricing hours compared to a control group. For an energy-shifting program, that level of comprehension is what you'd actually need to make behavior change possible.
+            </p>
+            <p className="text-base leading-relaxed text-[#ffffff]">
+              Over time, the program saw an 8% lift in customer satisfaction versus control, and a 5% increase overall. We also saw 67% of customers noting a preference for the weekly cadence, which is a notable departure from the typical bill-cycle rhythm typical of utility communications. While it's generally pretty rare to hear that customers actually want more emails from their utility, it's a signal that more frequent utility contact can be a good thing as long as its done well and provides real customer value.
+            </p>
           </div>
         </div>
       </div>

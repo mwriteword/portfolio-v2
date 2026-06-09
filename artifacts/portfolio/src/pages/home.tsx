@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Mail, Linkedin, FileText, ArrowUpRight, Check, Copy, Target, Compass, Bot, BookOpen, PenLine, type LucideIcon } from "lucide-react";
 import { TableOfContents, useTocActiveSection, TocItem } from "../components/TableOfContents";
+import { TopNav } from "../components/TopNav";
 
 interface CaseStudy {
   id: number;
@@ -829,6 +830,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen text-gray-900 bg-[#2e2e2e]">
+      <TopNav sections={tocItems} activeSection={activeSection} />
       <TableOfContents items={tocItems} activeId={activeSection} />
 
       <div className="max-w-[1120px] w-[90%] mx-auto py-12 sm:py-20">
