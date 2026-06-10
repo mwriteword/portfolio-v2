@@ -142,16 +142,16 @@ export default function CaseStudy2() {
               The core goal of this program was to shift customer energy use outside of peak hours, reducing demand on the grid during the highest-usage hours. So the question is, did this program achieve that? Here's what was reported:
             </p>
             <p className="text-base leading-relaxed text-[#ffffff]">
-              The program delivered a 1-2% peak load shift across five utility deployments, with digital engagement reaching 60% among recipients at one utility.
+              The program delivered a <strong>1-2% peak load shift</strong> across five utility deployments, with <strong>digital engagement reaching 60%</strong> among recipients at one utility.
             </p>
             <p className="text-base leading-relaxed text-[#ffffff]">
-              As far as the content goes, one of the utility deployment with roughly 800,000 households moving through a time-of-use rate transition saw 3x the amount of email opens and 9x the amount of clickthroughs compared to the utility-industry benchmarks.
+              As far as the content goes, one of the utility deployment with roughly 800,000 households moving through a time-of-use rate transition saw <strong>3x the amount of email opens and 9x the amount of clickthroughs</strong> compared to the utility-industry benchmarks.
             </p>
             <p className="text-base leading-relaxed text-[#ffffff]">
-              The email series also improved comprehension on their utility's TOU program, with recipients being 17% more likely to recall the program and 16% more likely to correctly identify their peak-pricing hours compared to a control group. For an energy-shifting program, that level of comprehension is what you'd actually need to make behavior change possible.
+              The email series also improved comprehension on their utility's TOU program, with recipients being <strong>17% more likely to recall the program and 16% more likely to correctly identify their peak-pricing hours</strong> compared to a control group. For an energy-shifting program, that level of comprehension is what you'd actually need to make behavior change possible.
             </p>
             <p className="text-base leading-relaxed text-[#ffffff]">
-              Over time, the program saw an 8% lift in customer satisfaction versus control, and a 5% increase overall. We also saw 67% of customers noting a preference for the weekly cadence, which is a notable departure from the typical bill-cycle rhythm typical of utility communications. While it's generally pretty rare to hear that customers actually want more emails from their utility, it's a signal that more frequent utility contact can be a good thing as long as its done well and provides real customer value.
+              Over time, the program saw an <strong>8% lift in customer satisfaction</strong> versus control, and a <strong>5% increase overall</strong>. We also saw <strong>67% of customers noting a preference for the weekly cadence</strong>, which is a notable departure from the typical bill-cycle rhythm typical of utility communications. While it's generally pretty rare to hear that customers actually want more emails from their utility, it's a signal that more frequent utility contact can be a good thing when it's done well and provides real customer value.
             </p>
           </div>
         </div>
