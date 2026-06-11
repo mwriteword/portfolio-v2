@@ -837,14 +837,11 @@ export default function Home() {
 
         {/* Hero */}
         <div className="mb-16 sm:mb-20">
-          <p className="text-[16px] sm:text-[20px] text-[#aaaaaa] mb-4 sm:mb-6">
-            Hello! I'm Vern, a Senior Content Designer, and these are
-          </p>
           <h1 className="font-bold tracking-tight text-[40px] sm:text-[64px] lg:text-[80px] text-white">
-            Words I have written.
+            Hello! You can call me Vern.
           </h1>
           <p className="text-[16px] sm:text-[20px] text-[#aaaaaa] mt-4 sm:mt-6">
-            In other words, this is a Content Design Portfolio by Vernon Laquindanum.
+            I'm a Content Designer who brings structure and clarity to software that's gotten tangled and hard to follow. I turn content problems into clear language that becomes invisible to the people using it.
           </p>
 
           {/* CTA Buttons */}
