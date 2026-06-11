@@ -836,16 +836,16 @@ export default function Home() {
       <div className="max-w-[1120px] w-[90%] mx-auto py-12 sm:py-20">
 
         {/* Hero */}
-        <div className="mb-16 sm:mb-20">
+        <div className="mb-16 sm:mb-20 text-center">
           <h1 className="font-bold tracking-tight text-[40px] sm:text-[64px] lg:text-[80px] text-white">
             Hello! You can call me Vern.
           </h1>
-          <p className="text-[16px] sm:text-[20px] text-[#aaaaaa] mt-4 sm:mt-6">
+          <p className="text-[16px] sm:text-[20px] text-[#aaaaaa] mt-4 sm:mt-6 max-w-2xl mx-auto">
             I'm a Content Designer who brings structure and clarity to software that's gotten tangled and hard to follow. I turn content problems into clear language that becomes invisible to the people using it.
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-wrap gap-2 sm:gap-3 mt-8 sm:mt-10">
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mt-8 sm:mt-10">
           <CopyEmailButton />
 
           <a
@@ -856,15 +856,6 @@ export default function Home() {
           >
             <Linkedin className="w-4 h-4" />
             LinkedIn
-          </a>
-          <a
-            href="https://docs.google.com/document/d/13RsZkG_7wzEnA9dBToBTtVLWqRb2BFS_X_Ns_zhAcro/edit?usp=sharing"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg bg-slate-700 text-white text-sm font-medium hover:bg-slate-800 transition-colors"
-          >
-            <FileText className="w-4 h-4" />
-            Resume
           </a>
           </div>
         </div>
@@ -956,11 +947,10 @@ export default function Home() {
           <div className="flex flex-col lg:flex-row gap-10 lg:gap-16">
             {/* Left: Bio */}
             <div className="flex-1 min-w-0">
-              <p className="text-base font-semibold text-[#ffffff] mb-3">Hello! You can call me Vern.</p>
               <div className="space-y-3">
-                <p className="text-base leading-relaxed text-[#ffffff]">I have been in the UX Writing / Content Design space for over 13 years. I went from Copywriter to UX Writer to Content Designer, but at the core of it all, I write words that guide people and create content systems that scale.</p>
+                <p className="text-base leading-relaxed text-[#ffffff]">I have been in the UX Writing / Content Design space for over 12 years, working mostly at B2B SaaS companies. I've had several titles over the years, but at the core of it, I translate complex software language in clear, consistent content that scales.</p>
                 <p className="text-base leading-relaxed text-[#ffffff]">I did this most recently at Atlassian, where I built content systems for their platform apps (FKA Atlas). I was responsible for content across the Home, Goals, Projects, and Teams platform apps, and had to build systems that were rigid enough to create consistency across the experiences but flexible enough to suit each app's needs.</p>
-                <p className="text-base leading-relaxed text-[#ffffff]">When I'm not doing content stuff, I'm a father/butler to two small children for a majority of my time. In what remaining time I find, I like to boulder at my local rock climbing gym and play a variety of video games (mostly RPGs of some kind).</p>
+                <p className="text-base leading-relaxed text-[#ffffff]">When I'm not doing content stuff, I'm a father/butler to two small children for a majority of my time. In what remaining time I find, I like to boulder at my local rock climbing gym and play a bunch of video games. I play a lot of RPGs, but also puzzle games. I spend a weird amount of time playing Tetris 99. Not sure what that's about.</p>
                 <p className="text-base leading-relaxed text-[#ffffff]">In any case, I'm open and ready to work. Just give me a shout and let me know how I can help.</p>
               </div>
             </div>
@@ -989,6 +979,17 @@ export default function Home() {
                   <Linkedin className="w-[18px] h-[18px] text-[#aaaaaa] group-hover:text-white transition-colors" />
                   <span className="text-white text-sm group-hover:underline underline-offset-2 transition-all">
                     linkedin.com/in/vjtlaq
+                  </span>
+                </a>
+                <a
+                  href="https://docs.google.com/document/d/13RsZkG_7wzEnA9dBToBTtVLWqRb2BFS_X_Ns_zhAcro/edit?usp=sharing"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 group w-fit"
+                >
+                  <FileText className="w-[18px] h-[18px] text-[#aaaaaa] group-hover:text-white transition-colors" />
+                  <span className="text-white text-sm group-hover:underline underline-offset-2 transition-all">
+                    Resume
                   </span>
                 </a>
               </div>
