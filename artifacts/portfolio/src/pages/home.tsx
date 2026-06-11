@@ -863,7 +863,7 @@ export default function Home() {
         {/* Case Studies */}
         <div id="section-work" className="mb-16 sm:mb-20 scroll-mt-12">
           <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6">
-            Things I've worked on
+            Work I've done
           </h2>
           <div className="divide-y divide-[#333333]">
             {caseStudies.map((study, i) => {
