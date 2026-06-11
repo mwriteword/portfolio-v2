@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { Mail, Linkedin, FileText, ArrowUpRight, Check, Copy, Target, Compass, Bot, BookOpen, PenLine, type LucideIcon } from "lucide-react";
+import { Mail, Linkedin, FileText, ArrowUpRight, ChevronDown, Check, Copy, Target, Compass, Bot, BookOpen, PenLine, type LucideIcon } from "lucide-react";
 import { TableOfContents, useTocActiveSection, TocItem } from "../components/TableOfContents";
 import { TopNav } from "../components/TopNav";
 
@@ -827,6 +827,9 @@ function CopyEmailButton({ variant = "hero" }: { variant?: "hero" | "footer" }) 
 
 export default function Home() {
   const activeSection = useTocActiveSection(tocItems);
+  const [showAllWork, setShowAllWork] = useState(false);
+  const VISIBLE_WORK_COUNT = 4;
+  const hiddenWorkCount = caseStudies.length - VISIBLE_WORK_COUNT;
 
   return (
     <main className="min-h-screen text-gray-900 bg-[#2e2e2e]">
@@ -866,7 +869,7 @@ export default function Home() {
             Work I've done
           </h2>
           <div className="divide-y divide-[#333333]">
-            {caseStudies.map((study, i) => {
+            {caseStudies.slice(0, showAllWork ? caseStudies.length : VISIBLE_WORK_COUNT).map((study, i) => {
               const [projectTitle, company] = study.title.split(' — ');
               const Icon = study.icon;
               return (
@@ -927,6 +930,20 @@ export default function Home() {
               );
             })}
           </div>
+
+          {hiddenWorkCount > 0 && (
+            <button
+              type="button"
+              onClick={() => setShowAllWork((v) => !v)}
+              aria-expanded={showAllWork}
+              className="mt-4 mx-auto flex items-center gap-1.5 text-sm font-medium text-[#888888] hover:text-white transition-colors"
+            >
+              {showAllWork ? "Show less" : "Show more"}
+              <ChevronDown
+                className={`w-4 h-4 transition-transform duration-200 ${showAllWork ? "rotate-180" : ""}`}
+              />
+            </button>
+          )}
         </div>
 
         {/* Skills */}
