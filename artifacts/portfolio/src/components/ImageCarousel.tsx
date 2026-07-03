@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { openLightbox } from "./Lightbox";
 
 export interface CarouselImage {
   src: string;
@@ -11,9 +12,11 @@ interface ImageCarouselProps {
   images: CarouselImage[];
   interval?: number;
   label?: string;
+  /** Make the images clickable to open in the lightbox. */
+  zoomable?: boolean;
 }
 
-export function ImageCarousel({ images, interval = 5000, label }: ImageCarouselProps) {
+export function ImageCarousel({ images, interval = 5000, label, zoomable = false }: ImageCarouselProps) {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -94,7 +97,10 @@ export function ImageCarousel({ images, interval = 5000, label }: ImageCarouselP
               key={i}
               src={img.src}
               alt={img.alt}
-              className="w-full shrink-0 block"
+              onClick={zoomable ? () => openLightbox(img.src, img.alt) : undefined}
+              className={`w-full shrink-0 block${
+                zoomable ? " cursor-zoom-in transition-transform duration-300 ease-out hover:scale-[1.02]" : ""
+              }`}
               draggable={false}
               aria-hidden={i !== active}
             />

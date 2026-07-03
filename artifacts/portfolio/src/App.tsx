@@ -2,6 +2,7 @@ import { Switch, Route, Router as WouterRouter, Redirect } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { LightboxRoot } from "@/components/Lightbox";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import CaseStudy1 from "@/pages/case-study-1";
@@ -40,6 +41,7 @@ function App() {
           <Router />
         </WouterRouter>
         <Toaster />
+        <LightboxRoot />
       </TooltipProvider>
     </QueryClientProvider>
   );

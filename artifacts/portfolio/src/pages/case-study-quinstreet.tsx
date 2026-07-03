@@ -1,6 +1,8 @@
 import { SectionHeading } from "../components/SectionHeading";
 import { TableOfContents, useTocActiveSection, TocItem } from "../components/TableOfContents";
 import { TopNav } from "../components/TopNav";
+import { BackToTop } from "../components/BackToTop";
+import { ZoomableImage } from "../components/Lightbox";
 import { Breadcrumbs } from "../components/Breadcrumbs";
 
 /* ── QuinStreet images ── */
@@ -27,14 +29,7 @@ const tocItems: TocItem[] = [
 ];
 
 function CaseImg({ src, alt }: { src: string; alt: string }) {
-  return (
-    <img
-      src={src}
-      alt={alt}
-      className="rounded-lg w-full"
-      onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
-    />
-  );
+  return <ZoomableImage src={src} alt={alt} />;
 }
 
 export default function CaseStudyQuinStreet() {
@@ -130,6 +125,7 @@ export default function CaseStudyQuinStreet() {
           </div>
         </div>
       </div>
+      <BackToTop />
     </main>
   );
 }

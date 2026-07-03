@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { Mail, Linkedin, FileText, ArrowUpRight, ChevronDown, Check, Copy, Target, Compass, Bot, BookOpen, PenLine, type LucideIcon } from "lucide-react";
 import { TableOfContents, useTocActiveSection, TocItem } from "../components/TableOfContents";
 import { TopNav } from "../components/TopNav";
+import { BackToTop } from "../components/BackToTop";
 
 interface CaseStudy {
   id: number;
@@ -1015,6 +1016,7 @@ export default function Home() {
         </div>
 
       </div>
+      <BackToTop />
     </main>
   );
 }
