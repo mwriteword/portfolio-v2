@@ -1,7 +1,8 @@
-import { useState, useEffect, useRef, useCallback } from "react";
-import { Mail, Linkedin, FileText, ArrowUpRight, ChevronDown, Check, Copy, Target, Compass, Bot, BookOpen, PenLine, type LucideIcon } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { Mail, Linkedin, FileText, ArrowUpRight, ChevronDown, Target, Compass, Bot, BookOpen, PenLine, type LucideIcon } from "lucide-react";
 import { TableOfContents, useTocActiveSection, TocItem } from "../components/TableOfContents";
 import { TopNav } from "../components/TopNav";
+import { CopyEmailButton } from "../components/CopyEmailButton";
 
 interface CaseStudy {
   id: number;
@@ -711,116 +712,6 @@ function ToolsSection() {
         })}
         </div>
       </div>
-    </div>
-  );
-}
-
-const EMAIL = "vjtlaq@gmail.com";
-
-function CopyEmailButton({ variant = "hero" }: { variant?: "hero" | "footer" }) {
-  const [showTooltip, setShowTooltip] = useState(false);
-  const [manualCopied, setManualCopied] = useState(false);
-  const tooltipRef = useRef<HTMLDivElement>(null);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const copyEmail = useCallback(() => {
-    navigator.clipboard.writeText(EMAIL);
-    setShowTooltip(true);
-    setManualCopied(false);
-  }, []);
-
-  const handleManualCopy = useCallback(() => {
-    navigator.clipboard.writeText(EMAIL);
-    setManualCopied(true);
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    timeoutRef.current = setTimeout(() => setManualCopied(false), 2000);
-  }, []);
-
-  // Close tooltip on click outside
-  useEffect(() => {
-    if (!showTooltip) return;
-    const handleClick = (e: MouseEvent) => {
-      if (tooltipRef.current && !tooltipRef.current.contains(e.target as Node)) {
-        setShowTooltip(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
-  }, [showTooltip]);
-
-  if (variant === "footer") {
-    return (
-      <div className="relative" ref={tooltipRef}>
-        <button
-          onClick={copyEmail}
-          className="flex items-center gap-3 group w-fit cursor-pointer"
-        >
-          <span className="text-lg">✉️</span>
-          <span className="text-white text-sm group-hover:underline underline-offset-2 transition-all">
-            {EMAIL}
-          </span>
-        </button>
-        {showTooltip && (
-          <div className="absolute bottom-full left-0 mb-2 bg-[#3a3a3a] border border-[#555555] rounded-lg p-3 shadow-xl z-50 min-w-[280px]">
-            <p className="text-xs text-[#22c55e] font-medium mb-2 flex items-center gap-1.5">
-              <Check className="w-3 h-3" />
-              Email copied to clipboard
-            </p>
-            <div className="flex gap-1.5">
-              <input
-                type="text"
-                readOnly
-                value={EMAIL}
-                className="flex-1 px-2.5 py-1.5 rounded bg-[#2e2e2e] text-white text-xs border border-[#555555] outline-none select-all"
-                onFocus={(e) => e.target.select()}
-              />
-              <button
-                onClick={handleManualCopy}
-                className="px-2.5 py-1.5 rounded bg-[#2e2e2e] border border-[#555555] text-white hover:bg-white/10 transition-colors"
-                aria-label="Copy email"
-              >
-                {manualCopied ? <Check className="w-3 h-3 text-[#22c55e]" /> : <Copy className="w-3 h-3" />}
-              </button>
-            </div>
-          </div>
-        )}
-      </div>
-    );
-  }
-
-  return (
-    <div className="relative" ref={tooltipRef}>
-      <button
-        onClick={copyEmail}
-        className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg bg-slate-700 text-white text-sm font-medium hover:bg-slate-800 transition-colors cursor-pointer"
-      >
-        <Mail className="w-4 h-4" />
-        Email
-      </button>
-      {showTooltip && (
-        <div className="absolute top-full left-0 mt-2 bg-[#3a3a3a] border border-[#555555] rounded-lg p-3 shadow-xl z-50 min-w-[280px]">
-          <p className="text-xs text-[#22c55e] font-medium mb-2 flex items-center gap-1.5">
-            <Check className="w-3 h-3" />
-            Email copied to clipboard
-          </p>
-          <div className="flex gap-1.5">
-            <input
-              type="text"
-              readOnly
-              value={EMAIL}
-              className="flex-1 px-2.5 py-1.5 rounded bg-[#2e2e2e] text-white text-xs border border-[#555555] outline-none select-all"
-              onFocus={(e) => e.target.select()}
-            />
-            <button
-              onClick={handleManualCopy}
-              className="px-2.5 py-1.5 rounded bg-[#2e2e2e] border border-[#555555] text-white hover:bg-white/10 transition-colors"
-              aria-label="Copy email"
-            >
-              {manualCopied ? <Check className="w-3 h-3 text-[#22c55e]" /> : <Copy className="w-3 h-3" />}
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

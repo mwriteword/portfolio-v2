@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "wouter";
 import { ChevronDown, Menu } from "lucide-react";
 import type { TocItem } from "./TableOfContents";
+import { ModeToggle } from "./ModeToggle";
 
 interface NavItem {
   href: string;
@@ -164,6 +165,10 @@ export function TopNav({ sections, activeSection }: TopNavProps) {
             </div>
           </div>
         )}
+
+        <div className="ml-auto pl-2">
+          <ModeToggle theme="dark" />
+        </div>
       </div>
     </header>
   );
