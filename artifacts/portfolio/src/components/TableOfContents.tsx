@@ -8,16 +8,28 @@ export interface TocItem {
 interface TableOfContentsProps {
   items: TocItem[];
   activeId: string;
+  /** "dark" matches the UX page; "light" matches the Writing page. */
+  theme?: "dark" | "light";
 }
 
 /**
  * Desktop section rail. Below xl, section navigation lives in the TopNav bar
  * instead (see TopNav's `sections` prop).
  */
-export function TableOfContents({ items, activeId }: TableOfContentsProps) {
+export function TableOfContents({ items, activeId, theme = "dark" }: TableOfContentsProps) {
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
+
+  const isLight = theme === "light";
+  const activeLine = isLight ? "w-5 bg-foreground" : "w-5 bg-white";
+  const inactiveLine = isLight
+    ? "w-2.5 bg-muted-foreground/40 group-hover:w-4 group-hover:bg-muted-foreground"
+    : "w-2.5 bg-[#555555] group-hover:w-4 group-hover:bg-[#888888]";
+  const activeText = isLight ? "text-foreground" : "text-white";
+  const inactiveText = isLight
+    ? "text-muted-foreground/60 group-hover:text-foreground"
+    : "text-[#555555] group-hover:text-[#888888]";
 
   return (
     <nav
@@ -38,14 +50,12 @@ export function TableOfContents({ items, activeId }: TableOfContentsProps) {
           >
             <span
               className={`block h-px transition-all duration-300 ${
-                isActive
-                  ? "w-5 bg-white"
-                  : "w-2.5 bg-[#555555] group-hover:w-4 group-hover:bg-[#888888]"
+                isActive ? activeLine : inactiveLine
               }`}
             />
             <span
               className={`text-xs font-medium tracking-wide transition-colors duration-200 ${
-                isActive ? "text-white" : "text-[#555555] group-hover:text-[#888888]"
+                isActive ? activeText : inactiveText
               }`}
             >
               {item.label}

@@ -3,6 +3,7 @@ import { Mail, Linkedin, FileText, ArrowUpRight, ChevronDown, Target, Compass, B
 import { TableOfContents, useTocActiveSection, TocItem } from "../components/TableOfContents";
 import { TopNav } from "../components/TopNav";
 import { CopyEmailButton } from "../components/CopyEmailButton";
+import { aboutParagraphs, LINKEDIN_URL, RESUME_URL, AVATAR_SRC } from "../content/about";
 
 interface CaseStudy {
   id: number;
@@ -856,10 +857,11 @@ export default function Home() {
             {/* Left: Bio */}
             <div className="flex-1 min-w-0">
               <div className="space-y-3">
-                <p className="text-base leading-relaxed text-[#ffffff]">I have been in the UX Writing / Content Design space for over 12 years, working mostly at B2B SaaS companies. I've had several titles over the years, but at the core of it, I translate complex software language in clear, consistent content that scales.</p>
-                <p className="text-base leading-relaxed text-[#ffffff]">I did this most recently at Atlassian, where I built content systems for their platform apps (FKA Atlas). I was responsible for content across the Home, Goals, Projects, and Teams platform apps, and had to build systems that were rigid enough to create consistency across the experiences but flexible enough to suit each app's needs.</p>
-                <p className="text-base leading-relaxed text-[#ffffff]">When I'm not doing content stuff, I'm a father/butler to two small children for a majority of my time. In what remaining time I find, I like to boulder at my local rock climbing gym and play a bunch of video games. I play a lot of RPGs, but also puzzle games. I spend a weird amount of time playing Tetris 99. Not sure what that's about.</p>
-                <p className="text-base leading-relaxed text-[#ffffff]">In any case, I'm open and ready to work. Just give me a shout and let me know how I can help.</p>
+                {aboutParagraphs.map((p, i) => (
+                  <p key={i} className="text-base leading-relaxed text-[#ffffff]">
+                    {p}
+                  </p>
+                ))}
               </div>
             </div>
 
@@ -867,7 +869,7 @@ export default function Home() {
             <div className="lg:w-64 shrink-0 flex flex-col items-start lg:items-center gap-6">
               <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gray-200 overflow-hidden">
                 <img
-                  src="/images/avatar/illustration.png"
+                  src={AVATAR_SRC}
                   alt="Vernon Laquindanum"
                   className="w-full h-full object-cover"
                   onError={(e) => {
@@ -879,7 +881,7 @@ export default function Home() {
               <div className="flex flex-col gap-4">
                 <CopyEmailButton variant="footer" />
                 <a
-                  href="https://linkedin.com/in/vjtlaq"
+                  href={LINKEDIN_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 group w-fit"
@@ -890,7 +892,7 @@ export default function Home() {
                   </span>
                 </a>
                 <a
-                  href="https://docs.google.com/document/d/13RsZkG_7wzEnA9dBToBTtVLWqRb2BFS_X_Ns_zhAcro/edit?usp=sharing"
+                  href={RESUME_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 group w-fit"

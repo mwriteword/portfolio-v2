@@ -1,6 +1,7 @@
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState, type ReactNode } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, ImageIcon, X } from "lucide-react";
+import { openLightbox } from "./Lightbox";
 
 export interface WorkSample {
   id: string;
@@ -9,12 +10,36 @@ export interface WorkSample {
   category: string;
   /** One-line preview shown on the collapsed tile. */
   preview: string;
-  /** Longer "here's the work" copy shown in the expanded panel. */
-  description: string;
-  /** Optional thumbnail/large image path (falls back to a gradient placeholder). */
+  /** Rich "here's the work" content shown only in the expanded panel. */
+  body: ReactNode;
+  /** Thumbnail path shown on the tile + as the panel's media (gradient fallback). */
   image?: string;
-  /** Optional link to the live piece. */
-  href?: string;
+  /** Optional full-size image opened in the lightbox when the panel media is clicked. */
+  full?: string;
+  /** Optional video for the expanded panel; `image` is used as its poster frame. */
+  video?: string;
+}
+
+// Shared link style for the expanded-panel bodies.
+function BodyLink({ href, children }: { href: string; children: ReactNode }) {
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer">
+      {children}
+    </a>
+  );
+}
+
+// Body "link" that opens an image in the lightbox instead of navigating.
+function ZoomLink({ src, alt, children }: { src: string; alt: string; children: ReactNode }) {
+  return (
+    <button
+      type="button"
+      onClick={() => openLightbox(src, alt)}
+      className="font-medium text-primary hover:underline"
+    >
+      {children}
+    </button>
+  );
 }
 
 // Placeholder gradients until real thumbnails are added (drop an `image` on any item).
@@ -27,49 +52,147 @@ const gradients = [
   "from-cyan-500/25 to-sky-500/10",
 ];
 
-// `description` (expanded panel) is a placeholder until the full write-ups + images land.
+// Images and asset-linked references (e.g. "View the full-page sample") land in a
+// later pass; the expanded panels currently use gradient placeholders for media.
 const samples: WorkSample[] = [
   {
     id: "solitaire",
-    title: "“The Solitaire You Remember Is Not a Good Game”",
+    title: "An analytical essay on Solitaire",
     category: "EDITORIAL CONTENT • UX",
     preview: "Written and self-edited for UX Collective's Bootcamp publication.",
-    description: "Written and self-edited for UX Collective's Bootcamp publication.",
+    image: "/images/work/solitaire.jpg",
+    body: (
+      <>
+        <p>
+          In the mid-to-late 2010s, I drove 30 minutes in traffic to a train station that's
+          normally 10 minutes away, then rode a train for an hour just to get to my office. And at
+          the end of the day, I did the same thing in reverse. I played a lot of{" "}
+          <em>Microsoft Solitaire Collection</em> on my phone during those long train rides, so I
+          (finally) wrote about my observations of two games in that collection, and the piece was
+          published in UX Collective's Bootcamp publication.
+        </p>
+        <p>
+          <BodyLink href="https://medium.com/design-bootcamp/the-solitaire-you-remember-is-not-a-good-game-00cf1392e639?sharedUserId=vjtlaq">
+            Read the piece on Medium →
+          </BodyLink>
+        </p>
+      </>
+    ),
   },
   {
     id: "energy-tips",
-    title: "Source-verified Energy Efficiency Tips",
-    category: "EDITORIAL/GOVERNANCE • REGULATED ENERGY",
-    preview: "300+ tips, with all claims sourced to DOE standards.",
-    description: "300+ tips, with all claims sourced to DOE standards.",
+    title: "Source-verified energy efficiency tips",
+    category: "RESEARCH & CONTENT • REGULATED ENERGY",
+    preview: "300+ tips with all claims sourced to DOE standards.",
+    image: "/images/work/tip-library-thumb.png",
+    full: "/images/work/tip-sample-full.png",
+    body: (
+      <>
+        <p>
+          In 2024, a former colleague at Opower asked if I could help review and refresh tip
+          content used by more than 175 utility partners worldwide. This refresh is done every few
+          years to ensure that tips are still accurate and adequately sourced, since government
+          energy guidance and standards can change year-to-year. I verified sources for every
+          claim, updating them to match new guidance or rewriting claims entirely if they no longer
+          had a live source. If your utility has energy-saving tips on their website and it looks
+          like the one in the thumbnail, then you can see my handiwork for yourself. Here's a sample
+          of one, in the event your utility is not an Opower partner.
+        </p>
+        <p>
+          <ZoomLink src="/images/work/tip-sample-full.png" alt="Full-page energy efficiency tip sample">
+            View the full-page sample →
+          </ZoomLink>
+        </p>
+      </>
+    ),
   },
   {
     id: "rate-coach",
-    title: "Rate Coach Email Program",
+    title: "Rate Coach email program",
     category: "LIFECYCLE EMAIL • UTILITIES",
     preview: "3x opens and 9x CTR vs industry benchmarks for 800K households.",
-    description: "3x opens and 9x CTR vs industry benchmarks for 800K households.",
+    image: "/images/work/rate-coach-thumb.png",
+    full: "/images/opower/intro-email.png",
+    body: (
+      <>
+        <p>
+          In my full-time stint at Opower, we developed a brand new behavior change product to
+          support many utilities changing to time-of-use rate models, where energy is more
+          expensive at specific times of day. This email series was meant to guide users through
+          this transition by explaining how time-of-use rates work and encouraging them to shift
+          their energy use outside of peak-pricing hours.
+        </p>
+        <p>When we launched the program, we saw the following:</p>
+        <ul>
+          <li>1–2% peak load shift across 5 utility deployments.</li>
+          <li>+60% digital engagement at one utility.</li>
+          <li>3x the opens and 9x the clickthrough rates for one utility with over 800,000 households.</li>
+          <li>Customers were 17% more likely to recall the program against control.</li>
+          <li>Customers were 16% more likely to identify peak-pricing hours against control.</li>
+          <li>+8% customer satisfaction versus control, +5% overall.</li>
+        </ul>
+        <p>
+          <BodyLink href="https://vjtlaq.vercel.app/case-study-2">
+            Read the full email content and case study →
+          </BodyLink>
+        </p>
+      </>
+    ),
   },
   {
     id: "textbook",
-    title: "Textbook descriptions for a new product",
+    title: "Textbook description pages",
     category: "SEO CONTENT • EDTECH",
     preview: "30+ textbook descriptions to drive organic traffic.",
-    description: "30+ textbook descriptions to drive organic traffic.",
+    image: "/images/work/textbook-thumb.png",
+    body: (
+      <p>
+        I joined Course Hero as a contractor in late 2019 to help launch their new{" "}
+        <BodyLink href="https://www.coursehero.com/textbook-solutions/#/math">
+          Textbook Solutions
+        </BodyLink>{" "}
+        product. They needed search-engine optimized descriptions for several of the textbooks they
+        were launching with, all to drive organic traffic to the product pages.
+      </p>
+    ),
   },
   {
     id: "onboarding-video",
-    title: "Onboarding Hero Video for Bundle Launch",
+    title: "Teamwork Collection video",
     category: "VIDEO SCRIPT • B2B SaaS",
     preview: "Scripted video supporting the launch of a new Atlassian bundle.",
-    description: "Scripted video supporting the launch of a new Atlassian bundle.",
+    image: "/images/work/twc-video-thumb.jpg",
+    video: "/videos/twc-onboarding-video.mp4",
+    body: (
+      <p>
+        This was just one piece of a full onboarding experience for the new Teamwork Collection
+        bundle at Atlassian. I was the Content Designer on this project, but I worked with the brand
+        and creative team on this hero video. I wrote the original script to align with the rest of
+        the onboarding experience (while making it flexible enough to work in other contexts).{" "}
+        <BodyLink href="https://vjtlaq.vercel.app/case-study-onboarding">
+          You can read the full case study here
+        </BodyLink>
+        .
+      </p>
+    ),
   },
   {
     id: "directbuy",
-    title: "DirectBuy Landing Page",
+    title: "DirectBuy landing page",
     category: "LANDING PAGE • AGENCY CLIENT",
-    preview: "Conversion copy driving sign-ups for an external client.",
-    description: "Conversion copy driving sign-ups for an external client.",
+    preview: "Lead-gen copy for an external client.",
+    image: "/images/work/lp-thumb.png",
+    full: "/images/work/landing-page.png",
+    body: (
+      <p>
+        QuinStreet had an agency model, where we created email, landing pages, banners, and social
+        media ads for our internal sites as well as external clients to drive lead-gen and
+        conversion. This is one example of marketing-focused writing I did for one of our clients.{" "}
+        <BodyLink href="https://vjtlaq.vercel.app/case-study-quinstreet">
+          You can see more copywriting samples here.
+        </BodyLink>
+      </p>
+    ),
   },
 ];
 
@@ -184,8 +307,31 @@ export function WorkSamples() {
                     className="col-span-full overflow-hidden rounded-xl border border-border bg-card"
                   >
                     <div className="grid gap-6 p-5 sm:p-6 lg:grid-cols-2">
-                      <div className="aspect-[16/10] w-full overflow-hidden rounded-lg">
-                        <Thumb sample={open} index={openIndex} />
+                      <div className="aspect-[16/10] w-full overflow-hidden rounded-lg bg-muted">
+                        {open.video ? (
+                          <video
+                            src={open.video}
+                            poster={open.image}
+                            controls
+                            preload="metadata"
+                            className="h-full w-full object-cover"
+                          />
+                        ) : open.image ? (
+                          <button
+                            type="button"
+                            onClick={() => openLightbox(open.full ?? open.image!, open.title)}
+                            aria-label={`Expand image: ${open.title}`}
+                            className="group block h-full w-full cursor-zoom-in"
+                          >
+                            <img
+                              src={open.image}
+                              alt={open.title}
+                              className="h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03]"
+                            />
+                          </button>
+                        ) : (
+                          <Thumb sample={open} index={openIndex} />
+                        )}
                       </div>
                       <div className="flex flex-col">
                         <div className="flex items-start justify-between gap-4">
@@ -202,20 +348,9 @@ export function WorkSamples() {
                           </button>
                         </div>
                         <h3 className="mt-2 text-xl font-semibold">{open.title}</h3>
-                        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                          {open.description}
-                        </p>
-                        {open.href && (
-                          <a
-                            href={open.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="mt-5 inline-flex w-fit items-center gap-1.5 text-sm font-medium text-primary hover:underline"
-                          >
-                            View the piece
-                            <ArrowUpRight className="h-4 w-4" />
-                          </a>
-                        )}
+                        <div className="mt-3 space-y-3 text-sm leading-relaxed text-muted-foreground [&_a]:font-medium [&_a]:text-primary [&_a:hover]:underline [&_em]:italic [&_ul]:list-disc [&_ul]:space-y-1 [&_ul]:pl-5">
+                          {open.body}
+                        </div>
                       </div>
                     </div>
                   </motion.div>
