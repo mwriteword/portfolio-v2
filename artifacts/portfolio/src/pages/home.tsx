@@ -4,6 +4,7 @@ import { TableOfContents, useTocActiveSection, TocItem } from "../components/Tab
 import { TopNav } from "../components/TopNav";
 import { CopyEmailButton } from "../components/CopyEmailButton";
 import { aboutParagraphs, LINKEDIN_URL, RESUME_URL, AVATAR_SRC } from "../content/about";
+import { BackToTop } from "../components/BackToTop";
 
 interface CaseStudy {
   id: number;
@@ -908,6 +909,7 @@ export default function Home() {
         </div>
 
       </div>
+      <BackToTop />
     </main>
   );
 }

@@ -4,6 +4,8 @@ import { CardCarousel } from "../components/CardCarousel";
 import { SectionHeading } from "../components/SectionHeading";
 import { TableOfContents, useTocActiveSection, TocItem } from "../components/TableOfContents";
 import { TopNav } from "../components/TopNav";
+import { BackToTop } from "../components/BackToTop";
+import { ZoomableImage, openLightbox } from "../components/Lightbox";
 import { Breadcrumbs } from "../components/Breadcrumbs";
 
 /* ── Images ── */
@@ -86,15 +88,19 @@ const tocItems: TocItem[] = [
 ];
 
 /* ── Shared image component ── */
-function CaseImage({ src, alt, caption, wide }: { src: string; alt: string; caption?: string; wide?: boolean }) {
+function CaseImage({ src, alt, caption, wide, zoomable }: { src: string; alt: string; caption?: string; wide?: boolean; zoomable?: boolean }) {
   return (
     <figure className="my-6">
-      <img
-        src={src}
-        alt={alt}
-        className={`rounded-lg ${wide ? "w-full" : "max-w-full"}`}
-        onError={(e) => { (e.target as HTMLImageElement).closest("figure")?.style.setProperty("display", "none"); }}
-      />
+      {zoomable ? (
+        <ZoomableImage src={src} alt={alt} />
+      ) : (
+        <img
+          src={src}
+          alt={alt}
+          className={`rounded-lg ${wide ? "w-full" : "max-w-full"}`}
+          onError={(e) => { (e.target as HTMLImageElement).closest("figure")?.style.setProperty("display", "none"); }}
+        />
+      )}
       {caption && (
         <figcaption className="mt-2 text-xs text-[#888888] leading-relaxed">{caption}</figcaption>
       )}
@@ -308,11 +314,13 @@ export default function CaseStudyOnboarding() {
               src={newUserModal}
               alt="New user modal"
               caption="The new user modal focuses on aspirational language with scannable, single-line definitions of each core app."
+              zoomable
             />
             <CaseImage
               src={existingUserModal}
               alt="Existing user modal"
               caption="One of the existing user modal variants which targeted ~80% of users in this segment."
+              zoomable
             />
           </div>
 
@@ -336,7 +344,8 @@ export default function CaseStudyOnboarding() {
                     <img
                       src={modalVariants[modalIdx].image}
                       alt={`Modal variant ${modalVariants[modalIdx].id}`}
-                      className="absolute inset-0 w-full h-full object-contain"
+                      onClick={() => openLightbox(modalVariants[modalIdx].image, `Modal variant ${modalVariants[modalIdx].id}`)}
+                      className="absolute inset-0 w-full h-full object-contain cursor-zoom-in transition-transform duration-300 ease-out hover:scale-[1.03]"
                     />
                   </div>
                 </div>
@@ -409,6 +418,7 @@ export default function CaseStudyOnboarding() {
                 src={trelloExample}
                 alt="Trello example showing the new modal pattern's scalability"
                 caption="I found this Trello example in the wild, which incidentally does a great job showing the pattern's scalability with its expandable bullet sections and individual CTAs."
+                zoomable
               />
             </div>
           </div>
@@ -420,9 +430,9 @@ export default function CaseStudyOnboarding() {
 
           {/* Three spotlight screenshots */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-            <CaseImage src={spotlight1} alt="Atlassian Home onboarding spotlight — step 1" />
-            <CaseImage src={spotlight2} alt="Atlassian Home onboarding spotlight — step 2" />
-            <CaseImage src={spotlight3} alt="Atlassian Home onboarding spotlight — step 3" />
+            <CaseImage src={spotlight1} alt="Atlassian Home onboarding spotlight — step 1" zoomable />
+            <CaseImage src={spotlight2} alt="Atlassian Home onboarding spotlight — step 2" zoomable />
+            <CaseImage src={spotlight3} alt="Atlassian Home onboarding spotlight — step 3" zoomable />
           </div>
 
           <p className="text-base leading-relaxed text-[#ffffff]">
@@ -443,6 +453,7 @@ export default function CaseStudyOnboarding() {
               src={homeCarouselHighlight}
               alt="Atlassian Home showing the Getting started card carousel highlighted"
               wide
+              zoomable
             />
           </div>
 
@@ -484,6 +495,7 @@ export default function CaseStudyOnboarding() {
           </p>
         </div>
       </div>
+      <BackToTop />
     </main>
   );
 }

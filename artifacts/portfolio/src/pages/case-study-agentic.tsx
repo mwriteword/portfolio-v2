@@ -1,6 +1,8 @@
 import { SectionHeading } from "../components/SectionHeading";
 import { TableOfContents, useTocActiveSection, TocItem } from "../components/TableOfContents";
 import { TopNav } from "../components/TopNav";
+import { BackToTop } from "../components/BackToTop";
+import { openLightbox } from "../components/Lightbox";
 import { Breadcrumbs } from "../components/Breadcrumbs";
 
 /* ── Images ── */
@@ -32,11 +34,12 @@ function A({ href, children }: { href: string; children: React.ReactNode }) {
 function CaseImage({ src, alt, caption }: { src: string; alt: string; caption?: string }) {
   return (
     <figure className="my-6">
-      <div className="relative w-full overflow-hidden rounded-lg border border-white/5 bg-[#242424]">
+      <div className="group relative w-full cursor-zoom-in overflow-hidden rounded-lg border border-white/5 bg-[#242424]">
         <img
           src={src}
           alt={alt}
-          className="block w-full"
+          onClick={() => openLightbox(src, alt)}
+          className="block w-full transition-transform duration-300 ease-out group-hover:scale-[1.03]"
           onError={(e) => {
             const img = e.target as HTMLImageElement;
             img.style.display = "none";
@@ -212,6 +215,7 @@ export default function CaseStudyAgentic() {
           </p>
         </div>
       </div>
+      <BackToTop />
     </main>
   );
 }

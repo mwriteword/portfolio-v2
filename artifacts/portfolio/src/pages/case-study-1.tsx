@@ -1,5 +1,7 @@
 import { TableOfContents, useTocActiveSection, TocItem } from "../components/TableOfContents";
 import { TopNav } from "../components/TopNav";
+import { BackToTop } from "../components/BackToTop";
+import { ZoomableImage } from "../components/Lightbox";
 import { Breadcrumbs } from "../components/Breadcrumbs";
 import { SectionHeading } from "../components/SectionHeading";
 import { ImageCarousel } from "../components/ImageCarousel";
@@ -47,17 +49,21 @@ function Callout({ children }: { children: React.ReactNode }) {
 }
 
 
-function CaseImage({ src, alt, caption, wide }: { src: string; alt: string; caption?: string; wide?: boolean }) {
+function CaseImage({ src, alt, caption, wide, zoomable }: { src: string; alt: string; caption?: string; wide?: boolean; zoomable?: boolean }) {
   return (
     <figure className="my-6">
-      <img
-        src={src}
-        alt={alt}
-        className={`rounded-lg ${wide ? "w-full" : "max-w-full"}`}
-        onError={(e) => {
-          (e.target as HTMLImageElement).closest("figure")?.style.setProperty("display", "none");
-        }}
-      />
+      {zoomable ? (
+        <ZoomableImage src={src} alt={alt} />
+      ) : (
+        <img
+          src={src}
+          alt={alt}
+          className={`rounded-lg ${wide ? "w-full" : "max-w-full"}`}
+          onError={(e) => {
+            (e.target as HTMLImageElement).closest("figure")?.style.setProperty("display", "none");
+          }}
+        />
+      )}
       {caption && (
         <figcaption className="mt-2 text-xs text-[#888888] leading-relaxed">{caption}</figcaption>
       )}
@@ -148,8 +154,8 @@ export default function CaseStudy1() {
 
           {/* Before / After showcase */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-4">
-            <ImageCarousel images={beforeImages} label="Before" interval={5000} />
-            <ImageCarousel images={afterImages} label="After" interval={5000} />
+            <ImageCarousel images={beforeImages} label="Before" interval={5000} zoomable />
+            <ImageCarousel images={afterImages} label="After" interval={5000} zoomable />
           </div>
 
           <p className="text-base leading-relaxed text-[#ffffff] mb-4">
@@ -205,7 +211,7 @@ export default function CaseStudy1() {
             Fast forward to late 2024/early 2025 when the Goals app began developing a system to support OKR modeling within goals following a lot of customer feedback requesting these features. This was all a part of our push toward enterprise readiness, since Goals was used by many tech companies most of whom used the OKR framework and any larger enterprise companies <em>require</em> sets of functionality, including OKR representation.
           </p>
           <div className="float-left mr-6 mb-4 w-[45%] max-w-[480px] [&_figure]:my-0">
-            <CaseImage src={goalPageImg} alt="The goal page in the Goals app" />
+            <CaseImage src={goalPageImg} alt="The goal page in the Goals app" zoomable />
           </div>
           <p className="text-base leading-relaxed text-[#ffffff] mb-4">
             At this point in time, Goals had a very simple object model:
@@ -347,6 +353,7 @@ export default function CaseStudy1() {
               src={projectsDirectoryImg}
               alt="Goals directory page"
               caption="Unlike Confluence and Jira, Goals did not have spaces or other container methods to group objects together. Just filters and different ways to slice the directory details."
+              zoomable
             />
           </div>
           <p className="text-base leading-relaxed text-[#ffffff] mb-4">
@@ -487,11 +494,13 @@ export default function CaseStudy1() {
               src={oldGoalPageWithKrsImg}
               alt="Original goal page design with key results"
               caption="This is what we originally designed and was ready to ship before localization problems arose"
+              zoomable
             />
             <CaseImage
               src={localizationAdjustedImg}
               alt="Adjusted content labels for localization"
               caption="And this is how I adjusted the content labels in the UI to allow localization to proceed."
+              zoomable
             />
           </div>
         </div>
@@ -563,6 +572,7 @@ export default function CaseStudy1() {
         </div>
 
       </div>
+      <BackToTop />
     </main>
   );
 }

@@ -1,5 +1,7 @@
 import { TableOfContents, useTocActiveSection, TocItem } from "../components/TableOfContents";
 import { TopNav } from "../components/TopNav";
+import { BackToTop } from "../components/BackToTop";
+import { ZoomableImage } from "../components/Lightbox";
 import { Breadcrumbs } from "../components/Breadcrumbs";
 
 const tocItems: TocItem[] = [
@@ -78,10 +80,9 @@ export default function CaseStudy2() {
               </p>
             </div>
             <div className="flex-shrink-0 w-full sm:w-64">
-              <img
+              <ZoomableImage
                 src="/images/opower/intro-email.png"
                 alt="Intro email design"
-                className="rounded-lg w-full"
               />
             </div>
           </div>
@@ -92,10 +93,9 @@ export default function CaseStudy2() {
           <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight text-[#ffffff] mb-6 sm:mb-8">The Weekly Update</h2>
           <div className="flex flex-col-reverse sm:flex-row gap-6 sm:gap-12 items-start">
             <div className="flex-shrink-0 w-full sm:w-64">
-              <img
+              <ZoomableImage
                 src="/images/opower/weekly-update.png"
                 alt="Weekly update email design"
-                className="rounded-lg w-full"
               />
             </div>
             <div className="flex-1 space-y-4">
@@ -125,10 +125,9 @@ export default function CaseStudy2() {
               </p>
             </div>
             <div className="flex-shrink-0 w-full sm:w-64">
-              <img
+              <ZoomableImage
                 src="/images/opower/monthly-recap.png"
                 alt="Monthly recap email design"
-                className="rounded-lg w-full"
               />
             </div>
           </div>
@@ -156,6 +155,7 @@ export default function CaseStudy2() {
           </div>
         </div>
       </div>
+      <BackToTop />
     </main>
   );
 }

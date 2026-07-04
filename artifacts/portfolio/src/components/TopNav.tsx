@@ -59,11 +59,13 @@ export function TopNav({ sections, activeSection }: TopNavProps) {
     sections?.find((s) => s.id === activeSection)?.label ?? sections?.[0]?.label ?? "";
 
   return (
-    <header className="sticky top-0 z-30 border-b border-white/5 bg-[#2e2e2e]/80 backdrop-blur">
+    <>
+    <header className="fixed inset-x-0 top-0 z-30 border-b border-white/5 bg-[#2e2e2e]/80 backdrop-blur">
       <div className="max-w-[1120px] w-[90%] mx-auto flex h-12 items-center gap-4">
         {/* Left: brand + case studies */}
         <Link
           href="/"
+          onClick={() => window.scrollTo(0, 0)}
           className="shrink-0 text-sm font-semibold text-white transition-colors hover:text-[#22c55e]"
         >
           <span className="sm:hidden">Vern</span>
@@ -171,5 +173,8 @@ export function TopNav({ sections, activeSection }: TopNavProps) {
         </div>
       </div>
     </header>
+    {/* Spacer to offset the fixed header height (h-12). */}
+    <div className="h-12" aria-hidden="true" />
+    </>
   );
 }
