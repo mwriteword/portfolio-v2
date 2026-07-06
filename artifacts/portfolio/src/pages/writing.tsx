@@ -59,17 +59,16 @@ const testimonials = [
 function WritingNav() {
   return (
     <header className="sticky top-0 z-30 border-b border-border bg-background/80 backdrop-blur">
-      <div className="max-w-[1120px] w-[90%] mx-auto flex h-12 items-center gap-4">
+      <div className="max-w-[1120px] w-[90%] mx-auto flex h-12 items-center gap-3">
         <Link
           href="/writing"
           className="shrink-0 text-sm font-semibold text-foreground transition-colors hover:text-primary"
         >
-          <span className="sm:hidden">Vern</span>
+          <span className="sm:hidden">V.L.</span>
           <span className="hidden sm:inline">Vernon Laquindanum</span>
         </Link>
-        <div className="ml-auto">
-          <ModeToggle theme="light" />
-        </div>
+        <span className="h-4 w-px shrink-0 bg-black/15" aria-hidden="true" />
+        <ModeToggle theme="light" />
       </div>
     </header>
   );
