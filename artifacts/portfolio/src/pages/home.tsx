@@ -3,7 +3,7 @@ import { Mail, Linkedin, FileText, ArrowUpRight, ChevronDown, Target, Compass, B
 import { TableOfContents, useTocActiveSection, TocItem } from "../components/TableOfContents";
 import { TopNav } from "../components/TopNav";
 import { CopyEmailButton } from "../components/CopyEmailButton";
-import { aboutParagraphs, LINKEDIN_URL, RESUME_URL, AVATAR_SRC } from "../content/about";
+import { aboutParagraphs, LINKEDIN_URL, MEDIUM_URL, RESUME_URL, AVATAR_SRC } from "../content/about";
 import { BackToTop } from "../components/BackToTop";
 
 interface CaseStudy {
@@ -890,6 +890,17 @@ export default function Home() {
                   <Linkedin className="w-[18px] h-[18px] text-[#aaaaaa] group-hover:text-white transition-colors" />
                   <span className="text-white text-sm group-hover:underline underline-offset-2 transition-all">
                     linkedin.com/in/vjtlaq
+                  </span>
+                </a>
+                <a
+                  href={MEDIUM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 group w-fit"
+                >
+                  <BookOpen className="w-[18px] h-[18px] text-[#aaaaaa] group-hover:text-white transition-colors" />
+                  <span className="text-white text-sm group-hover:underline underline-offset-2 transition-all">
+                    medium.com/@vjtlaq
                   </span>
                 </a>
                 <a

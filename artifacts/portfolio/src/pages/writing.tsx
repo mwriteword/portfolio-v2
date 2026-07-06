@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
-import { PenLine, FileText, Linkedin, ArrowDown, Mail, Check } from "lucide-react";
+import { PenLine, FileText, Linkedin, BookOpen, ArrowDown, Mail, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -8,7 +8,7 @@ import { CopyEmailButton } from "../components/CopyEmailButton";
 import { ModeToggle } from "../components/ModeToggle";
 import { WorkSamples } from "../components/WorkSamples";
 import { TableOfContents, useTocActiveSection, type TocItem } from "../components/TableOfContents";
-import { aboutParagraphs, LINKEDIN_URL, RESUME_URL, AVATAR_SRC } from "../content/about";
+import { aboutParagraphs, LINKEDIN_URL, MEDIUM_URL, RESUME_URL, AVATAR_SRC } from "../content/about";
 
 const EMAIL = "vjtlaq@gmail.com";
 
@@ -351,6 +351,17 @@ export default function Writing() {
                   <Linkedin className="h-[18px] w-[18px] text-muted-foreground transition-colors group-hover:text-foreground" />
                   <span className="text-sm text-foreground underline-offset-2 group-hover:underline">
                     linkedin.com/in/vjtlaq
+                  </span>
+                </a>
+                <a
+                  href={MEDIUM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex w-fit items-center gap-3"
+                >
+                  <BookOpen className="h-[18px] w-[18px] text-muted-foreground transition-colors group-hover:text-foreground" />
+                  <span className="text-sm text-foreground underline-offset-2 group-hover:underline">
+                    medium.com/@vjtlaq
                   </span>
                 </a>
                 <a

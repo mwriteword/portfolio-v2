@@ -9,6 +9,7 @@ export const aboutParagraphs: string[] = [
 ];
 
 export const LINKEDIN_URL = "https://linkedin.com/in/vjtlaq";
+export const MEDIUM_URL = "https://medium.com/@vjtlaq";
 export const RESUME_URL =
   "https://docs.google.com/document/d/13RsZkG_7wzEnA9dBToBTtVLWqRb2BFS_X_Ns_zhAcro/edit?usp=sharing";
 export const AVATAR_SRC = "/images/avatar/illustration.png";
