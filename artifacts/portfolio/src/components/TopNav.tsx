@@ -51,13 +51,14 @@ export function TopNav({ sections, activeSection }: TopNavProps) {
 
   const isCaseStudyPage = caseStudies.some((cs) => cs.href === location);
   const chapters = sections ?? [];
+  const hasChapters = chapters.length > 0;
 
   const closeMenu = () => setOpen(false);
 
   const toggleMenu = () => {
     if (!open) {
-      // Opening: case-study pages default to their chapter list.
-      setView(isCaseStudyPage ? "chapters" : "main");
+      // Opening: case-study pages with chapters default to their chapter list.
+      setView(isCaseStudyPage && hasChapters ? "chapters" : "main");
       setCsExpanded(false);
       setDir(1);
     }
@@ -110,9 +111,13 @@ export function TopNav({ sections, activeSection }: TopNavProps) {
 
   const onCaseStudyClick = (href: string) => {
     if (href === location) {
-      // Already here — reveal this study's chapters instead of navigating.
-      setDir(1);
-      setView("chapters");
+      // Already here — reveal this study's chapters, or just close if it has none.
+      if (hasChapters) {
+        setDir(1);
+        setView("chapters");
+      } else {
+        closeMenu();
+      }
     } else {
       setLocation(href); // navigates; the destination page mounts a fresh nav
     }
