@@ -16,6 +16,8 @@ export interface WorkSample {
   image?: string;
   /** Optional full-size image opened in the lightbox when the panel media is clicked. */
   full?: string;
+  /** Anchor the tile/panel crop to the top of the image (e.g. tall email screenshots). */
+  imageTop?: boolean;
   /** Optional video for the expanded panel; `image` is used as its poster frame. */
   video?: string;
 }
@@ -52,9 +54,101 @@ const gradients = [
   "from-cyan-500/25 to-sky-500/10",
 ];
 
-// Images and asset-linked references (e.g. "View the full-page sample") land in a
-// later pass; the expanded panels currently use gradient placeholders for media.
-const samples: WorkSample[] = [
+// ── Email samples ─────────────────────────────────────────────────────────────
+export const emailSamples: WorkSample[] = [
+  {
+    id: "rate-coach",
+    title: "Rate Coach email program",
+    category: "LIFECYCLE EMAIL • UTILITIES",
+    preview: "3x opens and 9x CTR vs industry benchmarks for 800K households.",
+    image: "/images/work/rate-coach-thumb.png",
+    full: "/images/opower/intro-email.png",
+    body: (
+      <>
+        <p>
+          In my full-time stint at Opower, we developed a brand new behavior change product to
+          support many utilities changing to time-of-use rate models, where energy is more
+          expensive at specific times of day. This email series was meant to guide users through
+          this transition by explaining how time-of-use rates work and encouraging them to shift
+          their energy use outside of peak-pricing hours.
+        </p>
+        <p>
+          In terms of stakes, customers spend about 8 minutes per <em>year</em> thinking about their
+          utility company and that's what we were up against. When we launched the program, we saw
+          the following results:
+        </p>
+        <ul>
+          <li>14 MW peak demand reduction across nearly 1 million homes in a mid-west utility.</li>
+          <li>35,000 customers in the initial pilot with Exelon Maryland (BGE, Pepco, and Delmarva).</li>
+          <li>+60% digital engagement at one utility.</li>
+          <li>3x the opens and 9x the clickthrough rates for one utility with over 800,000 households.</li>
+          <li>Customers were 17% more likely to recall the program against control.</li>
+          <li>Customers were 16% more likely to identify peak-pricing hours against control.</li>
+          <li>+8% customer satisfaction versus control, +5% overall.</li>
+        </ul>
+        <p>
+          <BodyLink href="https://vjtlaq.vercel.app/case-study-2">
+            Read the full email content and case study →
+          </BodyLink>
+        </p>
+      </>
+    ),
+  },
+  {
+    id: "twc-email",
+    title: "Teamwork Collection Onboarding email",
+    category: "ENGAGEMENT EMAIL • B2B SAAS",
+    preview: "Email driving app activations to support a bundle launch.",
+    image: "/images/work/twc-email-body.png",
+    full: "/images/work/twc-full-email.png",
+    imageTop: true,
+    body: (
+      <>
+        <p>
+          One of my bigger projects at Atlassian was the full onboarding experience for the Teamwork
+          Collection launch, a new bundle of Atlassian's most popular apps. Our goal with the email
+          wasn't to upsell users on the bundle — these were sent to users whose leadership already{" "}
+          <em>bought</em> the bundle. Our goal with the onboarding was to actually get users to
+          activate their seat in the app and drive growth through monthly-active users across each app.
+        </p>
+        <p>
+          I focused the content to read as straightforwardly as possible, almost like a notification
+          email rather than a growth lever. The subject line and body content are intentionally short
+          and direct; if this email got dismissed as marketing spam, we'd be dead in the water. Rather
+          than load up the email with content, I wanted to give them the information straight to get
+          them to click and learn more in the rest of the onboarding.
+        </p>
+        <p>
+          <BodyLink href="https://vjtlaq.vercel.app/case-study-onboarding">
+            See the full onboarding experience and case study here.
+          </BodyLink>
+        </p>
+      </>
+    ),
+  },
+  {
+    id: "fintech-email",
+    title: "Performance marketing emails for a fintech site",
+    category: "MARKETING EMAIL • AGENCY",
+    preview: "Email samples driving users to a landing page for lead generation.",
+    image: "/images/quinstreet/email-3.jpeg",
+    full: "/images/quinstreet/email-3.jpeg",
+    imageTop: true,
+    body: (
+      <p>
+        At QuinStreet, I wrote email content for both our internal lead-gen sites and external
+        clients, including The Home Depot, Chase, and HP. This is one of many email samples I wrote
+        in the fintech space, largely to drive users to a landing page.{" "}
+        <BodyLink href="https://vjtlaq.vercel.app/case-study-quinstreet">
+          See more copywriting samples here.
+        </BodyLink>
+      </p>
+    ),
+  },
+];
+
+// ── Long-form writing samples ─────────────────────────────────────────────────
+export const longformSamples: WorkSample[] = [
   {
     id: "solitaire",
     title: "An analytical essay on Solitaire",
@@ -94,7 +188,7 @@ const samples: WorkSample[] = [
           years to ensure that tips are still accurate and adequately sourced, since government
           energy guidance and standards can change year-to-year. I verified sources for every
           claim, updating them to match new guidance or rewriting claims entirely if they no longer
-          had a live source. If your utility has energy-saving tips on their website and it looks
+          had a live source. If your utility has energy-saving tips on their website and they look
           like the one in the thumbnail, then you can see my handiwork for yourself. Here's a sample
           of one, in the event your utility is not an Opower partner.
         </p>
@@ -102,39 +196,6 @@ const samples: WorkSample[] = [
           <ZoomLink src="/images/work/tip-sample-full.png" alt="Full-page energy efficiency tip sample">
             View the full-page sample →
           </ZoomLink>
-        </p>
-      </>
-    ),
-  },
-  {
-    id: "rate-coach",
-    title: "Rate Coach email program",
-    category: "LIFECYCLE EMAIL • UTILITIES",
-    preview: "3x opens and 9x CTR vs industry benchmarks for 800K households.",
-    image: "/images/work/rate-coach-thumb.png",
-    full: "/images/opower/intro-email.png",
-    body: (
-      <>
-        <p>
-          In my full-time stint at Opower, we developed a brand new behavior change product to
-          support many utilities changing to time-of-use rate models, where energy is more
-          expensive at specific times of day. This email series was meant to guide users through
-          this transition by explaining how time-of-use rates work and encouraging them to shift
-          their energy use outside of peak-pricing hours.
-        </p>
-        <p>When we launched the program, we saw the following:</p>
-        <ul>
-          <li>1–2% peak load shift across 5 utility deployments.</li>
-          <li>+60% digital engagement at one utility.</li>
-          <li>3x the opens and 9x the clickthrough rates for one utility with over 800,000 households.</li>
-          <li>Customers were 17% more likely to recall the program against control.</li>
-          <li>Customers were 16% more likely to identify peak-pricing hours against control.</li>
-          <li>+8% customer satisfaction versus control, +5% overall.</li>
-        </ul>
-        <p>
-          <BodyLink href="https://vjtlaq.vercel.app/case-study-2">
-            Read the full email content and case study →
-          </BodyLink>
         </p>
       </>
     ),
@@ -156,6 +217,10 @@ const samples: WorkSample[] = [
       </p>
     ),
   },
+];
+
+// ── Other writing samples ─────────────────────────────────────────────────────
+export const otherSamples: WorkSample[] = [
   {
     id: "onboarding-video",
     title: "Teamwork Collection video",
@@ -197,12 +262,14 @@ const samples: WorkSample[] = [
 ];
 
 function Thumb({ sample, index, className }: { sample: WorkSample; index: number; className?: string }) {
-  if (sample.image) {
+  const [errored, setErrored] = useState(false);
+  if (sample.image && !errored) {
     return (
       <img
         src={sample.image}
         alt={sample.title}
-        className={`h-full w-full object-cover ${className ?? ""}`}
+        onError={() => setErrored(true)}
+        className={`h-full w-full object-cover ${sample.imageTop ? "object-top" : ""} ${className ?? ""}`}
       />
     );
   }
@@ -237,7 +304,7 @@ function useGridColumns(ref: React.RefObject<HTMLElement | null>) {
   return cols;
 }
 
-export function WorkSamples() {
+export function WorkSamples({ samples }: { samples: WorkSample[] }) {
   const reduceMotion = useReducedMotion();
   const [openId, setOpenId] = useState<string | null>(null);
   const gridRef = useRef<HTMLDivElement>(null);
@@ -326,7 +393,10 @@ export function WorkSamples() {
                             <img
                               src={open.image}
                               alt={open.title}
-                              className="h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03]"
+                              onError={(e) => {
+                                (e.currentTarget.style.display = "none");
+                              }}
+                              className={`h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03] ${open.imageTop ? "object-top" : ""}`}
                             />
                           </button>
                         ) : (

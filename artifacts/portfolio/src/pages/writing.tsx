@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "wouter";
-import { PenLine, FileText, Linkedin, BookOpen, ArrowDown, Mail, Check } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import { FileText, Linkedin, BookOpen, ArrowDown, Mail, Check, ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { CopyEmailButton } from "../components/CopyEmailButton";
 import { ModeToggle } from "../components/ModeToggle";
-import { WorkSamples } from "../components/WorkSamples";
+import { WorkSamples, emailSamples, longformSamples, otherSamples } from "../components/WorkSamples";
 import { TableOfContents, useTocActiveSection, type TocItem } from "../components/TableOfContents";
 import { aboutParagraphs, LINKEDIN_URL, MEDIUM_URL, RESUME_URL, AVATAR_SRC } from "../content/about";
 
@@ -23,25 +24,23 @@ const tocItems: TocItem[] = [
   { id: "contact", label: "Contact" },
 ];
 
-// Content Writing shown first (stacked above Copywriting) per design.
 const disciplines = [
   {
-    icon: FileText,
-    title: "Content Writing",
-    blurb:
-      "Long-form content experience including SEO and well-researched, editorial-grade content.",
+    icon: Mail,
+    title: "Email & Lifecycle",
+    blurb: "Proven expertise in email copywriting across internal and agency settings.",
   },
   {
-    icon: PenLine,
-    title: "Copywriting",
+    icon: FileText,
+    title: "Researched Content",
     blurb:
-      "Proven marketing experience in an agency setting, writing for clients such as The Home Depot, Chase, and HP.",
+      "Extensive experience writing well-researched, long-form content in regulated environments.",
   },
 ];
 
 const stats = [
   { value: "9x", label: "Email CTR vs. benchmark" },
-  { value: "12%", label: "Lift in customer sentiment" },
+  { value: "1M+", label: "US homes" },
   { value: "18%", label: "Increase in content helpfulness ratings" },
 ];
 
@@ -51,6 +50,24 @@ const testimonials = [
       "Vern is exactly the kind of content designer that every switched-on tech leader needs in their team. He can flex in every direction without losing a beat in delivering high quality or velocity.",
     name: "Libby V.",
     role: "Head of Content Design",
+  },
+  {
+    quote:
+      "Vern is the kind of collaborator who becomes the steel thread across projects — generous with his time, genuine in his partnerships, and an absolute pleasure to work alongside. Any team that gets to work with Vern will feel the difference from day one.",
+    name: "Anthony C.",
+    role: "Design Leader",
+  },
+  {
+    quote:
+      "Vernon is super approachable and easy to jam with. He's a genuinely people-focused person who makes work enjoyable, and he's also comfortable jumping into the design tools, which made collaboration feel so much more seamless. He's such a vital teammate, thoughtful and generous with his thinking, and an absolute expert at what he does.",
+    name: "Tim H.",
+    role: "Product Designer",
+  },
+  {
+    quote:
+      "Vern brought an exceptional level of craft and care to his work, keeping the customer at the centre of everything he did and thoughtfully shaping every piece of messaging to ensure it's clear, purposeful, and high quality. He's also very good at taking the lead on strategic initiatives, collaborating with an insane amount of stakeholders — he really is a team on his own.",
+    name: "Ge G.",
+    role: "Product Designer",
   },
 ];
 
@@ -206,10 +223,86 @@ function ContactForm() {
   );
 }
 
+// ── Quote carousel ────────────────────────────────────────────────────────────
+
+function QuoteCarousel() {
+  const reduceMotion = useReducedMotion();
+  const [i, setI] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const n = testimonials.length;
+
+  useEffect(() => {
+    if (paused) return;
+    const t = setInterval(() => setI((v) => (v + 1) % n), 4500);
+    return () => clearInterval(t);
+  }, [paused, n]);
+
+  const go = (d: number) => setI((v) => (v + d + n) % n);
+  const q = testimonials[i];
+
+  return (
+    <div
+      className="relative mx-auto max-w-3xl"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      <div className="flex h-[310px] items-center justify-center sm:h-[220px] lg:h-[190px]">
+        <motion.figure
+          key={i}
+          initial={{ opacity: 0, y: reduceMotion ? 0 : 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: reduceMotion ? 0 : 0.35, ease: "easeOut" }}
+          className="text-center"
+        >
+          <blockquote className="text-base sm:text-lg font-medium leading-relaxed text-foreground">
+            “{q.quote}”
+          </blockquote>
+          <figcaption className="mt-4 text-sm text-muted-foreground">
+            — {q.name}, {q.role}
+          </figcaption>
+        </motion.figure>
+      </div>
+
+      <div className="mt-4 flex items-center justify-center gap-3">
+        <button
+          type="button"
+          onClick={() => go(-1)}
+          aria-label="Previous quote"
+          className="rounded-full p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+        >
+          <ChevronLeft className="h-4 w-4" />
+        </button>
+        <div className="flex items-center gap-1.5">
+          {testimonials.map((_, idx) => (
+            <button
+              key={idx}
+              type="button"
+              onClick={() => setI(idx)}
+              aria-label={`Go to quote ${idx + 1}`}
+              className={`h-1.5 rounded-full transition-all ${
+                idx === i ? "w-4 bg-foreground" : "w-1.5 bg-muted-foreground/40 hover:bg-muted-foreground"
+              }`}
+            />
+          ))}
+        </div>
+        <button
+          type="button"
+          onClick={() => go(1)}
+          aria-label="Next quote"
+          className="rounded-full p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+        >
+          <ChevronRight className="h-4 w-4" />
+        </button>
+      </div>
+    </div>
+  );
+}
+
 // ── Page ──────────────────────────────────────────────────────────────────────
 
 export default function Writing() {
   const activeSection = useTocActiveSection(tocItems);
+  const [moreWorkOpen, setMoreWorkOpen] = useState(false);
 
   return (
     <main className="min-h-screen bg-background text-foreground">
@@ -220,7 +313,7 @@ export default function Writing() {
         {/* 1 — Hero */}
         <section className="mb-14 sm:mb-20 text-center">
           <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-            Copywriting • Content Writing
+            Email & Lifecycle Copywriting • Editorial & Content Writing
           </p>
           <h1 className="mx-auto mt-4 max-w-3xl font-bold tracking-tight text-[40px] sm:text-[60px] lg:text-[72px] leading-[1.05]">
             I write words,
@@ -228,8 +321,9 @@ export default function Writing() {
             you get results.
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-[16px] sm:text-[20px] text-muted-foreground">
-            Hello! I'm Vern, and I have 12 years of experience writing SaaS UX, marketing copy, and
-            regulated content. And occasionally, serious essays about deeply unserious things.
+            Hello! I'm Vern and I have 12 years of writing experience. I specialize in email
+            copywriting, with deep experience in UX and regulated content. And occasionally, serious
+            essays on deeply unserious things.
           </p>
           <div className="mt-9 flex flex-wrap justify-center gap-3">
             <button
@@ -251,16 +345,9 @@ export default function Writing() {
           </div>
         </section>
 
-        {/* Woven-in client quote (casual callout; more to be added over time) */}
+        {/* Woven-in client quotes — auto-advancing carousel */}
         <section className="mb-14 sm:mb-20">
-          <figure className="mx-auto max-w-3xl text-center">
-            <blockquote className="text-xl sm:text-2xl font-medium leading-relaxed text-foreground">
-              “{testimonials[0].quote}”
-            </blockquote>
-            <figcaption className="mt-4 text-sm text-muted-foreground">
-              — {testimonials[0].name}, {testimonials[0].role}
-            </figcaption>
-          </figure>
+          <QuoteCarousel />
         </section>
 
         {/* 2 — What I do / philosophy */}
@@ -308,13 +395,45 @@ export default function Writing() {
           </div>
         </section>
 
-        {/* 3 — Work samples */}
+        {/* 3 — Work samples, grouped into three sections */}
         <section id="work" className="mb-14 sm:mb-20 scroll-mt-16">
           <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight mb-6">
-            Stuff I've written
+            Email samples
           </h2>
-          <WorkSamples />
+          <WorkSamples samples={emailSamples} />
         </section>
+
+        {/* Long-form + Other collapse behind "See more work" (peek of the images) */}
+        <div className="relative mb-14 sm:mb-20">
+          <div className={moreWorkOpen ? "" : "max-h-[280px] overflow-hidden pointer-events-none"}>
+            <section className="mb-14 sm:mb-20">
+              <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight mb-6">
+                Long-form writing samples
+              </h2>
+              <WorkSamples samples={longformSamples} />
+            </section>
+
+            <section>
+              <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight mb-6">
+                Other writing samples
+              </h2>
+              <WorkSamples samples={otherSamples} />
+            </section>
+          </div>
+
+          {!moreWorkOpen && (
+            <div className="absolute inset-x-0 bottom-0 flex h-48 items-end justify-center bg-gradient-to-b from-transparent to-background">
+              <button
+                type="button"
+                onClick={() => setMoreWorkOpen(true)}
+                className="mb-1 inline-flex items-center gap-2 rounded-lg border border-border bg-card px-5 py-2.5 text-sm font-medium text-foreground shadow-sm transition-colors hover:bg-muted"
+              >
+                See more work
+                <ChevronDown className="h-4 w-4" />
+              </button>
+            </div>
+          )}
+        </div>
 
         {/* 5 — More about me (mirrored from the UX side via ../content/about) */}
         <section id="about" className="mb-14 sm:mb-20 scroll-mt-16">
