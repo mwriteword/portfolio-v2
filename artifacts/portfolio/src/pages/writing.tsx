@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { motion, useReducedMotion } from "framer-motion";
-import { FileText, Linkedin, BookOpen, ArrowDown, Mail, Check, ChevronLeft, ChevronRight } from "lucide-react";
+import { FileText, Linkedin, BookOpen, ArrowDown, Mail, Check, ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -233,7 +233,7 @@ function QuoteCarousel() {
 
   useEffect(() => {
     if (paused) return;
-    const t = setInterval(() => setI((v) => (v + 1) % n), 6500);
+    const t = setInterval(() => setI((v) => (v + 1) % n), 4500);
     return () => clearInterval(t);
   }, [paused, n]);
 
@@ -246,7 +246,7 @@ function QuoteCarousel() {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <div className="flex min-h-[220px] items-center justify-center sm:min-h-[150px]">
+      <div className="flex h-[310px] items-center justify-center sm:h-[220px] lg:h-[190px]">
         <motion.figure
           key={i}
           initial={{ opacity: 0, y: reduceMotion ? 0 : 8 }}
@@ -302,6 +302,7 @@ function QuoteCarousel() {
 
 export default function Writing() {
   const activeSection = useTocActiveSection(tocItems);
+  const [moreWorkOpen, setMoreWorkOpen] = useState(false);
 
   return (
     <main className="min-h-screen bg-background text-foreground">
@@ -402,19 +403,37 @@ export default function Writing() {
           <WorkSamples samples={emailSamples} />
         </section>
 
-        <section className="mb-14 sm:mb-20">
-          <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight mb-6">
-            Long-form writing samples
-          </h2>
-          <WorkSamples samples={longformSamples} />
-        </section>
+        {/* Long-form + Other collapse behind "See more work" (peek of the images) */}
+        <div className="relative mb-14 sm:mb-20">
+          <div className={moreWorkOpen ? "" : "max-h-[280px] overflow-hidden pointer-events-none"}>
+            <section className="mb-14 sm:mb-20">
+              <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight mb-6">
+                Long-form writing samples
+              </h2>
+              <WorkSamples samples={longformSamples} />
+            </section>
 
-        <section className="mb-14 sm:mb-20">
-          <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight mb-6">
-            Other writing samples
-          </h2>
-          <WorkSamples samples={otherSamples} />
-        </section>
+            <section>
+              <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight mb-6">
+                Other writing samples
+              </h2>
+              <WorkSamples samples={otherSamples} />
+            </section>
+          </div>
+
+          {!moreWorkOpen && (
+            <div className="absolute inset-x-0 bottom-0 flex h-48 items-end justify-center bg-gradient-to-b from-transparent to-background">
+              <button
+                type="button"
+                onClick={() => setMoreWorkOpen(true)}
+                className="mb-1 inline-flex items-center gap-2 rounded-lg border border-border bg-card px-5 py-2.5 text-sm font-medium text-foreground shadow-sm transition-colors hover:bg-muted"
+              >
+                See more work
+                <ChevronDown className="h-4 w-4" />
+              </button>
+            </div>
+          )}
+        </div>
 
         {/* 5 — More about me (mirrored from the UX side via ../content/about) */}
         <section id="about" className="mb-14 sm:mb-20 scroll-mt-16">
