@@ -16,6 +16,8 @@ export interface WorkSample {
   image?: string;
   /** Optional full-size image opened in the lightbox when the panel media is clicked. */
   full?: string;
+  /** Anchor the tile/panel crop to the top of the image (e.g. tall email screenshots). */
+  imageTop?: boolean;
   /** Optional video for the expanded panel; `image` is used as its poster frame. */
   video?: string;
 }
@@ -97,8 +99,9 @@ export const emailSamples: WorkSample[] = [
     title: "Teamwork Collection Onboarding email",
     category: "ENGAGEMENT EMAIL • B2B SAAS",
     preview: "Email driving app activations to support a bundle launch.",
-    image: "/images/work/twc-email-thumb.png",
-    full: "/images/work/twc-email-full.png",
+    image: "/images/work/twc-email-body.png",
+    full: "/images/work/twc-full-email.png",
+    imageTop: true,
     body: (
       <>
         <p>
@@ -128,7 +131,9 @@ export const emailSamples: WorkSample[] = [
     title: "Performance marketing emails for a fintech site",
     category: "MARKETING EMAIL • AGENCY",
     preview: "Email samples driving users to a landing page for lead generation.",
-    image: "/images/work/fintech-email-thumb.png",
+    image: "/images/quinstreet/email-3.jpeg",
+    full: "/images/quinstreet/email-3.jpeg",
+    imageTop: true,
     body: (
       <p>
         At QuinStreet, I wrote email content for both our internal lead-gen sites and external
@@ -264,7 +269,7 @@ function Thumb({ sample, index, className }: { sample: WorkSample; index: number
         src={sample.image}
         alt={sample.title}
         onError={() => setErrored(true)}
-        className={`h-full w-full object-cover ${className ?? ""}`}
+        className={`h-full w-full object-cover ${sample.imageTop ? "object-top" : ""} ${className ?? ""}`}
       />
     );
   }
@@ -391,7 +396,7 @@ export function WorkSamples({ samples }: { samples: WorkSample[] }) {
                               onError={(e) => {
                                 (e.currentTarget.style.display = "none");
                               }}
-                              className="h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03]"
+                              className={`h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03] ${open.imageTop ? "object-top" : ""}`}
                             />
                           </button>
                         ) : (
