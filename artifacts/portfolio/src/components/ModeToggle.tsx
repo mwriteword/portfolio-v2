@@ -2,13 +2,16 @@ import { useLocation } from "wouter";
 import { useModeTransition } from "@/lib/mode-transition";
 
 interface Mode {
+  /** Full label shown at sm and up. */
   label: string;
+  /** Compact label shown on mobile where header space is tight. */
+  short: string;
   href: string;
 }
 
 const MODES: Mode[] = [
-  { label: "UX", href: "/" },
-  { label: "Writing", href: "/writing" },
+  { label: "UX Portfolio", short: "UX", href: "/" },
+  { label: "Writing Services", short: "Writing", href: "/writing" },
 ];
 
 /**
@@ -53,7 +56,8 @@ export function ModeToggle({ theme = "dark" }: { theme?: "dark" | "light" }) {
               active ? activeCls : inactiveCls
             }`}
           >
-            {mode.label}
+            <span className="sm:hidden">{mode.short}</span>
+            <span className="hidden sm:inline">{mode.label}</span>
           </button>
         );
       })}
