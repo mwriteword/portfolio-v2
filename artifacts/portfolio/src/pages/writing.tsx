@@ -426,9 +426,9 @@ export default function Writing() {
               <button
                 type="button"
                 onClick={() => setMoreWorkOpen(true)}
-                className="mb-1 inline-flex items-center gap-2 rounded-lg border border-border bg-card px-5 py-2.5 text-sm font-medium text-foreground shadow-sm transition-colors hover:bg-muted"
+                className="mb-2 flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
               >
-                See more work
+                Show more
                 <ChevronDown className="h-4 w-4" />
               </button>
             </div>

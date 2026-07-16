@@ -10,8 +10,8 @@ interface Mode {
 }
 
 const MODES: Mode[] = [
-  { label: "UX Portfolio", short: "UX", href: "/" },
-  { label: "Writing Services", short: "Writing", href: "/writing" },
+  { label: "UX Portfolio", short: "Portfolio", href: "/" },
+  { label: "Writing Services", short: "Services", href: "/writing" },
 ];
 
 /**
