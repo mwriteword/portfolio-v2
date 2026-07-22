@@ -9,6 +9,9 @@ import { TransitionContext } from "@/lib/mode-transition";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import Writing from "@/pages/writing";
+import Services from "@/pages/services";
+import About from "@/pages/about";
+import CopyWork from "@/pages/copy-work";
 import CaseStudy1 from "@/pages/case-study-1";
 import CaseStudy2 from "@/pages/case-study-2";
 import CaseStudyOnboarding from "@/pages/case-study-onboarding";
@@ -22,7 +25,7 @@ const queryClient = new QueryClient();
 // screen while the route swaps underneath, so the toggle reads as a color inversion.
 const UX_BG = "#2e2e2e";
 const WRITING_BG = "#ffffff";
-const bgForPath = (path: string) => (path === "/writing" ? WRITING_BG : UX_BG);
+const bgForPath = (path: string) => (path.startsWith("/writing") ? WRITING_BG : UX_BG);
 
 type Phase = "idle" | "cover" | "reveal";
 
@@ -31,6 +34,9 @@ function Routes() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/writing" component={Writing} />
+      <Route path="/writing/services" component={Services} />
+      <Route path="/writing/about" component={About} />
+      <Route path="/writing/copy-work" component={CopyWork} />
       <Route path="/case-study-1" component={CaseStudy1} />
       <Route path="/case-study-2" component={CaseStudy2} />
       <Route path="/case-study-onboarding" component={CaseStudyOnboarding} />

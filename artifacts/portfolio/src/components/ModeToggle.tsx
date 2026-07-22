@@ -11,7 +11,7 @@ interface Mode {
 
 const MODES: Mode[] = [
   { label: "UX Portfolio", short: "Portfolio", href: "/" },
-  { label: "Writing Services", short: "Services", href: "/writing" },
+  { label: "Freelance Services", short: "Freelance", href: "/writing" },
 ];
 
 /**
@@ -22,7 +22,7 @@ const MODES: Mode[] = [
 export function ModeToggle({ theme = "dark" }: { theme?: "dark" | "light" }) {
   const [location] = useLocation();
   const startTransition = useModeTransition();
-  const isWriting = location === "/writing";
+  const isWriting = location.startsWith("/writing");
 
   const container =
     theme === "light"
