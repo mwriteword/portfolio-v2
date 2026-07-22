@@ -12,7 +12,7 @@ export default function NotFound() {
           </div>
 
           <p className="mt-4 text-sm text-gray-600">
-            Frankly not sure how we got here, but glad to know we have an error page and that it works! Anyway, <a href="https://vjtlaq.vercel.app">let's go back to the main site</a>.
+            Frankly not sure how we got here, but glad to know we have an error page and that it works! Anyway, <a href="/">let's go back to the main site</a>.
           </p>
         </CardContent>
       </Card>
