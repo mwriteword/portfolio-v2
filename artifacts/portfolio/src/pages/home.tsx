@@ -737,7 +737,7 @@ export default function Home() {
             Hello! You can call me Vern.
           </h1>
           <p className="text-[16px] sm:text-[20px] text-[#aaaaaa] mt-4 sm:mt-6 max-w-2xl mx-auto">
-            I fix the words in SaaS products so users actually know how to use it. Then I build the content systems to make sure it stays that way.
+            I'm a Content Designer who fixes the words in SaaS products so their users actually know how to use them. Then I build the content systems to make sure it stays fixed.
           </p>
 
           {/* CTA Buttons */}
