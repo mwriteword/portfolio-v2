@@ -737,7 +737,7 @@ export default function Home() {
             Hello! You can call me Vern.
           </h1>
           <p className="text-[16px] sm:text-[20px] text-[#aaaaaa] mt-4 sm:mt-6 max-w-2xl mx-auto">
-            I'm a Content Designer who brings structure and clarity to software that's gotten tangled and hard to follow. I turn content problems into clear language that becomes invisible to the people using it.
+            I fix the words in SaaS products so users actually know how to use it. Then I build the content systems to make sure it stays that way.
           </p>
 
           {/* CTA Buttons */}
