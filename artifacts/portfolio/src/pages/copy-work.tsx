@@ -2,8 +2,8 @@ import { WritingNav } from "../components/WritingNav";
 import { WorkSamples, emailSamples, longformSamples, otherSamples } from "../components/WorkSamples";
 
 // Preserved (but intentionally un-linked) archive of the writing work samples that
-// used to live on the /writing landing page. Not in any nav yet — reachable only by
-// direct URL (/writing/copy-work) so the content is kept but not surfaced.
+// used to live on the freelance landing page. Not in any nav yet — reachable only by
+// direct URL (/copy-work) so the content is kept but not surfaced.
 export default function CopyWork() {
   return (
     <main className="min-h-screen bg-background text-foreground">

@@ -329,7 +329,7 @@ export default function Writing() {
               Get in touch
             </button>
             <Link
-              href="/writing/services"
+              href="/services"
               onClick={() => window.scrollTo(0, 0)}
               className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-4 sm:px-5 py-2 sm:py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted"
             >
@@ -376,7 +376,7 @@ export default function Writing() {
               return (
                 <Link
                   key={s.slug}
-                  href={`/writing/services#${s.slug}`}
+                  href={`/services#${s.slug}`}
                   className="group flex flex-col rounded-xl border border-border bg-card p-6 transition-colors hover:bg-muted"
                 >
                   <div className="flex items-start justify-between">
@@ -394,7 +394,7 @@ export default function Writing() {
 
             {/* Catch-all → full Services page (also keeps the grid balanced at 6 cells) */}
             <Link
-              href="/writing/services"
+              href="/services"
               onClick={() => window.scrollTo(0, 0)}
               className="group flex flex-col justify-center rounded-xl border border-dashed border-border p-6 transition-colors hover:bg-muted"
             >
@@ -445,7 +445,7 @@ export default function Writing() {
               </div>
 
               <Link
-                href="/writing/about"
+                href="/about"
                 onClick={() => window.scrollTo(0, 0)}
                 className="mt-8 inline-flex items-center gap-1.5 text-sm font-medium text-foreground underline-offset-4 hover:underline"
               >

@@ -87,7 +87,7 @@ export const emailSamples: WorkSample[] = [
           <li>+8% customer satisfaction versus control, +5% overall.</li>
         </ul>
         <p>
-          <BodyLink href="/case-study-2">
+          <BodyLink href="/portfolio/case-study/bls-emails">
             Read the full email content and case study →
           </BodyLink>
         </p>
@@ -119,7 +119,7 @@ export const emailSamples: WorkSample[] = [
           them to click and learn more in the rest of the onboarding.
         </p>
         <p>
-          <BodyLink href="/case-study-onboarding">
+          <BodyLink href="/portfolio/case-study/twc">
             See the full onboarding experience and case study here.
           </BodyLink>
         </p>
@@ -139,7 +139,7 @@ export const emailSamples: WorkSample[] = [
         At QuinStreet, I wrote email content for both our internal lead-gen sites and external
         clients, including The Home Depot, Chase, and HP. This is one of many email samples I wrote
         in the fintech space, largely to drive users to a landing page.{" "}
-        <BodyLink href="/case-study-quinstreet">
+        <BodyLink href="/portfolio/case-study/copywriting-samples">
           See more copywriting samples here.
         </BodyLink>
       </p>
@@ -234,7 +234,7 @@ export const otherSamples: WorkSample[] = [
         bundle at Atlassian. I was the Content Designer on this project, but I worked with the brand
         and creative team on this hero video. I wrote the original script to align with the rest of
         the onboarding experience (while making it flexible enough to work in other contexts).{" "}
-        <BodyLink href="/case-study-onboarding">
+        <BodyLink href="/portfolio/case-study/twc">
           You can read the full case study here
         </BodyLink>
         .
@@ -253,7 +253,7 @@ export const otherSamples: WorkSample[] = [
         QuinStreet had an agency model, where we created email, landing pages, banners, and social
         media ads for our internal sites as well as external clients to drive lead-gen and
         conversion. This is one example of marketing-focused writing I did for one of our clients.{" "}
-        <BodyLink href="/case-study-quinstreet">
+        <BodyLink href="/portfolio/case-study/copywriting-samples">
           You can see more copywriting samples here.
         </BodyLink>
       </p>

@@ -12,7 +12,7 @@ export function Breadcrumbs({ label, color }: BreadcrumbsProps) {
     <nav aria-label="Breadcrumb" className="mb-8">
       <ol className="flex items-center gap-2 text-sm">
         <li>
-          <Link href="/" className="text-[#888888] transition-colors hover:text-white">
+          <Link href="/portfolio" className="text-[#888888] transition-colors hover:text-white">
             Home
           </Link>
         </li>

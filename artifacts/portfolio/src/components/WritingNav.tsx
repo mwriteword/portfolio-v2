@@ -8,8 +8,8 @@ interface WritingNavLink {
 }
 
 const navLinks: WritingNavLink[] = [
-  { href: "/writing/services", label: "Services" },
-  { href: "/writing/about", label: "About" },
+  { href: "/services", label: "Services" },
+  { href: "/about", label: "About" },
 ];
 
 const linkBase = "rounded-lg px-3 py-1.5 text-sm font-medium transition-colors";
@@ -35,11 +35,11 @@ export function WritingNav() {
   // "Get in touch" lives in the contact section on the Writing landing page.
   // From a sub-page, navigate home first, then scroll once the section mounts.
   const goToContact = () => {
-    if (location === "/writing") {
+    if (location === "/") {
       scrollToId("contact");
       return;
     }
-    setLocation("/writing");
+    setLocation("/");
     let tries = 0;
     const tryScroll = () => {
       const el = document.getElementById("contact");
@@ -80,7 +80,7 @@ export function WritingNav() {
         {/* Row 1 — identity + mode toggle (+ page nav on sm and up) */}
         <div className="flex h-12 items-center gap-3">
           <Link
-            href="/writing"
+            href="/"
             onClick={() => window.scrollTo(0, 0)}
             className="shrink-0 text-sm font-semibold text-foreground transition-colors hover:text-primary"
           >
