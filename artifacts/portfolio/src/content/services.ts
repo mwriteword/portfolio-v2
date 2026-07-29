@@ -88,7 +88,7 @@ export const services: Service[] = [
         "Walkthrough and hand off",
         "Content Standards AI Agent — a functional agent that anyone in the org can use to check or generate standards-aligned content without a content designer",
       ],
-      caseStudy: { label: "Platform Apps Type System", comingSoon: true },
+      caseStudy: { label: "Platform Apps Type System", href: "/portfolio/case-study/goal-types" },
       timeline: "6–10 weeks, part-time embedded in the team",
       pricing: "Starts at $18k",
       forWho:
@@ -116,7 +116,7 @@ export const services: Service[] = [
         "Knowledge architecture — what your AI draws from, what it's fenced away from, and how it stays current as your product evolves",
         "Evaluation rubric for content quality",
       ],
-      caseStudy: { label: "Rovo Risk Agent", comingSoon: true },
+      caseStudy: { label: "Rovo Risk Agent", href: "/portfolio/case-study/risk-agent" },
       timeline: "4–8 weeks, or ongoing",
       pricing: "Starts at $8k",
       forWho:
@@ -143,7 +143,7 @@ export const services: Service[] = [
         "Variant recommendations for testing",
         "Measurement plan",
       ],
-      caseStudy: { label: "Opower Rate Coach Emails", comingSoon: true },
+      caseStudy: { label: "Opower Rate Coach Emails", href: "/portfolio/case-study/bls-emails" },
       timeline: "2–5 weeks",
       pricing: "Starts at $8k",
       forWho:

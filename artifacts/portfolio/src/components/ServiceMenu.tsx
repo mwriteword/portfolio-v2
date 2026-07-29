@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, type ReactNode } from "react";
+import { Link } from "wouter";
 import { Check, ArrowUpRight } from "lucide-react";
 import type { Service, CaseStudy } from "../content/services";
 
@@ -35,13 +36,14 @@ function CaseStudyTag({ caseStudy }: { caseStudy: CaseStudy }) {
     );
   }
   return (
-    <a
+    <Link
       href={caseStudy.href}
+      onClick={() => window.scrollTo(0, 0)}
       className="group/cs inline-flex shrink-0 items-center gap-1 rounded-full border border-border px-2.5 py-1 text-xs font-medium text-foreground transition-colors hover:bg-muted"
     >
       Case study
       <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground transition-colors group-hover/cs:text-foreground" />
-    </a>
+    </Link>
   );
 }
 
