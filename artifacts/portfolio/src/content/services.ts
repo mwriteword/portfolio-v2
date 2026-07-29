@@ -61,8 +61,7 @@ export const services: Service[] = [
       ],
       caseStudy: { label: "Platform Apps Support Doc Audit", comingSoon: true },
       timeline: "3–6 weeks depending on size and scope.",
-      pricing:
-        "Starts at $6k. The full fee credits toward a Content Standards & Systems project booked within 3 months.",
+      pricing: "Starts at $6,000.",
       forWho:
         "Teams that don't or haven't had content design support and need help with product content, help articles, or even marketing content.",
       notForWho:
@@ -80,18 +79,18 @@ export const services: Service[] = [
       solves:
         "Your product works, but each page sounds like it was written by a different team. When no one owns the content, naming drifts, messages aren't consistent, and navigating your product becomes frustrating. Rather than looking at microcopy screen-by-screen, I'll build standards for what your words should actually sound like and create repeatable message patterns so it stays consistent.",
       process:
-        "I start with the same audit process to understand your product and get a feel for the language. If you don't already have voice and tone established, I'll factor that into the audit so we can build those guidelines based on what's already in your product. Once the standards are built and you're on board with them, I'll build the AI system to make it usable and sustainable as a bonus.",
+        "I start with the same audit process to understand your product and get a feel for the language. If you don't already have voice and tone established, I'll factor that into the audit so we can build those guidelines based on what's already in your product. Once the standards are set and you're on board with them, I'll build the AI system to make it usable and sustainable by anyone on the team.",
       youGet: [
         "Voice and tone framework with real examples",
         "Terminology and taxonomy standards",
         "Reusable content patterns for common UI moments (empty states, errors, onboarding, confirmations)",
         "Governance model for who owns what and how it gets updated",
         "Walkthrough and hand off",
-        "Free bonus: an AI agent that lets you check or generate standards-aligned content, usable by anyone in your organization",
+        "Content Standards AI Agent — a functional agent that anyone in the org can use to check or generate standards-aligned content without a content designer",
       ],
       caseStudy: { label: "Platform Apps Type System", comingSoon: true },
-      timeline: "6–10 weeks",
-      pricing: "Starts at $15k",
+      timeline: "6–10 weeks, part-time embedded in the team",
+      pricing: "Starts at $18k",
       forWho:
         "Teams struggling with product content, help articles, or any body of content that needs consistency or standards.",
       notForWho:
@@ -101,7 +100,7 @@ export const services: Service[] = [
   {
     slug: "ai-content-evaluation",
     eyebrow: "Improve your AI outputs",
-    title: "AI Content & Agent Design",
+    title: "AI Content Design",
     summary:
       "I design what your AI features say and how they say it, so your users actually want to use them.",
     icon: Bot,
@@ -114,7 +113,7 @@ export const services: Service[] = [
         "Agent persona and voice specification",
         "Response patterns: confidence, uncertainty, refusal, escalation, error recovery, and additional edge cases",
         "Prompt and system-message content",
-        "Knowledge curation strategy",
+        "Knowledge architecture — what your AI draws from, what it's fenced away from, and how it stays current as your product evolves",
         "Evaluation rubric for content quality",
       ],
       caseStudy: { label: "Rovo Risk Agent", comingSoon: true },
@@ -145,7 +144,7 @@ export const services: Service[] = [
         "Measurement plan",
       ],
       caseStudy: { label: "Opower Rate Coach Emails", comingSoon: true },
-      timeline: "3–6 weeks",
+      timeline: "2–5 weeks",
       pricing: "Starts at $8k",
       forWho:
         "Teams whose products don't have an existing onboarding experience, or whose existing onboarding is fragmented.",
@@ -155,7 +154,7 @@ export const services: Service[] = [
   },
   {
     slug: "content-design-retainer",
-    eyebrow: "Content support when you need it",
+    eyebrow: "Get content support when you need it",
     title: "Content Design Retainer",
     summary:
       "I'll work with your teams for launches, features, and everything in between — for a fraction of a full-time hire.",
@@ -174,8 +173,8 @@ export const services: Service[] = [
         "Content advisement at kickoff",
         "Design partnership",
       ],
-      timeline: "2–3 days per week",
-      pricing: "$4–8k/month, 3-month minimum engagement.",
+      timeline: "1–2 days per week. 1-month trial, then 3-month minimum engagement.",
+      pricing: "$4,000/month for 1 day/week; $8,000/month for 2 days/week.",
       forWho:
         "Teams that want content support without the need or budget for a full-time content designer.",
       notForWho: "Teams that only want content support for a single project.",

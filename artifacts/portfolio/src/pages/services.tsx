@@ -59,31 +59,12 @@ export default function Services() {
           <ServiceMenu services={services} onBookCall={goToContact} />
         </section>
 
-        {/* Additional services */}
-        <section className="mb-14 sm:mb-20">
-          <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight mb-2">
-            Additional services
-          </h2>
-          <p className="mb-6 text-sm text-muted-foreground">
-            Prices vary based on the size and shape of the engagement. Get in touch and we can work
-            out pricing together.
-          </p>
-          <div className="grid gap-4 sm:grid-cols-3">
-            {additionalServices.map(({ name, desc }) => (
-              <div key={name} className="rounded-xl border border-border bg-card p-6">
-                <h3 className="font-semibold">{name}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{desc}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Closing CTA */}
-        <section className="rounded-xl border border-border bg-card p-6 sm:p-8">
+        {/* Not ready for a full audit? — closing CTA */}
+        <section className="mb-14 sm:mb-20 rounded-xl border border-border bg-card p-6 sm:p-8">
           <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
             <div>
               <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight">
-                Not sure which is the right fit?
+                Not ready for a full audit?
               </h2>
               <p className="mt-1.5 max-w-xl text-sm text-muted-foreground">
                 We can work it out together. Just tell me what you're working on and we'll build the
@@ -98,6 +79,25 @@ export default function Services() {
               Get in touch
               <ArrowRight className="h-4 w-4" />
             </button>
+          </div>
+        </section>
+
+        {/* Additional services */}
+        <section>
+          <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight mb-2">
+            Additional services
+          </h2>
+          <p className="mb-6 text-sm text-muted-foreground">
+            Prices vary based on the size and shape of the engagement. Get in touch and we can work
+            out pricing together.
+          </p>
+          <div className="grid gap-4 sm:grid-cols-3">
+            {additionalServices.map(({ name, desc }) => (
+              <div key={name} className="rounded-xl border border-border bg-card p-6">
+                <h3 className="font-semibold">{name}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{desc}</p>
+              </div>
+            ))}
           </div>
         </section>
       </div>
