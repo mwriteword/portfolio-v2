@@ -1,65 +1,27 @@
-import { useEffect } from "react";
 import { useLocation } from "wouter";
 import { ArrowRight } from "lucide-react";
 import { WritingNav } from "../components/WritingNav";
+import { ServiceMenu } from "../components/ServiceMenu";
 import { services } from "../content/services";
 
-// ── Content ─────────────────────────────────────────────────────────────────
-
-interface Engagement {
-  title: string;
-  blurb: string;
-  bestFor: string;
-}
-
-const engagements: Engagement[] = [
+const additionalServices = [
+  { name: "Copywriting", desc: "Email, ad copy, landing pages, and more." },
   {
-    title: "Project-based",
-    blurb: "A defined scope with clear deliverables and a fixed timeline.",
-    bestFor: "Audits, systems builds, or a specific launch.",
+    name: "Editorial services",
+    desc: "AI content review, writing review, copyediting, and proofreading.",
   },
   {
-    title: "Fractional / Retainer",
-    blurb: "Ongoing content partnership at a set number of hours each month.",
-    bestFor: "Teams needing steady senior support without a full-time hire.",
-  },
-  {
-    title: "Advisory & Workshops",
-    blurb: "Focused sessions to upskill your team, pressure-test a system, or align on strategy.",
-    bestFor: "One-off guidance and team enablement.",
+    name: "Content writing & SEO",
+    desc: "Long-form content and editorial, with analytics and performance tracking.",
   },
 ];
-
-// ── Page ────────────────────────────────────────────────────────────────────
 
 export default function Services() {
   const [, setLocation] = useLocation();
 
-  // Deep links from the home page arrive as /writing/services#<slug>. wouter does
-  // client-side navigation and there's no server render, so scroll to the anchored
-  // section ourselves. Use an instant jump (smooth gets interrupted by the browser's
-  // scroll restoration on a hard load) and repeat once shortly after to beat any
-  // layout shift / restoration reset.
-  useEffect(() => {
-    const id = window.location.hash.replace("#", "");
-    if (!id) return;
-    let cancelled = false;
-    const jump = () => {
-      if (cancelled) return;
-      document.getElementById(id)?.scrollIntoView({ block: "start" });
-    };
-    const raf = requestAnimationFrame(jump);
-    const t = setTimeout(jump, 120);
-    return () => {
-      cancelled = true;
-      cancelAnimationFrame(raf);
-      clearTimeout(t);
-    };
-  }, []);
-
-  // Route to the Writing landing page and scroll to its contact section.
+  // Route to the freelance landing page and scroll to its contact section.
   const goToContact = () => {
-    setLocation("/writing");
+    setLocation("/");
     let tries = 0;
     const tryScroll = () => {
       const el = document.getElementById("contact");
@@ -75,72 +37,42 @@ export default function Services() {
 
       <div className="max-w-[1120px] w-[90%] mx-auto py-12 sm:py-20">
         {/* Hero */}
-        <section className="mb-14 sm:mb-20 max-w-3xl">
+        <section className="mb-14 sm:mb-20 text-center">
           <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
             Services
           </p>
-          <h1 className="mt-4 font-bold tracking-tight text-[40px] sm:text-[56px] lg:text-[64px] leading-[1.05]">
+          <h1 className="mx-auto mt-4 max-w-3xl font-bold tracking-tight text-[40px] sm:text-[56px] lg:text-[64px] leading-[1.05]">
             Content that scales with your product.
           </h1>
-          <p className="mt-5 max-w-2xl text-[16px] sm:text-[20px] text-muted-foreground">
-            From a one-off audit to an ongoing partnership, here's how I help product teams ship
-            clearer, more consistent content — and build the systems to keep it that way.
+          <p className="mx-auto mt-5 max-w-2xl text-[16px] sm:text-[20px] text-muted-foreground">
+            Whether you want project-based content or ongoing support, I offer a variety of services
+            to help you get the UX content expertise you need. Most engagements start with an audit
+            and grow from there, but you can select independent engagements as needed.
           </p>
         </section>
 
-        {/* Core offerings — anchored detail sections (pricing/detail to come) */}
+        {/* Core offerings — master–detail menu */}
         <section className="mb-14 sm:mb-20">
           <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight mb-6">
             Core offerings
           </h2>
-
-          <div className="border-t border-border">
-            {services.map((s, i) => {
-              const Icon = s.icon;
-              return (
-                <div
-                  key={s.slug}
-                  id={s.slug}
-                  className="flex gap-4 sm:gap-6 border-b border-border py-8 scroll-mt-24"
-                >
-                  <span className="pt-1 font-mono text-sm tabular-nums text-muted-foreground/70">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                      {s.eyebrow}
-                    </p>
-                    <div className="mt-1 flex items-center gap-3">
-                      <Icon className="h-5 w-5 shrink-0 text-primary" />
-                      <h3 className="text-lg font-semibold">{s.title}</h3>
-                    </div>
-                    <p className="mt-2 max-w-2xl text-[15px] sm:text-base leading-relaxed text-muted-foreground">
-                      {s.summary}
-                    </p>
-                    <p className="mt-3 text-xs font-medium uppercase tracking-wide text-muted-foreground/60">
-                      Detailed scope &amp; pricing — coming soon
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          <ServiceMenu services={services} onBookCall={goToContact} />
         </section>
 
-        {/* Ways to work together */}
+        {/* Additional services */}
         <section className="mb-14 sm:mb-20">
-          <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight mb-6">
-            Ways to work together
+          <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight mb-2">
+            Additional services
           </h2>
+          <p className="mb-6 text-sm text-muted-foreground">
+            Prices vary based on the size and shape of the engagement. Get in touch and we can work
+            out pricing together.
+          </p>
           <div className="grid gap-4 sm:grid-cols-3">
-            {engagements.map(({ title, blurb, bestFor }) => (
-              <div key={title} className="rounded-xl border border-border bg-card p-6">
-                <h3 className="font-semibold">{title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{blurb}</p>
-                <p className="mt-4 text-xs font-medium uppercase tracking-wide text-muted-foreground/70">
-                  Best for
-                </p>
-                <p className="mt-1 text-sm text-foreground">{bestFor}</p>
+            {additionalServices.map(({ name, desc }) => (
+              <div key={name} className="rounded-xl border border-border bg-card p-6">
+                <h3 className="font-semibold">{name}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{desc}</p>
               </div>
             ))}
           </div>
@@ -151,10 +83,11 @@ export default function Services() {
           <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
             <div>
               <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight">
-                Not sure which fits?
+                Not sure which is the right fit?
               </h2>
-              <p className="mt-1.5 text-sm text-muted-foreground">
-                Tell me what you're working on and I'll point you in the right direction.
+              <p className="mt-1.5 max-w-xl text-sm text-muted-foreground">
+                We can work it out together. Just tell me what you're working on and we'll build the
+                right solution for you.
               </p>
             </div>
             <button
