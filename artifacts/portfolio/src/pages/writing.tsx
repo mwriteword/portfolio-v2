@@ -1,15 +1,25 @@
 import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { motion, useReducedMotion } from "framer-motion";
-import { FileText, Linkedin, BookOpen, ArrowDown, Mail, Check, ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
+import {
+  Mail,
+  ArrowRight,
+  ArrowUpRight,
+  Check,
+  ChevronLeft,
+  ChevronRight,
+  Linkedin,
+  BookOpen,
+  FileText,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { WritingNav } from "../components/WritingNav";
 import { CopyEmailButton } from "../components/CopyEmailButton";
-import { ModeToggle } from "../components/ModeToggle";
-import { WorkSamples, emailSamples, longformSamples, otherSamples } from "../components/WorkSamples";
 import { TableOfContents, useTocActiveSection, type TocItem } from "../components/TableOfContents";
-import { aboutParagraphs, LINKEDIN_URL, MEDIUM_URL, RESUME_URL, AVATAR_SRC } from "../content/about";
+import { services } from "../content/services";
+import { AVATAR_SRC, LINKEDIN_URL, MEDIUM_URL, RESUME_URL } from "../content/about";
 
 const EMAIL = "vjtlaq@gmail.com";
 
@@ -18,30 +28,11 @@ function scrollToId(id: string) {
 }
 
 const tocItems: TocItem[] = [
-  { id: "approach", label: "Approach" },
-  { id: "work", label: "Work" },
+  { id: "problem", label: "The problem" },
+  { id: "offerings", label: "How I help" },
   { id: "about", label: "About" },
+  { id: "process", label: "How it works" },
   { id: "contact", label: "Contact" },
-];
-
-const disciplines = [
-  {
-    icon: Mail,
-    title: "Email & Lifecycle",
-    blurb: "Proven expertise in email copywriting across internal and agency settings.",
-  },
-  {
-    icon: FileText,
-    title: "Researched Content",
-    blurb:
-      "Extensive experience writing well-researched, long-form content in regulated environments.",
-  },
-];
-
-const stats = [
-  { value: "9x", label: "Email CTR vs. benchmark" },
-  { value: "1M+", label: "US homes" },
-  { value: "18%", label: "Increase in content helpfulness ratings" },
 ];
 
 const testimonials = [
@@ -71,25 +62,30 @@ const testimonials = [
   },
 ];
 
-// ── Header ────────────────────────────────────────────────────────────────────
+const stats = [
+  { value: "9x", label: "Email CTR" },
+  { value: "+60%", label: "Digital engagement" },
+  { value: "+18%", label: "Helpfulness ratings" },
+];
 
-function WritingNav() {
-  return (
-    <header className="sticky top-0 z-30 border-b border-border bg-background/80 backdrop-blur">
-      <div className="max-w-[1120px] w-[90%] mx-auto flex h-12 items-center gap-3">
-        <Link
-          href="/writing"
-          className="shrink-0 text-sm font-semibold text-foreground transition-colors hover:text-primary"
-        >
-          <span className="sm:hidden">V.L.</span>
-          <span className="hidden sm:inline">Vernon Laquindanum</span>
-        </Link>
-        <span className="h-4 w-px shrink-0 bg-black/15" aria-hidden="true" />
-        <ModeToggle theme="light" />
-      </div>
-    </header>
-  );
-}
+const processSteps = [
+  {
+    title: "Intro call",
+    body: "20–30 minutes with no pitch. You tell me where your users are getting stuck, and I'll tell you honestly whether content is the problem.",
+  },
+  {
+    title: "Proposal",
+    body: "I send a proposal with fixed scope, timeline, and price within 48 hours, so you know exactly what to expect and when. If it doesn't work for you, we'll shape one that does.",
+  },
+  {
+    title: "Work",
+    body: "I work with your team and ship in your tools, showing progress at regular checkpoints. No black box, no big reveal.",
+  },
+  {
+    title: "Handoff",
+    body: "Documentation and rationale handed off in a live session with your team — plus, for systems work, an AI governance agent so the standards outlive the engagement.",
+  },
+];
 
 // ── Contact form ──────────────────────────────────────────────────────────────
 
@@ -196,7 +192,7 @@ function ContactForm() {
       </div>
       <div className="mt-4">
         <label htmlFor="message" className="mb-1.5 block text-sm font-medium text-foreground">
-          What are we working on?
+          Describe your problem or project
         </label>
         <Textarea
           id="message"
@@ -204,7 +200,7 @@ function ContactForm() {
           rows={5}
           value={form.message}
           onChange={(e) => setForm({ ...form, message: e.target.value })}
-          placeholder="Give me the details of what you're looking for."
+          placeholder="Tell me where your users are getting stuck."
         />
       </div>
       {status === "error" && (
@@ -217,7 +213,7 @@ function ContactForm() {
         </p>
       )}
       <Button type="submit" size="lg" disabled={submitting} className="mt-5 w-full sm:w-auto">
-        {submitting ? "Sending…" : "Send"}
+        {submitting ? "Sending…" : "Book an intro call"}
       </Button>
     </form>
   );
@@ -246,7 +242,7 @@ function QuoteCarousel() {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <div className="flex h-[310px] items-center justify-center sm:h-[220px] lg:h-[190px]">
+      <div className="flex h-[260px] items-center justify-center sm:h-[180px] lg:h-[150px]">
         <motion.figure
           key={i}
           initial={{ opacity: 0, y: reduceMotion ? 0 : 8 }}
@@ -254,7 +250,7 @@ function QuoteCarousel() {
           transition={{ duration: reduceMotion ? 0 : 0.35, ease: "easeOut" }}
           className="text-center"
         >
-          <blockquote className="text-base sm:text-lg font-medium leading-relaxed text-foreground">
+          <blockquote className="text-[15px] sm:text-base font-medium leading-relaxed text-foreground">
             “{q.quote}”
           </blockquote>
           <figcaption className="mt-4 text-sm text-muted-foreground">
@@ -302,7 +298,6 @@ function QuoteCarousel() {
 
 export default function Writing() {
   const activeSection = useTocActiveSection(tocItems);
-  const [moreWorkOpen, setMoreWorkOpen] = useState(false);
 
   return (
     <main className="min-h-screen bg-background text-foreground">
@@ -313,17 +308,16 @@ export default function Writing() {
         {/* 1 — Hero */}
         <section className="mb-14 sm:mb-20 text-center">
           <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-            Email & Lifecycle Copywriting • Editorial & Content Writing
+            Content Design & Systems for SaaS • UX Writing Consultant
           </p>
           <h1 className="mx-auto mt-4 max-w-3xl font-bold tracking-tight text-[40px] sm:text-[60px] lg:text-[72px] leading-[1.05]">
-            I write words,
+            Your product grew,
             <br />
-            you get results.
+            but the words didn't.
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-[16px] sm:text-[20px] text-muted-foreground">
-            Hello! I'm Vern and I have 12 years of writing experience. I specialize in email
-            copywriting, with deep experience in UX and regulated content. And occasionally, serious
-            essays on deeply unserious things.
+            The people in your product don't know how to use it. I fix all the words that are
+            confusing your users—then I build systems to make sure it stays fixed.
           </p>
           <div className="mt-9 flex flex-wrap justify-center gap-3">
             <button
@@ -334,14 +328,14 @@ export default function Writing() {
               <Mail className="h-4 w-4" />
               Get in touch
             </button>
-            <button
-              type="button"
-              onClick={() => scrollToId("work")}
+            <Link
+              href="/services"
+              onClick={() => window.scrollTo(0, 0)}
               className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-4 sm:px-5 py-2 sm:py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted"
             >
-              See my work
-              <ArrowDown className="h-4 w-4" />
-            </button>
+              View my services
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
         </section>
 
@@ -350,29 +344,96 @@ export default function Writing() {
           <QuoteCarousel />
         </section>
 
-        {/* 2 — What I do / philosophy */}
-        <section id="approach" className="mb-14 sm:mb-20 scroll-mt-16">
+        {/* 2 — The problem */}
+        <section id="problem" className="mb-14 sm:mb-20 scroll-mt-24 text-center">
           <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight mb-6">
-            Need content that people will actually read?
+            Don't let bad content get in your users' way
           </h2>
-          <div className="flex flex-col gap-8 lg:flex-row lg:gap-16">
+          <div className="mx-auto max-w-3xl space-y-4 text-[15px] sm:text-[17px] leading-relaxed text-muted-foreground">
+            <p>
+              When SaaS companies grow quickly, smart features get built but the words don't get the
+              same thought. Before you know it, the same feature has three different names,
+              navigation menus don't go where users expect, and instructions are so overloaded with
+              text that users don't know what they're supposed to do. Then support requests pile up,
+              adoption numbers start going down, and users stop using your product altogether.
+            </p>
+            <p>
+              I've seen this happen a lot, and it's cheap to fix as you scale up but expensive to
+              solve after the product has already grown. Fortunately, I've done this in both
+              directions.
+            </p>
+          </div>
+        </section>
+
+        {/* 3 — How I fix your product's content (independent offerings → Services) */}
+        <section id="offerings" className="mb-14 sm:mb-20 scroll-mt-24">
+          <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight mb-6">
+            How I fix your product's content
+          </h2>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {services.map((s) => {
+              const Icon = s.icon;
+              return (
+                <Link
+                  key={s.slug}
+                  href={`/services#${s.slug}`}
+                  className="group flex flex-col rounded-xl border border-border bg-card p-6 transition-colors hover:bg-muted"
+                >
+                  <div className="flex items-start justify-between">
+                    <Icon className="h-5 w-5 text-primary" />
+                    <ArrowUpRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground" />
+                  </div>
+                  <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                    {s.eyebrow}
+                  </p>
+                  <h3 className="mt-1 font-semibold">{s.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.summary}</p>
+                </Link>
+              );
+            })}
+
+            {/* Catch-all → full Services page (also keeps the grid balanced at 6 cells) */}
+            <Link
+              href="/services"
+              onClick={() => window.scrollTo(0, 0)}
+              className="group flex flex-col justify-center rounded-xl border border-dashed border-border p-6 transition-colors hover:bg-muted"
+            >
+              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                Not sure where to start?
+              </p>
+              <h3 className="mt-1 flex items-center gap-1.5 font-semibold">
+                View all services
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                See every offering in detail, with scope and pricing.
+              </p>
+            </Link>
+          </div>
+        </section>
+
+        {/* 4 — Impact + who I am (→ About page) */}
+        <section id="about" className="mb-14 sm:mb-20 scroll-mt-24">
+          <h2 className="mb-6 max-w-3xl text-[20px] sm:text-[24px] font-semibold tracking-tight">
+            I've led content for products used by millions.
+          </h2>
+          <div className="flex flex-col gap-10 lg:flex-row lg:gap-16">
             <div className="min-w-0 flex-1">
               <div className="space-y-4 text-[15px] sm:text-[17px] leading-relaxed text-muted-foreground">
                 <p>
-                  I have only done one job that wears different outfits. Sometimes, that job is
-                  wearing a mustache and a cowboy hat to write a punchy headline. Other times, it's
-                  wearing a striped shirt and red beret with a baguette slung across its back to
-                  drive clear microcopy. Regardless of what outfit it's wearing, it's always still
-                  the same job underneath: getting the right message to the right audience at the
-                  right time.
+                  I've been the sole writer at some point across every single team I've been on.
+                  I've built the exact solutions I've outlined above repeatedly — building systems
+                  and standards from zero and extending them across features and products. My work
+                  has driven real impact, with one email program driving clarity and behavior change
+                  at a utility with over 1 million households.
                 </p>
                 <p>
-                  I've spent the last decade working across marketing, UX, editorial, and long-form
-                  content, building up expertise and using words to guide users, motivate action,
-                  and get the results my clients need.
+                  I've solved the content problems you're experiencing at companies like Atlassian
+                  and Oracle, and I'm ready (and excited) to solve yours next.
                 </p>
               </div>
-              <div className="mt-10 grid grid-cols-3 gap-4 sm:gap-6">
+
+              <div className="mt-8 grid grid-cols-3 gap-4 sm:gap-6">
                 {stats.map((s) => (
                   <div key={s.label}>
                     <div className="text-[28px] sm:text-[40px] font-bold tracking-tight leading-none">
@@ -382,72 +443,17 @@ export default function Writing() {
                   </div>
                 ))}
               </div>
-            </div>
-            <div className="flex shrink-0 flex-col gap-4 lg:w-80">
-              {disciplines.map(({ icon: Icon, title, blurb }) => (
-                <div key={title} className="rounded-xl border border-border bg-card p-5">
-                  <Icon className="h-5 w-5 text-primary" />
-                  <h3 className="mt-3 font-semibold">{title}</h3>
-                  <p className="mt-1.5 text-sm text-muted-foreground">{blurb}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
 
-        {/* 3 — Work samples, grouped into three sections */}
-        <section id="work" className="mb-14 sm:mb-20 scroll-mt-16">
-          <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight mb-6">
-            Email samples
-          </h2>
-          <WorkSamples samples={emailSamples} />
-        </section>
-
-        {/* Long-form + Other collapse behind "See more work" (peek of the images) */}
-        <div className="relative mb-14 sm:mb-20">
-          <div className={moreWorkOpen ? "" : "max-h-[280px] overflow-hidden pointer-events-none"}>
-            <section className="mb-14 sm:mb-20">
-              <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight mb-6">
-                Long-form writing samples
-              </h2>
-              <WorkSamples samples={longformSamples} />
-            </section>
-
-            <section>
-              <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight mb-6">
-                Other writing samples
-              </h2>
-              <WorkSamples samples={otherSamples} />
-            </section>
-          </div>
-
-          {!moreWorkOpen && (
-            <div className="absolute inset-x-0 bottom-0 flex h-48 items-end justify-center bg-gradient-to-b from-transparent to-background">
-              <button
-                type="button"
-                onClick={() => setMoreWorkOpen(true)}
-                className="mb-2 flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+              <Link
+                href="/about"
+                onClick={() => window.scrollTo(0, 0)}
+                className="mt-8 inline-flex items-center gap-1.5 text-sm font-medium text-foreground underline-offset-4 hover:underline"
               >
-                Show more
-                <ChevronDown className="h-4 w-4" />
-              </button>
+                More about me
+                <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
-          )}
-        </div>
 
-        {/* 5 — More about me (mirrored from the UX side via ../content/about) */}
-        <section id="about" className="mb-14 sm:mb-20 scroll-mt-16">
-          <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight mb-6">
-            More about me
-          </h2>
-          <div className="flex flex-col gap-10 lg:flex-row lg:gap-16">
-            <div className="min-w-0 flex-1 space-y-3">
-              {aboutParagraphs.map((p, i) => (
-                <p key={i} className="text-base leading-relaxed text-foreground">
-                  {p}
-                </p>
-              ))}
-            </div>
             <div className="flex shrink-0 flex-col items-start gap-6 lg:w-64 lg:items-center">
               <div className="h-24 w-24 overflow-hidden rounded-full bg-muted sm:h-28 sm:w-28">
                 <img
@@ -499,13 +505,36 @@ export default function Writing() {
           </div>
         </section>
 
-        {/* 6 — Contact */}
-        <section id="contact" className="scroll-mt-16">
-          <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight mb-2">
-            Ready when you are
+        {/* 5 — How it works (sequential → stepped timeline) */}
+        <section id="process" className="mb-14 sm:mb-20 scroll-mt-24">
+          <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight mb-6">
+            How it works
+          </h2>
+          <ol className="relative grid gap-8 sm:grid-cols-4">
+            {/* Connecting line behind the numbered nodes (desktop only) */}
+            <div
+              className="absolute inset-x-0 top-5 hidden h-px bg-border sm:block"
+              aria-hidden="true"
+            />
+            {processSteps.map((s, i) => (
+              <li key={s.title} className="relative">
+                <div className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background text-sm font-semibold text-foreground">
+                  {i + 1}
+                </div>
+                <h3 className="mt-4 font-semibold">{s.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.body}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        {/* 6 — Closing CTA + contact */}
+        <section id="contact" className="scroll-mt-24">
+          <h2 className="mb-2 max-w-2xl text-[20px] sm:text-[24px] font-semibold tracking-tight">
+            Let's figure out where your content is breaking
           </h2>
           <p className="mb-6 max-w-2xl text-sm text-muted-foreground">
-            Tell me a little about what you're working on, and I'll get back to you in a very timely manner.
+            Send me a note about what you need fixed and I'll get back to you within a day.
           </p>
           <ContactForm />
         </section>

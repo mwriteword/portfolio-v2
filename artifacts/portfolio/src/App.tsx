@@ -9,12 +9,15 @@ import { TransitionContext } from "@/lib/mode-transition";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import Writing from "@/pages/writing";
-import CaseStudy1 from "@/pages/case-study-1";
-import CaseStudy2 from "@/pages/case-study-2";
-import CaseStudyOnboarding from "@/pages/case-study-onboarding";
-import CaseStudyAgentic from "@/pages/case-study-agentic";
-import CaseStudyCourseHero from "@/pages/case-study-coursehero";
-import CaseStudyQuinStreet from "@/pages/case-study-quinstreet";
+import Services from "@/pages/services";
+import About from "@/pages/about";
+import CopyWork from "@/pages/copy-work";
+import GoalTypes from "@/pages/goal-types";
+import BlsEmails from "@/pages/bls-emails";
+import Twc from "@/pages/twc";
+import RiskAgent from "@/pages/risk-agent";
+import TextbookSolutions from "@/pages/textbook-solutions";
+import CopywritingSamples from "@/pages/copywriting-samples";
 
 const queryClient = new QueryClient();
 
@@ -22,25 +25,43 @@ const queryClient = new QueryClient();
 // screen while the route swaps underneath, so the toggle reads as a color inversion.
 const UX_BG = "#2e2e2e";
 const WRITING_BG = "#ffffff";
-const bgForPath = (path: string) => (path === "/writing" ? WRITING_BG : UX_BG);
+// Freelance (light) lives at the root; the UX portfolio (dark) lives under
+// /portfolio. Old /case-study-* paths redirect into /portfolio, so treat them dark
+// too to avoid a light flash before the redirect.
+const bgForPath = (path: string) =>
+  path.startsWith("/portfolio") || path.startsWith("/case-study") ? UX_BG : WRITING_BG;
 
 type Phase = "idle" | "cover" | "reveal";
 
 function Routes() {
   return (
     <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/writing" component={Writing} />
-      <Route path="/case-study-1" component={CaseStudy1} />
-      <Route path="/case-study-2" component={CaseStudy2} />
-      <Route path="/case-study-onboarding" component={CaseStudyOnboarding} />
-      <Route path="/case-study-agentic" component={CaseStudyAgentic} />
-      <Route path="/case-study-coursehero" component={CaseStudyCourseHero} />
-      <Route path="/case-study-quinstreet" component={CaseStudyQuinStreet} />
-      {/* Redirects for old URLs */}
-      <Route path="/case-study-3">{() => <Redirect to="/case-study-coursehero" />}</Route>
-      <Route path="/case-study-4">{() => <Redirect to="/case-study-quinstreet" />}</Route>
-      <Route path="/case-study-early-works">{() => <Redirect to="/case-study-coursehero" />}</Route>
+      {/* Freelance — the site root */}
+      <Route path="/" component={Writing} />
+      <Route path="/services" component={Services} />
+      <Route path="/about" component={About} />
+      <Route path="/copy-work" component={CopyWork} />
+
+      {/* UX Portfolio */}
+      <Route path="/portfolio" component={Home} />
+      <Route path="/portfolio/case-study/goal-types" component={GoalTypes} />
+      <Route path="/portfolio/case-study/twc" component={Twc} />
+      <Route path="/portfolio/case-study/risk-agent" component={RiskAgent} />
+      <Route path="/portfolio/case-study/bls-emails" component={BlsEmails} />
+      <Route path="/portfolio/case-study/textbook-solutions" component={TextbookSolutions} />
+      <Route path="/portfolio/case-study/copywriting-samples" component={CopywritingSamples} />
+
+      {/* Redirects from the previous URL structure */}
+      <Route path="/writing">{() => <Redirect to="/" />}</Route>
+      <Route path="/case-study-1">{() => <Redirect to="/portfolio/case-study/goal-types" />}</Route>
+      <Route path="/case-study-onboarding">{() => <Redirect to="/portfolio/case-study/twc" />}</Route>
+      <Route path="/case-study-agentic">{() => <Redirect to="/portfolio/case-study/risk-agent" />}</Route>
+      <Route path="/case-study-2">{() => <Redirect to="/portfolio/case-study/bls-emails" />}</Route>
+      <Route path="/case-study-coursehero">{() => <Redirect to="/portfolio/case-study/textbook-solutions" />}</Route>
+      <Route path="/case-study-quinstreet">{() => <Redirect to="/portfolio/case-study/copywriting-samples" />}</Route>
+      <Route path="/case-study-3">{() => <Redirect to="/portfolio/case-study/textbook-solutions" />}</Route>
+      <Route path="/case-study-4">{() => <Redirect to="/portfolio/case-study/copywriting-samples" />}</Route>
+      <Route path="/case-study-early-works">{() => <Redirect to="/portfolio/case-study/textbook-solutions" />}</Route>
       <Route component={NotFound} />
     </Switch>
   );

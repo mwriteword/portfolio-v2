@@ -11,12 +11,12 @@ interface NavItem {
 }
 
 const caseStudies: NavItem[] = [
-  { href: "/case-study-1", label: "Goal Types & OKR Modeling" },
-  { href: "/case-study-onboarding", label: "Teamwork Collection Onboarding" },
-  { href: "/case-study-agentic", label: "Risk Agent Workflow" },
-  { href: "/case-study-2", label: "Behavioral Load-Shaping Emails" },
-  { href: "/case-study-coursehero", label: "Textbook Solutions" },
-  { href: "/case-study-quinstreet", label: "Copywriting Samples" },
+  { href: "/portfolio/case-study/goal-types", label: "Goal Types & OKR Modeling" },
+  { href: "/portfolio/case-study/twc", label: "Teamwork Collection Onboarding" },
+  { href: "/portfolio/case-study/risk-agent", label: "Risk Agent Workflow" },
+  { href: "/portfolio/case-study/bls-emails", label: "Behavioral Load-Shaping Emails" },
+  { href: "/portfolio/case-study/textbook-solutions", label: "Textbook Solutions" },
+  { href: "/portfolio/case-study/copywriting-samples", label: "Copywriting Samples" },
 ];
 
 // Home in-page sections surfaced in the main menu (Work is represented by the
@@ -89,11 +89,11 @@ export function TopNav({ sections, activeSection }: TopNavProps) {
   // Scroll to a home section, navigating home first if we're elsewhere.
   const goToSection = (id: string) => {
     closeMenu();
-    if (location === "/") {
+    if (location === "/portfolio") {
       scrollToId(id);
       return;
     }
-    setLocation("/");
+    setLocation("/portfolio");
     let tries = 0;
     const tryScroll = () => {
       const el = document.getElementById(id);
@@ -105,8 +105,8 @@ export function TopNav({ sections, activeSection }: TopNavProps) {
 
   const goHome = () => {
     closeMenu();
-    if (location === "/") window.scrollTo({ top: 0, behavior: "smooth" });
-    else setLocation("/");
+    if (location === "/portfolio") window.scrollTo({ top: 0, behavior: "smooth" });
+    else setLocation("/portfolio");
   };
 
   const onCaseStudyClick = (href: string) => {
@@ -134,7 +134,7 @@ export function TopNav({ sections, activeSection }: TopNavProps) {
       <header className="fixed inset-x-0 top-0 z-30 border-b border-white/5 bg-[#2e2e2e]/80 backdrop-blur">
         <div className="max-w-[1120px] w-[90%] mx-auto flex h-12 items-center gap-3">
           <Link
-            href="/"
+            href="/portfolio"
             onClick={() => window.scrollTo(0, 0)}
             className="shrink-0 text-sm font-semibold text-white transition-colors hover:text-[#22c55e]"
           >

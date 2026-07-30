@@ -10,8 +10,8 @@ interface Mode {
 }
 
 const MODES: Mode[] = [
-  { label: "UX Portfolio", short: "Portfolio", href: "/" },
-  { label: "Writing Services", short: "Services", href: "/writing" },
+  { label: "UX Portfolio", short: "Portfolio", href: "/portfolio" },
+  { label: "Freelance Services", short: "Freelance", href: "/" },
 ];
 
 /**
@@ -22,7 +22,7 @@ const MODES: Mode[] = [
 export function ModeToggle({ theme = "dark" }: { theme?: "dark" | "light" }) {
   const [location] = useLocation();
   const startTransition = useModeTransition();
-  const isWriting = location === "/writing";
+  const isPortfolio = location.startsWith("/portfolio") || location.startsWith("/case-study");
 
   const container =
     theme === "light"
@@ -36,7 +36,7 @@ export function ModeToggle({ theme = "dark" }: { theme?: "dark" | "light" }) {
       className={`inline-flex shrink-0 items-center rounded-full p-0.5 ${container}`}
     >
       {MODES.map((mode) => {
-        const active = mode.href === "/writing" ? isWriting : !isWriting;
+        const active = mode.href === "/portfolio" ? isPortfolio : !isPortfolio;
         const activeCls =
           theme === "light"
             ? "bg-foreground text-background"
