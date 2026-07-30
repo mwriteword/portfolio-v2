@@ -1,22 +1,14 @@
-import { useState, useEffect, useRef, type ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 import { Link } from "wouter";
 import { Check, ArrowUpRight } from "lucide-react";
 import type { Service, CaseStudy } from "../content/services";
+import { useTocActiveSection, type TocItem } from "./TableOfContents";
 
-// ── Detail-panel helpers ─────────────────────────────────────────────────────
+// ── Detail helpers ────────────────────────────────────────────────────────────
 
 function Label({ children }: { children: ReactNode }) {
   return (
     <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{children}</p>
-  );
-}
-
-function Narrative({ label, children }: { label: string; children: ReactNode }) {
-  return (
-    <div>
-      <Label>{label}</Label>
-      <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{children}</p>
-    </div>
   );
 }
 
@@ -47,59 +39,63 @@ function CaseStudyTag({ caseStudy }: { caseStudy: CaseStudy }) {
   );
 }
 
-/**
- * The 2/3 detail pane. Reworked to stand on its own (no sidebar): Timeline + Pricing
- * sit in a facts strip up top, the narrative stacks below, and "Best for / Not for"
- * form a two-up row before the case study + CTA.
- */
-function ServiceDetail({ service, onBookCall }: { service: Service; onBookCall: () => void }) {
+/** One fully-rendered service. All blocks stack top-to-bottom — nothing hidden. */
+function ServiceBlock({ service }: { service: Service }) {
   const d = service.detail;
-
   return (
     <div
-      key={service.slug}
-      className="rounded-xl border border-border bg-card p-6 duration-200 animate-in fade-in sm:p-8"
+      id={service.slug}
+      className="scroll-mt-24 border-t border-border pt-8 pb-10 first:border-t-0 first:pt-0"
     >
       <div className="flex items-start justify-between gap-4">
-        <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-          {service.eyebrow}
-        </p>
+        <p className="text-xs font-semibold uppercase tracking-wide text-primary">{service.eyebrow}</p>
         {d.caseStudy && <CaseStudyTag caseStudy={d.caseStudy} />}
       </div>
-      <h3 className="mt-1 text-xl font-semibold">{service.title}</h3>
-      <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{service.summary}</p>
+      <h3 className="mt-2 text-2xl font-bold tracking-tight">{service.title}</h3>
+      <p className="mt-2 max-w-2xl text-[17px] leading-relaxed text-muted-foreground">
+        {service.summary}
+      </p>
 
-      {/* Facts strip */}
-      <div className="mt-6 grid gap-4 rounded-lg border border-border bg-muted/40 p-4 sm:grid-cols-2">
+      {/* Timeline · Pricing */}
+      <div className="mt-5 flex flex-wrap gap-x-10 gap-y-4 rounded-xl border border-border bg-muted/40 px-5 py-4">
         <div>
           <Label>Timeline</Label>
           <p className="mt-1 text-sm leading-relaxed text-foreground">{d.timeline}</p>
         </div>
+        <div className="hidden self-stretch w-px bg-border sm:block" aria-hidden="true" />
         <div>
           <Label>Pricing</Label>
           <p className="mt-1 text-sm leading-relaxed text-foreground">{d.pricing}</p>
         </div>
       </div>
 
-      {/* Narrative */}
-      <div className="mt-6 space-y-6">
-        <Narrative label="What this solves">{d.solves}</Narrative>
-        <Narrative label="What the process is like">{d.process}</Narrative>
+      {/* Solves · Process */}
+      <div className="mt-6 grid gap-6 sm:grid-cols-2 sm:gap-8">
         <div>
-          <Label>What you get</Label>
-          <ul className="mt-2 space-y-2 text-[15px] leading-relaxed text-muted-foreground">
-            {d.youGet.map((item) => (
-              <li key={item} className="flex gap-2.5">
-                <Check className="mt-1 h-4 w-4 shrink-0 text-primary" />
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
+          <Label>What this solves</Label>
+          <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{d.solves}</p>
+        </div>
+        <div>
+          <Label>What the process is like</Label>
+          <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{d.process}</p>
         </div>
       </div>
 
-      {/* Fit */}
-      <div className="mt-6 grid gap-x-8 gap-y-4 sm:grid-cols-2">
+      {/* What you get */}
+      <div className="mt-6">
+        <Label>What you get</Label>
+        <ul className="mt-2 grid gap-x-8 gap-y-2 text-[15px] leading-relaxed text-muted-foreground sm:grid-cols-2">
+          {d.youGet.map((item) => (
+            <li key={item} className="flex gap-2.5">
+              <Check className="mt-1 h-4 w-4 shrink-0 text-primary" />
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Best for · Not for */}
+      <div className="mt-6 grid gap-x-8 gap-y-4 border-t border-border pt-5 sm:grid-cols-2">
         <div>
           <Label>Best for</Label>
           <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{d.forWho}</p>
@@ -109,46 +105,38 @@ function ServiceDetail({ service, onBookCall }: { service: Service; onBookCall: 
           <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{d.notForWho}</p>
         </div>
       </div>
-
-      <div className="mt-8">
-        <button
-          type="button"
-          onClick={onBookCall}
-          className="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-slate-700"
-        >
-          Book a call
-        </button>
-      </div>
     </div>
   );
 }
 
-// ── Menu ─────────────────────────────────────────────────────────────────────
-
-const slugFromHash = () =>
-  typeof window !== "undefined" ? window.location.hash.replace("#", "") : "";
+// ── Menu ────────────────────────────────────────────────────────────────────
 
 /**
- * Skills/Tools-style master–detail menu. Left third is a list of service titles;
- * hovering (or focusing / tapping) a title selects it — expanding that line to
- * reveal its short description and swapping the right two-thirds to that service's
- * full detail. On mobile the two stack (list, then detail).
+ * "Sticky rail, nothing hidden" — all services render top-to-bottom (crawlable,
+ * skimmable, no interaction required). A sticky left rail scroll-spies the section
+ * currently in view and jumps to it on click.
  */
-export function ServiceMenu({ services, onBookCall }: { services: Service[]; onBookCall: () => void }) {
-  const initial = services.find((s) => s.slug === slugFromHash())?.slug ?? services[0].slug;
-  const [activeSlug, setActiveSlug] = useState(initial);
-  const active = services.find((s) => s.slug === activeSlug) ?? services[0];
-  const rootRef = useRef<HTMLDivElement>(null);
+export function ServiceMenu({
+  services,
+  onBookCall,
+}: {
+  services: Service[];
+  onBookCall: () => void;
+}) {
+  const tocItems: TocItem[] = services.map((s) => ({ id: s.slug, label: s.title }));
+  const activeId = useTocActiveSection(tocItems);
 
-  // Deep links from the home page arrive as /services#<slug>: select that
-  // service (handled above) and scroll the menu into view from its top, so the
-  // detail reads from its title down rather than landing mid-panel.
+  const jumpTo = (slug: string) => {
+    document.getElementById(slug)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  // Deep links from the home page (/services#slug) scroll to that service on mount.
   useEffect(() => {
-    const hash = slugFromHash();
+    const hash = window.location.hash.replace("#", "");
     if (!hash || !services.some((s) => s.slug === hash)) return;
     let tries = 0;
     const jump = () => {
-      const el = rootRef.current;
+      const el = document.getElementById(hash);
       if (el) el.scrollIntoView({ block: "start" });
       else if (tries++ < 60) requestAnimationFrame(jump);
     };
@@ -157,57 +145,56 @@ export function ServiceMenu({ services, onBookCall }: { services: Service[]; onB
   }, [services]);
 
   return (
-    <div ref={rootRef} className="grid scroll-mt-20 gap-6 lg:grid-cols-[1fr_3fr] lg:gap-8">
-      {/* Left — service list */}
-      <div className="flex flex-col gap-1 lg:sticky lg:top-24 lg:self-start">
-        {services.map((s) => {
-          const isActive = s.slug === activeSlug;
+    <div className="grid gap-8 lg:grid-cols-[240px_1fr] lg:gap-14">
+      {/* Rail — sticky scroll-spy (desktop only) */}
+      <nav className="hidden self-start flex-col gap-1 lg:sticky lg:top-24 lg:flex">
+        {services.map((s, i) => {
+          const active = activeId === s.slug;
           return (
             <button
               key={s.slug}
-              id={s.slug}
               type="button"
-              onMouseEnter={() => setActiveSlug(s.slug)}
-              onFocus={() => setActiveSlug(s.slug)}
-              onClick={() => setActiveSlug(s.slug)}
-              aria-pressed={isActive}
-              className={`group scroll-mt-24 rounded-lg px-3 py-3 text-left transition-colors ${
-                isActive ? "bg-muted" : "hover:bg-muted/60"
+              onClick={() => jumpTo(s.slug)}
+              aria-current={active ? "true" : undefined}
+              className={`flex items-baseline gap-3 rounded-r-lg border-l-2 px-3 py-2.5 text-left transition-colors ${
+                active ? "border-primary bg-muted" : "border-border hover:bg-muted/50"
               }`}
             >
-              <div className="flex items-center gap-2.5">
-                <span
-                  className={`h-4 w-0.5 shrink-0 rounded-full transition-colors ${
-                    isActive ? "bg-primary" : "bg-transparent"
-                  }`}
-                />
-                <span
-                  className={`text-sm font-medium transition-colors ${
-                    isActive ? "text-foreground" : "text-muted-foreground group-hover:text-foreground"
-                  }`}
-                >
-                  {s.title}
-                </span>
-              </div>
-              <div
-                className={`grid transition-all duration-300 ease-out ${
-                  isActive ? "mt-1.5 grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+              <span
+                className={`font-mono text-[11px] tabular-nums ${
+                  active ? "text-primary" : "text-muted-foreground/60"
                 }`}
               >
-                <div className="overflow-hidden">
-                  <p className="pl-[14px] text-[13px] leading-relaxed text-muted-foreground">
-                    {s.summary}
-                  </p>
-                </div>
-              </div>
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span
+                className={`text-sm leading-snug ${
+                  active ? "font-semibold text-foreground" : "font-medium text-muted-foreground"
+                }`}
+              >
+                {s.title}
+              </span>
             </button>
           );
         })}
-      </div>
 
-      {/* Right — active service detail */}
+        <div className="mt-5 rounded-xl border border-border bg-muted/40 p-4">
+          <p className="text-sm leading-relaxed text-foreground">Not sure which one fits?</p>
+          <button
+            type="button"
+            onClick={onBookCall}
+            className="mt-3 w-full rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-slate-700"
+          >
+            Book an intro call
+          </button>
+        </div>
+      </nav>
+
+      {/* All services, stacked */}
       <div>
-        <ServiceDetail service={active} onBookCall={onBookCall} />
+        {services.map((s) => (
+          <ServiceBlock key={s.slug} service={s} />
+        ))}
       </div>
     </div>
   );
