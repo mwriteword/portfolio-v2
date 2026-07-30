@@ -3,7 +3,9 @@ import { Link, useLocation } from "wouter";
 import { CalendarPlus, Menu, X } from "lucide-react";
 import { ModeToggle } from "./ModeToggle";
 
-const CALENDLY_URL = "https://calendly.com/vjtlaq/30min";
+// Google Calendar appointment-scheduling booking page (standalone, not embedded).
+const BOOKING_URL =
+  "https://calendar.google.com/calendar/appointments/schedules/AcZssZ2i1JtJLb7GAUKgfIkvBWBvA1qn5-ZBOsxF3_x0nwVFNrpr2_w_xmdqhNFxRUZc2G6Eg0bM5-Ld";
 
 interface WritingNavLink {
   href: string;
@@ -72,7 +74,7 @@ export function WritingNav() {
 
   const cta = (
     <a
-      href={CALENDLY_URL}
+      href={BOOKING_URL}
       target="_blank"
       rel="noopener noreferrer"
       onClick={closeMenu}

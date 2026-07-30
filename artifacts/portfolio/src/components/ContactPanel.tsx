@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,23 +7,14 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 const EMAIL = "vjtlaq@gmail.com";
 
-// Calendly inline booking, tuned to the site's slate CTA color.
-const CALENDLY_URL =
-  "https://calendly.com/vjtlaq/30min?hide_gdpr_banner=1&primary_color=0e172b";
-const CALENDLY_SCRIPT = "https://assets.calendly.com/assets/external/widget.js";
+// Google Calendar appointment-scheduling embed (gv=true = inline/embedded view).
+const GCAL_EMBED_URL =
+  "https://calendar.google.com/calendar/appointments/schedules/AcZssZ2i1JtJLb7GAUKgfIkvBWBvA1qn5-ZBOsxF3_x0nwVFNrpr2_w_xmdqhNFxRUZc2G6Eg0bM5-Ld?gv=true";
 
 // Web3Forms access key (frontend-safe). Set VITE_WEB3FORMS_ACCESS_KEY in .env /
 // Vercel to enable real server-side delivery to vjtlaq@gmail.com. Without it, the
 // form falls back to opening the visitor's mail client.
 const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY as string | undefined;
-
-declare global {
-  interface Window {
-    Calendly?: {
-      initInlineWidget: (options: { url: string; parentElement: HTMLElement }) => void;
-    };
-  }
-}
 
 type SubmitStatus = "idle" | "submitting" | "success" | "error";
 
@@ -150,60 +141,23 @@ function ContactForm() {
   );
 }
 
-/**
- * Calendly inline booking widget. Initialized programmatically (rather than the
- * auto-scan the embed snippet relies on) so it works when this tab mounts after
- * the script has already loaded.
- */
-function CalendlyEmbed() {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    let cancelled = false;
-    let poll: ReturnType<typeof setInterval> | undefined;
-
-    // Note: the container intentionally has NO `calendly-inline-widget` class —
-    // that class triggers widget.js's load-time auto-scan (which needs a
-    // `data-url` attribute and only runs once), and would conflict with the
-    // programmatic init below that we need for a tab mounting after load.
-    const init = () => {
-      if (cancelled || !ref.current || !window.Calendly) return false;
-      ref.current.innerHTML = "";
-      window.Calendly.initInlineWidget({ url: CALENDLY_URL, parentElement: ref.current });
-      return true;
-    };
-
-    if (!init()) {
-      let script = document.querySelector<HTMLScriptElement>(`script[src="${CALENDLY_SCRIPT}"]`);
-      if (!script) {
-        script = document.createElement("script");
-        script.src = CALENDLY_SCRIPT;
-        script.async = true;
-        document.body.appendChild(script);
-      }
-      script.addEventListener("load", init, { once: true });
-      // Fallback in case the script had already fired `load` before we listened.
-      poll = setInterval(() => {
-        if (init()) clearInterval(poll);
-      }, 300);
-    }
-
-    return () => {
-      cancelled = true;
-      if (poll) clearInterval(poll);
-    };
-  }, []);
-
+/** Google Calendar appointment-scheduling embed — a plain iframe, no script. */
+function BookingEmbed() {
   return (
     <div className="overflow-hidden rounded-xl border border-border bg-card">
-      <div ref={ref} style={{ minWidth: 320, height: 700 }} />
+      <iframe
+        src={GCAL_EMBED_URL}
+        title="Book a call"
+        className="block w-full"
+        style={{ border: 0, height: 700 }}
+      />
     </div>
   );
 }
 
 /**
  * Contact panel with two tabs: a message form (Web3Forms, mailto fallback) and a
- * Calendly booking embed. Used on the Writing landing page and the Services page.
+ * Google Calendar booking embed. Used on the Writing landing page and the Services page.
  */
 export function ContactPanel() {
   return (
@@ -216,7 +170,7 @@ export function ContactPanel() {
         <ContactForm />
       </TabsContent>
       <TabsContent value="call">
-        <CalendlyEmbed />
+        <BookingEmbed />
       </TabsContent>
     </Tabs>
   );
