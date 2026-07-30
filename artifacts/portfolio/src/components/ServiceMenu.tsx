@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { Link } from "wouter";
-import { Check, ArrowUpRight } from "lucide-react";
+import { Check, ArrowUpRight, ChevronDown } from "lucide-react";
 import type { Service, CaseStudy } from "../content/services";
 import { useTocActiveSection, type TocItem } from "./TableOfContents";
 
@@ -39,9 +39,13 @@ function CaseStudyTag({ caseStudy }: { caseStudy: CaseStudy }) {
   );
 }
 
-/** One fully-rendered service. All blocks stack top-to-bottom — nothing hidden. */
+/** One fully-rendered service. On mobile everything below the summary collapses
+ *  behind a "Show more" toggle so the page stays skimmable; on desktop (lg) the
+ *  full detail is always shown and the toggle is hidden. */
 function ServiceBlock({ service }: { service: Service }) {
   const d = service.detail;
+  const [expanded, setExpanded] = useState(false);
+  const detailId = `${service.slug}-detail`;
   return (
     <div
       id={service.slug}
@@ -61,6 +65,24 @@ function ServiceBlock({ service }: { service: Service }) {
         {service.summary}
       </p>
 
+      {/* Show more / less — mobile only; desktop always shows the full detail. */}
+      <button
+        type="button"
+        onClick={() => setExpanded((v) => !v)}
+        aria-expanded={expanded}
+        aria-controls={detailId}
+        className="mt-4 inline-flex items-center gap-1 text-sm font-semibold lg:hidden"
+        style={{ color: service.accent }}
+      >
+        {expanded ? "Show less" : "Show more"}
+        <ChevronDown
+          className={`h-4 w-4 transition-transform ${expanded ? "rotate-180" : ""}`}
+          aria-hidden="true"
+        />
+      </button>
+
+      {/* Collapsible detail: hidden on mobile until expanded, always open on desktop. */}
+      <div id={detailId} className={`${expanded ? "block" : "hidden"} lg:block`}>
       {/* Timeline · Pricing */}
       <div className="mt-5 flex flex-wrap gap-x-10 gap-y-4 rounded-xl border border-border bg-muted/40 px-5 py-4">
         <div>
@@ -112,6 +134,7 @@ function ServiceBlock({ service }: { service: Service }) {
           <Label>Not for</Label>
           <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{d.notForWho}</p>
         </div>
+      </div>
       </div>
     </div>
   );
