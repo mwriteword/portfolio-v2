@@ -1,4 +1,4 @@
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { Link } from "wouter";
 import { Check, ArrowUpRight } from "lucide-react";
 import type { Service, CaseStudy } from "../content/services";
@@ -45,10 +45,15 @@ function ServiceBlock({ service }: { service: Service }) {
   return (
     <div
       id={service.slug}
-      className="scroll-mt-24 border-t border-border pt-8 pb-10 first:border-t-0 first:pt-0"
+      className="scroll-mt-24 border-t border-border pt-8 pb-10 first:border-t-0 first:pt-0 lg:scroll-mt-6"
     >
       <div className="flex items-start justify-between gap-4">
-        <p className="text-xs font-semibold uppercase tracking-wide text-primary">{service.eyebrow}</p>
+        <p
+          className="text-xs font-semibold uppercase tracking-wide"
+          style={{ color: service.accent }}
+        >
+          {service.eyebrow}
+        </p>
         {d.caseStudy && <CaseStudyTag caseStudy={d.caseStudy} />}
       </div>
       <h3 className="mt-2 text-2xl font-bold tracking-tight">{service.title}</h3>
@@ -84,10 +89,13 @@ function ServiceBlock({ service }: { service: Service }) {
       {/* What you get */}
       <div className="mt-6">
         <Label>What you get</Label>
-        <ul className="mt-2 grid gap-x-8 gap-y-2 text-[15px] leading-relaxed text-muted-foreground sm:grid-cols-2">
+        {/* CSS columns (not grid) so each item packs against the one above it —
+            a grid couples row heights across columns, leaving odd gaps when a
+            neighbouring item wraps to several lines. */}
+        <ul className="mt-2 text-[15px] leading-relaxed text-muted-foreground sm:columns-2 sm:gap-x-8">
           {d.youGet.map((item) => (
-            <li key={item} className="flex gap-2.5">
-              <Check className="mt-1 h-4 w-4 shrink-0 text-primary" />
+            <li key={item} className="mb-2 flex gap-2.5 break-inside-avoid">
+              <Check className="mt-1 h-4 w-4 shrink-0" style={{ color: service.accent }} />
               <span>{item}</span>
             </li>
           ))}
@@ -119,16 +127,38 @@ function ServiceBlock({ service }: { service: Service }) {
 export function ServiceMenu({
   services,
   onBookCall,
+  heading = "Core offerings",
 }: {
   services: Service[];
   onBookCall: () => void;
+  /** Rendered inside the sticky left column so it pins with the rail. */
+  heading?: string;
 }) {
   const tocItems: TocItem[] = services.map((s) => ({ id: s.slug, label: s.title }));
-  const activeId = useTocActiveSection(tocItems);
 
-  const jumpTo = (slug: string) => {
-    document.getElementById(slug)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  // The content column is its own scroll region on desktop, so scroll-spying
+  // tracks that container rather than the page viewport.
+  const [panelEl, setPanelEl] = useState<HTMLDivElement | null>(null);
+  const activeId = useTocActiveSection(tocItems, true, panelEl);
+
+  // Scroll a service into view. On desktop the content column is its own scroll
+  // container, so scroll it directly (scrollIntoView doesn't reliably drive an
+  // overflow ancestor); on mobile fall back to the page-level scroll.
+  const scrollToSlug = (slug: string, behavior: ScrollBehavior) => {
+    const el = document.getElementById(slug);
+    if (!el) return;
+    const panel = panelEl;
+    const scrollable = panel && panel.scrollHeight > panel.clientHeight + 1;
+    if (scrollable) {
+      const top =
+        el.getBoundingClientRect().top - panel.getBoundingClientRect().top + panel.scrollTop - 24;
+      panel.scrollTo({ top: Math.max(0, top), behavior });
+    } else {
+      el.scrollIntoView({ behavior, block: "start" });
+    }
   };
+
+  const jumpTo = (slug: string) => scrollToSlug(slug, "smooth");
 
   // Deep links from the home page (/services#slug) scroll to that service on mount.
   useEffect(() => {
@@ -137,61 +167,80 @@ export function ServiceMenu({
     let tries = 0;
     const jump = () => {
       const el = document.getElementById(hash);
-      if (el) el.scrollIntoView({ block: "start" });
+      if (el) scrollToSlug(hash, "auto");
       else if (tries++ < 60) requestAnimationFrame(jump);
     };
     const t = setTimeout(jump, 60);
     return () => clearTimeout(t);
-  }, [services]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [services, panelEl]);
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[240px_1fr] lg:gap-14">
-      {/* Rail — sticky scroll-spy (desktop only) */}
-      <nav className="hidden self-start flex-col gap-1 lg:sticky lg:top-24 lg:flex">
-        {services.map((s, i) => {
-          const active = activeId === s.slug;
-          return (
+    <div className="grid gap-8 lg:grid-cols-[300px_1fr] lg:gap-14">
+      {/* Left column — heading + scroll-spy rail, sticky as a unit (desktop only) */}
+      <div className="lg:sticky lg:top-24 lg:self-start">
+        <h2 className="mb-6 text-[20px] font-semibold tracking-tight sm:text-[24px]">{heading}</h2>
+
+        <nav className="hidden flex-col gap-1 lg:flex">
+          {services.map((s, i) => {
+            const active = activeId === s.slug;
+            return (
+              <button
+                key={s.slug}
+                type="button"
+                onClick={() => jumpTo(s.slug)}
+                aria-current={active ? "true" : undefined}
+                className={`group flex items-baseline gap-3 rounded-r-lg border-l-[3px] px-4 py-3 text-left transition-colors ${
+                  active ? "" : "border-transparent hover:bg-muted/60"
+                }`}
+                style={
+                  active
+                    ? { borderLeftColor: s.accent, backgroundColor: `${s.accent}14` }
+                    : undefined
+                }
+              >
+                <span
+                  className={`font-mono text-xs tabular-nums ${
+                    active ? "" : "text-muted-foreground/50"
+                  }`}
+                  style={active ? { color: s.accent } : undefined}
+                >
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span
+                  className={`text-[17px] leading-snug transition-colors ${
+                    active
+                      ? "font-semibold"
+                      : "font-medium text-muted-foreground group-hover:text-foreground"
+                  }`}
+                  style={active ? { color: s.accent } : undefined}
+                >
+                  {s.title}
+                </span>
+              </button>
+            );
+          })}
+
+          <div className="mt-5 rounded-xl border border-border bg-muted/40 p-4">
+            <p className="text-sm leading-relaxed text-foreground">Need something more specific?</p>
             <button
-              key={s.slug}
               type="button"
-              onClick={() => jumpTo(s.slug)}
-              aria-current={active ? "true" : undefined}
-              className={`flex items-baseline gap-3 rounded-r-lg border-l-2 px-3 py-2.5 text-left transition-colors ${
-                active ? "border-primary bg-muted" : "border-border hover:bg-muted/50"
-              }`}
+              onClick={onBookCall}
+              className="mt-3 w-full rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-slate-700"
             >
-              <span
-                className={`font-mono text-[11px] tabular-nums ${
-                  active ? "text-primary" : "text-muted-foreground/60"
-                }`}
-              >
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <span
-                className={`text-sm leading-snug ${
-                  active ? "font-semibold text-foreground" : "font-medium text-muted-foreground"
-                }`}
-              >
-                {s.title}
-              </span>
+              Book an intro call
             </button>
-          );
-        })}
+          </div>
+        </nav>
+      </div>
 
-        <div className="mt-5 rounded-xl border border-border bg-muted/40 p-4">
-          <p className="text-sm leading-relaxed text-foreground">Not sure which one fits?</p>
-          <button
-            type="button"
-            onClick={onBookCall}
-            className="mt-3 w-full rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-slate-700"
-          >
-            Book an intro call
-          </button>
-        </div>
-      </nav>
-
-      {/* All services, stacked */}
-      <div>
+      {/* Content column — its own scroll region on desktop: scrolls when the
+          cursor is inside, and `overscroll-contain` keeps the page still until
+          you move out of it. On mobile it's normal page flow. */}
+      <div
+        ref={setPanelEl}
+        className="lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto lg:overscroll-contain lg:pr-5"
+      >
         {services.map((s) => (
           <ServiceBlock key={s.slug} service={s} />
         ))}

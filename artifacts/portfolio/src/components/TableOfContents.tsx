@@ -67,7 +67,18 @@ export function TableOfContents({ items, activeId, theme = "dark" }: TableOfCont
   );
 }
 
-export function useTocActiveSection(items: TocItem[], enabled = true): string {
+/**
+ * Scroll-spies the section currently in view and returns its id.
+ *
+ * By default the observer watches the page viewport. Pass a `root` element when
+ * the sections live inside their own `overflow-y-auto` scroll container (e.g.
+ * the Services content panel) so spying tracks that container's scroll instead.
+ */
+export function useTocActiveSection(
+  items: TocItem[],
+  enabled = true,
+  root: Element | null = null
+): string {
   const [activeId, setActiveId] = useState(items[0]?.id ?? "");
 
   useEffect(() => {
@@ -83,7 +94,7 @@ export function useTocActiveSection(items: TocItem[], enabled = true): string {
         ([entry]) => {
           if (entry.isIntersecting) setActiveId(id);
         },
-        { rootMargin: "-30% 0px -60% 0px", threshold: 0 }
+        { root, rootMargin: "-30% 0px -60% 0px", threshold: 0 }
       );
 
       observer.observe(el);
@@ -91,7 +102,7 @@ export function useTocActiveSection(items: TocItem[], enabled = true): string {
     });
 
     return () => observers.forEach((o) => o.disconnect());
-  }, [enabled]);
+  }, [enabled, root]);
 
   return activeId;
 }

@@ -1,7 +1,6 @@
-import { useLocation } from "wouter";
-import { ArrowRight } from "lucide-react";
 import { WritingNav } from "../components/WritingNav";
 import { ServiceMenu } from "../components/ServiceMenu";
+import { ContactPanel } from "../components/ContactPanel";
 import { services } from "../content/services";
 
 const additionalServices = [
@@ -17,18 +16,9 @@ const additionalServices = [
 ];
 
 export default function Services() {
-  const [, setLocation] = useLocation();
-
-  // Route to the freelance landing page and scroll to its contact section.
+  // Scroll to the contact section (form + booking) at the bottom of this page.
   const goToContact = () => {
-    setLocation("/");
-    let tries = 0;
-    const tryScroll = () => {
-      const el = document.getElementById("contact");
-      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-      else if (tries++ < 60) requestAnimationFrame(tryScroll);
-    };
-    requestAnimationFrame(tryScroll);
+    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
@@ -51,39 +41,13 @@ export default function Services() {
           </p>
         </section>
 
-        {/* Core offerings — master–detail menu */}
+        {/* Core offerings — sticky scroll-spy rail; heading pins inside ServiceMenu */}
         <section className="mb-14 sm:mb-20">
-          <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight mb-6">
-            Core offerings
-          </h2>
           <ServiceMenu services={services} onBookCall={goToContact} />
         </section>
 
-        {/* Not ready for a full audit? — closing CTA */}
-        <section className="mb-14 sm:mb-20 rounded-xl border border-border bg-card p-6 sm:p-8">
-          <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
-            <div>
-              <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight">
-                Not ready for a full audit?
-              </h2>
-              <p className="mt-1.5 max-w-xl text-sm text-muted-foreground">
-                We can work it out together. Just tell me what you're working on and we'll build the
-                right solution for you.
-              </p>
-            </div>
-            <button
-              type="button"
-              onClick={goToContact}
-              className="inline-flex shrink-0 items-center gap-2 rounded-lg bg-slate-900 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-slate-700"
-            >
-              Get in touch
-              <ArrowRight className="h-4 w-4" />
-            </button>
-          </div>
-        </section>
-
         {/* Additional services */}
-        <section>
+        <section className="mb-14 sm:mb-20">
           <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight mb-2">
             Additional services
           </h2>
@@ -99,6 +63,18 @@ export default function Services() {
               </div>
             ))}
           </div>
+        </section>
+
+        {/* Not ready for a full audit? — closing CTA with contact form + booking */}
+        <section id="contact" className="scroll-mt-24">
+          <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight">
+            Not ready for a full audit?
+          </h2>
+          <p className="mt-2 mb-6 text-sm text-muted-foreground">
+            Let's work it out together. Tell me what you're working on and I'll give an initial
+            assessment of the content experience. No fees or commitment.
+          </p>
+          <ContactPanel />
         </section>
       </div>
 

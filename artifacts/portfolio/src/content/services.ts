@@ -38,6 +38,13 @@ export interface Service {
   /** One-line description shown collapsed (Services) + on the home cards. */
   summary: string;
   icon: LucideIcon;
+  /**
+   * Categorical accent (hue from the shared multi-color palette, tuned to a
+   * light-legible shade). Each offering owns one, mirroring how case studies /
+   * experience entries own an accent on the portfolio side. Where an offering
+   * links to a case study, the hue matches that case study's accent.
+   */
+  accent: string;
   detail: ServiceDetail;
 }
 
@@ -48,6 +55,7 @@ export const services: Service[] = [
     title: "Content Experience Audit",
     summary: "A comprehensive audit of your product's words to find where you're losing users.",
     icon: Stethoscope,
+    accent: "#9333ea", // purple
     detail: {
       solves:
         "Customer service tickets are up. Users are dropping off week to week. You might suspect the content, but maybe you're not sure. I'll find what's broken across the experience, prioritize by impact, and show you what to fix first.",
@@ -75,6 +83,7 @@ export const services: Service[] = [
     summary:
       "A source of truth for voice, tone, vocabulary, and message patterns so your team can keep building.",
     icon: Library,
+    accent: "#2563eb", // blue — matches the linked Goal Types case study
     detail: {
       solves:
         "Your product works, but each page sounds like it was written by a different team. When no one owns the content, naming drifts, messages aren't consistent, and navigating your product becomes frustrating. Rather than looking at microcopy screen-by-screen, I'll build standards for what your words should actually sound like and create repeatable message patterns so it stays consistent.",
@@ -104,6 +113,7 @@ export const services: Service[] = [
     summary:
       "I design what your AI features say and how they say it, so your users actually want to use them.",
     icon: Bot,
+    accent: "#0891b2", // cyan — matches the linked Risk Agent case study
     detail: {
       solves:
         "You implemented AI features that technically work, but they aren't particularly useful. Users don't trust them, and they don't have any real effect on the number of support tickets you get.",
@@ -132,6 +142,7 @@ export const services: Service[] = [
     summary:
       "A new onboarding strategy — lifecycle emails, first-run screens, and empty states — built around your product's actual value.",
     icon: Rocket,
+    accent: "#ca8a04", // yellow
     detail: {
       solves:
         "You're seeing plenty of sign-ups and activations, but users aren't sticking around. Usually it isn't actually the product but the first five minutes. If a user can't figure out how to use the product or imagine ways it fits into their workflow, they're less likely to continue using it.",
@@ -159,6 +170,7 @@ export const services: Service[] = [
     summary:
       "I'll work with your teams for launches, features, and everything in between — for a fraction of a full-time hire.",
     icon: LifeBuoy,
+    accent: "#16a34a", // green
     detail: {
       solves:
         "Your product is shipping new features every month, but no one's looking at the words. Product managers, designers, and engineers are doing their best to write the words for the experience, but they don't know if it's cohesive or consistent.",
