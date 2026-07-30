@@ -135,6 +135,23 @@ function ServiceBlock({ service }: { service: Service }) {
           <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{d.notForWho}</p>
         </div>
       </div>
+
+      {/* Bottom collapse — mobile only; scrolls back to the offering's top so you
+          don't get stranded mid-page after the content above you disappears. */}
+      <button
+        type="button"
+        onClick={() => {
+          setExpanded(false);
+          document.getElementById(service.slug)?.scrollIntoView({ block: "start" });
+        }}
+        aria-expanded={expanded}
+        aria-controls={detailId}
+        className="mt-6 inline-flex items-center gap-1 text-sm font-semibold lg:hidden"
+        style={{ color: service.accent }}
+      >
+        Show less
+        <ChevronDown className="h-4 w-4 rotate-180" aria-hidden="true" />
+      </button>
       </div>
     </div>
   );
