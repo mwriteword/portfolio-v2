@@ -65,7 +65,7 @@ const stats = [
 const processSteps = [
   {
     title: "Intro call",
-    body: "20–30 minutes with no pitch. You tell me where your users are getting stuck, and I'll tell you honestly whether content is the problem.",
+    body: "20–30 minutes to go over your product and the problems you're experiencing. I'll give an initial assessment of the content experience and tell you honestly if content is the problem.",
   },
   {
     title: "Proposal",
@@ -112,7 +112,7 @@ function QuoteCarousel() {
           transition={{ duration: reduceMotion ? 0 : 0.35, ease: "easeOut" }}
           className="text-center"
         >
-          <blockquote className="text-[15px] sm:text-base font-medium leading-relaxed text-foreground">
+          <blockquote className="text-[14px] sm:text-[15px] font-medium leading-relaxed text-foreground">
             “{q.quote}”
           </blockquote>
           <figcaption className="mt-4 text-sm text-muted-foreground">
@@ -173,13 +173,14 @@ export default function Writing() {
             Content Design & Systems for SaaS • UX Writing Consultant
           </p>
           <h1 className="mx-auto mt-4 max-w-3xl font-bold tracking-tight text-[40px] sm:text-[60px] lg:text-[72px] leading-[1.05]">
-            Your product grew,
+            Words that scale
             <br />
-            but the words didn't.
+            with your product.
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-[16px] sm:text-[20px] text-muted-foreground">
-            The people in your product don't know how to use it. I fix all the words that are
-            confusing your users—then I build systems to make sure it stays fixed.
+            Your product is growing fast, but the words aren't keeping up. Now it's costing you in
+            support tickets and activations. I fix the words that are confusing your users—then I
+            build systems so they stay fixed.
           </p>
           <div className="mt-9 flex flex-wrap justify-center gap-3">
             <button
@@ -212,16 +213,15 @@ export default function Writing() {
           </h2>
           <div className="mx-auto max-w-3xl space-y-4 text-[15px] sm:text-[17px] leading-relaxed text-muted-foreground">
             <p>
-              When SaaS companies grow quickly, smart features get built but the words don't get the
-              same thought. Before you know it, the same feature has three different names,
-              navigation menus don't go where users expect, and instructions are so overloaded with
-              text that users don't know what they're supposed to do. Then support requests pile up,
-              adoption numbers start going down, and users stop using your product altogether.
+              When SaaS products grow quickly, it's easy for the words to get left behind when there
+              isn't one person owning content across the product. Navigation menus aren't clear and
+              the instructions are more confusing than helpful. Before you know it, support tickets
+              are piling up and more users are dropping off week to week.
             </p>
             <p>
-              I've seen this happen a lot, and it's cheap to fix as you scale up but expensive to
-              solve after the product has already grown. Fortunately, I've done this in both
-              directions.
+              I've seen this happen a lot, and it's cheap to solve when the product is starting up
+              and expensive to fix after the product has already grown. Fortunately, I've done this
+              both ways.
             </p>
           </div>
         </section>
@@ -275,22 +275,24 @@ export default function Writing() {
 
         {/* 4 — Impact + who I am (→ About page) */}
         <section id="about" className="mb-14 sm:mb-20 scroll-mt-24">
-          <h2 className="mb-6 max-w-3xl text-[20px] sm:text-[24px] font-semibold tracking-tight">
-            I've led content for products used by millions.
+          <h2 className="mb-6 text-[20px] sm:text-[24px] font-semibold tracking-tight">
+            I'm a UX content expert with experience in complex, regulated&nbsp;industries
           </h2>
           <div className="flex flex-col gap-10 lg:flex-row lg:gap-16">
             <div className="min-w-0 flex-1">
               <div className="space-y-4 text-[15px] sm:text-[17px] leading-relaxed text-muted-foreground">
                 <p>
-                  I've been the sole writer at some point across every single team I've been on.
-                  I've built the exact solutions I've outlined above repeatedly — building systems
-                  and standards from zero and extending them across features and products. My work
-                  has driven real impact, with one email program driving clarity and behavior change
-                  at a utility with over 1 million households.
+                  I've been a professional writer for over 12 years, with the large majority of that
+                  focused on UX writing. I worked on energy efficiency products in the utility
+                  industry, navigating complex industry jargon and strict compliance requirements.
+                  I've worked on large-scale B2B SaaS products, building these content systems and
+                  standards from 0 and extending them across 4 separate apps. My work has driven real
+                  impact, with one email program driving clarity and behavior change at a utility
+                  with over 1 million households.
                 </p>
                 <p>
                   I've solved the content problems you're experiencing at companies like Atlassian
-                  and Oracle, and I'm ready (and excited) to solve yours next.
+                  and Oracle. I'm ready (and excited) to solve yours next.
                 </p>
               </div>
 
@@ -392,10 +394,11 @@ export default function Writing() {
         {/* 6 — Closing CTA + contact */}
         <section id="contact" className="scroll-mt-24">
           <h2 className="mb-2 max-w-2xl text-[20px] sm:text-[24px] font-semibold tracking-tight">
-            Let's figure out where your content is breaking
+            Let's find out where your content is breaking
           </h2>
           <p className="mb-6 text-sm text-muted-foreground">
-            Send me a note about what you need fixed and I'll get back to you within a day.
+            Tell me about the problems you're experiencing and I'll give an initial assessment of the
+            content experience. No fees or commitment required.
           </p>
           <ContactPanel />
         </section>

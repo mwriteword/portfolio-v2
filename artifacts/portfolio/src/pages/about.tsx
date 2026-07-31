@@ -1,5 +1,6 @@
 import { FileText, Linkedin, BookOpen } from "lucide-react";
 import { WritingNav } from "../components/WritingNav";
+import { Breadcrumbs } from "../components/Breadcrumbs";
 import { CopyEmailButton } from "../components/CopyEmailButton";
 import { aboutParagraphs, LINKEDIN_URL, MEDIUM_URL, RESUME_URL, AVATAR_SRC } from "../content/about";
 
@@ -8,7 +9,9 @@ export default function About() {
     <main className="min-h-screen bg-background text-foreground">
       <WritingNav />
 
-      <div className="max-w-[1120px] w-[90%] mx-auto py-12 sm:py-20">
+      <div className="max-w-[1120px] w-[90%] mx-auto pt-6 pb-12 sm:pt-8 sm:pb-20">
+        <Breadcrumbs label="About" theme="light" homeHref="/" />
+
         {/* Hero */}
         <section className="mb-14 sm:mb-20 max-w-3xl">
           <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">

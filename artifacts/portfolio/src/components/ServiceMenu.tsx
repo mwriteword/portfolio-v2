@@ -262,7 +262,7 @@ export function ServiceMenu({
           })}
 
           <div className="mt-5 rounded-xl border border-border bg-muted/40 p-4">
-            <p className="text-sm leading-relaxed text-foreground">Need something more specific?</p>
+            <p className="text-sm leading-relaxed text-foreground">Not sure what's right for you?</p>
             <button
               type="button"
               onClick={onBookCall}

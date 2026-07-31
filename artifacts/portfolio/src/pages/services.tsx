@@ -1,4 +1,5 @@
 import { WritingNav } from "../components/WritingNav";
+import { Breadcrumbs } from "../components/Breadcrumbs";
 import { ServiceMenu } from "../components/ServiceMenu";
 import { ContactPanel } from "../components/ContactPanel";
 import { services } from "../content/services";
@@ -25,14 +26,16 @@ export default function Services() {
     <main className="min-h-screen bg-background text-foreground">
       <WritingNav />
 
-      <div className="max-w-[1120px] w-[90%] mx-auto py-12 sm:py-20">
+      <div className="max-w-[1120px] w-[90%] mx-auto pt-6 pb-12 sm:pt-8 sm:pb-20">
+        <Breadcrumbs label="Services" theme="light" homeHref="/" />
+
         {/* Hero */}
         <section className="mb-14 sm:mb-20 text-center">
           <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
             Services
           </p>
           <h1 className="mx-auto mt-4 max-w-3xl font-bold tracking-tight text-[40px] sm:text-[56px] lg:text-[64px] leading-[1.05]">
-            Content that scales with your product.
+            Specialized solutions to your content problems.
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-[16px] sm:text-[20px] text-muted-foreground">
             Whether you want project-based content or ongoing support, I offer a variety of services
@@ -68,11 +71,12 @@ export default function Services() {
         {/* Not ready for a full audit? — closing CTA with contact form + booking */}
         <section id="contact" className="scroll-mt-24">
           <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight">
-            Not ready for a full audit?
+            Need a more customized solution?
           </h2>
           <p className="mt-2 mb-6 text-sm text-muted-foreground">
-            Let's work it out together. Tell me what you're working on and I'll give an initial
-            assessment of the content experience. No fees or commitment.
+            These services are just a starting point, and we can work out the right shape and
+            solution for your needs. Just tell me what you're working on and we'll work it out
+            together.
           </p>
           <ContactPanel />
         </section>

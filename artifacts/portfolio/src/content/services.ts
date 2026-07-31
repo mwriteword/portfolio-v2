@@ -70,10 +70,8 @@ export const services: Service[] = [
       caseStudy: { label: "Platform Apps Support Doc Audit", comingSoon: true },
       timeline: "3–6 weeks depending on size and scope.",
       pricing: "Starts at $6,000.",
-      forWho:
-        "Teams that don't or haven't had content design support and need help with product content, help articles, or even marketing content.",
-      notForWho:
-        "Companies who have larger technical or interaction problems beyond just the content.",
+      forWho: "Teams that don't have or haven't had dedicated content support.",
+      notForWho: "Teams with larger technical problems beyond the words.",
     },
   },
   {
@@ -101,9 +99,9 @@ export const services: Service[] = [
       timeline: "6–10 weeks, part-time embedded in the team",
       pricing: "Starts at $18k",
       forWho:
-        "Teams struggling with product content, help articles, or any body of content that needs consistency or standards.",
+        "Teams struggling to maintain product content or help articles, or who need help scaling their existing content standards across the organization.",
       notForWho:
-        "Companies with established content standards in their style guide or design system.",
+        "Teams that have established standards frameworks that are keeping the content aligned.",
     },
   },
   {
@@ -131,8 +129,7 @@ export const services: Service[] = [
       pricing: "Starts at $8k",
       forWho:
         "Teams with AI chatbots and AI-powered features that need to yield a specific type of output.",
-      notForWho:
-        "Non-AI features or other situations where deeper content analysis and evaluation is required.",
+      notForWho: "Teams experiencing deeper technical problems beyond AI outputs.",
     },
   },
   {
@@ -159,13 +156,12 @@ export const services: Service[] = [
       pricing: "Starts at $8k",
       forWho:
         "Teams whose products don't have an existing onboarding experience, or whose existing onboarding is fragmented.",
-      notForWho:
-        "Products where people aren't signing up in the first place, or it's an acquisition/marketing problem.",
+      notForWho: "Teams who are having problems with initial signups or marketing/acquisition.",
     },
   },
   {
     slug: "content-design-retainer",
-    eyebrow: "Get content support when you need it",
+    eyebrow: "Get embedded content support",
     title: "Content Design Retainer",
     summary:
       "I'll work with your teams for launches, features, and everything in between — for a fraction of a full-time hire.",
@@ -189,7 +185,7 @@ export const services: Service[] = [
       pricing: "$4,000/month for 1 day/week; $8,000/month for 2 days/week.",
       forWho:
         "Teams that want content support without the need or budget for a full-time content designer.",
-      notForWho: "Teams that only want content support for a single project.",
+      notForWho: "Teams whose products don't rely on clear content.",
     },
   },
 ];
