@@ -35,7 +35,7 @@ export default function Services() {
             Services
           </p>
           <h1 className="mx-auto mt-4 max-w-3xl font-bold tracking-tight text-[40px] sm:text-[56px] lg:text-[64px] leading-[1.05]">
-            Specialized solutions to your content problems.
+            Specialized solutions to your content problems
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-[16px] sm:text-[20px] text-muted-foreground">
             Whether you want project-based content or ongoing support, I offer a variety of services
