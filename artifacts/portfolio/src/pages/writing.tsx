@@ -175,7 +175,7 @@ export default function Writing() {
           <h1 className="mx-auto mt-4 max-w-3xl font-bold tracking-tight text-[40px] sm:text-[60px] lg:text-[72px] leading-[1.05]">
             Words that scale
             <br />
-            with your product.
+            with your product
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-[16px] sm:text-[20px] text-muted-foreground">
             Your product is growing fast, but the words aren't keeping up. Now it's costing you in
