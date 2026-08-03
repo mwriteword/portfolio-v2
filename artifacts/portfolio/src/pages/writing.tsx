@@ -232,26 +232,33 @@ export default function Writing() {
             How I fix your product's content
           </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((s) => {
-              const Icon = s.icon;
-              return (
-                <Link
-                  key={s.slug}
-                  href={`/services#${s.slug}`}
-                  className="group flex flex-col rounded-xl border border-border bg-card p-6 transition-colors hover:bg-muted"
-                >
-                  <div className="flex items-start justify-between">
-                    <Icon className="h-5 w-5 text-primary" />
-                    <ArrowUpRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground" />
-                  </div>
-                  <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                    {s.eyebrow}
-                  </p>
-                  <h3 className="mt-1 font-semibold">{s.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.summary}</p>
-                </Link>
-              );
-            })}
+            {services.map((s, i) => (
+              <Link
+                key={s.slug}
+                href={`/services#${s.slug}`}
+                // Accent-tint the card on hover, mirroring the services page rail's
+                // active state. The accent + its 8%-alpha tint ride in on CSS vars.
+                style={
+                  {
+                    "--svc-accent": s.accent,
+                    "--svc-accent-tint": `${s.accent}14`,
+                  } as React.CSSProperties
+                }
+                className="group flex flex-col rounded-xl border border-border bg-card p-6 transition-colors hover:border-[var(--svc-accent)] hover:bg-[var(--svc-accent-tint)]"
+              >
+                <div className="flex items-start justify-between">
+                  <span className="font-mono text-sm font-medium tabular-nums text-muted-foreground/50 transition-colors group-hover:text-[var(--svc-accent)]">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <ArrowUpRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[var(--svc-accent)]" />
+                </div>
+                <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                  {s.eyebrow}
+                </p>
+                <h3 className="mt-1 font-semibold">{s.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.summary}</p>
+              </Link>
+            ))}
 
             {/* Catch-all → full Services page (also keeps the grid balanced at 6 cells) */}
             <Link
