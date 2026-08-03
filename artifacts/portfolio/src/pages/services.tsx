@@ -91,6 +91,16 @@ export default function Services() {
           </p>
           <ContactPanel />
         </section>
+
+        <div className="mt-12 flex justify-center">
+          <button
+            type="button"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+          >
+            ↑ Back to top
+          </button>
+        </div>
       </div>
 
       <SiteFooter />

@@ -280,7 +280,8 @@ export default function About() {
               I think this is the beginning of a beautiful partnership
             </h2>
             <p className="mt-3 text-[15px] sm:text-[17px] leading-relaxed text-muted-foreground">
-              Book an intro call now and we'll work on a solution together.
+              Think we'd make a good team? Book an intro call now and we'll work on a solution
+              together.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <a
