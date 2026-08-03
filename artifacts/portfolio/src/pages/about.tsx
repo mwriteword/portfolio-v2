@@ -66,7 +66,7 @@ export default function About() {
         <Breadcrumbs label="About" theme="light" homeHref="/" />
 
         {/* Hero */}
-        <section className="mb-12 sm:mb-16 max-w-3xl">
+        <section className="mb-12 sm:mb-16">
           <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
             About
           </p>
