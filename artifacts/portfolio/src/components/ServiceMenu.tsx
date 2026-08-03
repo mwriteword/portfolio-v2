@@ -1,8 +1,8 @@
 import { useEffect, useState, type ReactNode } from "react";
-import { Link } from "wouter";
-import { Check, ArrowUpRight, ChevronDown } from "lucide-react";
-import type { Service, CaseStudy } from "../content/services";
+import { Check, ChevronDown } from "lucide-react";
+import type { Service } from "../content/services";
 import { useTocActiveSection, type TocItem } from "./TableOfContents";
+import { CaseStudyModal } from "./CaseStudyModal";
 
 // ── Detail helpers ────────────────────────────────────────────────────────────
 
@@ -12,30 +12,29 @@ function Label({ children }: { children: ReactNode }) {
   );
 }
 
-/** Top-right case-study affordance. A live link once `href` is set; "Soon" until then. */
-function CaseStudyTag({ caseStudy }: { caseStudy: CaseStudy }) {
-  if (caseStudy.comingSoon || !caseStudy.href) {
+/** Top-right case-study affordance. Opens the case-study modal when a `study`
+ *  exists; falls back to a "Soon" pill for a case study still being written. */
+function CaseStudyTag({ service }: { service: Service }) {
+  const caseStudy = service.detail.caseStudy!;
+  if (caseStudy.study) {
     return (
-      <span
-        title={`${caseStudy.label} — coming soon`}
-        className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-border px-2.5 py-1 text-xs font-medium text-muted-foreground"
-      >
-        Case study
-        <span className="rounded-full bg-muted px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground/70">
-          Soon
-        </span>
-      </span>
+      <CaseStudyModal
+        caseStudy={caseStudy}
+        accent={service.accent}
+        eyebrow={service.eyebrow}
+      />
     );
   }
   return (
-    <Link
-      href={caseStudy.href}
-      onClick={() => window.scrollTo(0, 0)}
-      className="group/cs inline-flex shrink-0 items-center gap-1 rounded-full border border-border px-2.5 py-1 text-xs font-medium text-foreground transition-colors hover:bg-muted"
+    <span
+      title={`${caseStudy.label} — coming soon`}
+      className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-border px-2.5 py-1 text-xs font-medium text-muted-foreground"
     >
       Case study
-      <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground transition-colors group-hover/cs:text-foreground" />
-    </Link>
+      <span className="rounded-full bg-muted px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground/70">
+        Soon
+      </span>
+    </span>
   );
 }
 
@@ -58,7 +57,7 @@ function ServiceBlock({ service }: { service: Service }) {
         >
           {service.eyebrow}
         </p>
-        {d.caseStudy && <CaseStudyTag caseStudy={d.caseStudy} />}
+        {d.caseStudy && <CaseStudyTag service={service} />}
       </div>
       <h3 className="mt-2 text-2xl font-bold tracking-tight">{service.title}</h3>
       <p className="mt-2 max-w-2xl text-[17px] leading-relaxed text-muted-foreground">
