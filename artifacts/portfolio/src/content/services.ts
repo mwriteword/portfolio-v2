@@ -92,7 +92,7 @@ export const services: Service[] = [
         "Terminology and taxonomy standards",
         "Reusable content patterns for common UI moments (empty states, errors, onboarding, confirmations)",
         "Governance model for who owns what and how it gets updated",
-        "Walkthrough and hand off",
+        "Walkthrough and handoff",
         "Content Standards AI Agent — a functional agent that anyone in the org can use to check or generate standards-aligned content without a content designer",
       ],
       caseStudy: { label: "Platform Apps Type System", href: "/portfolio/case-study/goal-types" },
