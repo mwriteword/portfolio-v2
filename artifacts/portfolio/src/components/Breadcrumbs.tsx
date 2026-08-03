@@ -1,4 +1,10 @@
+import { Fragment } from "react";
 import { Link } from "wouter";
+
+interface Crumb {
+  label: string;
+  href: string;
+}
 
 interface BreadcrumbsProps {
   /** Current page / case study name. */
@@ -9,6 +15,8 @@ interface BreadcrumbsProps {
   theme?: "light" | "dark";
   /** Where the "Home" crumb points. Defaults to the portfolio home. */
   homeHref?: string;
+  /** Optional intermediate crumbs between Home and the current page, in order. */
+  trail?: Crumb[];
 }
 
 export function Breadcrumbs({
@@ -16,8 +24,9 @@ export function Breadcrumbs({
   color,
   theme = "dark",
   homeHref = "/portfolio",
+  trail = [],
 }: BreadcrumbsProps) {
-  const homeClass =
+  const linkClass =
     theme === "light"
       ? "text-muted-foreground transition-colors hover:text-foreground"
       : "text-[#888888] transition-colors hover:text-white";
@@ -28,14 +37,22 @@ export function Breadcrumbs({
     <nav aria-label="Breadcrumb" className="mb-8">
       <ol className="flex items-center gap-2 text-sm">
         <li>
-          <Link
-            href={homeHref}
-            onClick={() => window.scrollTo(0, 0)}
-            className={homeClass}
-          >
+          <Link href={homeHref} onClick={() => window.scrollTo(0, 0)} className={linkClass}>
             Home
           </Link>
         </li>
+        {trail.map((crumb) => (
+          <Fragment key={crumb.href}>
+            <li aria-hidden="true" className={separatorClass}>
+              »
+            </li>
+            <li>
+              <Link href={crumb.href} onClick={() => window.scrollTo(0, 0)} className={linkClass}>
+                {crumb.label}
+              </Link>
+            </li>
+          </Fragment>
+        ))}
         <li aria-hidden="true" className={separatorClass}>
           »
         </li>

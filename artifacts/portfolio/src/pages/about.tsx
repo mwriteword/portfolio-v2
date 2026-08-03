@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import { ArrowRight, CalendarPlus } from "lucide-react";
 import { WritingNav } from "../components/WritingNav";
+import { SiteFooter } from "../components/SiteFooter";
 import { Breadcrumbs } from "../components/Breadcrumbs";
 
 // Google Calendar appointment-scheduling booking page (matches the nav CTA).
@@ -314,11 +315,7 @@ export default function About() {
         </section>
       </div>
 
-      <footer className="border-t border-border">
-        <div className="max-w-[1120px] w-[90%] mx-auto py-8 text-sm text-muted-foreground">
-          © {new Date().getFullYear()} Vernon Laquindanum
-        </div>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }
