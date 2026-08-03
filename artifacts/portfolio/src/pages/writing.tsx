@@ -8,14 +8,14 @@ import {
   ChevronRight,
   Linkedin,
   BookOpen,
-  FileText,
 } from "lucide-react";
 import { WritingNav } from "../components/WritingNav";
 import { ContactPanel } from "../components/ContactPanel";
 import { CopyEmailButton } from "../components/CopyEmailButton";
+import { SiteFooter } from "../components/SiteFooter";
 import { TableOfContents, useTocActiveSection, type TocItem } from "../components/TableOfContents";
 import { services } from "../content/services";
-import { AVATAR_SRC, LINKEDIN_URL, MEDIUM_URL, RESUME_URL } from "../content/about";
+import { AVATAR_SRC, LINKEDIN_URL, MEDIUM_URL } from "../content/about";
 
 function scrollToId(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -359,17 +359,6 @@ export default function Writing() {
                     medium.com/@vjtlaq
                   </span>
                 </a>
-                <a
-                  href={RESUME_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex w-fit items-center gap-3"
-                >
-                  <FileText className="h-[18px] w-[18px] text-muted-foreground transition-colors group-hover:text-foreground" />
-                  <span className="text-sm text-foreground underline-offset-2 group-hover:underline">
-                    Resume
-                  </span>
-                </a>
               </div>
             </div>
           </div>
@@ -411,11 +400,7 @@ export default function Writing() {
         </section>
       </div>
 
-      <footer className="border-t border-border">
-        <div className="max-w-[1120px] w-[90%] mx-auto py-8 text-sm text-muted-foreground">
-          © {new Date().getFullYear()} Vernon Laquindanum
-        </div>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }

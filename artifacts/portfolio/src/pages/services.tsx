@@ -1,4 +1,7 @@
+import { Link } from "wouter";
+import { ArrowRight } from "lucide-react";
 import { WritingNav } from "../components/WritingNav";
+import { SiteFooter } from "../components/SiteFooter";
 import { Breadcrumbs } from "../components/Breadcrumbs";
 import { ServiceMenu } from "../components/ServiceMenu";
 import { ContactPanel } from "../components/ContactPanel";
@@ -66,6 +69,14 @@ export default function Services() {
               </div>
             ))}
           </div>
+          <Link
+            href="/services/additional-writing-samples"
+            onClick={() => window.scrollTo(0, 0)}
+            className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-foreground underline-offset-4 hover:underline"
+          >
+            See writing samples
+            <ArrowRight className="h-4 w-4" />
+          </Link>
         </section>
 
         {/* Not ready for a full audit? — closing CTA with contact form + booking */}
@@ -82,11 +93,7 @@ export default function Services() {
         </section>
       </div>
 
-      <footer className="border-t border-border">
-        <div className="max-w-[1120px] w-[90%] mx-auto py-8 text-sm text-muted-foreground">
-          © {new Date().getFullYear()} Vernon Laquindanum
-        </div>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }

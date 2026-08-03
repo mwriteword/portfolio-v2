@@ -11,7 +11,7 @@ import Home from "@/pages/home";
 import Writing from "@/pages/writing";
 import Services from "@/pages/services";
 import About from "@/pages/about";
-import CopyWork from "@/pages/copy-work";
+import AdditionalWritingSamples from "@/pages/additional-writing-samples";
 import GoalTypes from "@/pages/goal-types";
 import BlsEmails from "@/pages/bls-emails";
 import Twc from "@/pages/twc";
@@ -39,8 +39,9 @@ function Routes() {
       {/* Freelance — the site root */}
       <Route path="/" component={Writing} />
       <Route path="/services" component={Services} />
+      <Route path="/services/additional-writing-samples" component={AdditionalWritingSamples} />
       <Route path="/about" component={About} />
-      <Route path="/copy-work" component={CopyWork} />
+      <Route path="/copy-work">{() => <Redirect to="/services/additional-writing-samples" />}</Route>
 
       {/* UX Portfolio */}
       <Route path="/portfolio" component={Home} />
