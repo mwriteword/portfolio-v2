@@ -105,8 +105,8 @@ export const services: Service[] = [
             "The audit surfaced 30+ text string fixes in the product, 6 larger UX/interaction issues, and ~20 signals for new content patterns. The support doc uplift program improved helpfulness scores by 18%.",
         },
       },
-      timeline: "3–6 weeks depending on size and scope.",
-      pricing: "Starts at $6,000.",
+      timeline: "3–6 weeks depending on size and scope",
+      pricing: "Starts at $6,000",
       forWho: "Teams that don't have or haven't had dedicated content support.",
       notForWho: "Teams with larger technical problems beyond the words.",
     },
@@ -152,7 +152,7 @@ export const services: Service[] = [
         },
       },
       timeline: "6–10 weeks, part-time embedded in the team",
-      pricing: "Starts at $18k",
+      pricing: "Starts at $18,000",
       forWho:
         "Teams struggling to maintain product content or help articles, or who need help scaling their existing content standards across the organization.",
       notForWho:
@@ -199,7 +199,7 @@ export const services: Service[] = [
         },
       },
       timeline: "4–8 weeks, or ongoing",
-      pricing: "Starts at $8k",
+      pricing: "Starts at $8,000",
       forWho:
         "Teams with AI chatbots and AI-powered features that need to yield a specific type of output.",
       notForWho: "Teams experiencing deeper technical problems beyond AI outputs.",
@@ -244,7 +244,7 @@ export const services: Service[] = [
         },
       },
       timeline: "2–5 weeks",
-      pricing: "Starts at $8k",
+      pricing: "Starts at $8,000",
       forWho:
         "Teams whose products don't have an existing onboarding experience, or whose existing onboarding is fragmented.",
       notForWho: "Teams who are having problems with initial signups or marketing/acquisition.",
@@ -272,8 +272,8 @@ export const services: Service[] = [
         "Content advisement at kickoff",
         "Design partnership",
       ],
-      timeline: "1–2 days per week. 1-month trial, then 3-month minimum engagement.",
-      pricing: "$4,000/month for 1 day/week; $8,000/month for 2 days/week.",
+      timeline: "1–2 days per week. 1-month trial, then 3-month minimum engagement",
+      pricing: "$4,000/month for 1 day/week;\n$8,000/month for 2 days/week",
       forWho:
         "Teams that want content support without the need or budget for a full-time content designer.",
       notForWho: "Teams whose products don't rely on clear content.",

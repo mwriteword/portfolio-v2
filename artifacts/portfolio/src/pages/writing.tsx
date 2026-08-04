@@ -3,7 +3,6 @@ import { Link } from "wouter";
 import { motion, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
-  ArrowUpRight,
   ChevronLeft,
   ChevronRight,
   Linkedin,
@@ -22,10 +21,10 @@ function scrollToId(id: string) {
 }
 
 const tocItems: TocItem[] = [
-  { id: "problem", label: "The problem" },
-  { id: "offerings", label: "How I help" },
+  { id: "problem", label: "Problems" },
+  { id: "offerings", label: "Solutions" },
   { id: "about", label: "About" },
-  { id: "process", label: "How it works" },
+  { id: "process", label: "Process" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -56,12 +55,6 @@ const testimonials = [
   },
 ];
 
-const stats = [
-  { value: "9x", label: "Email CTR" },
-  { value: "+60%", label: "Digital engagement" },
-  { value: "+18%", label: "Helpfulness ratings" },
-];
-
 const processSteps = [
   {
     title: "Intro call",
@@ -69,64 +62,55 @@ const processSteps = [
   },
   {
     title: "Proposal",
-    body: "I send a proposal with fixed scope, timeline, and price within 48 hours, so you know exactly what to expect and when. If it doesn't work for you, we'll shape one that does.",
+    body: "I send a proposal with the fixed scope, timeline, and price within 48 hours so you'll know exactly what to expect from me and when. If the proposal doesn't work for you, we'll work on one that does.",
   },
   {
     title: "Work",
-    body: "I work with your team and ship in your tools, showing progress at regular checkpoints. No black box, no big reveal.",
+    body: "I'll work with your teams and ship in your tools, and show progress at regular checkpoints so you have full visibility into what I'm working on.",
   },
   {
     title: "Handoff",
-    body: "Documentation and rationale handed off in a live session with your team — plus, for systems work, an AI governance agent so the standards outlive the engagement.",
+    body: "Documentation and rationale for the work handed off in a live session with your team. And for any systems work, an AI governance agent so the standards outlive the engagement.",
   },
 ];
 
 // ── Quote carousel ────────────────────────────────────────────────────────────
 
+// Static testimonial card with manual controls only — no auto-advance. One quote
+// shows at a time inside a card; prev/next and dots step between them.
 function QuoteCarousel() {
   const reduceMotion = useReducedMotion();
   const [i, setI] = useState(0);
-  const [paused, setPaused] = useState(false);
   const n = testimonials.length;
-
-  useEffect(() => {
-    if (paused) return;
-    const t = setInterval(() => setI((v) => (v + 1) % n), 4500);
-    return () => clearInterval(t);
-  }, [paused, n]);
 
   const go = (d: number) => setI((v) => (v + d + n) % n);
   const q = testimonials[i];
 
   return (
-    <div
-      className="relative mx-auto max-w-3xl"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
-      <div className="flex h-[260px] items-center justify-center sm:h-[180px] lg:h-[150px]">
+    <div className="mx-auto max-w-3xl">
+      <div className="flex min-h-[220px] items-center sm:min-h-[180px]">
         <motion.figure
           key={i}
           initial={{ opacity: 0, y: reduceMotion ? 0 : 8 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduceMotion ? 0 : 0.35, ease: "easeOut" }}
-          className="text-center"
+          transition={{ duration: reduceMotion ? 0 : 0.3, ease: "easeOut" }}
+          className="w-full rounded-2xl border border-border bg-card p-8 sm:p-10"
         >
-          <blockquote className="text-[14px] sm:text-[15px] font-medium leading-relaxed text-foreground">
+          <blockquote className="text-[16px] sm:text-[18px] font-medium leading-relaxed text-foreground">
             “{q.quote}”
           </blockquote>
-          <figcaption className="mt-4 text-sm text-muted-foreground">
+          <figcaption className="mt-5 text-sm text-muted-foreground">
             — {q.name}, {q.role}
           </figcaption>
         </motion.figure>
       </div>
 
-      <div className="mt-4 flex items-center justify-center gap-3">
+      <div className="mt-5 flex items-center justify-center gap-3">
         <button
           type="button"
           onClick={() => go(-1)}
           aria-label="Previous quote"
-          className="rounded-full p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          className="rounded-full border border-border p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
         >
           <ChevronLeft className="h-4 w-4" />
         </button>
@@ -147,11 +131,112 @@ function QuoteCarousel() {
           type="button"
           onClick={() => go(1)}
           aria-label="Next quote"
-          className="rounded-full p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          className="rounded-full border border-border p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
         >
           <ChevronRight className="h-4 w-4" />
         </button>
       </div>
+    </div>
+  );
+}
+
+// ── Offerings preview ──────────────────────────────────────────────────────────
+
+// A preview of the Services page's rail layout: a left rail of offerings and a
+// right panel that shows just the eyebrow, title, and summary for the offering
+// you're hovering (first is shown by default). "More about this service" deep-
+// links to the full Services page, landing at the top with that offering
+// highlighted (see ServiceMenu's ?service= handling).
+function OfferingsPreview() {
+  const reduceMotion = useReducedMotion();
+  const [activeSlug, setActiveSlug] = useState(services[0].slug);
+  const active = services.find((s) => s.slug === activeSlug) ?? services[0];
+
+  return (
+    <div className="grid gap-8 lg:grid-cols-[300px_1fr] lg:gap-14">
+      {/* Left rail — hover (or tap) to preview an offering */}
+      <div>
+        <nav className="flex flex-col gap-1">
+          {services.map((s, i) => {
+            const isActive = s.slug === activeSlug;
+            return (
+              <button
+                key={s.slug}
+                type="button"
+                onMouseEnter={() => setActiveSlug(s.slug)}
+                onFocus={() => setActiveSlug(s.slug)}
+                onClick={() => setActiveSlug(s.slug)}
+                aria-current={isActive ? "true" : undefined}
+                className={`group flex items-baseline gap-3 rounded-r-lg border-l-[3px] px-4 py-3 text-left transition-colors ${
+                  isActive ? "" : "border-transparent hover:bg-muted/60"
+                }`}
+                style={
+                  isActive
+                    ? { borderLeftColor: s.accent, backgroundColor: `${s.accent}14` }
+                    : undefined
+                }
+              >
+                <span
+                  className={`font-mono text-xs tabular-nums ${
+                    isActive ? "" : "text-muted-foreground/50"
+                  }`}
+                  style={isActive ? { color: s.accent } : undefined}
+                >
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span
+                  className={`text-[17px] leading-snug transition-colors ${
+                    isActive
+                      ? "font-semibold"
+                      : "font-medium text-muted-foreground group-hover:text-foreground"
+                  }`}
+                  style={isActive ? { color: s.accent } : undefined}
+                >
+                  {s.title}
+                </span>
+              </button>
+            );
+          })}
+        </nav>
+
+        <Link
+          href="/services"
+          onClick={() => window.scrollTo(0, 0)}
+          className="mt-5 ml-4 inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
+        >
+          View all services
+          <ArrowRight className="h-4 w-4" />
+        </Link>
+      </div>
+
+      {/* Right panel — eyebrow / title / summary preview + deep link */}
+      <motion.div
+        key={active.slug}
+        initial={{ opacity: 0, y: reduceMotion ? 0 : 6 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: reduceMotion ? 0 : 0.25, ease: "easeOut" }}
+        className="lg:pt-2"
+      >
+        <p
+          className="text-xs font-semibold uppercase tracking-wide"
+          style={{ color: active.accent }}
+        >
+          {active.eyebrow}
+        </p>
+        <h3 className="mt-2 text-2xl font-bold tracking-tight">{active.title}</h3>
+        <p className="mt-3 max-w-2xl text-[17px] leading-relaxed text-muted-foreground">
+          {active.summary}
+        </p>
+        <Link
+          href={`/services?service=${active.slug}`}
+          onClick={() => window.scrollTo(0, 0)}
+          className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold underline-offset-4 hover:underline"
+          style={{ color: active.accent }}
+        >
+          More about this service
+          <ArrowRight className="h-4 w-4" />
+        </Link>
+      </motion.div>
     </div>
   );
 }
@@ -170,17 +255,16 @@ export default function Writing() {
         {/* 1 — Hero */}
         <section className="mb-14 sm:mb-20 text-center">
           <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-            Content Design & Systems for SaaS • UX Writing Consultant
+            Content Design & Systems for SaaS
           </p>
           <h1 className="mx-auto mt-4 max-w-3xl font-bold tracking-tight text-[40px] sm:text-[60px] lg:text-[72px] leading-[1.05]">
             Words that scale
             <br />
             with your product
           </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-[16px] sm:text-[20px] text-muted-foreground">
-            Your product is growing fast, but the words aren't keeping up. Now it's costing you in
-            support tickets and activations. I fix the words that are confusing your users—then I
-            build systems so they stay fixed.
+          <p className="mx-auto mt-5 max-w-2xl text-balance text-[16px] sm:text-[20px] text-muted-foreground">
+            Your product is growing, but the content isn't keeping up. I fix the words that are
+            confusing your users—then I build systems so they stay fixed.
           </p>
           <div className="mt-9 flex flex-wrap justify-center gap-3">
             <button
@@ -201,11 +285,6 @@ export default function Writing() {
           </div>
         </section>
 
-        {/* Woven-in client quotes — auto-advancing carousel */}
-        <section className="mb-14 sm:mb-20">
-          <QuoteCarousel />
-        </section>
-
         {/* 2 — The problem */}
         <section id="problem" className="mb-14 sm:mb-20 scroll-mt-24 text-center">
           <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight mb-6">
@@ -214,14 +293,14 @@ export default function Writing() {
           <div className="mx-auto max-w-3xl space-y-4 text-[15px] sm:text-[17px] leading-relaxed text-muted-foreground">
             <p>
               When SaaS products grow quickly, it's easy for the words to get left behind when there
-              isn't one person owning content across the product. Navigation menus aren't clear and
-              the instructions are more confusing than helpful. Before you know it, support tickets
-              are piling up and more users are dropping off week to week.
+              isn't one person owning content across the product. Users can't figure out how to
+              actually use your product when a feature has three different names and the instructions
+              are more confusing than helpful. Users are sending in support requests or just stop
+              using your product entirely.
             </p>
             <p>
-              I've seen this happen a lot, and it's cheap to solve when the product is starting up
-              and expensive to fix after the product has already grown. Fortunately, I've done this
-              both ways.
+              I've seen this happen a lot, so I built specific services based on my experiences to
+              help solve your content problems.
             </p>
           </div>
         </section>
@@ -231,53 +310,12 @@ export default function Writing() {
           <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight mb-6">
             How I fix your product's content
           </h2>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((s, i) => (
-              <Link
-                key={s.slug}
-                href={`/services#${s.slug}`}
-                // Accent-tint the card on hover, mirroring the services page rail's
-                // active state. The accent + its 8%-alpha tint ride in on CSS vars.
-                style={
-                  {
-                    "--svc-accent": s.accent,
-                    "--svc-accent-tint": `${s.accent}14`,
-                  } as React.CSSProperties
-                }
-                className="group flex flex-col rounded-xl border border-border bg-card p-6 transition-colors hover:border-[var(--svc-accent)] hover:bg-[var(--svc-accent-tint)]"
-              >
-                <div className="flex items-start justify-between">
-                  <span className="font-mono text-sm font-medium tabular-nums text-muted-foreground/50 transition-colors group-hover:text-[var(--svc-accent)]">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <ArrowUpRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[var(--svc-accent)]" />
-                </div>
-                <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                  {s.eyebrow}
-                </p>
-                <h3 className="mt-1 font-semibold">{s.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.summary}</p>
-              </Link>
-            ))}
+          <OfferingsPreview />
+        </section>
 
-            {/* Catch-all → full Services page (also keeps the grid balanced at 6 cells) */}
-            <Link
-              href="/services"
-              onClick={() => window.scrollTo(0, 0)}
-              className="group flex flex-col justify-center rounded-xl border border-dashed border-border p-6 transition-colors hover:bg-muted"
-            >
-              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                Not sure where to start?
-              </p>
-              <h3 className="mt-1 flex items-center gap-1.5 font-semibold">
-                View all services
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                See every offering in detail, with scope and pricing.
-              </p>
-            </Link>
-          </div>
+        {/* Client quotes — static card carousel, manual controls only */}
+        <section className="mb-14 sm:mb-20">
+          <QuoteCarousel />
         </section>
 
         {/* 4 — Impact + who I am (→ About page) */}
@@ -301,17 +339,6 @@ export default function Writing() {
                   I've solved the content problems you're experiencing at companies like Atlassian
                   and Oracle. I'm ready (and excited) to solve yours next.
                 </p>
-              </div>
-
-              <div className="mt-8 grid grid-cols-3 gap-4 sm:gap-6">
-                {stats.map((s) => (
-                  <div key={s.label}>
-                    <div className="text-[28px] sm:text-[40px] font-bold tracking-tight leading-none">
-                      {s.value}
-                    </div>
-                    <div className="mt-2 text-xs sm:text-sm text-muted-foreground">{s.label}</div>
-                  </div>
-                ))}
               </div>
 
               <Link

@@ -1,7 +1,6 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Check, ChevronDown } from "lucide-react";
 import type { Service } from "../content/services";
-import { useTocActiveSection, type TocItem } from "./TableOfContents";
 import { CaseStudyModal } from "./CaseStudyModal";
 
 // ── Detail helpers ────────────────────────────────────────────────────────────
@@ -46,10 +45,8 @@ function ServiceBlock({ service }: { service: Service }) {
   const [expanded, setExpanded] = useState(false);
   const detailId = `${service.slug}-detail`;
   return (
-    <div
-      id={service.slug}
-      className="scroll-mt-24 border-t border-border pt-8 pb-10 first:border-t-0 first:pt-0 lg:scroll-mt-6"
-    >
+    <div id={service.slug} className="pb-2">
+
       <div className="flex items-start justify-between gap-4">
         <p
           className="text-xs font-semibold uppercase tracking-wide"
@@ -82,16 +79,18 @@ function ServiceBlock({ service }: { service: Service }) {
 
       {/* Collapsible detail: hidden on mobile until expanded, always open on desktop. */}
       <div id={detailId} className={`${expanded ? "block" : "hidden"} lg:block`}>
-      {/* Timeline · Pricing */}
-      <div className="mt-5 flex flex-wrap gap-x-10 gap-y-4 rounded-xl border border-border bg-muted/40 px-5 py-4">
+      {/* Timeline · Pricing — two equal columns split down the middle (divider
+          centered on the card), so each value is bounded to its half and long
+          ones wrap to a second line instead of pushing the divider around. */}
+      <div className="mt-5 grid grid-cols-1 gap-4 rounded-xl border border-border bg-muted/40 px-5 py-4 sm:grid-cols-[1fr_auto_1fr] sm:items-stretch sm:gap-x-8 sm:gap-y-0">
         <div>
           <Label>Timeline</Label>
-          <p className="mt-1 text-sm leading-relaxed text-foreground">{d.timeline}</p>
+          <p className="mt-1 whitespace-pre-line text-sm leading-relaxed text-foreground">{d.timeline}</p>
         </div>
-        <div className="hidden self-stretch w-px bg-border sm:block" aria-hidden="true" />
+        <div className="hidden w-px self-stretch bg-border sm:block" aria-hidden="true" />
         <div>
           <Label>Pricing</Label>
-          <p className="mt-1 text-sm leading-relaxed text-foreground">{d.pricing}</p>
+          <p className="mt-1 whitespace-pre-line text-sm leading-relaxed text-foreground">{d.pricing}</p>
         </div>
       </div>
 
@@ -158,76 +157,81 @@ function ServiceBlock({ service }: { service: Service }) {
 
 // ── Menu ────────────────────────────────────────────────────────────────────
 
+/** Resolve the service to open on load from the URL — `?service=slug` first,
+ *  falling back to a legacy `#slug`, then the first service. */
+function initialSlug(services: Service[]): string {
+  if (typeof window === "undefined") return services[0].slug;
+  const q = new URLSearchParams(window.location.search).get("service");
+  const hash = window.location.hash.replace("#", "");
+  const has = (v: string | null): v is string => !!v && services.some((s) => s.slug === v);
+  if (has(q)) return q;
+  if (has(hash)) return hash;
+  return services[0].slug;
+}
+
 /**
- * "Sticky rail, nothing hidden" — all services render top-to-bottom (crawlable,
- * skimmable, no interaction required). A sticky left rail scroll-spies the section
- * currently in view and jumps to it on click.
+ * Master–detail: a rail selects one offering and the panel shows only that
+ * offering's full detail, swapping on selection so the rail and body always
+ * match. Home-page "More about this service" links (/services?service=slug)
+ * open on that offering and land the page on this section.
  */
 export function ServiceMenu({
   services,
   onBookCall,
-  heading = "Core offerings",
+  heading = "Core services",
 }: {
   services: Service[];
   onBookCall: () => void;
   /** Rendered inside the sticky left column so it pins with the rail. */
   heading?: string;
 }) {
-  const tocItems: TocItem[] = services.map((s) => ({ id: s.slug, label: s.title }));
+  const [selectedSlug, setSelectedSlug] = useState(() => initialSlug(services));
+  const selected = services.find((s) => s.slug === selectedSlug) ?? services[0];
 
-  // The content column is its own scroll region on desktop, so scroll-spying
-  // tracks that container rather than the page viewport.
-  const [panelEl, setPanelEl] = useState<HTMLDivElement | null>(null);
-  const activeId = useTocActiveSection(tocItems, true, panelEl);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const detailRef = useRef<HTMLDivElement>(null);
 
-  // Scroll a service into view. On desktop the content column is its own scroll
-  // container, so scroll it directly (scrollIntoView doesn't reliably drive an
-  // overflow ancestor); on mobile fall back to the page-level scroll.
-  const scrollToSlug = (slug: string, behavior: ScrollBehavior) => {
-    const el = document.getElementById(slug);
+  const isDesktop = () =>
+    typeof window !== "undefined" && window.matchMedia("(min-width: 1024px)").matches;
+
+  // Arriving via a deep link: bring this section (with the picked offering
+  // already selected) into view, just under the sticky nav.
+  useEffect(() => {
+    const q = new URLSearchParams(window.location.search).get("service");
+    const hash = window.location.hash.replace("#", "");
+    const deep = [q, hash].some((v) => v && services.some((s) => s.slug === v));
+    if (!deep) return;
+    const el = rootRef.current;
     if (!el) return;
-    const panel = panelEl;
-    const scrollable = panel && panel.scrollHeight > panel.clientHeight + 1;
-    if (scrollable) {
-      const top =
-        el.getBoundingClientRect().top - panel.getBoundingClientRect().top + panel.scrollTop - 24;
-      panel.scrollTo({ top: Math.max(0, top), behavior });
-    } else {
-      el.scrollIntoView({ behavior, block: "start" });
+    const y = el.getBoundingClientRect().top + window.scrollY - 80;
+    window.scrollTo({ top: Math.max(0, y), behavior: "auto" });
+  }, [services]);
+
+  const select = (slug: string) => {
+    setSelectedSlug(slug);
+    // On mobile the detail sits below the rail, so pull the freshly-picked
+    // offering into view. On desktop it's already beside the rail.
+    if (!isDesktop()) {
+      requestAnimationFrame(() =>
+        detailRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
+      );
     }
   };
 
-  const jumpTo = (slug: string) => scrollToSlug(slug, "smooth");
-
-  // Deep links from the home page (/services#slug) scroll to that service on mount.
-  useEffect(() => {
-    const hash = window.location.hash.replace("#", "");
-    if (!hash || !services.some((s) => s.slug === hash)) return;
-    let tries = 0;
-    const jump = () => {
-      const el = document.getElementById(hash);
-      if (el) scrollToSlug(hash, "auto");
-      else if (tries++ < 60) requestAnimationFrame(jump);
-    };
-    const t = setTimeout(jump, 60);
-    return () => clearTimeout(t);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [services, panelEl]);
-
   return (
-    <div className="grid gap-8 lg:grid-cols-[300px_1fr] lg:gap-14">
-      {/* Left column — heading + scroll-spy rail, sticky as a unit (desktop only) */}
+    <div ref={rootRef} className="grid gap-8 lg:grid-cols-[300px_1fr] lg:gap-14">
+      {/* Left column — heading + selector rail, sticky as a unit (desktop only) */}
       <div className="lg:sticky lg:top-24 lg:self-start">
         <h2 className="mb-6 text-[20px] font-semibold tracking-tight sm:text-[24px]">{heading}</h2>
 
-        <nav className="hidden flex-col gap-1 lg:flex">
+        <nav className="flex flex-col gap-1">
           {services.map((s, i) => {
-            const active = activeId === s.slug;
+            const active = selectedSlug === s.slug;
             return (
               <button
                 key={s.slug}
                 type="button"
-                onClick={() => jumpTo(s.slug)}
+                onClick={() => select(s.slug)}
                 aria-current={active ? "true" : undefined}
                 className={`group flex items-baseline gap-3 rounded-r-lg border-l-[3px] px-4 py-3 text-left transition-colors ${
                   active ? "" : "border-transparent hover:bg-muted/60"
@@ -273,16 +277,11 @@ export function ServiceMenu({
         </nav>
       </div>
 
-      {/* Content column — its own scroll region on desktop: scrolls when the
-          cursor is inside, and `overscroll-contain` keeps the page still until
-          you move out of it. On mobile it's normal page flow. */}
-      <div
-        ref={setPanelEl}
-        className="lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto lg:overscroll-contain lg:pr-5"
-      >
-        {services.map((s) => (
-          <ServiceBlock key={s.slug} service={s} />
-        ))}
+      {/* Detail column — only the selected offering; swaps (with a fade) on select. */}
+      <div ref={detailRef} className="min-w-0 scroll-mt-24">
+        <div key={selected.slug} className="animate-in fade-in duration-200">
+          <ServiceBlock service={selected} />
+        </div>
       </div>
     </div>
   );
