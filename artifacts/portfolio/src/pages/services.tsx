@@ -5,7 +5,14 @@ import { SiteFooter } from "../components/SiteFooter";
 import { Breadcrumbs } from "../components/Breadcrumbs";
 import { ServiceMenu } from "../components/ServiceMenu";
 import { ContactPanel } from "../components/ContactPanel";
+import { TableOfContents, useTocActiveSection, type TocItem } from "../components/TableOfContents";
 import { services } from "../content/services";
+
+const tocItems: TocItem[] = [
+  { id: "solutions", label: "Solutions" },
+  { id: "additional", label: "Additional services" },
+  { id: "contact", label: "Contact" },
+];
 
 const additionalServices = [
   { name: "Copywriting", desc: "Email, ad copy, landing pages, and more." },
@@ -20,6 +27,8 @@ const additionalServices = [
 ];
 
 export default function Services() {
+  const activeSection = useTocActiveSection(tocItems);
+
   // Scroll to the contact section (form + booking) at the bottom of this page.
   const goToContact = () => {
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -28,6 +37,7 @@ export default function Services() {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <WritingNav />
+      <TableOfContents items={tocItems} activeId={activeSection} theme="light" />
 
       <div className="max-w-[1120px] w-[90%] mx-auto pt-6 pb-12 sm:pt-8 sm:pb-20">
         <Breadcrumbs label="Services" theme="light" homeHref="/" />
@@ -35,25 +45,24 @@ export default function Services() {
         {/* Hero */}
         <section className="mb-14 sm:mb-20 text-center">
           <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-            Services
+            Content Design Services
           </p>
           <h1 className="mx-auto mt-4 max-w-3xl font-bold tracking-tight text-[40px] sm:text-[56px] lg:text-[64px] leading-[1.05]">
             Specialized solutions to your content problems
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-[16px] sm:text-[20px] text-muted-foreground">
-            Whether you want project-based content or ongoing support, I offer a variety of services
-            to help you get the UX content expertise you need. Most engagements start with an audit
-            and grow from there, but you can select independent engagements as needed.
+            Most engagements start with an audit and grow from there, but you can choose any service
+            that fits your needs.
           </p>
         </section>
 
-        {/* Core offerings — sticky scroll-spy rail; heading pins inside ServiceMenu */}
-        <section className="mb-14 sm:mb-20">
+        {/* Core services — master–detail selector (rail heading lives in ServiceMenu) */}
+        <section id="solutions" className="mb-14 sm:mb-20 scroll-mt-24">
           <ServiceMenu services={services} onBookCall={goToContact} />
         </section>
 
         {/* Additional services */}
-        <section className="mb-14 sm:mb-20">
+        <section id="additional" className="mb-14 sm:mb-20 scroll-mt-24">
           <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight mb-2">
             Additional services
           </h2>
