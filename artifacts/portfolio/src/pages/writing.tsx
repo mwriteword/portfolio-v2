@@ -288,15 +288,15 @@ export default function Writing() {
         {/* 2 — The problem */}
         <section id="problem" className="mb-14 sm:mb-20 scroll-mt-24 text-center">
           <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-tight mb-6">
-            Don't let bad content get in your users' way
+            Find out what's driving the quiet drop-off
           </h2>
           <div className="mx-auto max-w-3xl space-y-4 text-[15px] sm:text-[17px] leading-relaxed text-muted-foreground">
             <p>
-              When SaaS products grow quickly, it's easy for the words to get left behind when there
-              isn't one person owning content across the product. Users can't figure out how to
-              actually use your product when a feature has three different names and the instructions
-              are more confusing than helpful. Users are sending in support requests or just stop
-              using your product entirely.
+              When SaaS products grow quickly, it's easy for the words to grow inconsistent and
+              misaligned when there isn't one person owning content across the product. Users can't
+              figure out how to actually use your product when a feature has three different names
+              and the instructions are more confusing than helpful. And if people don't know how to
+              use the product, they'll just stop using it and you may never know why.
             </p>
             <p>
               I've seen this happen a lot, so I built specific services based on my experiences to
