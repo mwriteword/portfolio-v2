@@ -260,9 +260,9 @@ export const services: Service[] = [
     accent: "#16a34a", // green
     detail: {
       solves:
-        "Your product is shipping new features every month, but no one's looking at the words. Product managers, designers, and engineers are doing their best to write the words for the experience, but they don't know if it's cohesive or consistent.",
+        "Your product is shipping new features every month, but no one's looking at the words. Product managers, designers, and engineers are doing their best to write the content, but they know it lacks the quality and polish a content designer would bring.",
       process:
-        "I'll embed within your teams for a set number of hours each week in an ongoing partnership. I'll attend kick-offs, contribute to research, draft solutions with designers, and work with cross-functional collaborators to develop your product.",
+        "I’ll work with you to build the write engagement model, but you can consider this an ongoing partnership. I’ll embed with your teams, attend kickoffs, draft solutions with designers, and work with cross-functional collaborators to develop your product. Everything you can expect from an embedded content designer without the full-time hire.",
       youGet: [
         "End-to-end UX writing for product surfaces",
         "Help article and tech writing support",
