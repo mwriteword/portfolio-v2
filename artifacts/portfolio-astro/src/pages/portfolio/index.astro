@@ -1,0 +1,406 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import TopNav from "../../components/TopNav.astro";
+import { aboutParagraphs } from "../../../../portfolio/src/content/about";
+
+const LINKEDIN_URL = "https://linkedin.com/in/vjtlaq";
+const MEDIUM_URL = "https://medium.com/@vjtlaq";
+const RESUME_URL =
+  "https://docs.google.com/document/d/13RsZkG_7wzEnA9dBToBTtVLWqRb2BFS_X_Ns_zhAcro/edit?usp=sharing";
+const AVATAR_SRC = "/images/avatar/illustration.png";
+const EMAIL = "vjtlaq@gmail.com";
+
+const title = "UX Portfolio — Vernon Laquindanum, Content Designer";
+const description =
+  "Selected content design and UX writing work by Vernon Laquindanum — content systems, AI content, onboarding, and behavior-change writing at Atlassian, Opower, Course Hero, and QuinStreet.";
+
+// Lucide icon inner-markup per case study (rendered into a shared <svg>).
+const icons = {
+  target: '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>',
+  compass: '<circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>',
+  bot: '<path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/>',
+  mail: '<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>',
+  book: '<path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/>',
+  pen: '<path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
+};
+
+const caseStudies = [
+  { title: "Goal Types & OKR Modeling — Atlassian", icon: icons.target, bg: "#1e3a5f", accent: "#3b82f6", href: "/portfolio/case-study/goal-types", tags: ["Content Systems", "Localization", "Object Modeling"], description: "A new goal type system that brought OKR support to Atlassian's Goals app." },
+  { title: "Teamwork Collection Onboarding — Atlassian", icon: icons.compass, bg: "#3a2a10", accent: "#f59e0b", href: "/portfolio/case-study/twc", tags: ["Content Strategy", "UX Writing", "End-to-end Experience"], description: "End-to-end onboarding content for the launch of a new multi-app bundle." },
+  { title: "Risk Agent Workflow — Atlassian", icon: icons.bot, bg: "#0e3a42", accent: "#06b6d4", href: "/portfolio/case-study/risk-agent", tags: ["AI Content", "Agentic Workflows", "AI Evaluation"], description: "An agentic Rovo workflow that turns logged risks into actionable, auto-generated summaries." },
+  { title: "Behavioral Load-Shaping Emails — Opower", icon: icons.mail, bg: "#1a3a2a", accent: "#22c55e", href: "/portfolio/case-study/bls-emails", tags: ["UX Writing", "Behavior Change", "Email"], description: "An email series designed to shift real-world energy use for utility customers." },
+  { title: "Textbook Solutions — Course Hero", icon: icons.book, bg: "#2a1a3a", accent: "#a855f7", href: "/portfolio/case-study/textbook-solutions", tags: ["SEO", "Web Content", "Longform Writing"], description: "Search-optimized textbook descriptions written without access to the source texts." },
+  { title: "Copywriting Samples — QuinStreet", icon: icons.pen, bg: "#3a1a2e", accent: "#ec4899", href: "/portfolio/case-study/copywriting-samples", tags: ["Copywriting", "Marketing", "Social Media"], description: "A selection of banners, emails, social media posts, and landing pages I wrote for a performance marketing agency." },
+];
+
+const EMPTY_DOT = "#3a3a3a";
+const proficiencyConfig = {
+  "Novice": { label: "Novice", labelColor: "#3b82f6", dots: [{ color: "#3b82f6" }, { color: EMPTY_DOT }, { color: EMPTY_DOT }] },
+  "Novice / Intermediate": { label: "Novice / Intermediate", labelColor: "#22c55e", dots: [{ color: "#22c55e" }, { color: "#22c55e", half: true }, { color: EMPTY_DOT }] },
+  "Intermediate": { label: "Intermediate", labelColor: "#eab308", dots: [{ color: "#eab308" }, { color: "#eab308" }, { color: EMPTY_DOT }] },
+  "Intermediate / Advanced": { label: "Intermediate / Advanced", labelColor: "#f97316", dots: [{ color: "#f97316" }, { color: "#f97316" }, { color: "#f97316", half: true }] },
+  "Advanced": { label: "Advanced", labelColor: "#ef4444", dots: [{ color: "#ef4444" }, { color: "#ef4444" }, { color: "#ef4444" }] },
+} as const;
+type Proficiency = keyof typeof proficiencyConfig;
+
+const tools: { id: number; name: string; icon: string; proficiency: Proficiency; bullets: string[] }[] = [
+  { id: 1, name: "Figma", icon: "/images/icons/figma.svg", proficiency: "Intermediate / Advanced", bullets: ["Worked with designers to insert UX writing into screens and flows", "Iterated on UI screens with different interactions and content", "Created click-through prototypes and presentation materials"] },
+  { id: 2, name: "Replit", icon: "https://cdn.simpleicons.org/replit", proficiency: "Intermediate", bullets: ["Used to prototype flows and UI contexts", "Created interactive visuals to convey complicated concepts"] },
+  { id: 3, name: "v0", icon: "https://cdn.simpleicons.org/v0", proficiency: "Novice", bullets: ["Used to prototype flows and UI contexts"] },
+  { id: 4, name: "Claude", icon: "https://cdn.simpleicons.org/claude", proficiency: "Intermediate / Advanced", bullets: ["Built agents with context to perform specific actions", "Used MCP connections to build automation triggers and flows", "Refined this portfolio using Claude Code and deployed changes to repo"] },
+  { id: 5, name: "Atlassian Suite", icon: "https://cdn.simpleicons.org/atlassian", proficiency: "Advanced", bullets: ["Extensive experience using Jira, Confluence, Goals, Projects, Teams, Bitbucket, and Focus", "Have an innate understanding of how apps connect", "Intimately familiar with Admin and End User surfaces"] },
+  { id: 6, name: "Google Suite", icon: "/images/icons/google.svg", proficiency: "Advanced", bullets: ["Career-long experience using Docs, Sheets, Slides, Forms, and Drive"] },
+  { id: 7, name: "Notion", icon: "https://cdn.simpleicons.org/notion", proficiency: "Intermediate", bullets: ["Used to build portfolio site", "Crafted relational databases in Notion in personal settings"] },
+  { id: 10, name: "Contentful", icon: "https://cdn.simpleicons.org/contentful", proficiency: "Intermediate / Advanced", bullets: ["Owned the full Platform Experiences support document set.", "Led a content uplift program that resolved 50+ feedback tickets and increased overall helpfulness rating by 18%.", "Drove a 60+ document migration from Intercom to Contentful."] },
+  { id: 8, name: "VS Code", icon: "/images/icons/vscode.svg", proficiency: "Novice", bullets: ["Experience using VS Code to edit text strings and other minor UI elements", "Familiarity with basic git usage, plus the commit and PR processes"] },
+  { id: 9, name: "Github", icon: "https://cdn.simpleicons.org/github/ffffff", proficiency: "Novice / Intermediate", bullets: ["Viewed and managed files in a repo", "Reviewed pull requests and commits", "Light git work editing files in a repository"] },
+];
+
+const skillCategories = [
+  { name: "Content & Writing", color: "#3b82f6", skills: ["Content design", "UX writing", "Copywriting", "SEO content", "Technical writing", "Markdown", "Voice and tone"] },
+  { name: "Strategy & Systems", color: "#22c55e", skills: ["Content strategy", "Content systems", "Content standards", "Content auditing", "Content evaluation", "Information architecture", "Taxonomy & naming systems", "Object modeling", "Design systems"] },
+  { name: "Research & Leadership", color: "#a855f7", skills: ["User research & synthesis", "Journey mapping", "Experience modeling", "Accessibility", "Localization", "Cross-functional collaboration", "Workshop design", "Mentorship"] },
+  { name: "AI & Emerging Tech", color: "#ef4444", skills: ["Agentic workflow development", "AI-assisted content", "AI-assisted development", "AI prototyping", "Prompt/LLM content"] },
+];
+
+const experience = [
+  { company: "Atlassian", span: "Jul 2021 – Mar 2026", accent: "#3b82f6", monogram: "A", logo: "/images/logos/atlassian.jpeg", roles: [{ title: "Senior Content Designer", dates: "Sept 2023 – Mar 2026", summary: "Owned content strategy and wrote all UX content for four platform apps: Home, Goals, Projects, and Teams." }, { title: "Content Designer", dates: "Jul 2021 – Sept 2023", summary: "Drove content for internal resources and procedures for products onboarding to the Atlassian platform. Later, moved to the Teams feature team and eventually Atlas." }] },
+  { company: "Opower / Oracle Utilities", span: "Apr 2017 – Jun 2025", accent: "#22c55e", monogram: "O", logo: "/images/logos/opower.jpeg", roles: [{ title: "Web Content Specialist (Contract)", dates: "Sept 2024 – Jun 2025", summary: "Part-time contract role brought on to help a former colleague with content quality checks and management for Opower's tip library of 300+ existing energy efficiency tips." }, { title: "UX Writer", dates: "Apr 2017 – Jun 2021", summary: "Led content strategy in a regulated utilities environment, applying behavioral science to drive energy-saving behavior." }] },
+  { company: "Course Hero", span: "Oct 2019 – Apr 2020", accent: "#a855f7", monogram: "CH", logo: "/images/logos/coursehero.jpeg", roles: [{ title: "Web/SEO Content Writer (Contract)", dates: "Oct 2019 – Apr 2020", summary: "Wrote SEO-driven content for the Textbook Solutions product, plus question revisions to improve search rankings for the solutions." }] },
+  { company: "QuinStreet", span: "Feb 2014 – Mar 2017", accent: "#ec4899", monogram: "Q", logo: "/images/logos/quinstreet.jpeg", roles: [{ title: "Copywriting Manager", dates: "Jul 2016 – Mar 2017", summary: "Continued copywriting duties, while managing team workflows and mentoring other copywriters." }, { title: "UX Copywriter", dates: "Feb 2014 – Jul 2016", summary: "Developed content experience for several energy efficiency products designed to encourage behavior change, including the flagship Home Energy Report and the Behavior Load-Shaping email series." }] },
+];
+
+const navSections = [
+  { id: "section-work", label: "Work" },
+  { id: "section-skills", label: "Skills" },
+  { id: "section-tools", label: "Tools" },
+  { id: "section-experience", label: "Experience" },
+  { id: "section-about", label: "About" },
+];
+
+// A CollectionPage listing the case studies, so search/AI see the portfolio as a
+// structured index of work items.
+const collectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "UX Portfolio — Vernon Laquindanum",
+  description,
+  url: "https://wordsbyvern.com/portfolio",
+  hasPart: caseStudies.map((c) => ({
+    "@type": "CreativeWork",
+    name: c.title,
+    url: `https://wordsbyvern.com${c.href}`,
+  })),
+};
+
+const dotStyle = (dot: { color: string; half?: boolean }) =>
+  dot.half
+    ? `background:linear-gradient(to right, ${dot.color} 50%, ${EMPTY_DOT} 50%)`
+    : `background-color:${dot.color}`;
+---
+
+<Layout title={title} description={description} path="/portfolio" jsonLd={[collectionSchema]}>
+  <main class="min-h-screen bg-[#2e2e2e] text-white">
+    <TopNav sections={navSections} />
+
+    <div class="max-w-[1120px] w-[90%] mx-auto py-12 sm:py-20">
+      <!-- Hero -->
+      <div class="mb-16 sm:mb-20 text-center">
+        <h1 class="font-bold tracking-tight text-[40px] sm:text-[64px] lg:text-[80px] text-white">
+          Hello! You can call me Vern.
+        </h1>
+        <p class="text-[16px] sm:text-[20px] text-[#aaaaaa] mt-4 sm:mt-6 max-w-2xl mx-auto">
+          I'm a Content Designer who fixes the words in SaaS products so their users actually know how
+          to use them. Then I build the content systems to make sure it stays fixed.
+        </p>
+        <div class="flex flex-wrap justify-center gap-2 sm:gap-3 mt-8 sm:mt-10">
+          <button type="button" id="copy-email" data-email={EMAIL} class="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg bg-slate-700 text-white text-sm font-medium hover:bg-slate-800 transition-colors">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            <span data-copy-label>{EMAIL}</span>
+          </button>
+          <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg bg-slate-700 text-white text-sm font-medium hover:bg-slate-800 transition-colors">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+
+      <!-- Work -->
+      <div id="section-work" class="mb-16 sm:mb-20 scroll-mt-16">
+        <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight text-white mb-6">Work I've done</h2>
+        <div class="divide-y divide-[#333333]" data-work-list>
+          {
+            caseStudies.map((study, i) => {
+              const [projectTitle, company] = study.title.split(" — ");
+              return (
+                <a href={study.href} data-work-item data-extra={i >= 4 ? "true" : undefined} hidden={i >= 4} class="group flex items-center gap-4 py-4 px-3 -mx-3 rounded-xl hover:bg-[#383838] transition-colors duration-200">
+                  <span class="text-xs text-[#555555] w-6 shrink-0 font-mono tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+                  <div class="w-16 h-12 rounded-md shrink-0 flex items-center justify-center" style={`background-color:${study.bg}`}>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style={`color:${study.accent}`} stroke="currentColor" set:html={study.icon} />
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-[#cccccc] group-hover:text-white transition-colors duration-200 truncate">{projectTitle}</p>
+                    {company && <p class="text-xs text-[#555555] mt-0.5">{company}</p>}
+                    <div class="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-[grid-template-rows] duration-300 ease-out">
+                      <div class="overflow-hidden">
+                        <p class="text-xs text-[#999999] leading-relaxed pt-1.5 pr-4">{study.description}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="hidden md:flex items-center gap-1.5 shrink-0">
+                    {study.tags.map((tag) => (
+                      <span class="text-[11px] text-[#888888] border border-[#3a3a3a] rounded-full px-2.5 py-1 group-hover:border-[#4a4a4a] group-hover:text-[#aaaaaa] transition-colors duration-200 whitespace-nowrap">{tag}</span>
+                    ))}
+                  </div>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200" style={`color:${study.accent}`}><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+                </a>
+              );
+            })
+          }
+        </div>
+        <button type="button" data-work-toggle aria-expanded="false" class="mt-4 mx-auto flex items-center gap-1.5 text-sm font-medium text-[#888888] hover:text-white transition-colors">
+          <span data-work-toggle-label>Show more</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-work-chevron class="transition-transform duration-200"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+      </div>
+
+      <!-- Skills -->
+      <div id="section-skills" class="mb-16 sm:mb-20 scroll-mt-16">
+        <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight text-white mb-6">Skills I've developed</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
+          {
+            skillCategories.map((category) => (
+              <div>
+                <h3 class="text-xs font-semibold uppercase tracking-widest text-[#777777] mb-4">{category.name}</h3>
+                <div class="flex flex-wrap gap-2">
+                  {category.skills.map((skill) => (
+                    <span class="skill-pill cursor-default select-none text-sm rounded-full border px-3.5 py-1.5" style={`--cat-accent:${category.color}`}>{skill}</span>
+                  ))}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Tools -->
+      <div id="section-tools" class="mb-16 sm:mb-20 scroll-mt-16">
+        <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight text-white mb-6">Tools I've used</h2>
+        <div class="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-6 lg:gap-10" data-tools>
+          <!-- Detail panels (all in DOM, one visible) -->
+          <div class="order-1 lg:order-2 lg:sticky lg:top-16 self-start w-full">
+            <div class="bg-[#242424] rounded-xl p-6 sm:p-8 border border-white/5">
+              {
+                tools.map((tool, ti) => {
+                  const cfg = proficiencyConfig[tool.proficiency];
+                  return (
+                    <div data-tool-panel={tool.id} hidden={ti !== 0}>
+                      <div class="flex items-center gap-3 mb-4">
+                        <img src={tool.icon} alt={tool.name} class="w-7 h-7 object-contain shrink-0" onerror="this.style.display='none'" />
+                        <h3 class="text-lg font-semibold text-white">{tool.name}</h3>
+                      </div>
+                      <div class="flex items-center gap-2 mb-5 pb-5 border-b border-white/5">
+                        <div class="flex gap-1">
+                          {cfg.dots.map((dot) => (
+                            <div class="w-2 h-2 rounded-full overflow-hidden" style={dotStyle(dot)} />
+                          ))}
+                        </div>
+                        <span class="text-xs font-medium" style={`color:${cfg.labelColor}`}>{cfg.label}</span>
+                      </div>
+                      <ul class="space-y-3">
+                        {tool.bullets.map((bullet) => (
+                          <li class="flex items-start gap-2.5 text-sm text-[#cccccc] leading-relaxed">
+                            <span class="mt-1.5 w-1 h-1 rounded-full bg-[#555555] shrink-0" />
+                            {bullet}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  );
+                })
+              }
+            </div>
+          </div>
+          <!-- Tool list -->
+          <div class="order-2 lg:order-1 flex flex-col gap-0.5">
+            {
+              tools.map((tool, ti) => {
+                const cfg = proficiencyConfig[tool.proficiency];
+                return (
+                  <button type="button" data-tool-btn={tool.id} aria-label={`${tool.name} — ${cfg.label}`} class={`tool-btn flex items-center gap-3 rounded-lg pl-2 pr-3 py-2.5 text-left transition-colors duration-200 ${ti === 0 ? "is-active" : ""}`} style={`--tool-accent:${cfg.labelColor}`}>
+                    <span class="tool-bar w-0.5 h-5 rounded-full shrink-0"></span>
+                    <img src={tool.icon} alt="" class="tool-icon w-4 h-4 object-contain shrink-0" onerror="this.style.display='none'" />
+                    <span class="tool-name flex-1 text-sm font-medium">{tool.name}</span>
+                    <div class="flex gap-1 shrink-0">
+                      {cfg.dots.map((dot) => (
+                        <div class="w-1.5 h-1.5 rounded-full overflow-hidden" style={dotStyle(dot)} />
+                      ))}
+                    </div>
+                  </button>
+                );
+              })
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Experience -->
+      <div id="section-experience" class="mb-16 sm:mb-20 scroll-mt-16">
+        <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight text-white mb-6">Places I've worked</h2>
+        <div class="divide-y divide-[#333333]">
+          {
+            experience.map((entry, i) => (
+              <details class="group py-2">
+                <summary class="flex items-start gap-4 py-2 px-3 -mx-3 rounded-xl cursor-pointer transition-colors duration-200 hover:bg-[#383838] group-open:bg-[#383838]">
+                  <span class="h-9 flex items-center text-xs text-[#555555] w-6 shrink-0 font-mono tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+                  <div class="relative w-9 h-9 rounded-lg shrink-0 overflow-hidden" style={`background-color:${entry.accent}1a`}>
+                    <span class="absolute inset-0 flex items-center justify-center text-sm font-bold" style={`color:${entry.accent}`}>{entry.monogram}</span>
+                    <img src={entry.logo} alt={entry.company} class="absolute inset-0 w-full h-full object-cover" />
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="h-9 flex items-center">
+                      <div class="flex-1 min-w-0 flex items-baseline justify-between gap-4">
+                        <div class="min-w-0 flex items-baseline gap-x-2 flex-wrap">
+                          <span class="text-sm font-medium text-white">{entry.company}</span>
+                          <span class="text-sm text-[#888888] truncate">{entry.roles.map((r) => r.title).join(", ")}</span>
+                        </div>
+                        <span class="text-xs text-[#888888] shrink-0">{entry.span}</span>
+                      </div>
+                    </div>
+                  </div>
+                </summary>
+                <div class="pt-2 space-y-3 pl-[5.75rem]">
+                  {entry.roles.map((role) => (
+                    <div>
+                      <div class="flex items-baseline gap-2 flex-wrap">
+                        <span class="text-sm font-medium text-white">{role.title}</span>
+                        <span class="text-xs text-[#888888]">{role.dates}</span>
+                      </div>
+                      <p class="text-sm text-[#cccccc] leading-relaxed mt-0.5">{role.summary}</p>
+                    </div>
+                  ))}
+                </div>
+              </details>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- About -->
+      <div id="section-about" class="mb-16 sm:mb-20 scroll-mt-16">
+        <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight text-white mb-6">More about me</h2>
+        <div class="flex flex-col lg:flex-row gap-10 lg:gap-16">
+          <div class="flex-1 min-w-0">
+            <div class="space-y-3">
+              {aboutParagraphs.map((p) => <p class="text-base leading-relaxed text-white">{p}</p>)}
+            </div>
+          </div>
+          <div class="lg:w-64 shrink-0 flex flex-col items-start lg:items-center gap-6">
+            <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gray-200 overflow-hidden">
+              <img src={AVATAR_SRC} alt="Vernon Laquindanum" class="w-full h-full object-cover" />
+            </div>
+            <div class="flex flex-col gap-4">
+              <button type="button" id="copy-email-2" data-email={EMAIL} class="flex items-center gap-3 group w-fit text-white text-sm">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#aaaaaa]"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                <span class="group-hover:underline underline-offset-2" data-copy-label>{EMAIL}</span>
+              </button>
+              <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 group w-fit">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="text-[#aaaaaa] group-hover:text-white transition-colors"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                <span class="text-white text-sm group-hover:underline underline-offset-2">linkedin.com/in/vjtlaq</span>
+              </a>
+              <a href={MEDIUM_URL} target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 group w-fit">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#aaaaaa] group-hover:text-white transition-colors"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                <span class="text-white text-sm group-hover:underline underline-offset-2">medium.com/@vjtlaq</span>
+              </a>
+              <a href={RESUME_URL} target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 group w-fit">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#aaaaaa] group-hover:text-white transition-colors"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
+                <span class="text-white text-sm group-hover:underline underline-offset-2">Resume</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style is:global>
+  body {
+    background-color: #2e2e2e;
+  }
+</style>
+
+<style>
+  /* Skill pills: light up in the category accent on hover, then fade slowly back
+     to neutral (matches the original 1.5s ease-out). */
+  .skill-pill {
+    color: #aaaaaa;
+    border-color: #3a3a3a;
+    transition-property: color, border-color;
+    transition-duration: 1500ms;
+    transition-delay: 100ms;
+  }
+  .skill-pill:hover {
+    color: var(--cat-accent);
+    border-color: var(--cat-accent);
+    transition-duration: 150ms;
+    transition-delay: 0ms;
+  }
+
+  /* Tools rail: active tool. */
+  .tool-btn .tool-bar { background-color: transparent; transition: background-color 0.2s; }
+  .tool-btn .tool-name { color: #999999; transition: color 0.2s; }
+  .tool-btn .tool-icon { filter: contrast(0) brightness(1.3); }
+  .tool-btn:hover { background-color: #333333; }
+  .tool-btn.is-active { background-color: #383838; }
+  .tool-btn.is-active .tool-bar { background-color: var(--tool-accent); }
+  .tool-btn.is-active .tool-name { color: #ffffff; }
+  .tool-btn.is-active .tool-icon { filter: none; }
+</style>
+
+<script>
+  // Copy-email buttons (hero + about).
+  document.querySelectorAll<HTMLElement>("#copy-email, #copy-email-2").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const label = btn.querySelector<HTMLElement>("[data-copy-label]");
+      if (!label) return;
+      try {
+        await navigator.clipboard.writeText(btn.dataset.email!);
+        const original = label.textContent;
+        label.textContent = "Copied!";
+        setTimeout(() => (label.textContent = original), 1500);
+      } catch {}
+    });
+  });
+
+  // Work list: reveal case studies 5–6.
+  const workToggle = document.querySelector<HTMLButtonElement>("[data-work-toggle]");
+  const extras = document.querySelectorAll<HTMLElement>("[data-work-item][data-extra]");
+  const workLabel = document.querySelector<HTMLElement>("[data-work-toggle-label]");
+  const chevron = document.querySelector<HTMLElement>("[data-work-chevron]");
+  let workOpen = false;
+  workToggle?.addEventListener("click", () => {
+    workOpen = !workOpen;
+    extras.forEach((el) => el.toggleAttribute("hidden", !workOpen));
+    if (workLabel) workLabel.textContent = workOpen ? "Show less" : "Show more";
+    chevron?.classList.toggle("rotate-180", workOpen);
+    workToggle.setAttribute("aria-expanded", String(workOpen));
+  });
+
+  // Tools master-detail: hover/focus/click a tool to show its panel.
+  const toolsRoot = document.querySelector("[data-tools]");
+  if (toolsRoot) {
+    const btns = toolsRoot.querySelectorAll<HTMLElement>("[data-tool-btn]");
+    const panels = toolsRoot.querySelectorAll<HTMLElement>("[data-tool-panel]");
+    const show = (id: string) => {
+      btns.forEach((b) => b.classList.toggle("is-active", b.dataset.toolBtn === id));
+      panels.forEach((p) => p.toggleAttribute("hidden", p.dataset.toolPanel !== id));
+    };
+    btns.forEach((b) => {
+      const id = b.dataset.toolBtn!;
+      b.addEventListener("mouseenter", () => show(id));
+      b.addEventListener("focus", () => show(id));
+      b.addEventListener("click", () => show(id));
+    });
+  }
+</script>

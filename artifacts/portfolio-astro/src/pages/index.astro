@@ -1,0 +1,346 @@
+---
+import Layout from "../layouts/Layout.astro";
+import WritingNav from "../components/WritingNav.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import ContactPanel from "../components/ContactPanel.tsx";
+import { services } from "../../../portfolio/src/content/services";
+
+const AVATAR_SRC = "/images/avatar/illustration.png";
+const LINKEDIN_URL = "https://linkedin.com/in/vjtlaq";
+const MEDIUM_URL = "https://medium.com/@vjtlaq";
+const EMAIL = "vjtlaq@gmail.com";
+
+const title = "Vernon Laquindanum — Content Design & Systems for SaaS";
+const description =
+  "Your product is growing, but the content isn't keeping up. I fix the words confusing your users and build content systems so they stay fixed — UX writing, content design, and standards for SaaS teams.";
+
+const testimonials = [
+  {
+    quote:
+      "Vern is exactly the kind of content designer that every switched-on tech leader needs in their team. He can flex in every direction without losing a beat in delivering high quality or velocity.",
+    name: "Libby V.",
+    role: "Head of Content Design",
+  },
+  {
+    quote:
+      "Vern is the kind of collaborator who becomes the steel thread across projects — generous with his time, genuine in his partnerships, and an absolute pleasure to work alongside. Any team that gets to work with Vern will feel the difference from day one.",
+    name: "Anthony C.",
+    role: "Design Leader",
+  },
+  {
+    quote:
+      "Vernon is super approachable and easy to jam with. He's a genuinely people-focused person who makes work enjoyable, and he's also comfortable jumping into the design tools, which made collaboration feel so much more seamless. He's such a vital teammate, thoughtful and generous with his thinking, and an absolute expert at what he does.",
+    name: "Tim H.",
+    role: "Product Designer",
+  },
+  {
+    quote:
+      "Vern brought an exceptional level of craft and care to his work, keeping the customer at the centre of everything he did and thoughtfully shaping every piece of messaging to ensure it's clear, purposeful, and high quality. He's also very good at taking the lead on strategic initiatives, collaborating with an insane amount of stakeholders — he really is a team on his own.",
+    name: "Ge G.",
+    role: "Product Designer",
+  },
+];
+
+const processSteps = [
+  { title: "Intro call", body: "20–30 minutes to go over your product and the problems you're experiencing. I'll give an initial assessment of the content experience and tell you honestly if content is the problem." },
+  { title: "Proposal", body: "I send a proposal with the fixed scope, timeline, and price within 48 hours so you'll know exactly what to expect from me and when. If the proposal doesn't work for you, we'll work on one that does." },
+  { title: "Work", body: "I'll work with your teams and ship in your tools, and show progress at regular checkpoints so you have full visibility into what I'm working on." },
+  { title: "Handoff", body: "Documentation and rationale for the work handed off in a live session with your team. And for any systems work, an AI governance agent so the standards outlive the engagement." },
+];
+
+const professionalService = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: "Vernon Laquindanum — Content Design & Systems",
+  description,
+  url: "https://wordsbyvern.com/",
+  provider: { "@type": "Person", name: "Vernon Laquindanum" },
+  areaServed: "Worldwide",
+  knowsAbout: ["UX writing", "Content design", "Content strategy", "SaaS onboarding", "AI content design"],
+};
+---
+
+<Layout title={title} description={description} path="/" jsonLd={[professionalService]}>
+  <main class="min-h-screen bg-background text-foreground">
+    <WritingNav />
+
+    <div class="max-w-[1120px] w-[90%] mx-auto py-12 sm:py-20">
+      <!-- 1 — Hero -->
+      <section class="mb-14 sm:mb-20 text-center">
+        <p class="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+          Content Design & Systems for SaaS
+        </p>
+        <h1 class="mx-auto mt-4 max-w-3xl font-bold tracking-tight text-[40px] sm:text-[60px] lg:text-[72px] leading-[1.05]">
+          Words that scale<br />with your product
+        </h1>
+        <p class="mx-auto mt-5 max-w-2xl text-balance text-[16px] sm:text-[20px] text-muted-foreground">
+          Your product is growing, but the content isn't keeping up. I fix the words that are
+          confusing your users—then I build systems so they stay fixed.
+        </p>
+        <div class="mt-9 flex flex-wrap justify-center gap-3">
+          <a href="#contact" class="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-4 sm:px-5 py-2 sm:py-2.5 text-sm font-medium text-white transition-colors hover:bg-slate-700">
+            Get in touch
+          </a>
+          <a href="/services" class="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-4 sm:px-5 py-2 sm:py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted">
+            View my services →
+          </a>
+        </div>
+      </section>
+
+      <!-- 2 — The problem -->
+      <section id="problem" class="mb-14 sm:mb-20 scroll-mt-24 text-center">
+        <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight mb-6">
+          Find out what's driving the quiet drop-off
+        </h2>
+        <div class="mx-auto max-w-3xl space-y-4 text-[15px] sm:text-[17px] leading-relaxed text-muted-foreground">
+          <p>
+            When SaaS products grow quickly, it's easy for the words to grow inconsistent and
+            misaligned when there isn't one person owning content across the product. Users can't
+            figure out how to actually use your product when a feature has three different names and
+            the instructions are more confusing than helpful. And if people don't know how to use the
+            product, they'll just stop using it and you may never know why.
+          </p>
+          <p>
+            I've seen this happen a lot, so I built specific services based on my experiences to help
+            solve your content problems.
+          </p>
+        </div>
+      </section>
+
+      <!-- 3 — Offerings preview (rail + all panels in DOM; hover swaps via script) -->
+      <section id="offerings" class="mb-14 sm:mb-20 scroll-mt-24">
+        <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight mb-6">
+          How I fix your product's content
+        </h2>
+        <div id="offerings-preview" class="grid gap-8 lg:grid-cols-[300px_1fr] lg:gap-14">
+          <div>
+            <nav class="flex flex-col gap-1">
+              {
+                services.map((s, i) => (
+                  <button
+                    type="button"
+                    data-off-btn={i}
+                    style={`--svc-accent:${s.accent}`}
+                    class="off-btn group flex w-full items-baseline gap-3 rounded-r-lg border-l-[3px] border-transparent px-4 py-3 text-left transition-colors"
+                  >
+                    <span class="off-num font-mono text-xs tabular-nums text-muted-foreground/50 transition-colors">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span class="off-title text-[17px] font-medium leading-snug text-muted-foreground transition-colors group-hover:text-foreground">
+                      {s.title}
+                    </span>
+                  </button>
+                ))
+              }
+            </nav>
+            <a href="/services" class="mt-5 ml-4 inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline">
+              View all services →
+            </a>
+          </div>
+          <div class="lg:pt-2">
+            {
+              services.map((s, i) => (
+                <div class="off-panel" data-off-panel={i} hidden={i !== 0}>
+                  <p class="text-xs font-semibold uppercase tracking-wide" style={`color:${s.accent}`}>{s.eyebrow}</p>
+                  <h3 class="mt-2 text-2xl font-bold tracking-tight">{s.title}</h3>
+                  <p class="mt-3 max-w-2xl text-[17px] leading-relaxed text-muted-foreground">{s.summary}</p>
+                  <a href={`/services#${s.slug}`} class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold underline-offset-4 hover:underline" style={`color:${s.accent}`}>
+                    More about this service →
+                  </a>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+
+      <!-- Testimonials (all in DOM; carousel via script) -->
+      <section class="mb-14 sm:mb-20">
+        <div id="quote-carousel" class="mx-auto max-w-3xl">
+          <div class="relative flex min-h-[220px] items-center sm:min-h-[180px]">
+            {
+              testimonials.map((t, i) => (
+                <figure class="w-full rounded-2xl border border-border bg-card p-8 sm:p-10" data-quote={i} hidden={i !== 0}>
+                  <blockquote class="text-[16px] sm:text-[18px] font-medium leading-relaxed text-foreground">“{t.quote}”</blockquote>
+                  <figcaption class="mt-5 text-sm text-muted-foreground">— {t.name}, {t.role}</figcaption>
+                </figure>
+              ))
+            }
+          </div>
+          <div class="mt-5 flex items-center justify-center gap-3">
+            <button type="button" data-quote-prev aria-label="Previous quote" class="rounded-full border border-border p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <div class="flex items-center gap-1.5">
+              {testimonials.map((_, i) => (
+                <button type="button" data-quote-dot={i} aria-label={`Go to quote ${i + 1}`} class="q-dot"></button>
+              ))}
+            </div>
+            <button type="button" data-quote-next aria-label="Next quote" class="rounded-full border border-border p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4 — Impact + who I am -->
+      <section id="about" class="mb-14 sm:mb-20 scroll-mt-24">
+        <h2 class="mb-6 text-[20px] sm:text-[24px] font-semibold tracking-tight">
+          I'm a UX content expert with experience in complex, regulated&nbsp;industries
+        </h2>
+        <div class="flex flex-col gap-10 lg:flex-row lg:gap-16">
+          <div class="min-w-0 flex-1">
+            <div class="space-y-4 text-[15px] sm:text-[17px] leading-relaxed text-muted-foreground">
+              <p>
+                I've been a professional writer for over 12 years, with the large majority of that
+                focused on UX writing. I worked on energy efficiency products in the utility industry,
+                navigating complex industry jargon and strict compliance requirements. I've worked on
+                large-scale B2B SaaS products, building these content systems and standards from 0 and
+                extending them across 4 separate apps. My work has driven real impact, with one email
+                program driving clarity and behavior change at a utility with over 1 million households.
+              </p>
+              <p>
+                I've solved the content problems you're experiencing at companies like Atlassian and
+                Oracle. I'm ready (and excited) to solve yours next.
+              </p>
+            </div>
+            <a href="/about" class="mt-8 inline-flex items-center gap-1.5 text-sm font-medium text-foreground underline-offset-4 hover:underline">
+              More about me →
+            </a>
+          </div>
+
+          <div class="flex shrink-0 flex-col items-start gap-6 lg:w-64 lg:items-center">
+            <div class="h-24 w-24 overflow-hidden rounded-full bg-muted sm:h-28 sm:w-28">
+              <img src={AVATAR_SRC} alt="Vernon Laquindanum" class="h-full w-full object-cover" />
+            </div>
+            <div class="flex flex-col gap-4">
+              <button type="button" id="copy-email" data-email={EMAIL} class="group flex w-fit items-center gap-3 text-sm text-foreground">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground transition-colors group-hover:text-foreground"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                <span class="underline-offset-2 group-hover:underline" data-copy-label>{EMAIL}</span>
+              </button>
+              <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" class="group flex w-fit items-center gap-3">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="text-muted-foreground transition-colors group-hover:text-foreground"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                <span class="text-sm text-foreground underline-offset-2 group-hover:underline">linkedin.com/in/vjtlaq</span>
+              </a>
+              <a href={MEDIUM_URL} target="_blank" rel="noopener noreferrer" class="group flex w-fit items-center gap-3">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground transition-colors group-hover:text-foreground"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                <span class="text-sm text-foreground underline-offset-2 group-hover:underline">medium.com/@vjtlaq</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5 — How it works -->
+      <section id="process" class="mb-14 sm:mb-20 scroll-mt-24">
+        <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight mb-6">How it works</h2>
+        <ol class="relative grid gap-8 sm:grid-cols-4">
+          <div class="absolute inset-x-0 top-5 hidden h-px bg-border sm:block" aria-hidden="true"></div>
+          {
+            processSteps.map((s, i) => (
+              <li class="relative">
+                <div class="relative z-10 flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background text-sm font-semibold text-foreground">
+                  {i + 1}
+                </div>
+                <h3 class="mt-4 font-semibold">{s.title}</h3>
+                <p class="mt-2 text-sm leading-relaxed text-muted-foreground">{s.body}</p>
+              </li>
+            ))
+          }
+        </ol>
+      </section>
+
+      <!-- 6 — Closing CTA + contact -->
+      <section id="contact" class="scroll-mt-24">
+        <h2 class="mb-2 max-w-2xl text-[20px] sm:text-[24px] font-semibold tracking-tight">
+          Let's find out where your content is breaking
+        </h2>
+        <p class="mb-6 text-sm text-muted-foreground">
+          Tell me about the problems you're experiencing and I'll give an initial assessment of the
+          content experience. No fees or commitment required.
+        </p>
+        <ContactPanel client:visible />
+      </section>
+    </div>
+
+    <SiteFooter />
+  </main>
+</Layout>
+
+<style>
+  .off-btn.is-active {
+    border-left-color: var(--svc-accent);
+    background-color: color-mix(in srgb, var(--svc-accent) 8%, transparent);
+  }
+  .off-btn.is-active .off-num,
+  .off-btn.is-active .off-title {
+    color: var(--svc-accent);
+    font-weight: 600;
+  }
+  .q-dot {
+    height: 6px;
+    width: 6px;
+    border-radius: 9999px;
+    background: hsl(215 16% 47% / 0.4);
+    transition: all 0.2s ease;
+  }
+  .q-dot:hover {
+    background: hsl(215 16% 47%);
+  }
+  .q-dot.is-active {
+    width: 16px;
+    background: hsl(222 47% 11%);
+  }
+</style>
+
+<script>
+  // Offerings preview: hover/focus/click a rail item to reveal its panel. All
+  // panels are in the DOM (crawlable); this only toggles which one is visible.
+  const preview = document.getElementById("offerings-preview");
+  if (preview) {
+    const btns = preview.querySelectorAll<HTMLElement>("[data-off-btn]");
+    const panels = preview.querySelectorAll<HTMLElement>("[data-off-panel]");
+    const show = (idx: string) => {
+      btns.forEach((b) => b.classList.toggle("is-active", b.dataset.offBtn === idx));
+      panels.forEach((p) => p.toggleAttribute("hidden", p.dataset.offPanel !== idx));
+    };
+    btns.forEach((b) => {
+      const idx = b.dataset.offBtn!;
+      b.addEventListener("mouseenter", () => show(idx));
+      b.addEventListener("focus", () => show(idx));
+      b.addEventListener("click", () => show(idx));
+    });
+    show("0");
+  }
+
+  // Testimonials carousel: all quotes in the DOM; step through with prev/next/dots.
+  const car = document.getElementById("quote-carousel");
+  if (car) {
+    const figs = car.querySelectorAll<HTMLElement>("[data-quote]");
+    const dots = car.querySelectorAll<HTMLElement>("[data-quote-dot]");
+    const n = figs.length;
+    let cur = 0;
+    const show = (idx: number) => {
+      cur = (idx + n) % n;
+      figs.forEach((f) => f.toggleAttribute("hidden", Number(f.dataset.quote) !== cur));
+      dots.forEach((d) => d.classList.toggle("is-active", Number(d.dataset.quoteDot) === cur));
+    };
+    car.querySelector("[data-quote-prev]")?.addEventListener("click", () => show(cur - 1));
+    car.querySelector("[data-quote-next]")?.addEventListener("click", () => show(cur + 1));
+    dots.forEach((d) => d.addEventListener("click", () => show(Number(d.dataset.quoteDot))));
+    show(0);
+  }
+
+  // Copy-email button.
+  const ce = document.getElementById("copy-email");
+  ce?.addEventListener("click", async () => {
+    const label = ce.querySelector<HTMLElement>("[data-copy-label]");
+    if (!label) return;
+    try {
+      await navigator.clipboard.writeText(ce.dataset.email!);
+      const original = label.textContent;
+      label.textContent = "Copied!";
+      setTimeout(() => (label.textContent = original), 1500);
+    } catch {}
+  });
+</script>

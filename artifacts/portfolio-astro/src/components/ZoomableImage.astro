@@ -1,0 +1,14 @@
+---
+// Click-to-zoom image. Wired to the shared <Lightbox /> via delegation on
+// [data-zoomable]; the image itself is real, static HTML (crawlable).
+interface Props {
+  src: string;
+  alt: string;
+  class?: string;
+}
+const { src, alt, class: cls = "" } = Astro.props;
+---
+
+<button type="button" data-zoomable data-src={src} data-alt={alt} aria-label={`Expand image: ${alt}`} class="group block w-full cursor-zoom-in overflow-hidden rounded-lg">
+  <img src={src} alt={alt} class={`w-full transition-transform duration-300 ease-out group-hover:scale-[1.03] ${cls}`} onerror="this.style.display='none'" />
+</button>
