@@ -97,6 +97,16 @@ const schemas = [personSchema, ...jsonLd];
           else {
             window.__diag = { env: env, headingStates: states, layoutShifts: shifts };
             console.log("DIAG:", JSON.stringify(window.__diag));
+            try {
+              var box = document.createElement("pre");
+              box.style.cssText = "position:fixed;top:0;left:0;z-index:99999;max-width:96vw;max-height:60vh;overflow:auto;margin:0;padding:10px;background:#000;color:#0f0;font:11px/1.4 monospace;white-space:pre-wrap;border:2px solid #0f0;";
+              var s = "ENV ua=" + env.ua.replace(/^.*\((.*?)\).*/, "$1") + "\ndpr=" + env.dpr + " zoom=" + env.zoom + " vw=" + env.vw + " vh=" + env.vh + "\n\nHEADING STATES (" + states.length + "):\n";
+              states.forEach(function (r) { s += "t=" + r.t + "ms w=" + r.w + " h=" + r.h + " x=" + r.x + " y=" + r.y + " fs=" + r.fs + " ff=" + r.ff + " tf=" + (r.tf === "none" ? "none" : "!") + " bodyOp=" + r.bodyOp + "\n"; });
+              s += "\nLAYOUT SHIFTS (" + shifts.length + "):\n";
+              shifts.forEach(function (sh) { s += "t=" + sh.t + "ms v=" + sh.v + " <- " + sh.src.join(", ") + "\n"; });
+              box.textContent = s;
+              document.body.appendChild(box);
+            } catch (e) {}
           }
         })();
       })();
