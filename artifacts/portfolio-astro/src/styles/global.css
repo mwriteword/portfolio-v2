@@ -1,18 +1,26 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-/* Self-hosted Inter (variable, latin), preloaded in the layout. `optional` means
-   the browser never swaps-and-reflows after first paint (spec-guaranteed no layout
-   shift): if the preloaded font isn't ready within its short block window it uses
-   the fallback for that view instead of resizing the text mid-render. On Vercel's
-   CDN the 48KB file almost always makes the window, so Inter still shows from the
-   first paint — but the "glitch" reflow can no longer happen. */
+/* Self-hosted Inter (variable, latin), preloaded in the layout. `optional` is
+   spec-guaranteed to never swap-and-reflow after first paint. */
 @font-face {
   font-family: "Inter";
   font-style: normal;
   font-display: optional;
   font-weight: 100 900;
   src: url("/fonts/inter-variable.woff2") format("woff2");
+}
+
+/* Metric-matched fallback (the next/font technique), used when Inter isn't ready.
+   `size-adjust` scales local Arial (measured 797px for a test heading) up to
+   Inter's width (868px → 868/797 = 108.91%) so the fallback renders at Inter's
+   size — no jarring narrow text if the fallback ever shows. Paired with
+   `font-display: optional` above, which guarantees no post-paint reflow. */
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial");
+  size-adjust: 108.91%;
+  line-gap-override: 0%;
 }
 
 /* Design tokens ported from artifacts/portfolio/src/index.css. The freelance
@@ -85,7 +93,7 @@
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
 
-  --app-font-sans: "Inter", sans-serif;
+  --app-font-sans: "Inter", "Inter Fallback", sans-serif;
   --app-font-serif: Georgia, serif;
   --app-font-mono: Menlo, monospace;
   --radius: 0.5rem;
