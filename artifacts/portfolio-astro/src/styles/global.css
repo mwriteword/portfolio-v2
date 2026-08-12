@@ -1,6 +1,16 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* Self-hosted Inter (variable, latin). Same-origin + preloaded in the layout so
+   it's ready before first paint — no flash-of-unstyled-text swap on load. */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("/fonts/inter-variable.woff2") format("woff2");
+}
+
 /* Design tokens ported from artifacts/portfolio/src/index.css. The freelance
    (Writing) side of the site is light-only, so this slice carries the light
    palette; the dark palette + mode-transition can move over when the interactive
