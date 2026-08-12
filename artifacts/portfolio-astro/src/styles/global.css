@@ -1,12 +1,16 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-/* Self-hosted Inter (variable, latin). Same-origin + preloaded in the layout so
-   it's ready before first paint — no flash-of-unstyled-text swap on load. */
+/* Self-hosted Inter (variable, latin), preloaded in the layout. `optional` means
+   the browser never swaps-and-reflows after first paint (spec-guaranteed no layout
+   shift): if the preloaded font isn't ready within its short block window it uses
+   the fallback for that view instead of resizing the text mid-render. On Vercel's
+   CDN the 48KB file almost always makes the window, so Inter still shows from the
+   first paint — but the "glitch" reflow can no longer happen. */
 @font-face {
   font-family: "Inter";
   font-style: normal;
-  font-display: swap;
+  font-display: optional;
   font-weight: 100 900;
   src: url("/fonts/inter-variable.woff2") format("woff2");
 }
