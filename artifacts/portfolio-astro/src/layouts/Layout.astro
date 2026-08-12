@@ -54,6 +54,54 @@ const schemas = [personSchema, ...jsonLd];
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
+    <script is:inline>
+      // TEMP DIAGNOSTIC — records what moves/resizes on load. Read window.__diag or
+      // the console line "DIAG:" after the page settles, and report it back.
+      (function () {
+        var t0 = performance.now();
+        var states = [];
+        var shifts = [];
+        var env = {
+          ua: navigator.userAgent,
+          dpr: window.devicePixelRatio,
+          vw: window.innerWidth,
+          vh: window.innerHeight,
+          zoom: Math.round((window.outerWidth / window.innerWidth) * 100) / 100,
+        };
+        try {
+          new PerformanceObserver(function (l) {
+            l.getEntries().forEach(function (e) {
+              if (e.hadRecentInput) return;
+              shifts.push({
+                t: Math.round(e.startTime),
+                v: +e.value.toFixed(4),
+                src: (e.sources || []).map(function (s) {
+                  var n = s.node;
+                  return n && n.tagName ? n.tagName + (n.id ? "#" + n.id : "") + (typeof n.className === "string" && n.className ? "." + n.className.split(" ").slice(0, 2).join(".") : "") : "?";
+                }),
+              });
+            });
+          }).observe({ type: "layout-shift", buffered: true });
+        } catch (e) {}
+        (function sample() {
+          var h = document.querySelector("h1");
+          if (h) {
+            var r = h.getBoundingClientRect();
+            var cs = getComputedStyle(h);
+            var body = getComputedStyle(document.body);
+            var rec = { t: Math.round(performance.now() - t0), w: Math.round(r.width), h: Math.round(r.height), x: Math.round(r.x), y: Math.round(r.y), fs: cs.fontSize, ff: cs.fontFamily.replace(/"/g, "").slice(0, 24), tf: cs.transform, bodyOp: body.opacity };
+            var p = states[states.length - 1];
+            if (!p || p.w !== rec.w || p.h !== rec.h || p.x !== rec.x || p.y !== rec.y || p.fs !== rec.fs || p.ff !== rec.ff || p.tf !== rec.tf || p.bodyOp !== rec.bodyOp) states.push(rec);
+          }
+          if (performance.now() - t0 < 2000) requestAnimationFrame(sample);
+          else {
+            window.__diag = { env: env, headingStates: states, layoutShifts: shifts };
+            console.log("DIAG:", JSON.stringify(window.__diag));
+          }
+        })();
+      })();
+    </script>
+
     {
       schemas.map((schema) => (
         <script type="application/ld+json" set:html={JSON.stringify(schema)} />
