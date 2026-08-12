@@ -54,6 +54,30 @@ const schemas = [personSchema, ...jsonLd];
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
+    {/* Prevent the fallback letterforms from ever painting: keep the page hidden
+        until the (inlined) Inter font is actually ready, then reveal. The font is
+        embedded in the render-blocking CSS, so this resolves within a few ms — but
+        it guarantees no fallback→Inter glyph swap flashes on load, in any browser. */}
+    <style is:inline>
+      html.wf-loading body {
+        visibility: hidden;
+      }
+    </style>
+    <script is:inline>
+      document.documentElement.classList.add("wf-loading");
+      (function () {
+        function reveal() {
+          document.documentElement.classList.remove("wf-loading");
+        }
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(reveal);
+          setTimeout(reveal, 800); // safety net if fonts.ready never settles
+        } else {
+          reveal();
+        }
+      })();
+    </script>
+
     <script is:inline>
       // TEMP DIAGNOSTIC — records what moves/resizes on load. Read window.__diag or
       // the console line "DIAG:" after the page settles, and report it back.
