@@ -69,10 +69,21 @@ const schemas = [personSchema, ...jsonLd];
         function reveal() {
           document.documentElement.classList.remove("wf-loading");
         }
-        if (document.fonts && document.fonts.ready) {
-          document.fonts.ready.then(reveal);
-          setTimeout(reveal, 800); // safety net if fonts.ready never settles
-        } else {
+        try {
+          if (document.fonts && document.fonts.load) {
+            // Explicitly kick + await the Inter weights we render (400 body, 600
+            // labels, 700 headings). document.fonts.ready can resolve before the
+            // font request has even started; load() waits for the actual faces.
+            Promise.all([
+              document.fonts.load("400 1em Inter"),
+              document.fonts.load("600 1em Inter"),
+              document.fonts.load("700 1em Inter"),
+            ]).then(reveal, reveal);
+            setTimeout(reveal, 800); // safety net
+          } else {
+            reveal();
+          }
+        } catch (e) {
           reveal();
         }
       })();
