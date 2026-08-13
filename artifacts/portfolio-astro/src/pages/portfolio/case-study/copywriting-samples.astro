@@ -1,0 +1,76 @@
+---
+import CaseStudyLayout from "../../../layouts/CaseStudyLayout.astro";
+import ZoomableImage from "../../../components/ZoomableImage.astro";
+
+const sections = [
+  { id: "section-banners", label: "Banners" },
+  { id: "section-email", label: "Email & Social" },
+  { id: "section-landing", label: "Landing Pages" },
+];
+---
+
+<CaseStudyLayout
+  title="Copywriting Samples — QuinStreet"
+  description="A selection of banner ads, emails, social posts, and landing pages written for a performance marketing agency across a variety of verticals."
+  path="/portfolio/case-study/copywriting-samples"
+  label="Copywriting Samples"
+  accent="#ec4899"
+  sections={sections}
+>
+  <div class="flex flex-col sm:flex-row gap-6 sm:gap-12 mb-12">
+    <div class="flex-shrink-0 sm:w-52">
+      <div class="space-y-4">
+        <div><p class="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Role</p><p class="text-white text-sm">Copywriter</p></div>
+        <div><p class="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Company</p><p class="text-white text-sm">QuinStreet</p></div>
+        <div><p class="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Timeline</p><p class="text-white text-sm">Jan 2014 - Mar 2017</p></div>
+        <div><p class="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">In this case study</p><p class="text-white text-sm">Copywriting, Marketing Writing, Social Media Posts, Email, Web Banners, Landing Pages, Lead Gen, Performance Marketing</p></div>
+      </div>
+    </div>
+    <div class="flex-1">
+      <p class="text-base leading-relaxed text-white">
+        While at QuinStreet, a majority of the projects I worked on were digital marketing
+        communications. I worked on a lot of other, bigger projects but I couldn't take those with me for
+        confidentiality reasons. Instead, here's an assortment of some of my favorites from the time.
+      </p>
+    </div>
+  </div>
+
+  <div id="section-banners" class="scroll-mt-16 mb-12">
+    <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight text-white mb-6">Banners</h2>
+    <p class="text-base leading-relaxed text-white mb-6">Serving a variety of verticals, I wrote a numerous many banner ads for both clients and our internal sites. These were often requested frequently and in high volume, allowing more flexible to write salient, eye-catching copy to generate higher interest.</p>
+    <div class="space-y-4">
+      <ZoomableImage src="/images/quinstreet/banner-full.jpeg" alt="Banner ad example — full width" />
+      <div class="grid grid-cols-3 gap-4">
+        <ZoomableImage src="/images/quinstreet/banner-col-1.jpeg" alt="Banner ad example 2" />
+        <ZoomableImage src="/images/quinstreet/banner-col-2.jpeg" alt="Banner ad example 3" />
+        <ZoomableImage src="/images/quinstreet/banner-col-3.jpeg" alt="Banner ad example 4" />
+      </div>
+    </div>
+  </div>
+
+  <div id="section-email" class="scroll-mt-16 mb-12">
+    <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight text-white mb-6">Email & Social</h2>
+    <p class="text-base leading-relaxed text-white mb-6">If there are two things online that are sacred, it's a person's inbox and their news feed. While ultimately invasive, I would always write social media ads and emails with a more personal touch so as to soften the blow of seeing ads in these sacred spaces.</p>
+    <div class="space-y-4">
+      <div class="grid grid-cols-3 gap-4">
+        <ZoomableImage src="/images/quinstreet/email-1.jpeg" alt="Email / social ad example 1" />
+        <ZoomableImage src="/images/quinstreet/email-2.jpeg" alt="Email / social ad example 2" />
+        <ZoomableImage src="/images/quinstreet/email-3.jpeg" alt="Email / social ad example 3" />
+      </div>
+      <div class="grid grid-cols-3 gap-4">
+        <ZoomableImage src="/images/quinstreet/email-4.png" alt="Email / social ad example 4" />
+        <ZoomableImage src="/images/quinstreet/email-5.png" alt="Email / social ad example 5" />
+        <ZoomableImage src="/images/quinstreet/email-6.png" alt="Email / social ad example 6" />
+      </div>
+    </div>
+  </div>
+
+  <div id="section-landing" class="scroll-mt-16 mb-12">
+    <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight text-white mb-6">Landing Pages</h2>
+    <p class="text-base leading-relaxed text-white mb-6">Often, we would need dedicated landing pages for a specific client or promotion. Regardless, they would need to capture all of the most important information that a person might need to know before filling out a form or going through a flow.</p>
+    <div class="space-y-4">
+      <ZoomableImage src="/images/quinstreet/landing-1.png" alt="Landing page example 1" />
+      <ZoomableImage src="/images/quinstreet/landing-2.png" alt="Landing page example 2" />
+    </div>
+  </div>
+</CaseStudyLayout>

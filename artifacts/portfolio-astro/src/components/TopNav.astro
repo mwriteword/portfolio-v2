@@ -1,0 +1,104 @@
+---
+// Dark UX-portfolio nav. Identity + mode toggle (UX active) + a hamburger dropdown
+// with Home, the case-study list, and the current page's section anchors. The
+// dropdown is progressive enhancement via the inline script; links work regardless.
+interface NavItem {
+  href: string;
+  label: string;
+}
+
+const caseStudies: NavItem[] = [
+  { href: "/portfolio/case-study/goal-types", label: "Goal Types & OKR Modeling" },
+  { href: "/portfolio/case-study/twc", label: "Teamwork Collection Onboarding" },
+  { href: "/portfolio/case-study/risk-agent", label: "Risk Agent Workflow" },
+  { href: "/portfolio/case-study/bls-emails", label: "Behavioral Load-Shaping Emails" },
+  { href: "/portfolio/case-study/textbook-solutions", label: "Textbook Solutions" },
+  { href: "/portfolio/case-study/copywriting-samples", label: "Copywriting Samples" },
+];
+
+interface Props {
+  /** In-page section anchors for the current page (id → #id link). */
+  sections?: { id: string; label: string }[];
+}
+const { sections = [] } = Astro.props as Props;
+
+const itemBase = "flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-sm transition-colors";
+const itemIdle = "text-[#bbbbbb] hover:bg-[#333333] hover:text-white";
+---
+
+<header class="fixed inset-x-0 top-0 z-30 border-b border-white/5 bg-[#2e2e2e]/80 backdrop-blur">
+  <div class="max-w-[1120px] w-[90%] mx-auto flex h-12 items-center gap-3">
+    <a href="/portfolio" class="shrink-0 text-sm font-semibold text-white transition-colors hover:text-[#22c55e]">
+      <span class="sm:hidden">V.L.</span>
+      <span class="hidden sm:inline">Vernon Laquindanum</span>
+    </a>
+
+    <span class="h-4 w-px shrink-0 bg-white/15" aria-hidden="true"></span>
+
+    <!-- Mode toggle (dark): UX Portfolio active · Freelance Services (light side). -->
+    <div role="tablist" aria-label="Site mode" class="inline-flex shrink-0 items-center rounded-full border border-white/10 bg-white/5 p-0.5">
+      <span role="tab" aria-selected="true" class="rounded-full bg-white px-3 py-1 text-xs font-medium text-[#1a1a1a]">
+        <span class="sm:hidden">Portfolio</span>
+        <span class="hidden sm:inline">UX Portfolio</span>
+      </span>
+      <a href="/" role="tab" aria-selected="false" data-mode-link data-wipe-color="#ffffff" class="rounded-full px-3 py-1 text-xs font-medium text-[#cccccc] transition-colors hover:text-white">
+        <span class="sm:hidden">Freelance</span>
+        <span class="hidden sm:inline">Freelance Services</span>
+      </a>
+    </div>
+
+    <!-- Hamburger + dropdown -->
+    <div class="relative ml-auto" data-topnav>
+      <button
+        type="button"
+        data-topnav-toggle
+        aria-expanded="false"
+        aria-haspopup="menu"
+        aria-label="Menu"
+        class="flex h-8 w-8 items-center justify-center rounded-lg text-[#cccccc] transition-colors hover:bg-white/10 hover:text-white"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+
+      <div data-topnav-menu hidden class="absolute right-0 top-full z-50 mt-2 w-72 overflow-hidden rounded-xl border border-[#3a3a3a] bg-[#242424] p-1.5 shadow-xl">
+        <a href="/portfolio" class={`${itemBase} ${itemIdle}`}>Home</a>
+        <p class="px-3 pt-2 pb-1 text-[11px] font-semibold uppercase tracking-widest text-[#666666]">Case studies</p>
+        {caseStudies.map((cs) => (
+          <a href={cs.href} class={`${itemBase} ${itemIdle} text-[13px]`}>{cs.label}</a>
+        ))}
+        {
+          sections.length > 0 && (
+            <>
+              <div class="my-1 h-px bg-[#3a3a3a]"></div>
+              {sections.map((s) => (
+                <a href={`#${s.id}`} class={`${itemBase} ${itemIdle}`}>{s.label}</a>
+              ))}
+            </>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</header>
+<div class="h-12" aria-hidden="true"></div>
+
+<script>
+  const root = document.querySelector("[data-topnav]");
+  const toggle = root?.querySelector<HTMLButtonElement>("[data-topnav-toggle]");
+  const menu = root?.querySelector<HTMLElement>("[data-topnav-menu]");
+  const setOpen = (open: boolean) => {
+    if (!menu || !toggle) return;
+    menu.toggleAttribute("hidden", !open);
+    toggle.setAttribute("aria-expanded", String(open));
+  };
+  toggle?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    setOpen(menu?.hasAttribute("hidden") ?? false);
+  });
+  document.addEventListener("click", (e) => {
+    if (root && !root.contains(e.target as Node)) setOpen(false);
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") setOpen(false);
+  });
+</script>

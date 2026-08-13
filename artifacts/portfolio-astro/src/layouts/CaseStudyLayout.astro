@@ -1,0 +1,70 @@
+---
+import Layout from "./Layout.astro";
+import TopNav from "../components/TopNav.astro";
+import BackToTop from "../components/BackToTop.astro";
+import Lightbox from "../components/Lightbox.astro";
+
+// Shared shell for every case study: dark background, the UX TopNav (with this
+// study's chapters), breadcrumbs, the title, then the study body via <slot />.
+interface Props {
+  title: string;
+  description: string;
+  /** e.g. "/portfolio/case-study/goal-types" */
+  path: string;
+  /** Breadcrumb + H1 label. */
+  label: string;
+  /** Accent hex for the current breadcrumb. */
+  accent: string;
+  /** Chapter anchors for the nav dropdown (id → #id). */
+  sections?: { id: string; label: string }[];
+  jsonLd?: Record<string, unknown>[];
+}
+const { title, description, path, label, accent, sections = [], jsonLd = [] } = Astro.props;
+
+// An Article tied to the author entity — case studies are long-form authored work.
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: label,
+  description,
+  author: { "@type": "Person", name: "Vernon Laquindanum", url: "https://wordsbyvern.com/about" },
+  mainEntityOfPage: { "@type": "WebPage", "@id": `https://wordsbyvern.com${path}` },
+};
+const breadcrumb = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Portfolio", item: "https://wordsbyvern.com/portfolio" },
+    { "@type": "ListItem", position: 2, name: label, item: `https://wordsbyvern.com${path}` },
+  ],
+};
+---
+
+<Layout title={`${label} — Vernon Laquindanum`} description={description} path={path} jsonLd={[articleSchema, breadcrumb, ...jsonLd]}>
+  <main class="min-h-screen bg-[#2e2e2e] text-white">
+    <TopNav sections={sections} />
+
+    <div class="max-w-[1120px] w-[90%] mx-auto pt-12 sm:pt-20 pb-12 sm:pb-20">
+      <nav aria-label="Breadcrumb" class="mb-8">
+        <ol class="flex flex-wrap items-center gap-2 text-sm">
+          <li><a href="/portfolio" class="text-[#888888] transition-colors hover:text-white">Portfolio</a></li>
+          <li aria-hidden="true" class="text-[#555555]">»</li>
+          <li aria-current="page" class="font-medium" style={`color:${accent}`}>{label}</li>
+        </ol>
+      </nav>
+
+      <h1 class="font-bold tracking-tight text-[28px] sm:text-[48px] text-white mb-8 sm:mb-12">{label}</h1>
+
+      <slot />
+    </div>
+
+    <BackToTop />
+    <Lightbox />
+  </main>
+</Layout>
+
+<style is:global>
+  body {
+    background-color: #2e2e2e;
+  }
+</style>

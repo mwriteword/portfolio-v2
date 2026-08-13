@@ -1,0 +1,40 @@
+---
+// One overlay per page. Any [data-zoomable] element (ZoomableImage buttons,
+// zoomable carousel images) opens it via click delegation.
+---
+
+<div data-lightbox hidden class="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm sm:p-8" role="dialog" aria-modal="true">
+  <button type="button" data-lightbox-close aria-label="Close" class="absolute right-4 top-4 rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <img data-lightbox-img alt="" class="max-h-full max-w-full rounded-lg object-contain shadow-2xl" />
+</div>
+
+<script>
+  const box = document.querySelector<HTMLElement>("[data-lightbox]");
+  const img = box?.querySelector<HTMLImageElement>("[data-lightbox-img]");
+  const open = (src: string, alt: string) => {
+    if (!box || !img) return;
+    img.src = src;
+    img.alt = alt;
+    box.removeAttribute("hidden");
+    document.body.style.overflow = "hidden";
+  };
+  const close = () => {
+    if (!box) return;
+    box.setAttribute("hidden", "");
+    document.body.style.overflow = "";
+  };
+  document.addEventListener("click", (e) => {
+    const t = e.target as HTMLElement;
+    const z = t.closest<HTMLElement>("[data-zoomable]");
+    if (z) {
+      open(z.dataset.src!, z.dataset.alt!);
+      return;
+    }
+    if (t.closest("[data-lightbox-close]") || t === box) close();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") close();
+  });
+</script>

@@ -1,0 +1,131 @@
+---
+import "../styles/global.css";
+
+// Shared page shell. Each route passes its own title/description/OG so every URL
+// emits UNIQUE, real metadata in the raw HTML — the single biggest crawlability
+// win over the current SPA, where every route shares one hardcoded <head>.
+interface Props {
+  title: string;
+  description: string;
+  /** Path only, e.g. "/services". Canonical + OG URL are resolved against `site`. */
+  path: string;
+  /** Optional extra JSON-LD structured-data objects to inline in <head>. */
+  jsonLd?: Record<string, unknown>[];
+  ogImage?: string;
+}
+
+const { title, description, path, jsonLd = [], ogImage = "/opengraph.jpg" } = Astro.props;
+
+const site = Astro.site ?? new URL("https://wordsbyvern.com");
+const canonical = new URL(path, site).href;
+const ogImageUrl = new URL(ogImage, site).href;
+
+// Person schema is present on every page so AI/search always have an entity to
+// attach the site's content to.
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Vernon Laquindanum",
+  url: site.href,
+  jobTitle: "Content Designer & Writer",
+  sameAs: ["https://linkedin.com/in/vjtlaq", "https://medium.com/@vjtlaq"],
+};
+
+const schemas = [personSchema, ...jsonLd];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph / social -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" href="/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin />
+
+    {
+      schemas.map((schema) => (
+        <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+      ))
+    }
+
+    {/* Color-wipe reveal: if we arrived via the mode toggle, hide the page and
+        paint the cover color immediately (before first paint) so the reveal has
+        nothing to flash. The body-end script fades it back in. */}
+    <script is:inline>
+      (function () {
+        try {
+          var c = sessionStorage.getItem("modeWipe");
+          if (c) {
+            document.documentElement.style.backgroundColor = c;
+            document.documentElement.classList.add("mode-wipe-in");
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <style is:global>
+      body {
+        transition: opacity 0.5s ease;
+      }
+      html.mode-wipe-in body {
+        opacity: 0;
+      }
+      #mode-wipe {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+      }
+    </style>
+  </head>
+  <body>
+    <slot />
+    <div id="mode-wipe" aria-hidden="true"></div>
+    <script>
+      const overlay = document.getElementById("mode-wipe");
+      // Reveal: fade the page in from the cover color. Remove the class
+      // synchronously (not via rAF, which is throttled while a tab is hidden) so
+      // the page can never get stuck invisible; the opacity:0 initial state has
+      // already painted, so the transition still plays.
+      if (document.documentElement.classList.contains("mode-wipe-in")) {
+        try { sessionStorage.removeItem("modeWipe"); } catch (e) {}
+        document.documentElement.classList.remove("mode-wipe-in");
+      }
+      // Cover: on a mode-toggle click, wash the screen with the destination color,
+      // then navigate — the destination page reveals via the block above.
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      document.querySelectorAll<HTMLAnchorElement>("[data-mode-link]").forEach((link) => {
+        link.addEventListener("click", (e) => {
+          if (reduce || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+          const href = link.getAttribute("href");
+          if (!href || !overlay) return;
+          e.preventDefault();
+          const color = link.getAttribute("data-wipe-color") || "#2e2e2e";
+          try { sessionStorage.setItem("modeWipe", color); } catch (er) {}
+          overlay.style.backgroundColor = color;
+          overlay.style.pointerEvents = "auto";
+          void overlay.offsetWidth;
+          overlay.style.opacity = "1";
+          let done = false;
+          const go = () => { if (!done) { done = true; window.location.href = href; } };
+          overlay.addEventListener("transitionend", go, { once: true });
+          setTimeout(go, 500);
+        });
+      });
+    </script>
+  </body>
+</html>

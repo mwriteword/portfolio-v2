@@ -1,0 +1,10 @@
+# Astro build output + generated cache
+dist/
+.astro/
+
+# Dependencies
+node_modules/
+
+# Env
+.env
+.env.production

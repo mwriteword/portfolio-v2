@@ -1,0 +1,135 @@
+---
+// Static port of the freelance top nav. Links + CTA render as real, crawlable
+// HTML anchors (no JS needed to see or follow them). The mobile hamburger is
+// progressive enhancement via the small inline script at the bottom.
+const BOOKING_URL =
+  "https://calendar.google.com/calendar/appointments/schedules/AcZssZ2i1JtJLb7GAUKgfIkvBWBvA1qn5-ZBOsxF3_x0nwVFNrpr2_w_xmdqhNFxRUZc2G6Eg0bM5-Ld";
+
+const navLinks = [
+  { href: "/services", label: "Services" },
+  { href: "/resources", label: "Resources" },
+  { href: "/about", label: "About" },
+];
+
+const { active } = Astro.props as { active?: string };
+const linkBase = "rounded-lg px-3 py-1.5 text-sm font-medium transition-colors";
+---
+
+<header
+  class="sticky top-0 z-30 border-b border-border bg-background/80 backdrop-blur"
+  data-writing-nav
+>
+  <div class="max-w-[1120px] w-[90%] mx-auto">
+    <div class="flex h-12 items-center gap-3">
+      <a
+        href="/"
+        class="shrink-0 text-sm font-semibold text-foreground transition-colors hover:text-primary"
+      >
+        <span class="sm:hidden">V.L.</span>
+        <span class="hidden sm:inline">Vernon Laquindanum</span>
+      </a>
+
+      <span class="h-4 w-px shrink-0 bg-black/15" aria-hidden="true"></span>
+
+      <!-- Mode toggle: Freelance (this side, active) · UX Portfolio (dark side).
+           The light↔dark color-wipe is layered on via Astro View Transitions once
+           /portfolio is ported; for now this is a plain link across sides. -->
+      <div role="tablist" aria-label="Site mode" class="inline-flex shrink-0 items-center rounded-full border border-black/10 bg-black/5 p-0.5">
+        <a
+          href="/portfolio"
+          role="tab"
+          aria-selected="false"
+          data-mode-link
+          data-wipe-color="#2e2e2e"
+          class="rounded-full px-3 py-1 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
+        >
+          <span class="sm:hidden">Portfolio</span>
+          <span class="hidden sm:inline">UX Portfolio</span>
+        </a>
+        <span
+          role="tab"
+          aria-selected="true"
+          class="rounded-full bg-foreground px-3 py-1 text-xs font-medium text-background"
+        >
+          <span class="sm:hidden">Freelance</span>
+          <span class="hidden sm:inline">Freelance Services</span>
+        </span>
+      </div>
+
+      <!-- Desktop — inline links + CTA -->
+      <nav class="ml-auto hidden items-center gap-1 sm:flex">
+        {
+          navLinks.map((link) => (
+            <a
+              href={link.href}
+              class={`${linkBase} ${active === link.href ? "bg-muted text-foreground" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`}
+            >
+              {link.label}
+            </a>
+          ))
+        }
+        <span class="ml-1">
+          <a
+            href={BOOKING_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-lg bg-slate-900 px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-slate-700"
+          >
+            Book a call
+          </a>
+        </span>
+      </nav>
+
+      <!-- Mobile — hamburger -->
+      <button
+        type="button"
+        data-nav-toggle
+        aria-expanded="false"
+        aria-controls="writing-mobile-menu"
+        aria-label="Menu"
+        class="ml-auto inline-flex h-9 w-9 items-center justify-center rounded-lg text-foreground transition-colors hover:bg-muted sm:hidden"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <nav
+      id="writing-mobile-menu"
+      hidden
+      class="flex flex-col gap-1 border-t border-border py-3 sm:hidden"
+    >
+      {
+        navLinks.map((link) => (
+          <a
+            href={link.href}
+            class={`${linkBase} ${active === link.href ? "bg-muted text-foreground" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+      <a
+        href={BOOKING_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="mt-1 inline-flex items-center gap-2 rounded-lg bg-slate-900 px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-slate-700"
+      >
+        Book a call
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Progressive enhancement: toggle the mobile menu. The nav is fully usable
+  // without this — links are real anchors; this only reveals the collapsed set.
+  const toggle = document.querySelector<HTMLButtonElement>("[data-nav-toggle]");
+  const menu = document.getElementById("writing-mobile-menu");
+  toggle?.addEventListener("click", () => {
+    const open = menu?.hasAttribute("hidden");
+    if (open) menu?.removeAttribute("hidden");
+    else menu?.setAttribute("hidden", "");
+    toggle.setAttribute("aria-expanded", String(!!open));
+  });
+</script>

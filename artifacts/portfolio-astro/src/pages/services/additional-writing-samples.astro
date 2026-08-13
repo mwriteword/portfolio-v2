@@ -1,0 +1,159 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import WritingNav from "../../components/WritingNav.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import Lightbox from "../../components/Lightbox.astro";
+import WorkSamples, { type Sample } from "../../components/WorkSamples.astro";
+
+const title = "Additional Writing Samples — Vernon Laquindanum";
+const description =
+  "Copywriting and long-form writing samples from 12 years of professional writing — lifecycle emails, SEO content, regulated-energy research, editorial essays, video scripts, and landing pages.";
+
+const copywritingSamples: Sample[] = [
+  {
+    id: "rate-coach",
+    title: "Rate Coach email program",
+    category: "LIFECYCLE EMAIL • UTILITIES",
+    preview: "3x opens and 9x CTR vs industry benchmarks for 800K households.",
+    image: "/images/work/rate-coach-thumb.png",
+    full: "/images/opower/intro-email.png",
+    bodyHtml: `
+      <p>In my full-time stint at Opower, we developed a brand new behavior change product to support many utilities changing to time-of-use rate models, where energy is more expensive at specific times of day. This email series was meant to guide users through this transition by explaining how time-of-use rates work and encouraging them to shift their energy use outside of peak-pricing hours.</p>
+      <p>In terms of stakes, customers spend about 8 minutes per <em>year</em> thinking about their utility company and that's what we were up against. When we launched the program, we saw the following results:</p>
+      <ul>
+        <li>14 MW peak demand reduction across nearly 1 million homes in a mid-west utility.</li>
+        <li>35,000 customers in the initial pilot with Exelon Maryland (BGE, Pepco, and Delmarva).</li>
+        <li>+60% digital engagement at one utility.</li>
+        <li>3x the opens and 9x the clickthrough rates for one utility with over 800,000 households.</li>
+        <li>Customers were 17% more likely to recall the program against control.</li>
+        <li>Customers were 16% more likely to identify peak-pricing hours against control.</li>
+        <li>+8% customer satisfaction versus control, +5% overall.</li>
+      </ul>
+      <p><a href="/portfolio/case-study/bls-emails">Read the full email content and case study →</a></p>`,
+  },
+  {
+    id: "twc-email",
+    title: "Teamwork Collection Onboarding email",
+    category: "ENGAGEMENT EMAIL • B2B SAAS",
+    preview: "Email driving app activations to support a bundle launch.",
+    image: "/images/work/twc-email-body.png",
+    full: "/images/work/twc-full-email.png",
+    imageTop: true,
+    bodyHtml: `
+      <p>One of my bigger projects at Atlassian was the full onboarding experience for the Teamwork Collection launch, a new bundle of Atlassian's most popular apps. Our goal with the email wasn't to upsell users on the bundle — these were sent to users whose leadership already <em>bought</em> the bundle. Our goal with the onboarding was to actually get users to activate their seat in the app and drive growth through monthly-active users across each app.</p>
+      <p>I focused the content to read as straightforwardly as possible, almost like a notification email rather than a growth lever. The subject line and body content are intentionally short and direct; if this email got dismissed as marketing spam, we'd be dead in the water. Rather than load up the email with content, I wanted to give them the information straight to get them to click and learn more in the rest of the onboarding.</p>
+      <p><a href="/portfolio/case-study/twc">See the full onboarding experience and case study here.</a></p>`,
+  },
+  {
+    id: "fintech-email",
+    title: "Performance marketing emails for a fintech site",
+    category: "MARKETING EMAIL • AGENCY",
+    preview: "Email samples driving users to a landing page for lead generation.",
+    image: "/images/quinstreet/email-3.jpeg",
+    full: "/images/quinstreet/email-3.jpeg",
+    imageTop: true,
+    bodyHtml: `<p>At QuinStreet, I wrote email content for both our internal lead-gen sites and external clients, including The Home Depot, Chase, and HP. This is one of many email samples I wrote in the fintech space, largely to drive users to a landing page. <a href="/portfolio/case-study/copywriting-samples">See more copywriting samples here.</a></p>`,
+  },
+  {
+    id: "onboarding-video",
+    title: "Teamwork Collection video",
+    category: "VIDEO SCRIPT • B2B SaaS",
+    preview: "Scripted video supporting the launch of a new Atlassian bundle.",
+    image: "/images/work/twc-video-thumb.jpg",
+    video: "/videos/twc-onboarding-video.mp4",
+    bodyHtml: `<p>This was just one piece of a full onboarding experience for the new Teamwork Collection bundle at Atlassian. I was the Content Designer on this project, but I worked with the brand and creative team on this hero video. I wrote the original script to align with the rest of the onboarding experience (while making it flexible enough to work in other contexts). <a href="/portfolio/case-study/twc">You can read the full case study here</a>.</p>`,
+  },
+  {
+    id: "directbuy",
+    title: "DirectBuy landing page",
+    category: "LANDING PAGE • AGENCY CLIENT",
+    preview: "Lead-gen copy for an external client.",
+    image: "/images/work/lp-thumb.png",
+    full: "/images/work/landing-page.png",
+    bodyHtml: `<p>QuinStreet had an agency model, where we created email, landing pages, banners, and social media ads for our internal sites as well as external clients to drive lead-gen and conversion. This is one example of marketing-focused writing I did for one of our clients. <a href="/portfolio/case-study/copywriting-samples">You can see more copywriting samples here.</a></p>`,
+  },
+];
+
+const longformSamples: Sample[] = [
+  {
+    id: "solitaire",
+    title: "An analytical essay on Solitaire",
+    category: "EDITORIAL CONTENT • UX",
+    preview: "Written and self-edited for UX Collective's Bootcamp publication.",
+    image: "/images/work/solitaire.jpg",
+    bodyHtml: `
+      <p>In the mid-to-late 2010s, I drove 30 minutes in traffic to a train station that's normally 10 minutes away, then rode a train for an hour just to get to my office. And at the end of the day, I did the same thing in reverse. I played a lot of <em>Microsoft Solitaire Collection</em> on my phone during those long train rides, so I (finally) wrote about my observations of two games in that collection, and the piece was published in UX Collective's Bootcamp publication.</p>
+      <p><a href="https://medium.com/design-bootcamp/the-solitaire-you-remember-is-not-a-good-game-00cf1392e639?sharedUserId=vjtlaq" target="_blank" rel="noopener noreferrer">Read the piece on Medium →</a></p>`,
+  },
+  {
+    id: "energy-tips",
+    title: "Source-verified energy efficiency tips",
+    category: "RESEARCH & CONTENT • REGULATED ENERGY",
+    preview: "300+ tips with all claims sourced to DOE standards.",
+    image: "/images/work/tip-library-thumb.png",
+    full: "/images/work/tip-sample-full.png",
+    bodyHtml: `
+      <p>In 2024, a former colleague at Opower asked if I could help review and refresh tip content used by more than 175 utility partners worldwide. This refresh is done every few years to ensure that tips are still accurate and adequately sourced, since government energy guidance and standards can change year-to-year. I verified sources for every claim, updating them to match new guidance or rewriting claims entirely if they no longer had a live source. If your utility has energy-saving tips on their website and they look like the one in the thumbnail, then you can see my handiwork for yourself. Here's a sample of one, in the event your utility is not an Opower partner.</p>
+      <p><button type="button" data-zoomable data-src="/images/work/tip-sample-full.png" data-alt="Full-page energy efficiency tip sample" class="font-medium text-primary hover:underline">View the full-page sample →</button></p>`,
+  },
+  {
+    id: "textbook",
+    title: "Textbook description pages",
+    category: "SEO CONTENT • EDTECH",
+    preview: "30+ textbook descriptions to drive organic traffic.",
+    image: "/images/work/textbook-thumb.png",
+    bodyHtml: `<p>I joined Course Hero as a contractor in late 2019 to help launch their new <a href="https://www.coursehero.com/textbook-solutions/#/math" target="_blank" rel="noopener noreferrer">Textbook Solutions</a> product. They needed search-engine optimized descriptions for several of the textbooks they were launching with, all to drive organic traffic to the product pages.</p>`,
+  },
+];
+---
+
+<Layout title={title} description={description} path="/services/additional-writing-samples">
+  <main class="min-h-screen bg-background text-foreground">
+    <WritingNav />
+
+    <div class="max-w-[1120px] w-[90%] mx-auto pt-6 pb-12 sm:pt-8 sm:pb-20">
+      <nav aria-label="Breadcrumb" class="mb-8">
+        <ol class="flex flex-wrap items-center gap-2 text-sm">
+          <li><a href="/" class="text-muted-foreground transition-colors hover:text-foreground">Home</a></li>
+          <li aria-hidden="true" class="text-muted-foreground/40">»</li>
+          <li><a href="/services" class="text-muted-foreground transition-colors hover:text-foreground">Services</a></li>
+          <li aria-hidden="true" class="text-muted-foreground/40">»</li>
+          <li aria-current="page" class="font-medium text-foreground">Additional Writing Samples</li>
+        </ol>
+      </nav>
+
+      <section class="mb-14 sm:mb-20 text-center">
+        <p class="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Services</p>
+        <h1 class="mx-auto mt-4 max-w-3xl font-bold tracking-tight text-[40px] sm:text-[56px] lg:text-[64px] leading-[1.05]">
+          Additional writing samples
+        </h1>
+        <p class="mx-auto mt-5 max-w-2xl text-[16px] sm:text-[20px] text-muted-foreground">
+          In 12 years of professional writing, I've done copywriting, SEO content, regulated content
+          research, editing, and more. Here are a few samples of the non-UX work I've done.
+        </p>
+        <nav aria-label="Jump to section" class="mt-8 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-sm">
+          <a href="#copywriting" class="font-medium text-muted-foreground transition-colors hover:text-foreground">Copywriting samples</a>
+          <span aria-hidden="true" class="text-muted-foreground/40">•</span>
+          <a href="#long-form" class="font-medium text-muted-foreground transition-colors hover:text-foreground">Long-form writing samples</a>
+        </nav>
+      </section>
+
+      <section id="copywriting" class="mb-14 sm:mb-20 scroll-mt-24">
+        <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight mb-6">Copywriting samples</h2>
+        <WorkSamples samples={copywritingSamples} />
+      </section>
+
+      <section id="long-form" class="scroll-mt-24">
+        <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight mb-6">Long-form writing samples</h2>
+        <WorkSamples samples={longformSamples} />
+      </section>
+
+      <div class="mt-14 sm:mt-20 flex justify-center">
+        <a href="#" class="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">↑ Back to top</a>
+      </div>
+    </div>
+
+    <SiteFooter />
+    <Lightbox />
+  </main>
+</Layout>

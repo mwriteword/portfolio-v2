@@ -1,0 +1,375 @@
+---
+import Layout from "../layouts/Layout.astro";
+import WritingNav from "../components/WritingNav.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import ContactPanel from "../components/ContactPanel.tsx";
+// Single source of truth — the SAME data file the current React app renders from.
+import { services } from "../../../portfolio/src/content/services";
+
+const additionalServices = [
+  { name: "Copywriting", desc: "Email, ad copy, landing pages, and more." },
+  {
+    name: "Editorial services",
+    desc: "AI content review, writing review, copyediting, and proofreading.",
+  },
+  {
+    name: "Content writing & SEO",
+    desc: "Long-form content and editorial, with analytics and performance tracking.",
+  },
+];
+
+const title = "Content Design Services — Vernon Laquindanum";
+const description =
+  "Content design services for product teams: content experience audits, content standards & systems, AI content design, onboarding & activation flows, and embedded content design retainers.";
+
+// Per-offering Service schema + a BreadcrumbList. Each offering's full prose is
+// in the static HTML below, so these give search/AI a structured index of it.
+const serviceSchemas = services.map((s) => ({
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: s.title,
+  serviceType: s.eyebrow,
+  description: s.summary,
+  provider: { "@type": "Person", name: "Vernon Laquindanum" },
+  url: `https://wordsbyvern.com/services#${s.slug}`,
+}));
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://wordsbyvern.com/" },
+    { "@type": "ListItem", position: 2, name: "Services", item: "https://wordsbyvern.com/services" },
+  ],
+};
+---
+
+<Layout
+  title={title}
+  description={description}
+  path="/services"
+  jsonLd={[...serviceSchemas, breadcrumbSchema]}
+>
+  <main class="min-h-screen bg-background text-foreground">
+    <WritingNav active="/services" />
+
+    <div class="max-w-[1120px] w-[90%] mx-auto pt-6 pb-12 sm:pt-8 sm:pb-20">
+      <!-- Breadcrumbs -->
+      <nav aria-label="Breadcrumb" class="mb-8">
+        <ol class="flex items-center gap-2 text-sm">
+          <li><a href="/" class="text-muted-foreground transition-colors hover:text-foreground">Home</a></li>
+          <li aria-hidden="true" class="text-muted-foreground/40">»</li>
+          <li aria-current="page" class="font-medium text-foreground">Services</li>
+        </ol>
+      </nav>
+
+      <!-- Hero -->
+      <section class="mb-14 sm:mb-20 text-center">
+        <p class="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+          Content Design Services
+        </p>
+        <h1
+          class="mx-auto mt-4 max-w-3xl font-bold tracking-tight text-[40px] sm:text-[56px] lg:text-[64px] leading-[1.05]"
+        >
+          Specialized solutions to your content problems
+        </h1>
+        <p class="mx-auto mt-5 max-w-2xl text-[16px] sm:text-[20px] text-muted-foreground">
+          Most engagements start with an audit and grow from there, but you can choose any service
+          that fits your needs.
+        </p>
+        <nav aria-label="Jump to section" class="mt-8 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-sm">
+          <a href="#solutions" class="font-medium text-muted-foreground transition-colors hover:text-foreground">Core services</a>
+          <span aria-hidden="true" class="text-muted-foreground/40">•</span>
+          <a href="#additional" class="font-medium text-muted-foreground transition-colors hover:text-foreground">Additional services</a>
+        </nav>
+      </section>
+
+      <!-- Core services — rail of jump links (static, no JS) + every offering's
+           full detail rendered as crawlable HTML. -->
+      <section id="solutions" class="mb-14 sm:mb-20 scroll-mt-24">
+        <div class="grid gap-8 lg:grid-cols-[300px_1fr] lg:gap-14" data-svc-menu>
+          <div class="lg:sticky lg:top-24 lg:self-start">
+            <h2 class="mb-6 text-[20px] font-semibold tracking-tight sm:text-[24px]">Core services</h2>
+            <nav class="flex flex-col gap-1">
+              {
+                services.map((s, i) => (
+                  <button
+                    type="button"
+                    data-svc-btn={s.slug}
+                    aria-current={i === 0 ? "true" : undefined}
+                    class={`svc-btn flex w-full items-baseline gap-3 rounded-r-lg border-l-[3px] border-transparent px-4 py-3 text-left transition-colors ${i === 0 ? "is-active" : ""}`}
+                    style={`--svc-accent:${s.accent}`}
+                  >
+                    <span class="svc-num font-mono text-xs tabular-nums text-muted-foreground/50 transition-colors">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span
+                      class="svc-title text-[17px] font-medium leading-snug text-muted-foreground transition-colors"
+                    >
+                      {s.title}
+                    </span>
+                  </button>
+                ))
+              }
+              <div class="mt-5 rounded-xl border border-border bg-muted/40 p-4">
+                <p class="text-sm leading-relaxed text-foreground">Not sure what's right for you?</p>
+                <a
+                  href="#contact"
+                  class="mt-3 block w-full rounded-lg bg-slate-900 px-4 py-2 text-center text-sm font-medium text-white transition-colors hover:bg-slate-700"
+                >
+                  Book an intro call
+                </a>
+              </div>
+            </nav>
+          </div>
+
+          <!-- Master-detail: every offering is rendered into the DOM (so search +
+               AI still read them all), but only the selected one is shown. -->
+          <div class="min-w-0">
+            {
+              services.map((s, i) => {
+                const d = s.detail;
+                const cs = d.caseStudy;
+                return (
+                  <article data-svc-panel={s.slug} hidden={i !== 0} class="scroll-mt-24">
+                    <div class="flex items-start justify-between gap-4">
+                      <p class="text-xs font-semibold uppercase tracking-wide" style={`color:${s.accent}`}>
+                        {s.eyebrow}
+                      </p>
+                      {cs &&
+                        (cs.study ? (
+                          <button type="button" data-cs-open={s.slug} class="group/cs inline-flex shrink-0 items-center gap-1 rounded-full border border-border px-2.5 py-1 text-xs font-medium text-foreground transition-colors hover:bg-muted">
+                            Case study
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground transition-colors group-hover/cs:text-foreground"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+                          </button>
+                        ) : (
+                          <span class="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-border px-2.5 py-1 text-xs font-medium text-muted-foreground">
+                            Case study
+                            <span class="rounded-full bg-muted px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground/70">Soon</span>
+                          </span>
+                        ))}
+                    </div>
+
+                    <h3 class="mt-2 text-2xl font-bold tracking-tight">{s.title}</h3>
+                    <p class="mt-2 max-w-2xl text-[17px] leading-relaxed text-muted-foreground">{s.summary}</p>
+
+                    {/* Timeline · Pricing */}
+                    <div class="mt-5 grid grid-cols-1 gap-4 rounded-xl border border-border bg-muted/40 px-5 py-4 sm:grid-cols-[1fr_auto_1fr] sm:items-stretch sm:gap-x-8 sm:gap-y-0">
+                      <div>
+                        <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Timeline</p>
+                        <p class="mt-1 whitespace-pre-line text-sm leading-relaxed text-foreground">{d.timeline}</p>
+                      </div>
+                      <div class="hidden w-px self-stretch bg-border sm:block" aria-hidden="true" />
+                      <div>
+                        <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Pricing</p>
+                        <p class="mt-1 whitespace-pre-line text-sm leading-relaxed text-foreground">{d.pricing}</p>
+                      </div>
+                    </div>
+
+                    {/* Solves · Process */}
+                    <div class="mt-6 grid gap-6 sm:grid-cols-2 sm:gap-8">
+                      <div>
+                        <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">What this solves</p>
+                        <p class="mt-2 text-[15px] leading-relaxed text-muted-foreground">{d.solves}</p>
+                      </div>
+                      <div>
+                        <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">What the process is like</p>
+                        <p class="mt-2 text-[15px] leading-relaxed text-muted-foreground">{d.process}</p>
+                      </div>
+                    </div>
+
+                    {/* What you get */}
+                    <div class="mt-6">
+                      <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">What you get</p>
+                      <ul class="mt-2 text-[15px] leading-relaxed text-muted-foreground sm:columns-2 sm:gap-x-8">
+                        {d.youGet.map((item) => (
+                          <li class="mb-2 flex gap-2.5 break-inside-avoid">
+                            <span class="mt-1 shrink-0" style={`color:${s.accent}`} aria-hidden="true">✓</span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* Best for · Not for */}
+                    <div class="mt-6 grid gap-x-8 gap-y-4 border-t border-border pt-5 sm:grid-cols-2">
+                      <div>
+                        <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Best for</p>
+                        <p class="mt-1 text-sm leading-relaxed text-muted-foreground">{d.forWho}</p>
+                      </div>
+                      <div>
+                        <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Not for</p>
+                        <p class="mt-1 text-sm leading-relaxed text-muted-foreground">{d.notForWho}</p>
+                      </div>
+                    </div>
+
+                    {/* Case study — opens as a modal from the "Case study" tag above.
+                        The narrative renders into the DOM here (hidden), so it stays
+                        crawlable while presenting as a pop-up like the live site. */}
+                    {cs?.study && (
+                      <div data-cs-modal={s.slug} hidden class="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
+                        <div role="dialog" aria-modal="true" aria-label={cs.study.title} class="flex max-h-[90vh] w-[92vw] max-w-3xl flex-col gap-0 overflow-hidden rounded-2xl border border-border bg-background shadow-2xl sm:w-full">
+                          <div class="relative shrink-0 space-y-2 border-b border-border px-6 pb-4 pr-12 pt-6 sm:px-8 sm:pb-5 sm:pr-14 sm:pt-8">
+                            <p class="text-xs font-semibold uppercase tracking-wide" style={`color:${s.accent}`}>{s.eyebrow}</p>
+                            <h3 class="text-xl font-bold leading-snug tracking-tight sm:text-2xl">{cs.study.title}</h3>
+                            <button type="button" data-cs-close aria-label="Close" class="absolute right-4 top-5 rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground sm:right-6 sm:top-7">
+                              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                            </button>
+                          </div>
+                          <div class="min-h-0 flex-1 overflow-y-auto">
+                            <div class="flex flex-col gap-6 px-6 py-6 sm:flex-row sm:gap-12 sm:px-8">
+                              <div class="flex shrink-0 flex-row flex-wrap gap-x-8 gap-y-4 sm:w-44 sm:flex-col sm:gap-4">
+                                <div><p class="text-[11px] font-medium uppercase tracking-widest text-muted-foreground">Company</p><p class="mt-1 text-sm text-foreground">{cs.study.company}</p></div>
+                                <div><p class="text-[11px] font-medium uppercase tracking-widest text-muted-foreground">Role</p><p class="mt-1 text-sm text-foreground">{cs.study.role}</p></div>
+                                <div><p class="text-[11px] font-medium uppercase tracking-widest text-muted-foreground">Timeline</p><p class="mt-1 text-sm text-foreground">{cs.study.timeline}</p></div>
+                                <div><p class="text-[11px] font-medium uppercase tracking-widest text-muted-foreground">Scope</p><p class="mt-1 text-sm text-foreground">{cs.study.scope}</p></div>
+                              </div>
+                              <div class="flex-1 space-y-5">
+                                <div><p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Situation</p><p class="mt-1.5 text-[15px] leading-relaxed text-foreground">{cs.study.situation}</p></div>
+                                <div><p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Problem</p><p class="mt-1.5 text-[15px] leading-relaxed text-foreground">{cs.study.problem}</p></div>
+                                <div><p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">What I did</p><p class="mt-1.5 text-[15px] leading-relaxed text-foreground">{cs.study.whatIDid}</p></div>
+                                <div><p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Result</p><p class="mt-1.5 text-[15px] leading-relaxed text-foreground">{cs.study.result}</p></div>
+                              </div>
+                            </div>
+                          </div>
+                          {cs.href && (
+                            <div class="shrink-0 border-t border-border px-6 py-4 sm:px-8">
+                              <a href={cs.href} class="inline-flex items-center gap-1.5 text-sm font-semibold transition-opacity hover:opacity-80" style={`color:${s.accent}`}>
+                                Read the full craft case study
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+                              </a>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </article>
+                );
+              })
+            }
+          </div>
+        </div>
+      </section>
+
+      <!-- Additional services -->
+      <section id="additional" class="mb-14 sm:mb-20 scroll-mt-24">
+        <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight mb-2">Additional services</h2>
+        <p class="mb-6 text-sm text-muted-foreground">
+          Prices vary based on the size and shape of the engagement. Get in touch and we can work
+          out pricing together.
+        </p>
+        <div class="grid gap-4 sm:grid-cols-3">
+          {
+            additionalServices.map(({ name, desc }) => (
+              <div class="rounded-xl border border-border bg-card p-6">
+                <h3 class="font-semibold">{name}</h3>
+                <p class="mt-2 text-sm leading-relaxed text-muted-foreground">{desc}</p>
+              </div>
+            ))
+          }
+        </div>
+        <a
+          href="/services/additional-writing-samples"
+          class="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-foreground underline-offset-4 hover:underline"
+        >
+          See writing samples →
+        </a>
+      </section>
+
+      <!-- Contact -->
+      <section id="contact" class="scroll-mt-24">
+        <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight">
+          Need a more customized solution?
+        </h2>
+        <p class="mt-2 mb-6 text-sm text-muted-foreground">
+          These services are just a starting point, and we can work out the right shape and solution
+          for your needs. Just tell me what you're working on and we'll work it out together.
+        </p>
+        <ContactPanel client:visible />
+      </section>
+
+      <div class="mt-12 flex justify-center">
+        <a href="#" class="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
+          ↑ Back to top
+        </a>
+      </div>
+    </div>
+
+    <SiteFooter />
+  </main>
+</Layout>
+
+<style>
+  /* Rail selector. Each button carries its service's accent as --svc-accent
+     (set inline). The selected one is lit in that accent; hover previews it. */
+  .svc-btn:not(.is-active):hover {
+    background-color: color-mix(in srgb, var(--svc-accent) 6%, transparent);
+  }
+  .svc-btn:not(.is-active):hover .svc-title {
+    color: hsl(var(--foreground));
+  }
+  .svc-btn.is-active {
+    border-left-color: var(--svc-accent);
+    background-color: color-mix(in srgb, var(--svc-accent) 10%, transparent);
+  }
+  .svc-btn.is-active .svc-num,
+  .svc-btn.is-active .svc-title {
+    color: var(--svc-accent);
+    font-weight: 600;
+  }
+</style>
+
+<script>
+  // Master-detail: rail buttons switch which offering is shown. Every offering
+  // is in the DOM (crawlable); this only toggles which one is visible.
+  const menu = document.querySelector("[data-svc-menu]");
+  if (menu) {
+    const btns = menu.querySelectorAll<HTMLElement>("[data-svc-btn]");
+    const panels = menu.querySelectorAll<HTMLElement>("[data-svc-panel]");
+    const select = (slug: string, scroll: boolean) => {
+      if (![...panels].some((p) => p.dataset.svcPanel === slug)) return;
+      btns.forEach((b) => {
+        const on = b.dataset.svcBtn === slug;
+        b.classList.toggle("is-active", on);
+        if (on) b.setAttribute("aria-current", "true");
+        else b.removeAttribute("aria-current");
+      });
+      panels.forEach((p) => p.toggleAttribute("hidden", p.dataset.svcPanel !== slug));
+      if (scroll) {
+        const sec = document.getElementById("solutions");
+        if (sec) window.scrollTo({ top: Math.max(0, sec.getBoundingClientRect().top + window.scrollY - 80), behavior: "auto" });
+      }
+    };
+    btns.forEach((b) => b.addEventListener("click", () => select(b.dataset.svcBtn!, false)));
+    // Deep link from the home offerings preview (/services#slug) or a legacy
+    // /services?service=slug — open that offering on load.
+    const initial = location.hash.replace("#", "") || new URLSearchParams(location.search).get("service") || "";
+    if (initial) select(initial, true);
+  }
+
+  // Case-study modals: a "Case study" tag opens its service's modal. The content
+  // is already in the DOM (crawlable); this just shows/hides the overlay.
+  const modals = document.querySelectorAll<HTMLElement>("[data-cs-modal]");
+  const closeModals = () => {
+    modals.forEach((m) => m.setAttribute("hidden", ""));
+    document.body.style.overflow = "";
+  };
+  document.querySelectorAll<HTMLElement>("[data-cs-open]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const modal = document.querySelector<HTMLElement>(`[data-cs-modal="${btn.dataset.csOpen}"]`);
+      if (!modal) return;
+      closeModals();
+      modal.removeAttribute("hidden");
+      document.body.style.overflow = "hidden";
+    });
+  });
+  modals.forEach((m) => {
+    m.addEventListener("click", (e) => {
+      const t = e.target as HTMLElement;
+      if (t === m || t.closest("[data-cs-close]")) closeModals();
+    });
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeModals();
+  });
+</script>

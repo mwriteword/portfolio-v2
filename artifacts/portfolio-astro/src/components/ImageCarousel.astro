@@ -1,0 +1,104 @@
+---
+// Auto-advancing image carousel with arrows, dots, counter, and caption. All
+// images render into the DOM (crawlable); the script only slides the track.
+interface Img {
+  src: string;
+  alt: string;
+  caption?: string;
+}
+interface Props {
+  images: Img[];
+  interval?: number;
+  label?: string;
+  zoomable?: boolean;
+}
+const { images, interval = 5000, label, zoomable = false } = Astro.props;
+const captions = images.map((i) => i.caption ?? "");
+const hasCaptions = captions.some(Boolean);
+---
+
+<div class="my-6" data-carousel data-interval={interval} data-captions={JSON.stringify(captions)}>
+  {label && <p class="text-[#888888] text-xs uppercase tracking-widest font-medium mb-3">{label}</p>}
+  <div class="relative overflow-hidden rounded-lg bg-[#1a1a1a]">
+    <div class="flex transition-transform duration-500 ease-in-out" data-carousel-track>
+      {
+        images.map((img) => (
+          <img
+            src={img.src}
+            alt={img.alt}
+            draggable="false"
+            onerror="this.style.display='none'"
+            data-zoomable={zoomable ? "" : undefined}
+            data-src={zoomable ? img.src : undefined}
+            data-alt={zoomable ? img.alt : undefined}
+            class={`w-full shrink-0 block${zoomable ? " cursor-zoom-in" : ""}`}
+          />
+        ))
+      }
+    </div>
+    {
+      images.length > 1 && (
+        <>
+          <button type="button" data-carousel-prev aria-label="Previous image" class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 hover:bg-black/70 flex items-center justify-center text-white transition-colors">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button type="button" data-carousel-next aria-label="Next image" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 hover:bg-black/70 flex items-center justify-center text-white transition-colors">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+          <span data-carousel-counter class="absolute bottom-3 right-3 px-2 py-0.5 rounded bg-black/60 text-[10px] text-white/80 font-medium tabular-nums">1 / {images.length}</span>
+        </>
+      )
+    }
+  </div>
+  <div class="mt-3 flex flex-col items-center gap-2">
+    {
+      images.length > 1 && (
+        <div class="flex gap-0.5">
+          {images.map((_, i) => (
+            <button type="button" data-carousel-dot={i} class="p-2" aria-label={`Go to image ${i + 1}`}>
+              <span class="carousel-dot block w-1.5 h-1.5 rounded-full" style={`background-color:${i === 0 ? "#ffffff" : "#555555"}`}></span>
+            </button>
+          ))}
+        </div>
+      )
+    }
+    {hasCaptions && <p class="text-xs text-[#888888] leading-relaxed text-center" data-carousel-caption>{captions[0]}</p>}
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-carousel]").forEach((car) => {
+    const track = car.querySelector<HTMLElement>("[data-carousel-track]");
+    if (!track) return;
+    const n = track.children.length;
+    if (n <= 1) return;
+    const dots = car.querySelectorAll<HTMLElement>("[data-carousel-dot] .carousel-dot");
+    const counter = car.querySelector<HTMLElement>("[data-carousel-counter]");
+    const captionEl = car.querySelector<HTMLElement>("[data-carousel-caption]");
+    let captions: string[] = [];
+    try { captions = JSON.parse(car.dataset.captions || "[]"); } catch {}
+    const wait = Number(car.dataset.interval) || 5000;
+    let active = 0;
+    let paused = false;
+    let timer: ReturnType<typeof setTimeout>;
+
+    const render = () => {
+      track.style.transform = `translateX(-${active * 100}%)`;
+      dots.forEach((d, i) => (d.style.backgroundColor = i === active ? "#ffffff" : "#555555"));
+      if (counter) counter.textContent = `${active + 1} / ${n}`;
+      if (captionEl) captionEl.textContent = captions[active] || "";
+    };
+    const go = (i: number) => { active = (i + n) % n; render(); };
+    const tick = () => { clearTimeout(timer); if (!paused) timer = setTimeout(() => { go(active + 1); tick(); }, wait); };
+
+    car.querySelector("[data-carousel-prev]")?.addEventListener("click", () => { go(active - 1); tick(); });
+    car.querySelector("[data-carousel-next]")?.addEventListener("click", () => { go(active + 1); tick(); });
+    car.querySelectorAll<HTMLElement>("[data-carousel-dot]").forEach((d, i) =>
+      d.addEventListener("click", () => { go(i); tick(); }),
+    );
+    car.addEventListener("mouseenter", () => { paused = true; clearTimeout(timer); });
+    car.addEventListener("mouseleave", () => { paused = false; tick(); });
+    render();
+    tick();
+  });
+</script>

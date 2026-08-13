@@ -1,0 +1,230 @@
+---
+import CaseStudyLayout from "../../../layouts/CaseStudyLayout.astro";
+import ZoomableImage from "../../../components/ZoomableImage.astro";
+import ImageCarousel from "../../../components/ImageCarousel.astro";
+
+const sections = [
+  { id: "cs1-elevator", label: "tl;dr" },
+  { id: "cs1-prologue", label: "Prologue" },
+  { id: "cs1-ch1", label: "1: Goals" },
+  { id: "cs1-ch2", label: "2: Research" },
+  { id: "cs1-ch3", label: "3: Object Models" },
+  { id: "cs1-ch4", label: "4: Solution" },
+  { id: "cs1-ch45", label: "4.5: Custom Terms" },
+  { id: "cs1-ch475", label: "4.75: Localization" },
+  { id: "cs1-ch5", label: "5: Launch" },
+  { id: "cs1-epilogue", label: "Epilogue" },
+];
+
+const beforeImages = [
+  { src: "/images/atlassian/before_1.png", alt: "Before: KRs don't make sense without a goal", caption: "Key results don't really make sense without a goal and aren't the same type of object as a goal." },
+  { src: "/images/atlassian/before_2.png", alt: "Before: KRs similar to metrics", caption: "Key results are very similar to metrics, an entirely different object in our model, which made it even harder to know how to add a key result." },
+  { src: "/images/atlassian/before_3.png", alt: "Before: KRs lumped in with sub-goals", caption: "Key results are not the same thing as sub-goals, but they were lumped in all together." },
+];
+const afterImages = [
+  { src: "/images/atlassian/after_1.png", alt: "After: KRs added to existing goals", caption: "Key results can only be added to an existing goal or objective, which is done entirely different from how goals are created." },
+  { src: "/images/atlassian/after_2.png", alt: "After: Custom terms and localization workarounds", caption: "Putting custom terms in the UI to include Key Results meant we had to use workaround to support localization." },
+  { src: "/images/atlassian/after_3.png", alt: "After: KRs visually separated from sub-goals", caption: "Key results have a completely different treatment and listing to sub-goals, further separating them in the UI." },
+];
+
+const link = "text-[#3b82f6] hover:text-[#60a5fa] transition-colors underline underline-offset-2";
+const term = "text-[0.85em] bg-[#3a3a3a] text-[#cccccc] px-1.5 py-0.5 rounded font-mono";
+const objModels: [string, string, string, string][] = [
+  ["Goals", "Goals", "Goals", "Goal"],
+  ["Teams", "Teams", "Teams", "Team"],
+  ["Projects", "Projects", "Projects", "Project"],
+];
+---
+
+<CaseStudyLayout
+  title="Goal Types & OKR Modeling — Atlassian"
+  description="How a new goal type system brought OKR support to Atlassian's Goals app — untangling the object model and content model together, and driving ~1,500 success measures created per day at launch."
+  path="/portfolio/case-study/goal-types"
+  label="Goal Types & OKR Modeling"
+  accent="#3b82f6"
+  sections={sections}
+>
+  <div class="flex flex-col sm:flex-row gap-6 sm:gap-12 mb-12">
+    <div class="flex-shrink-0 sm:w-52">
+      <div class="space-y-4">
+        <div><p class="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Role</p><p class="text-white text-sm">Senior Content Designer</p></div>
+        <div><p class="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Company</p><p class="text-white text-sm">Atlassian</p></div>
+        <div><p class="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Timeline</p><p class="text-white text-sm">~1.5 years</p></div>
+        <div><p class="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Collaborators</p><p class="text-white text-sm">PM, Product Design, Engineering, Localization</p></div>
+        <div><p class="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">In this case study</p><p class="text-white text-sm">Content Systems, Content Strategy, Localization, Cross-functional Collaboration, UX Writing, Admin experiences, Scalability</p></div>
+      </div>
+    </div>
+    <div class="flex-1 space-y-4">
+      <p class="text-base leading-relaxed text-white">
+        By this point, pretty much everyone knows what an OKR is. Even if they don't understand how the
+        framework <em>actually</em> works, they can tell you it stands for Objective and Key Results. But
+        as well-known as it is, it's surprisingly difficult to effectively represent the framework in
+        software. Take Microsoft Viva Goals for example, one of our biggest competitors in the space at
+        the time. <a href="https://learn.microsoft.com/en-us/viva/goals/goals-retirement" target="_blank" rel="noopener noreferrer" class={link}>They sunset the product in 2025</a>. While it's unfortunate, it was all the more reason we knew we had to get this right… especially because our first attempt at it was so poorly received.
+      </p>
+      <p class="text-base leading-relaxed text-white">For your convenience, I've added a nice tl;dr section at the top of each chapter.</p>
+    </div>
+  </div>
+
+  <div id="cs1-elevator" class="mb-12 scroll-mt-16">
+    <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight text-white mb-6">tl;dr</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-4">
+      <ImageCarousel images={beforeImages} label="Before" interval={5000} zoomable />
+      <ImageCarousel images={afterImages} label="After" interval={5000} zoomable />
+    </div>
+    <p class="text-base leading-relaxed text-white mb-4">Our first attempt at OKR support in our goal-setting app failed in early access. Once we found out why it failed, we created an entirely new system to support how our customers actually structure OKRs in their organizations.</p>
+    <p class="text-base leading-relaxed text-white mb-4">As the lead content designer, I developed a new type system which updated our content and object model to bring in a taxonmy that better supported OKR models. I focused on the symbiotic relationship between <code class={term}>Objectives</code> and <code class={term}>Key results</code>, where you cannot have <code class={term}>Key results</code> without an <code class={term}>Objective</code>. But rather than make the OKRs the default for everyone, I developed <code class={term}>Success measures</code> as a generalized version of a <code class={term}>Key result</code> that would pair with the default Object type. Then, we gave customers the keys to customize their goal types as they saw fit, so they could use <code class={term}>Objectives</code> and <code class={term}>Key Results</code>, or the more "default" <code class={term}>Goals</code> and <code class={term}>Success measures</code>, or even <code class={term}>KPIs</code> or <code class={term}>BHAGs</code> or whatever else they might want.</p>
+    <p class="text-base leading-relaxed text-white mb-4">Which I was opposed to from a scalability perspective, but giving customers that level of customization <em>was</em> a better experience that addressed customer requests. But it caused a bunch of localization issues that I had to resolve in the 11th hour, and plugging in fully custom UGC began causing language clarity problems after launch.</p>
+    <p class="text-base leading-relaxed text-white mb-4">All in all, we delivered the OKR feature and saw ~1,500 success measures created daily for the first month of launch. Feedback in both public and internal channels was mostly positive, with many enterprise clients now willing to adopt the Goals app using this new system. You can read the full story below.</p>
+  </div>
+
+  <div id="cs1-prologue" class="mb-12 scroll-mt-16">
+    <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight text-white mb-6">Prologue: An App is Born</h2>
+    <div class="bg-[#3a3a3a] rounded-lg px-5 py-4 mb-6"><p class="text-sm text-[#cccccc] leading-relaxed"><span class="font-semibold text-white">tl;dr</span> There was once an app called Atlas which let you share weekly project updates and monthly goal updates. Then one day, it was split into four apps: Atlassian Home, Goals, Projects, and Teams.</p></div>
+    <figure class="my-6"><img src="/images/atlassian/atlasheader.png" alt="Atlas header" class="rounded-lg max-w-full" onerror="this.closest('figure').style.display='none'" /></figure>
+    <p class="text-base leading-relaxed text-white mb-4">Before I joined Atlassian, there was an internal incubator program kicked up around 2019 that they called New Product Frameworks, or NPFs. It was a rigorous process in which you pitched a new product idea to Atlassian exec leadership, and if you got approved, you'd be fully funded to develop your product with your core team. <a href="https://www.atlassian.com/blog/announcements/introducing-atlas-teamwork-directory" target="_blank" rel="noopener noreferrer" class={link}>Atlas</a> was one such product that spun out of that program, and for a while, was its biggest success story.</p>
+    <p class="text-base leading-relaxed text-white mb-4">The idea behind Atlas was simple: streamline, simplify, and standardize status updates on your work. Based on an existing Atlassian comms ritual called <a href="https://www.atlassian.com/loop/about" target="_blank" rel="noopener noreferrer" class={link}>"The Loop"</a>, you would create a project for whatever you're working on that's about the size of an epic in Jira. Every Friday, you'd write a short, tweet-sized update (280 characters max) about what happened in your project that week. Then every Monday, your followers will read your update along with any other projects they're following in one nice, consolidated update feed. Same place, same time every week (or month for goals), meaning less pings saying, "Whats the latest on project X?" or "can you jump on a call and update me on the progress?"</p>
+    <p class="text-base leading-relaxed text-white">And while it GA'd in 2023 (only a few months before I joined the team as the first and only embedded content designer), it was only in May 2024 that the product was <a href="https://community.atlassian.com/forums/Goals-and-Projects-articles/Atlas-is-evolving/ba-p/2686154" target="_blank" rel="noopener noreferrer" class={link}>moved to the Atlassian platform</a> and its features offered for free to any customers with an Atlassian site. At this point, the Atlas homepage became Atlassian Home, meant to be the entry point to anywhere in Atlassian. For the next year, we would eventually see that each of Atlas's features would be split into their own app experiences: Atlassian Home would remain as is, but <a href="https://community.atlassian.com/forums/Goals-and-Projects-articles/Goals-navigation-changes-coming-soon/ba-p/2987557" target="_blank" rel="noopener noreferrer" class={link}>Goals</a>, <a href="https://community.atlassian.com/forums/Goals-and-Projects-discussions/Atlassian-Projects-is-now-a-Platform-app/td-p/3177341" target="_blank" rel="noopener noreferrer" class={link}>Projects</a>, and Teams would each become their own app. While not fully relevant to this case study, my humble brag moment here is that I oversaw the communications and in-app changeboarding for each of these new app launches.</p>
+  </div>
+
+  <div id="cs1-ch1" class="mb-12 scroll-mt-16">
+    <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight text-white mb-6">Chapter 1: What Are Goals Even Anyway?</h2>
+    <div class="bg-[#3a3a3a] rounded-lg px-5 py-4 mb-6"><p class="text-sm text-[#cccccc] leading-relaxed"><span class="font-semibold text-white">tl;dr</span> Using our single-object-type model in Goals, we created a lightweight type system to introduce custom terms and OKR support. It was not well received.</p></div>
+    <p class="text-base leading-relaxed text-white mb-4">Fast forward to late 2024/early 2025 when the Goals app began developing a system to support OKR modeling within goals following a lot of customer feedback requesting these features. This was all a part of our push toward enterprise readiness, since Goals was used by many tech companies most of whom used the OKR framework and any larger enterprise companies <em>require</em> sets of functionality, including OKR representation.</p>
+    <div class="float-left mr-6 mb-4 w-[45%] max-w-[480px]"><ZoomableImage src="/images/atlassian/goalpage.png" alt="The goal page in the Goals app" /></div>
+    <p class="text-base leading-relaxed text-white mb-4">At this point in time, Goals had a very simple object model:</p>
+    <ul class="mb-4 space-y-1 pl-4">
+      <li class="flex items-start gap-2.5 text-base text-white leading-relaxed"><span class="mt-2 w-1 h-1 rounded-full bg-[#555555] shrink-0"></span>You had goals</li>
+      <li class="flex items-start gap-2.5 text-base text-white leading-relaxed"><span class="mt-2 w-1 h-1 rounded-full bg-[#555555] shrink-0"></span>And you could nest them under other goals, making the nested goal a "sub-goal"</li>
+      <li class="flex items-start gap-2.5 text-base text-white leading-relaxed"><span class="mt-2 w-1 h-1 rounded-full bg-[#555555] shrink-0"></span>And you could link them to projects and Jira spaces (FKA projects, which this sentence may help explain the name change)</li>
+    </ul>
+    <p class="text-base leading-relaxed text-white mb-4">And that was pretty much it. While the initial intention with nested sub-goals <em>was</em> to act as a KR-like object, there were no distinctions between sub-goals treated as an actual sub goal and sub-goals that were KRs. Which brought us to our first iteration of goal types. Due to the typical timeline constraints and <a href="https://www.atlassian.com/roadmap/cloud/goal-types?sortBy=timeFrame&sort=asc&p=14d2d9fd-6d" target="_blank" rel="noopener noreferrer" class={link}>a public roadmap item we needed to meet</a>, we opted for the simplest solution: give Goals app admins the ability to create custom goal types which would change the name without any significant functionality change. That way, you <em>could</em> distinguish sub-goals and actual KRs because the type label would indicate as much.</p>
+    <p class="text-base leading-relaxed text-white mb-4">Or so we thought.</p>
+    <div class="clear-both"></div>
+    <div class="max-w-[65%] mx-auto"><figure class="my-6"><img src="/images/atlassian/goalsquote.png" alt="Customer feedback quote about goal types" class="rounded-lg max-w-full" onerror="this.closest('figure').style.display='none'" /></figure></div>
+    <p class="text-base leading-relaxed text-white">We released the feature in early access to several customers, and received a lot of feedback that it did not fulfill a lot of our customers needs. Which meant it was time to go back to the drawing board.</p>
+  </div>
+
+  <div id="cs1-ch2" class="mb-12 scroll-mt-16">
+    <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight text-white mb-6">Chapter 2: Feedback and Research Phase</h2>
+    <div class="bg-[#3a3a3a] rounded-lg px-5 py-4 mb-6"><p class="text-sm text-[#cccccc] leading-relaxed"><span class="font-semibold text-white">tl;dr</span> Customers felt the model was broken and didn't align with the actual OKR framework. They also really wanted to see OKR language in the app.</p></div>
+    <p class="text-base leading-relaxed text-white mb-4">While some customers gave proactive feedback via the community group and other channels, we also had several customer conversations to dig into both the feature's inadequacies and what they were <em>actually</em> looking to create. From all these inputs, a few key themes emerged:</p>
+    <ol class="space-y-4 mb-4">
+      <li class="flex items-start gap-3 text-base text-white leading-relaxed"><span class="text-[#888888] shrink-0 font-medium">1.</span><span>In our system, you could create a <code class={term}>Key Result</code> object without any other connections, but a sole <code class={term}>Key Result</code> object just doesn't make sense without an <code class={term}>Objective</code> to tie it to.</span></li>
+      <li class="flex items-start gap-3 text-base text-white leading-relaxed"><span class="text-[#888888] shrink-0 font-medium">2.</span><span>Many enterprise customers in particular wanted to see <code class={term}>Objective</code> and <code class={term}>Key Result</code> language in the UI, meaning they didn't want to see <code class={term}>Goal</code> objects — only <code class={term}>Objective</code>. More on this later.</span></li>
+      <li class="flex items-start gap-3 text-base text-white leading-relaxed"><span class="text-[#888888] shrink-0 font-medium">3.</span><span>While the type system distinguished between <code class={term}>Key Result</code> objects and <code class={term}>Sub-goal</code> objectives, they sat equally on a parent goal's list of <code class={term}>Sub-goals</code> and nested in directory lists without any indication of hierarchy or differentiation. In other words, they look as though they are equivalent, but they are not.</span></li>
+    </ol>
+    <p class="text-base leading-relaxed text-white">All in all, we had the rare combination where semantics and text labels <em>actually</em> mattered plus an underlying object model that was not fully clear or easy to understand. To move forward with a real solution, we had to untangle both the object model and the content model all at once.</p>
+  </div>
+
+  <div id="cs1-ch3" class="mb-12 scroll-mt-16">
+    <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight text-white mb-6">Chapter 3: The Two-Model Problem</h2>
+    <div class="bg-[#3a3a3a] rounded-lg px-5 py-4 mb-6"><p class="text-sm text-[#cccccc] leading-relaxed"><span class="font-semibold text-white">tl;dr</span> Our object model in the platform apps overall were confusing compared to other premium apps. While other apps follow a normal App » Container » Collective object (primitive) » Object type model where every layer has a different name, Goals had Goals (app) » Goals (container) » Goals (primitive) » Goal (default object type).</p></div>
+    <p class="text-base leading-relaxed text-white mb-4">As the content lead, I took the lead on sorting out this out by starting with the content model. One of the core problems was how we structure concepts within apps at Atlassian. The typical hierarchical structure that most of the Atlassian apps abide by is as follows:</p>
+    <ul class="mb-4 space-y-1 pl-4">
+      <li class="flex items-start gap-2.5 text-base text-white leading-relaxed"><span class="mt-2 w-1 h-1 rounded-full bg-[#555555] shrink-0"></span><span>App » <code class={term}>Jira</code></span></li>
+      <li class="flex items-start gap-2.5 text-base text-white leading-relaxed pl-4"><span class="mt-2 w-1 h-1 rounded-full bg-[#555555] shrink-0"></span><span>Container » <code class={term}>Space</code> (FKA <code class={term}>Project</code>)</span></li>
+      <li class="flex items-start gap-2.5 text-base text-white leading-relaxed pl-8"><span class="mt-2 w-1 h-1 rounded-full bg-[#555555] shrink-0"></span><span>Collective object (primitive) » <code class={term}>Work item</code> (FKA <code class={term}>Issue</code>)</span></li>
+      <li class="flex items-start gap-2.5 text-base text-white leading-relaxed pl-12"><span class="mt-2 w-1 h-1 rounded-full bg-[#555555] shrink-0"></span><span>Object type » <code class={term}>Bug</code>, <code class={term}>Story</code>, <code class={term}>Task</code>, <code class={term}>Epic</code>, etc.</span></li>
+    </ul>
+    <p class="text-base leading-relaxed text-white mb-6">The 3rd layer, which we called a "Primitive", was where a lot of the content problem was happening. Looking at the above example, the "Work item" primitive refers to any of the following types collectively, giving a way to group several types under one term, which was particularly helpful in UI elements and microcopy. But for Goals, and actually all of our platform apps, they followed a… more confused pattern.</p>
+    <div class="flex flex-col sm:flex-row gap-4 sm:gap-8 mb-6">
+      {objModels.map(([app, container, primitive, type]) => (
+        <div class="flex-1">
+          <ul class="space-y-1">
+            <li class="flex items-start gap-2 text-sm text-white"><span class="mt-1.5 w-1 h-1 rounded-full bg-[#555555] shrink-0"></span><code class={term}>{app}</code></li>
+            <li class="flex items-start gap-2 text-sm text-white pl-4"><span class="mt-1.5 w-1 h-1 rounded-full bg-[#555555] shrink-0"></span><code class={term}>{container}</code></li>
+            <li class="flex items-start gap-2 text-sm text-white pl-8"><span class="mt-1.5 w-1 h-1 rounded-full bg-[#555555] shrink-0"></span><code class={term}>{primitive}</code></li>
+            <li class="flex items-start gap-2 text-sm text-white pl-12"><span class="mt-1.5 w-1 h-1 rounded-full bg-[#555555] shrink-0"></span><code class={term}>{type}</code></li>
+          </ul>
+        </div>
+      ))}
+    </div>
+    <p class="text-base leading-relaxed text-white mb-4">Backing up to the prologue where Atlas was debranded and split into 4 individual apps, it was decided (at a level above my paygrade) that each app would retain a smaller feature set (compared to a Jira or Confluence) and would adopt their core function as the name rather than get a branded name (like Focus or Confluence).</p>
+    <p class="text-base leading-relaxed text-white mb-4">To go even further, each app (apart from Home) did not have containers built into the app—each app only featured a directory page with filters and saved views, but no other way to meaningfully group objects together.</p>
+    <div class="float-right ml-6 mb-4 w-[45%] max-w-[480px]"><ZoomableImage src="/images/atlassian/directory.png" alt="Goals directory page" /><figcaption class="mt-2 text-xs text-[#888888] leading-relaxed">Unlike Confluence and Jira, Goals did not have spaces or other container methods to group objects together. Just filters and different ways to slice the directory details.</figcaption></div>
+    <p class="text-base leading-relaxed text-white mb-4">Without any real containers, the next best thing was the title of the page, which you can see in the screenshot above is just the object name… again.</p>
+    <p class="text-base leading-relaxed text-white mb-4">Until this point, none of these apps have had object types to poke holes in the content model. Because naming the default object type after the primitive isn't actually a problem when there are no other types. But once you have the collective <code class={term}>Goals</code> primitive and then there's a <code class={term}>Goal</code> type and an <code class={term}>Objective</code> type but both are <code class={term}>Goals</code>, it becomes unclear when to use what and whether the <code class={term}>Goals</code> primitive refers to just the <code class={term}>Goal</code> object or everything in the app.</p>
+    <p class="text-base leading-relaxed text-white">While an entire content model overhaul across all three of our platform apps was not in the cards for this project, the next best thing was creating an object type system to move forward, with the intent of adding in as much scalability as possible for the other apps.</p>
+    <div class="clear-both"></div>
+  </div>
+
+  <div id="cs1-ch4" class="mb-12 scroll-mt-16">
+    <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight text-white mb-6">Chapter 4: Approaching a Solution</h2>
+    <div class="bg-[#3a3a3a] rounded-lg px-5 py-4 mb-6"><p class="text-sm text-[#cccccc] leading-relaxed"><span class="font-semibold text-white">tl;dr</span> We introduced <code class={term}>Success measures</code> which were only attached to a parent goal. This solved 2 of the 3 problems.</p></div>
+    <p class="text-base leading-relaxed text-white mb-4">With all of this context and feedback and current state in mind, what did we actually come up with? We prioritized by the feedback first and foremost, then explored how the solution could scale to the other apps:</p>
+    <ol class="space-y-6 mb-6">
+      <li class="text-base text-white leading-relaxed">
+        <div class="flex items-start gap-3 mb-2"><span class="text-[#888888] shrink-0 font-medium">1.</span><span>In our system, you could create a <code class={term}>Key Result</code> object without any other connections, but a sole <code class={term}>Key Result</code> object just doesn't make sense without an <code class={term}>Objective</code> to tie it to.</span></div>
+        <div class="flex items-start gap-3 pl-5"><span class="text-[#888888] shrink-0 font-medium">a.</span><span><span class="text-[#22c55e] font-semibold">SOLUTION:</span> We needed to introduce a functionally different object that would nest under a goal and could not exist without it.</span></div>
+      </li>
+      <li class="text-base text-white leading-relaxed">
+        <div class="flex items-start gap-3 mb-2"><span class="text-[#888888] shrink-0 font-medium">2.</span><span>Many enterprise customers in particular wanted to see <code class={term}>Objective</code> and <code class={term}>Key Result</code> language in the UI, meaning they didn't want to see <code class={term}>Goal</code> objects — only <code class={term}>Objective</code>. More on this later.</span></div>
+        <div class="flex items-start gap-3 pl-5"><span class="text-[#888888] shrink-0 font-medium">a.</span><span><span class="text-[#22c55e] font-semibold">SOLUTION:</span> We'd need a way to show custom terms in the UI where applicable, and ideally support whatever language experience customers want.</span></div>
+      </li>
+      <li class="text-base text-white leading-relaxed">
+        <div class="flex items-start gap-3 mb-2"><span class="text-[#888888] shrink-0 font-medium">3.</span><span>While the type system distinguished between <code class={term}>Key Result</code> objects and <code class={term}>Sub-goal</code> objects, they sat equally on a parent goal's list of <code class={term}>Sub-goals</code> and nested in directory lists without any indication of hierarchy or differentiation. In other words, they look as though they are equivalent, but they are not.</span></div>
+        <div class="flex items-start gap-3 pl-5"><span class="text-[#888888] shrink-0 font-medium">a.</span><span><span class="text-[#22c55e] font-semibold">SOLUTION:</span> By resolving problem #1, we should theoretically resolve this one as well. Either way, we would list them differently and distinguish them in directory views.</span></div>
+      </li>
+    </ol>
+    <p class="text-base leading-relaxed text-white mb-4">In addition to supporting OKRs and other custom terms as types (similar to our original iteration), we knew that in order to properly support <code class={term}>Key results</code> in a framework-accurate way, we'd need to build something distinct from the goal object. Working in close collaboration with the PM and Product Designer on the project, we landed on <code class={term}>Success measures</code>, which were meant to function as both the primitive and a type in the same way <code class={term}>Goals</code> does.</p>
+    <figure class="my-6"><img src="/images/atlassian/model.png" alt="The object model for Goals showing success measures as a separate primitive" class="rounded-lg max-w-full" onerror="this.closest('figure').style.display='none'" /></figure>
+    <p class="text-base leading-relaxed text-white mb-4"><code class={term}>Success measures</code>, used interchangeably with <code class={term}>Key results</code>, would live primarily on the parent goal and be treated differently from sub-goals. They could only be created on the parent goal page and therefore could not exist without a parent attached.</p>
+    <p class="text-base leading-relaxed text-white">As part of the content design practice at Atlassian, I defined <code class={term}>Success measure</code> as a new, dependent object type, owning the definition in the Atlassian System of Work library, an internal record of all the objects and concepts we use in our apps. I was already responsible for several other concepts, including how verification works at a systems level, but I'd developed the content perspective on <code class={term}>Success measures</code> from the ground up and solidifying it in the library felt like seeing it through to completion.</p>
+    <p class="text-base leading-relaxed text-white mt-4">Functionally distinct ✅. Treated differently than sub-goals ✅. Now, if we could only solve that OKR language problem…</p>
+  </div>
+
+  <div id="cs1-ch45" class="mb-12 scroll-mt-16">
+    <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight text-white mb-6">Chapter 4.5: Speed Bumps Incoming…</h2>
+    <div class="bg-[#3a3a3a] rounded-lg px-5 py-4 mb-6"><p class="text-sm text-[#cccccc] leading-relaxed"><span class="font-semibold text-white">tl;dr</span> In order to appease customer requests, we decided to insert custom user terms into our UI. It went poorly with localization, and we had to scramble for a solution, which ended up being a lot of manual "short-term" resolutions to abide by localization requirements.</p></div>
+    <p class="text-base leading-relaxed text-white mb-4">The much trickier problem was figuring out how to incorporate OKR language in the UI without full clarity on <em>how much</em> OKR language our customers actually wanted. From our customer conversations, it seemed like a mix of opinions, with some wanting even the app to be called OKRs, some wanting UI labels to reflect "Objective" instead of "Goal". What we did know for sure was that "Key results" <em>had</em> to be in there in a significantly more meaningful way so customers would immediately know its purpose. And that's where <code class={term}>Success measures</code> started to fall a bit short.</p>
+    <p class="text-base leading-relaxed text-white mb-6">While <code class={term}>Goals</code> had the benefit of being generally understandable in our cursed content model, <code class={term}>Success measures</code> was entirely made up and could not be easily understood without specificity. It was also long, so referring to <code class={term}>Success measures</code> as a primitive to include <code class={term}>Key results</code> would be awkward and not immediately be clear, not to mention customers who would <em>only</em> want <code class={term}>Objective</code> and <code class={term}>Key result</code> object types and nothing else.</p>
+    <p class="text-base leading-relaxed text-white mb-6">I proposed three different options, with varying degrees of feasibility:</p>
+    <div class="flex flex-col sm:flex-row gap-4 mb-6">
+      <div class="flex-1 bg-[#3a3a3a] rounded-lg p-4"><p class="text-sm text-white leading-relaxed"><span class="font-semibold">OPTION 1:</span> Adopt <code class={term}>Success measures</code> as the primitive anyway, because this was the most scalable solution, the literal reason we have primitives, and it was already decided that <code class={term}>Goals</code> would still be the primitive even with <code class={term}>Objectives</code> as a OOTB type.</p></div>
+      <div class="flex-1 bg-[#3a3a3a] rounded-lg p-4"><p class="text-sm text-white leading-relaxed"><span class="font-semibold">OPTION 2:</span> Dynamically insert custom terms in the UI, which I <span class="font-semibold">did not recommend</span> because of the unpredictability of custom terms in UI contexts ends up breaking a lot of contexts.</p></div>
+      <div class="flex-1 bg-[#3a3a3a] rounded-lg p-4"><p class="text-sm text-white leading-relaxed"><span class="font-semibold">OPTION 3:</span> Change the default object types to <code class={term}>Objectives</code> and <code class={term}>Key results</code> and let <code class={term}>Goal</code> and <code class={term}>Success measure</code> <em>only</em> be primitives. Not ideal because PM didn't want to force <em>all</em> our users into OKR structures.</p></div>
+    </div>
+    <p class="text-base leading-relaxed text-white">So anyway, I lost this battle and PM decided to go with Option 2. This meant we'd have to flag all the places in the UI custom terms would be plug into and use <code class={term}>Key results</code> as a placeholder since it was the most commonly anticipated term to be plugged in.</p>
+  </div>
+
+  <div id="cs1-ch475" class="mb-12 scroll-mt-16">
+    <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight text-white mb-6">Chapter 4.75: …Followed by a Sinkhole</h2>
+    <p class="text-base leading-relaxed text-white mb-4">I had a regular, fortnightly meeting with the localization PM who covers our apps. I shared the new flow using custom terms, and as expected, they flagged many concerns, most of which boiled down to these:</p>
+    <ol class="space-y-4 mb-6">
+      <li class="flex items-start gap-3 text-base text-white leading-relaxed"><span class="text-[#888888] shrink-0 font-medium">1.</span><span>As part of our solution to include custom terms, we added a field for the plural form of whatever they chose. But for localization, some languages have several plural forms depending on the context.</span></li>
+      <li class="flex items-start gap-3 text-base text-white leading-relaxed"><span class="text-[#888888] shrink-0 font-medium">2.</span><span>For many languages, words may have different forms depending on the context of the sentence, similar to how verbs conjugate differently depending on the subject of the sentence. With the way the tool translates words, it may just spit out the custom term in the entirely wrong form, or worse, as just an error in the middle of a sentence.</span></li>
+    </ol>
+    <p class="text-base leading-relaxed text-white mb-4">I went back to the core root of the problem, as most of the feedback we'd gotten wasn't to include <em>any</em> custom term—it was <em>only</em> OKR language from customers who exclusively used OKRs and similar frameworks. What felt like the better, longer term solution was creating a split experience where goals language (besides the app name) were aligned to OKR language entirely. But this would mean pushing out our dev time significantly, not to mention the requisite design activities for swapping <code class={term}>Goal</code> out for <code class={term}>Objective</code>.</p>
+    <p class="text-base leading-relaxed text-white mb-4">Working with the lead product designers on our team, we decided to follow Jira's solutions for including custom terms in the UI, which largely required separating out the custom term from any other content as much as possible. That would mean standalone microcopy with just the custom term and other workarounds to make it localizable. It wasn't ideal, but with the public roadmap deadline approaching and dev time being wasted waiting for final designs, we had to move forward.</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div><ZoomableImage src="/images/atlassian/old-goalpage-withkrs.png" alt="Original goal page design with key results" /><figcaption class="mt-2 text-xs text-[#888888] leading-relaxed">This is what we originally designed and was ready to ship before localization problems arose</figcaption></div>
+      <div><ZoomableImage src="/images/atlassian/localization-adjusted.png" alt="Adjusted content labels for localization" /><figcaption class="mt-2 text-xs text-[#888888] leading-relaxed">And this is how I adjusted the content labels in the UI to allow localization to proceed.</figcaption></div>
+    </div>
+  </div>
+
+  <div id="cs1-ch5" class="mb-12 scroll-mt-16">
+    <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight text-white mb-6">Chapter 5: And Finally, We Launch</h2>
+    <div class="bg-[#3a3a3a] rounded-lg px-5 py-4 mb-6"><p class="text-sm text-[#cccccc] leading-relaxed"><span class="font-semibold text-white">tl;dr</span> We met our deadline and launched to mostly positive results, with enough feedback to give us a clear path forward.</p></div>
+    <p class="text-base leading-relaxed text-white mb-4">In the first month of launch, we saw <strong>~1,500 success measures created per day</strong>, which was strong considering we released near the end of the calendar year. We deliberately left the onboarding experience on for about 2 months, which is longer than usual but would give returning users in the new year the opportunity to see it and experiment with the feature ahead of planning for following quarters and the fiscal year.</p>
+    <p class="text-base leading-relaxed text-white mb-4">We managed to meet the roadmap deadline with a <a href="https://community.atlassian.com/forums/Goals-and-Projects-articles/Goal-Types-and-better-support-for-OKRs-are-coming-soon/ba-p/3151925" target="_blank" rel="noopener noreferrer" class={link}>progressive release</a> to our customers. While the announcement was met with mostly positive sentiment, ongoing feedback pointed out further gaps in our experience that showed we were generally moving in the right direction, at least moreso than our original release. We'd already been testing this model at different points in the design process, but we managed to get in a final round of usability testing a few months before our actual launch.</p>
+    <div class="max-w-[65%] mx-auto"><figure class="my-6"><img src="/images/atlassian/quotes.png" alt="Usability testing quotes from customers" class="rounded-lg max-w-full" onerror="this.closest('figure').style.display='none'" /></figure></div>
+    <p class="text-base leading-relaxed text-white mb-6">From the comments on the community thread announcing the feature and individual posts after the announcement, we can glean the following sentiment breakdown:</p>
+    <div class="grid grid-cols-1 min-[480px]:grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+      <div class="bg-[#3a3a3a] rounded-lg p-4"><p class="text-xs text-[#888888] uppercase tracking-widest font-medium mb-2">Positive</p><p class="text-[#22c55e] font-semibold text-sm mb-1">~9 posts (~15%)</p><p class="text-xs text-[#aaaaaa] leading-relaxed">Comments on the announcement post expressing excitement over the feature.</p></div>
+      <div class="bg-[#3a3a3a] rounded-lg p-4"><p class="text-xs text-[#888888] uppercase tracking-widest font-medium mb-2">Mixed/positive</p><p class="text-[#f97316] font-semibold text-sm mb-1">~22 posts (~37%)</p><p class="text-xs text-[#aaaaaa] leading-relaxed">Posts where the direction was praised, but questions, concern, or feedback were noted.</p></div>
+      <div class="bg-[#3a3a3a] rounded-lg p-4"><p class="text-xs text-[#888888] uppercase tracking-widest font-medium mb-2">Negative/critical</p><p class="text-[#ef4444] font-semibold text-sm mb-1">~18 posts (~30%)</p><p class="text-xs text-[#aaaaaa] leading-relaxed">Posts that express frustration over functionality changes or specific aspects of its implementation.</p></div>
+      <div class="bg-[#3a3a3a] rounded-lg p-4"><p class="text-xs text-[#888888] uppercase tracking-widest font-medium mb-2">No sentiment</p><p class="text-[#3b82f6] font-semibold text-sm mb-1">~11 posts (~18%)</p><p class="text-xs text-[#aaaaaa] leading-relaxed">Posts that were troubleshooting, bug reporting, or seeking help/assistance.</p></div>
+    </div>
+    <p class="text-base leading-relaxed text-white">A lot of the feedback and criticism was directed at the way progress and metrics rolled up to the overall goal's progress. Previously, sub-goals would inform the goal's progress, which we opted to maintain for any existing goals to prevent as much disruption as possible. Going forward however, goal progress would be informed by its <code class={term}>success measures</code> or <code class={term}>key results</code> with no option to go back to sub-goals. This, plus other feedback gathered from other channels, gave us clear next steps and fast follow improvements that I was actively working with PM and Product design on before my time at Atlassian was cut short.</p>
+  </div>
+
+  <div id="cs1-epilogue" class="border-t border-[#555555] pt-12 scroll-mt-16">
+    <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight text-white mb-6">Epilogue: Live to Write Another Day</h2>
+    <div class="space-y-4">
+      <p class="text-base leading-relaxed text-white">In developing the sub-goal rollup feature, it became clear just <em>how</em> unsustainable our solution to the localization problem actually was. I was writing surfaces with the knowledge of localization this time around, but we were actively losing clarity by not being able to mention either <code class={term}>Key result</code> or <code class={term}>Success measure</code> in the guiding contexts of the feature. It wouldn't be just for a few surfaces either, every new feature we'd build would always come up against the same problem until we actually went with a longer term solution, which I believed was the experience toggle where users (likely admins) could select whether they wanted to see goal language or OKR language. Microsoft Viva Goals did it this way, so I'd begun thinking about how we might apply this to our own app.</p>
+      <p class="text-base leading-relaxed text-white">To be clear, I don't think introducing custom terms was the wrong choice. It was a clear ask from our customers, and we knew we'd have to address it to keep up. But if we'd brought this up much earlier in the process, and possibly did more holistic assessments of how localization might've affected our plans when we were still exploring solutions, we might've been able to avoid a lot of these issues. Heck, our solution might've looked <em>entirely</em> different if we'd addressed localization and the OKR language problem a lot sooner.</p>
+      <p class="text-base leading-relaxed text-white">I like this project as a case study, mostly because it took the better part of an entire year to work through, but also because it reinforces something I keep running into with content systems work: the hardest problems aren't the ones that look hard on the surface. The localization issue looked like a translation problem. The object model issue looked like a naming problem. But neither of them were as simple as it might've seemed on the surface—instead, the problem was in the structure and structural problems don't get better by throwing more words and labels at them. They only get better when you take the time to define the right structure first, even when the roadmap is breathing down your neck. That's what this work was really about. Not OKRs, nor goal types or success measures. Just the slow, careful work of getting the foundation right so that everything we build on top of it actually holds.</p>
+    </div>
+  </div>
+</CaseStudyLayout>

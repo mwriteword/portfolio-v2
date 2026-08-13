@@ -1,0 +1,167 @@
+---
+import CaseStudyLayout from "../../../layouts/CaseStudyLayout.astro";
+import ZoomableImage from "../../../components/ZoomableImage.astro";
+
+const sections = [
+  { id: "section-demo", label: "Workflow demo" },
+  { id: "section-context", label: "Context" },
+  { id: "section-process", label: "Process" },
+  { id: "section-result", label: "Result" },
+];
+const link = "text-[#06b6d4] hover:text-[#22d3ee] transition-colors underline underline-offset-2";
+---
+
+<CaseStudyLayout
+  title="Risk Agent Workflow — Atlassian"
+  description="An agentic Rovo workflow, built and evaluated in a 3-hour session, that turns logged risks into structured, actionable summaries in Confluence."
+  path="/portfolio/case-study/risk-agent"
+  label="Risk Agent Workflow"
+  accent="#06b6d4"
+  sections={sections}
+>
+  <div class="flex flex-col sm:flex-row gap-6 sm:gap-12 mb-12">
+    <div class="flex-shrink-0 sm:w-52">
+      <div class="space-y-4">
+        <div><p class="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Role</p><p class="text-white text-sm">Senior Content Designer</p></div>
+        <div><p class="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Company</p><p class="text-white text-sm">Atlassian</p></div>
+        <div><p class="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Timeline</p><p class="text-white text-sm">3-hour build session</p></div>
+        <div><p class="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Collaborators</p><p class="text-white text-sm">Just me 😇</p></div>
+        <div><p class="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">In this case study</p><p class="text-white text-sm">Content Design, Information Architecture, AI Content, Agentic Workflow Development, Agent Evaluation, Prompt Design, Feature Development, Automation</p></div>
+      </div>
+    </div>
+    <div class="flex-1 space-y-4">
+      <p class="text-base leading-relaxed text-white">
+        Atlassian hosted a few AI Builders Weeks during my time there, filled with several informative
+        sessions and demos about different ways to integrate AI tools into your daily workflow. At the
+        end of the last builders week I attended, we had a 3-hour build session where we could either
+        team up with others or build something on our own. At the last minute, I decided to build an
+        agentic workflow that would enhance a low-use feature in the Goals and Projects app.
+      </p>
+    </div>
+  </div>
+
+  <div id="section-demo" class="scroll-mt-16 mb-12">
+    <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight text-white mb-6">Workflow demo</h2>
+    <div class="w-full mb-3">
+      <div class="relative w-full rounded-lg overflow-hidden border border-white/5 bg-[#1a1a1a]" style="padding-bottom:62.5%" data-demo data-demo-src="https://risk-agent-demo.lovable.app/">
+        <button type="button" data-demo-load aria-label="Load interactive demo" class="group absolute inset-0 flex flex-col items-center justify-center gap-3 transition-colors hover:bg-white/5">
+          <span class="flex h-14 w-14 items-center justify-center rounded-full bg-[#06b6d4] text-white transition-transform group-hover:scale-105">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+          <span class="text-sm font-medium text-[#cccccc] group-hover:text-white">Load interactive demo</span>
+        </button>
+      </div>
+      <p class="mt-2 text-xs text-[#888888]"><a href="https://risk-agent-demo.lovable.app/" target="_blank" rel="noopener noreferrer" class={link}>Open the live demo ↗</a></p>
+    </div>
+    <p class="text-base leading-relaxed text-white">
+      This demo is a recreation I made of what the intended workflow would've looked like. The actual
+      agent details and instructions were proprietary, and I do not have access to the assets I created.
+    </p>
+  </div>
+
+  <div id="section-context" class="scroll-mt-16 mb-12">
+    <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight text-white mb-6">Context</h2>
+    <p class="text-base leading-relaxed text-white mb-4">
+      In both the Goals and Projects apps, there is a "Risk" feature that lets you catalogue an
+      identified risk over the course of the goal or project lifecycle. The main problem was that it
+      <em>just</em> catalogued the risk, and didn't provide any real action or utility beyond identifying
+      it. In real life, risks have their own lifecycle, where strategies are discussed and decisions are
+      made and mitigation happens to balance the risk. But none of that was happening in our apps — all
+      the useful information was kept somewhere else and you would only hope a later project update would
+      capture its resolution.
+    </p>
+    <div class="max-w-3xl mx-auto">
+      <ZoomableImage src="/images/atlassian/agentic/risk-feature.png" alt="The Risk feature in the Goals and Projects apps" />
+      <figcaption class="mt-2 text-xs text-[#888888] leading-relaxed">And that's about all you would see and do with a risk.</figcaption>
+    </div>
+    <p class="text-base leading-relaxed text-white mt-6">
+      So for Builders Week, rather than just slap AI/Rovo chat into the Goals and Projects apps, I
+      decided to use our own AI tools to try and extend the risk feature into something more useful and
+      actionable.
+    </p>
+  </div>
+
+  <div id="section-process" class="scroll-mt-16 mb-12">
+    <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight text-white mb-6">Process</h2>
+    <p class="text-base leading-relaxed text-white mb-4">
+      In the session, I started with <a href="https://www.atlassian.com/software/rovo/studio" target="_blank" rel="noopener noreferrer" class={link}>Atlassian Studio</a>, a bespoke tool for users to build their own AI tools and agents. I described what the agentic workflow should do and look like, and I started by building the agent profile.
+    </p>
+    <p class="text-base leading-relaxed text-white mb-4">
+      Using Rovo itself, I created the agent instructions and the general Confluence template. In order
+      to determine both what information should be in the template and what outputs the agent should
+      generate, I RAG-trained the agent on any and all Risk Summary/Mitigation documents it could find in
+      Atlassian's internal Confluence instance. Rovo found and analyzed docs going back almost 15 years to
+      determine the right template and content to generate.
+    </p>
+    <p class="text-base leading-relaxed text-white mb-4">
+      I refined the agent's instructions based on the findings from analyzing those risk documents,
+      making sure it knew how to read the comment/message text against this context and generate content
+      in the template that stakeholders would find useful.
+    </p>
+    <p class="text-base leading-relaxed text-white mb-4">
+      Once the agent was able to analyze a risk message and generate a risk summary page, I moved on to
+      the necessary automations within Studio. The automation flow went:
+    </p>
+    <ol class="space-y-3 mb-6">
+      <li class="flex gap-3 text-base leading-relaxed text-white"><span class="text-[#06b6d4] font-semibold shrink-0 w-5 text-right">1.</span><span>Agent invoked in a Confluence comment.</span></li>
+      <li class="text-base leading-relaxed text-white">
+        <div class="flex gap-3"><span class="text-[#06b6d4] font-semibold shrink-0 w-5 text-right">2.</span><span>Run core agent function.</span></div>
+        <ul class="mt-2 ml-8 space-y-1.5">
+          <li class="flex gap-2.5 text-sm text-[#cccccc] leading-relaxed"><span class="text-[#888888] shrink-0">a.</span><span>Analyze comment/thread.</span></li>
+          <li class="flex gap-2.5 text-sm text-[#cccccc] leading-relaxed"><span class="text-[#888888] shrink-0">b.</span><span>Generate page from template.</span></li>
+          <li class="flex gap-2.5 text-sm text-[#cccccc] leading-relaxed"><span class="text-[#888888] shrink-0">c.</span><span>Fill out the template with analyzed information.</span></li>
+        </ul>
+      </li>
+      <li class="flex gap-3 text-base leading-relaxed text-white"><span class="text-[#06b6d4] font-semibold shrink-0 w-5 text-right">3.</span><span>Reply back in thread with link to the newly generated page.</span></li>
+    </ol>
+    <p class="text-base leading-relaxed text-white">
+      Ideally, the agent would also generate a risk on the associated Project or Goal, but Atlassian's
+      Platform Apps were not integrated with Rovo or automation in the necessary way to make this final
+      step possible with these tools only.
+    </p>
+  </div>
+
+  <div id="section-result" class="scroll-mt-16 mb-12">
+    <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight text-white mb-6">Result</h2>
+    <p class="text-base leading-relaxed text-white mb-4">
+      A big part of my focus was on the content design output of this process: the template and the
+      instructions for how the agent should fill it out. I structured the template for usability,
+      organizing the content and information architecture to surface the most useful, critical
+      information up front. Using findings from the risk artifact assessment, I focused the instructions
+      on how to analyze the source message and surface the right information in the template.
+    </p>
+    <p class="text-base leading-relaxed text-white mb-4">
+      By the end, the agent could produce a filled-out risk summary page, which I tested using logged
+      risks on real Projects. Triggering the workflow from a comment was the one unfinished piece. I spent
+      the last hour of the session digging into the audit logs to find out which events were not firing
+      properly. I'd just found where it was breaking down when the session ended, but I'd learned enough
+      to know where to keep refining.
+    </p>
+    <p class="text-base leading-relaxed text-white">
+      By this point, inserting Rovo chat and auto-generated summaries felt like table-stakes applications
+      of AI. Going through this exercise and building the full agentic workflow felt like the first step
+      in applying AI to our apps and feature sets in ways that users would actually find useful. For risk
+      management, getting the workflow to trigger properly was just the cherry on top. But the real value
+      was in the template and the agent, getting stakeholders up to speed quickly with everything they
+      need to know on one page.
+    </p>
+  </div>
+</CaseStudyLayout>
+
+<script>
+  // Click-to-load the demo iframe. The embedded app autofocuses a field on load,
+  // which makes the browser scroll the page down to it — so we only mount the
+  // iframe on click (by which point the reader is already at the demo).
+  document.querySelectorAll<HTMLElement>("[data-demo]").forEach((wrap) => {
+    wrap.querySelector("[data-demo-load]")?.addEventListener("click", () => {
+      const src = wrap.getAttribute("data-demo-src");
+      if (!src) return;
+      const iframe = document.createElement("iframe");
+      iframe.src = src;
+      iframe.title = "Risk Agent workflow demo";
+      iframe.setAttribute("allow", "clipboard-write");
+      iframe.className = "absolute inset-0 w-full h-full";
+      wrap.replaceChildren(iframe);
+    });
+  });
+</script>

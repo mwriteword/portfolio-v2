@@ -1,0 +1,78 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import WritingNav from "../../components/WritingNav.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+
+const entries = (await getCollection("resources", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.datePublished.getTime() - a.data.datePublished.getTime(),
+);
+
+const title = "Resources — Content Design Guides & Answers";
+const description =
+  "Plain-language guides on content design, UX writing, content systems, and AI content — what they are, why they matter, and how to get them right.";
+
+const dateFmt = (date: Date) =>
+  date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
+
+const breadcrumb = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://wordsbyvern.com/" },
+    { "@type": "ListItem", position: 2, name: "Resources", item: "https://wordsbyvern.com/resources" },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/resources" jsonLd={[breadcrumb]}>
+  <main class="min-h-screen bg-background text-foreground">
+    <WritingNav active="/resources" />
+
+    <div class="max-w-[900px] w-[90%] mx-auto pt-6 pb-12 sm:pt-8 sm:pb-20">
+      <nav aria-label="Breadcrumb" class="mb-8">
+        <ol class="flex items-center gap-2 text-sm">
+          <li><a href="/" class="text-muted-foreground transition-colors hover:text-foreground">Home</a></li>
+          <li aria-hidden="true" class="text-muted-foreground/40">»</li>
+          <li aria-current="page" class="font-medium text-foreground">Resources</li>
+        </ol>
+      </nav>
+
+      <section class="mb-12 sm:mb-16">
+        <p class="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Resources</p>
+        <h1 class="mt-4 font-bold tracking-tight text-[40px] sm:text-[56px] leading-[1.05]">
+          Content design, in plain language
+        </h1>
+        <p class="mt-5 max-w-2xl text-[16px] sm:text-[20px] text-muted-foreground">
+          Straightforward guides on content design, UX writing, and content systems — what they are,
+          why they matter for your product, and how to get them right.
+        </p>
+      </section>
+
+      {
+        entries.length === 0 ? (
+          <p class="text-muted-foreground">New guides are on the way.</p>
+        ) : (
+          <ul class="flex flex-col gap-4">
+            {entries.map((entry) => (
+              <li>
+                <a
+                  href={`/resources/${entry.id}`}
+                  class="block rounded-2xl border border-border bg-card p-6 transition-colors hover:bg-muted/40"
+                >
+                  <h2 class="text-[20px] sm:text-[22px] font-bold tracking-tight">{entry.data.title}</h2>
+                  <p class="mt-2 text-[15px] leading-relaxed text-muted-foreground">{entry.data.description}</p>
+                  <p class="mt-3 text-xs text-muted-foreground">
+                    <time datetime={entry.data.datePublished.toISOString()}>{dateFmt(entry.data.datePublished)}</time>
+                  </p>
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+
+    <SiteFooter />
+  </main>
+</Layout>

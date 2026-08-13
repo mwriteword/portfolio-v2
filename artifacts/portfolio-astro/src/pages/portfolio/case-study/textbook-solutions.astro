@@ -1,0 +1,65 @@
+---
+import CaseStudyLayout from "../../../layouts/CaseStudyLayout.astro";
+import ZoomableImage from "../../../components/ZoomableImage.astro";
+
+const shots = [
+  "/images/coursehero/screenshot-1.png",
+  "/images/coursehero/screenshot-2.png",
+  "/images/coursehero/screenshot-3.png",
+  "/images/coursehero/screenshot-4.png",
+];
+---
+
+<CaseStudyLayout
+  title="Textbook Solutions — Course Hero"
+  description="SEO-optimized textbook descriptions written for Course Hero's Textbook Solutions product — without direct access to the source texts."
+  path="/portfolio/case-study/textbook-solutions"
+  label="Textbook Solutions"
+  accent="#a855f7"
+>
+  <div class="flex flex-col sm:flex-row gap-6 sm:gap-12 mb-12">
+    <div class="flex-shrink-0 sm:w-52">
+      <div class="space-y-4">
+        <div>
+          <p class="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Role</p>
+          <p class="text-white text-sm">Web Content Specialist, SEO (Contract)</p>
+        </div>
+        <div>
+          <p class="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Company</p>
+          <p class="text-white text-sm">Course Hero</p>
+        </div>
+        <div>
+          <p class="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Timeline</p>
+          <p class="text-white text-sm">~4 months</p>
+        </div>
+        <div>
+          <p class="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">In this case study</p>
+          <p class="text-white text-sm">SEO Content, Longform Content, Web Content</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-1 space-y-4">
+      <p class="text-base leading-relaxed text-white">
+        I picked up some extra work as a contractor writing web content for Course Hero, an ed-tech
+        company that provides students with learning resources. Their new Textbook Solutions product
+        required some web descriptions to be written, specifically using search engine-optimized (SEO)
+        phrases.
+      </p>
+      <p class="text-base leading-relaxed text-white">
+        In total, I wrote about 25 textbook descriptions. This was particularly tricky because I
+        couldn't actually access the textbooks I was writing about (due to being a contractor, and not
+        having full access to the company's servers). I had to get creative and develop a process for
+        writing these using only free Amazon previews and product descriptions from the publisher.
+      </p>
+      <p class="text-base leading-relaxed text-white">
+        For clarity, the bodies of content I wrote are the sections labeled "Textbook Summary" and
+        "Looking for Solutions to…?"
+      </p>
+    </div>
+  </div>
+
+  <div class="space-y-6">
+    {shots.map((src, i) => <ZoomableImage src={src} alt={`Course Hero textbook description example ${i + 1}`} />)}
+  </div>
+</CaseStudyLayout>

@@ -1,0 +1,96 @@
+---
+import CaseStudyLayout from "../../../layouts/CaseStudyLayout.astro";
+import ZoomableImage from "../../../components/ZoomableImage.astro";
+
+const sections = [
+  { id: "cs2-intro", label: "Intro Email" },
+  { id: "cs2-weekly", label: "Weekly Update" },
+  { id: "cs2-monthly", label: "Monthly Recap" },
+  { id: "cs2-results", label: "Results" },
+];
+---
+
+<CaseStudyLayout
+  title="Behavioral Load-Shaping Emails — Opower"
+  description="A three-part email series that drove real-world energy behavior change across five utility deployments — a 1–2% peak load shift and 3× email opens versus industry benchmarks."
+  path="/portfolio/case-study/bls-emails"
+  label="Behavioral Load-Shaping Emails"
+  accent="#22c55e"
+  sections={sections}
+>
+  <div class="flex flex-col sm:flex-row gap-6 sm:gap-12 mb-12 sm:mb-16">
+    <div class="flex-shrink-0 sm:w-52">
+      <div class="space-y-4">
+        <div><p class="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Role</p><p class="text-white text-sm">UX Copywriter / Content Lead</p></div>
+        <div><p class="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Company</p><p class="text-white text-sm">Oracle Utilities - Opower</p></div>
+        <div><p class="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Timeline</p><p class="text-white text-sm">~6 months</p></div>
+        <div><p class="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">Collaborators</p><p class="text-white text-sm">UX Designers & UX Researchers</p></div>
+        <div><p class="text-[#888888] text-xs uppercase tracking-widest font-medium mb-1">In this case study</p><p class="text-white text-sm">UX Writing, Behavior Change, Regulated Industry, Email Campaign, Data Visualization, Accessibility, Copywriting, Cross-functional Collaboration</p></div>
+      </div>
+    </div>
+    <div class="flex-1 space-y-4">
+      <p class="text-base leading-relaxed text-white">
+        In the evenings when most people are returning home from school or work, the demand for energy
+        gets very high because everyone is cooking, doing laundry, taking showers, watching TV, and other
+        electricity-intensive things all at the same time. Time-of-Use electricity plans were introduced
+        to help utilities mitigate energy load during these "peak hours" by charging less money when the
+        demand is lower and more when the demand is higher.
+      </p>
+      <p class="text-base leading-relaxed text-white">
+        As you may have noticed, this is not an easy concept to explain in 30 seconds or less. Some of
+        the participants in our research sessions were actually on a Time-of-Use rate in real life, but
+        didn't fully understand how it worked (humble-brag: they did after our session with them).
+      </p>
+      <p class="text-base leading-relaxed text-white">
+        In order to sustain actual behavior change, we developed an email communication series to give
+        customers relevant, useful data about their energy use and encourage them to shift their usage
+        away from peak hours.
+      </p>
+    </div>
+  </div>
+
+  <div id="cs2-intro" class="mb-12 sm:mb-16 scroll-mt-16">
+    <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight text-white mb-6 sm:mb-8">The Intro Email</h2>
+    <div class="flex flex-col sm:flex-row gap-6 sm:gap-12 items-start">
+      <div class="flex-1 space-y-4">
+        <p class="text-base leading-relaxed text-white">The challenge in this email was introducing the Rate Coach series while also re-iterating how Time-of-Use works. In order to keep the email from becoming too copy-heavy, I had limited real estate in the headlines of each module, as well as shorter body copy.</p>
+        <p class="text-base leading-relaxed text-white">Though not as prominent in this email, there is the ultimate goal of long-term behavior change. The primary data visualization shows their average hourly energy use from the last week. The headline gives the graph context, while the subhead prompts the customer into considering what their evening routine looks like, and how they could shift energy use away from peak hours.</p>
+      </div>
+      <div class="flex-shrink-0 w-full sm:w-64"><ZoomableImage src="/images/opower/intro-email.png" alt="Intro email design" /></div>
+    </div>
+  </div>
+
+  <div id="cs2-weekly" class="mb-12 sm:mb-16 scroll-mt-16">
+    <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight text-white mb-6 sm:mb-8">The Weekly Update</h2>
+    <div class="flex flex-col-reverse sm:flex-row gap-6 sm:gap-12 items-start">
+      <div class="flex-shrink-0 w-full sm:w-64"><ZoomableImage src="/images/opower/weekly-update.png" alt="Weekly update email design" /></div>
+      <div class="flex-1 space-y-4">
+        <p class="text-base leading-relaxed text-white">In contrast to the Intro Email, there is a lot less explanation required for this email. Instead, its main goal is to deliver their insights in a quick and easy-to-understand way.</p>
+        <p class="text-base leading-relaxed text-white">The primary headline of the email delivers the main insight we want them to understand: whether they did better or worse than the previous week. We know gamification works, but if you're more subtle about it (i.e. simply showing two data points rather than calling it a game), the idea can feel more organic and self-motivated for the user.</p>
+        <p class="text-base leading-relaxed text-white">Full disclosure: the short tip at the bottom beneath the "Ways to Save" headline was pulled from our tip library and was not written by me.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="cs2-monthly" class="mb-12 sm:mb-16 scroll-mt-16">
+    <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight text-white mb-6 sm:mb-8">The Monthly Recap</h2>
+    <div class="flex flex-col sm:flex-row gap-6 sm:gap-12 items-start">
+      <div class="flex-1 space-y-4">
+        <p class="text-base leading-relaxed text-white">This is the ultimate culmination of the weekly update. The headline functions in the same way as the weekly update: the primary insight delivered quickly, which in this case is their week with the lowest peak energy use.</p>
+        <p class="text-base leading-relaxed text-white">If you can consider the rate coach series a "game", this would serve the same mental purpose as a "results screen". The user is shown their energy use over a 4-week period, with a spotlight cast on their week with the lowest cost. In an ideal world, they would think back to that lowest week and consider what they did differently to lower their costs so dramatically.</p>
+      </div>
+      <div class="flex-shrink-0 w-full sm:w-64"><ZoomableImage src="/images/opower/monthly-recap.png" alt="Monthly recap email design" /></div>
+    </div>
+  </div>
+
+  <div id="cs2-results" class="mb-12 sm:mb-16 scroll-mt-16">
+    <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight text-white mb-6 sm:mb-8">Results</h2>
+    <div class="space-y-4">
+      <p class="text-base leading-relaxed text-white">The core goal of this program was to shift customer energy use outside of peak hours, reducing demand on the grid during the highest-usage hours. So the question is, did this program achieve that? Here's what was reported:</p>
+      <p class="text-base leading-relaxed text-white">The program delivered a <strong>1-2% peak load shift</strong> across five utility deployments, with <strong>digital engagement reaching 60%</strong> among recipients at one utility.</p>
+      <p class="text-base leading-relaxed text-white">As far as the content goes, one of the utility deployment with roughly 800,000 households moving through a time-of-use rate transition saw <strong>3x the amount of email opens and 9x the amount of clickthroughs</strong> compared to the utility-industry benchmarks.</p>
+      <p class="text-base leading-relaxed text-white">The email series also improved comprehension on their utility's TOU program, with recipients being <strong>17% more likely to recall the program and 16% more likely to correctly identify their peak-pricing hours</strong> compared to a control group. For an energy-shifting program, that level of comprehension is what you'd actually need to make behavior change possible.</p>
+      <p class="text-base leading-relaxed text-white">Over time, the program saw an <strong>8% lift in customer satisfaction</strong> versus control, and a <strong>5% increase overall</strong>. We also saw <strong>67% of customers noting a preference for the weekly cadence</strong>, which is a notable departure from the typical bill-cycle rhythm typical of utility communications. While it's generally pretty rare to hear that customers actually want more emails from their utility, it's a signal that more frequent utility contact can be a good thing when it's done well and provides real customer value.</p>
+    </div>
+  </div>
+</CaseStudyLayout>
