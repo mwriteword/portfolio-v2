@@ -87,15 +87,17 @@ const breadcrumbSchema = {
       <!-- Core services — rail of jump links (static, no JS) + every offering's
            full detail rendered as crawlable HTML. -->
       <section id="solutions" class="mb-14 sm:mb-20 scroll-mt-24">
-        <div class="grid gap-8 lg:grid-cols-[300px_1fr] lg:gap-14">
+        <div class="grid gap-8 lg:grid-cols-[300px_1fr] lg:gap-14" data-svc-menu>
           <div class="lg:sticky lg:top-24 lg:self-start">
             <h2 class="mb-6 text-[20px] font-semibold tracking-tight sm:text-[24px]">Core services</h2>
             <nav class="flex flex-col gap-1">
               {
                 services.map((s, i) => (
-                  <a
-                    href={`#${s.slug}`}
-                    class="svc-link flex items-baseline gap-3 rounded-r-lg border-l-[3px] border-transparent px-4 py-3 text-left transition-colors"
+                  <button
+                    type="button"
+                    data-svc-btn={s.slug}
+                    aria-current={i === 0 ? "true" : undefined}
+                    class={`svc-btn flex w-full items-baseline gap-3 rounded-r-lg border-l-[3px] border-transparent px-4 py-3 text-left transition-colors ${i === 0 ? "is-active" : ""}`}
                     style={`--svc-accent:${s.accent}`}
                   >
                     <span class="svc-num font-mono text-xs tabular-nums text-muted-foreground/50 transition-colors">
@@ -106,7 +108,7 @@ const breadcrumbSchema = {
                     >
                       {s.title}
                     </span>
-                  </a>
+                  </button>
                 ))
               }
               <div class="mt-5 rounded-xl border border-border bg-muted/40 p-4">
@@ -121,14 +123,15 @@ const breadcrumbSchema = {
             </nav>
           </div>
 
-          <!-- All offerings, fully expanded as static HTML -->
-          <div class="min-w-0 flex flex-col gap-16">
+          <!-- Master-detail: every offering is rendered into the DOM (so search +
+               AI still read them all), but only the selected one is shown. -->
+          <div class="min-w-0">
             {
-              services.map((s) => {
+              services.map((s, i) => {
                 const d = s.detail;
                 const cs = d.caseStudy;
                 return (
-                  <article id={s.slug} style={`--svc-accent:${s.accent}`} class="svc-article scroll-mt-24 rounded-lg border-t border-border pt-8 transition-all first:border-t-0 first:pt-0">
+                  <article data-svc-panel={s.slug} hidden={i !== 0} class="scroll-mt-24">
                     <div class="flex items-start justify-between gap-4">
                       <p class="text-xs font-semibold uppercase tracking-wide" style={`color:${s.accent}`}>
                         {s.eyebrow}
@@ -297,37 +300,51 @@ const breadcrumbSchema = {
 </Layout>
 
 <style>
-  /* Each rail link carries its service's accent as --svc-accent (set inline);
-     on hover it lights up in that hue — restoring the color feedback the
-     master-detail selector used to give on the live site. */
-  .svc-link:hover {
-    border-left-color: var(--svc-accent);
-    background-color: color-mix(in srgb, var(--svc-accent) 8%, transparent);
+  /* Rail selector. Each button carries its service's accent as --svc-accent
+     (set inline). The selected one is lit in that accent; hover previews it. */
+  .svc-btn:not(.is-active):hover {
+    background-color: color-mix(in srgb, var(--svc-accent) 6%, transparent);
   }
-  .svc-link:hover .svc-num,
-  .svc-link:hover .svc-title {
+  .svc-btn:not(.is-active):hover .svc-title {
+    color: hsl(var(--foreground));
+  }
+  .svc-btn.is-active {
+    border-left-color: var(--svc-accent);
+    background-color: color-mix(in srgb, var(--svc-accent) 10%, transparent);
+  }
+  .svc-btn.is-active .svc-num,
+  .svc-btn.is-active .svc-title {
     color: var(--svc-accent);
     font-weight: 600;
-  }
-
-  /* Deep-linked service (e.g. from the home offerings preview → /services#slug):
-     highlight it in its own accent so it reads as "selected", mirroring the
-     master-detail selection on the live site. Pure CSS via :target — no JS. */
-  .svc-article:target {
-    background-color: color-mix(in srgb, var(--svc-accent) 6%, transparent);
-    box-shadow: inset 4px 0 0 var(--svc-accent);
-    border-top-color: transparent;
-    padding-left: 1.25rem;
   }
 </style>
 
 <script>
-  // Backward-compat: the live site used /services?service=<slug>. Translate any
-  // such inbound link to the anchor so it scrolls to and highlights the service
-  // (the primary internal links now use /services#<slug> directly).
-  const svc = new URLSearchParams(location.search).get("service");
-  if (svc && document.getElementById(svc)) {
-    location.hash = svc;
+  // Master-detail: rail buttons switch which offering is shown. Every offering
+  // is in the DOM (crawlable); this only toggles which one is visible.
+  const menu = document.querySelector("[data-svc-menu]");
+  if (menu) {
+    const btns = menu.querySelectorAll<HTMLElement>("[data-svc-btn]");
+    const panels = menu.querySelectorAll<HTMLElement>("[data-svc-panel]");
+    const select = (slug: string, scroll: boolean) => {
+      if (![...panels].some((p) => p.dataset.svcPanel === slug)) return;
+      btns.forEach((b) => {
+        const on = b.dataset.svcBtn === slug;
+        b.classList.toggle("is-active", on);
+        if (on) b.setAttribute("aria-current", "true");
+        else b.removeAttribute("aria-current");
+      });
+      panels.forEach((p) => p.toggleAttribute("hidden", p.dataset.svcPanel !== slug));
+      if (scroll) {
+        const sec = document.getElementById("solutions");
+        if (sec) window.scrollTo({ top: Math.max(0, sec.getBoundingClientRect().top + window.scrollY - 80), behavior: "auto" });
+      }
+    };
+    btns.forEach((b) => b.addEventListener("click", () => select(b.dataset.svcBtn!, false)));
+    // Deep link from the home offerings preview (/services#slug) or a legacy
+    // /services?service=slug — open that offering on load.
+    const initial = location.hash.replace("#", "") || new URLSearchParams(location.search).get("service") || "";
+    if (initial) select(initial, true);
   }
 
   // Case-study modals: a "Case study" tag opens its service's modal. The content

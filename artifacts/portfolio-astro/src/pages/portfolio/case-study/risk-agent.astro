@@ -43,8 +43,13 @@ const link = "text-[#06b6d4] hover:text-[#22d3ee] transition-colors underline un
   <div id="section-demo" class="scroll-mt-16 mb-12">
     <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight text-white mb-6">Workflow demo</h2>
     <div class="w-full mb-3">
-      <div class="relative w-full rounded-lg overflow-hidden border border-white/5" style="padding-bottom:62.5%">
-        <iframe class="absolute inset-0 w-full h-full" src="https://risk-agent-demo.lovable.app/" title="Risk Agent workflow demo" loading="lazy" allow="clipboard-write"></iframe>
+      <div class="relative w-full rounded-lg overflow-hidden border border-white/5 bg-[#1a1a1a]" style="padding-bottom:62.5%" data-demo data-demo-src="https://risk-agent-demo.lovable.app/">
+        <button type="button" data-demo-load aria-label="Load interactive demo" class="group absolute inset-0 flex flex-col items-center justify-center gap-3 transition-colors hover:bg-white/5">
+          <span class="flex h-14 w-14 items-center justify-center rounded-full bg-[#06b6d4] text-white transition-transform group-hover:scale-105">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+          <span class="text-sm font-medium text-[#cccccc] group-hover:text-white">Load interactive demo</span>
+        </button>
       </div>
       <p class="mt-2 text-xs text-[#888888]"><a href="https://risk-agent-demo.lovable.app/" target="_blank" rel="noopener noreferrer" class={link}>Open the live demo ↗</a></p>
     </div>
@@ -142,3 +147,21 @@ const link = "text-[#06b6d4] hover:text-[#22d3ee] transition-colors underline un
     </p>
   </div>
 </CaseStudyLayout>
+
+<script>
+  // Click-to-load the demo iframe. The embedded app autofocuses a field on load,
+  // which makes the browser scroll the page down to it — so we only mount the
+  // iframe on click (by which point the reader is already at the demo).
+  document.querySelectorAll<HTMLElement>("[data-demo]").forEach((wrap) => {
+    wrap.querySelector("[data-demo-load]")?.addEventListener("click", () => {
+      const src = wrap.getAttribute("data-demo-src");
+      if (!src) return;
+      const iframe = document.createElement("iframe");
+      iframe.src = src;
+      iframe.title = "Risk Agent workflow demo";
+      iframe.setAttribute("allow", "clipboard-write");
+      iframe.className = "absolute inset-0 w-full h-full";
+      wrap.replaceChildren(iframe);
+    });
+  });
+</script>
