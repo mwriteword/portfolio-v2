@@ -8,6 +8,7 @@ tags:
   - UX writing
   - content strategy
 relatedService: content-standards-systems
+draft: true
 faqs:
   - question: "Is content design the same as copywriting?"
     answer: "No. Copywriting is usually about persuasion and marketing — getting someone to click, sign up, or buy. Content design is about comprehension and usability — helping someone understand and complete a task inside a product. The skills overlap, but the goals are different."

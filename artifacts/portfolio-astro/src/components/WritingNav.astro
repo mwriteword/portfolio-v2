@@ -31,7 +31,7 @@ const linkBase = "rounded-lg px-3 py-1.5 text-sm font-medium transition-colors";
 
       <span class="h-4 w-px shrink-0 bg-black/15" aria-hidden="true"></span>
 
-      <!-- Mode toggle: Freelance (this side, active) · UX Portfolio (dark side).
+      <!-- Mode toggle: Services (this side, active) · Portfolio (dark side).
            The light↔dark color-wipe is layered on via Astro View Transitions once
            /portfolio is ported; for now this is a plain link across sides. -->
       <div role="tablist" aria-label="Site mode" class="inline-flex shrink-0 items-center rounded-full border border-black/10 bg-black/5 p-0.5">
@@ -42,18 +42,12 @@ const linkBase = "rounded-lg px-3 py-1.5 text-sm font-medium transition-colors";
           data-mode-link
           data-wipe-color="#2e2e2e"
           class="rounded-full px-3 py-1 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
-        >
-          <span class="sm:hidden">Portfolio</span>
-          <span class="hidden sm:inline">UX Portfolio</span>
-        </a>
+        >Portfolio</a>
         <span
           role="tab"
           aria-selected="true"
           class="rounded-full bg-foreground px-3 py-1 text-xs font-medium text-background"
-        >
-          <span class="sm:hidden">Freelance</span>
-          <span class="hidden sm:inline">Freelance Services</span>
-        </span>
+        >Services</span>
       </div>
 
       <!-- Desktop — inline links + CTA -->
