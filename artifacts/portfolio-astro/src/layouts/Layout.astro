@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import Analytics from "@vercel/analytics/astro";
 
 // Shared page shell. Each route passes its own title/description/OG so every URL
 // emits UNIQUE, real metadata in the raw HTML — the single biggest crawlability
@@ -55,6 +56,22 @@ const schemas = [personSchema, ...jsonLd];
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preload" href="/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin />
 
+    {/* Microsoft Clarity — heatmaps + session recordings (traffic behavior). */}
+    <script is:inline type="text/javascript">
+      (function (c, l, a, r, i, t, y) {
+        c[a] =
+          c[a] ||
+          function () {
+            (c[a].q = c[a].q || []).push(arguments);
+          };
+        t = l.createElement(r);
+        t.async = 1;
+        t.src = "https://www.clarity.ms/tag/" + i;
+        y = l.getElementsByTagName(r)[0];
+        y.parentNode.insertBefore(t, y);
+      })(window, document, "clarity", "script", "y8fgrn2h4r");
+    </script>
+
     {
       schemas.map((schema) => (
         <script type="application/ld+json" set:html={JSON.stringify(schema)} />
@@ -95,6 +112,7 @@ const schemas = [personSchema, ...jsonLd];
   <body>
     <slot />
     <div id="mode-wipe" aria-hidden="true"></div>
+    <Analytics />
     <script>
       const overlay = document.getElementById("mode-wipe");
       // Reveal: fade the page in from the cover color. Remove the class
