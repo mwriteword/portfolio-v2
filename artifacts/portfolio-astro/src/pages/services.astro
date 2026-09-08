@@ -53,18 +53,17 @@ const breadcrumbSchema = {
   <main class="min-h-screen bg-background text-foreground">
     <SiteNav active="/services" />
 
-    <div class="max-w-[1120px] w-[90%] mx-auto pt-6 pb-12 sm:pt-8 sm:pb-20">
-      <!-- Breadcrumbs -->
-      <nav aria-label="Breadcrumb" class="mb-8">
-        <ol class="flex items-center gap-2 text-sm">
-          <li><a href="/" class="text-muted-foreground transition-colors hover:text-foreground">Home</a></li>
-          <li aria-hidden="true" class="text-muted-foreground/40">»</li>
-          <li aria-current="page" class="font-medium text-foreground">Services</li>
-        </ol>
-      </nav>
-
-      <!-- Hero -->
-      <section class="mb-14 sm:mb-20 text-center">
+    <!-- Header band (lavender) -->
+    <section class="border-b border-border bg-indigo-50/70">
+      <div class="max-w-[1120px] w-[90%] mx-auto py-10 sm:py-14 text-center">
+        <!-- Breadcrumbs -->
+        <nav aria-label="Breadcrumb" class="mb-6 text-left">
+          <ol class="flex items-center gap-2 text-sm">
+            <li><a href="/" class="text-muted-foreground transition-colors hover:text-foreground">Home</a></li>
+            <li aria-hidden="true" class="text-muted-foreground/40">»</li>
+            <li aria-current="page" class="font-medium text-foreground">Services</li>
+          </ol>
+        </nav>
         <h1
           class="mx-auto max-w-3xl font-bold tracking-tight text-[40px] sm:text-[56px] lg:text-[64px] leading-[1.05]"
         >
@@ -79,11 +78,13 @@ const breadcrumbSchema = {
           <span aria-hidden="true" class="text-muted-foreground/40">•</span>
           <a href="#additional" class="font-medium text-muted-foreground transition-colors hover:text-foreground">Copywriting &amp; content services</a>
         </nav>
-      </section>
+      </div>
+    </section>
 
-      <!-- Core services — rail of jump links (static, no JS) + every offering's
-           full detail rendered as crawlable HTML. -->
-      <section id="solutions" class="mb-14 sm:mb-20 scroll-mt-24">
+    <!-- Core services (white band) — rail of jump links + every offering's
+         full detail rendered as crawlable HTML. -->
+    <section id="solutions" class="scroll-mt-20">
+      <div class="max-w-[1120px] w-[90%] mx-auto py-14 sm:py-20">
         <div class="grid gap-8 lg:grid-cols-[300px_1fr] lg:gap-14" data-svc-menu>
           <div class="lg:sticky lg:top-24 lg:self-start">
             <h2 class="mb-6 text-[20px] font-semibold tracking-tight sm:text-[24px]">Core services</h2>
@@ -246,10 +247,12 @@ const breadcrumbSchema = {
             }
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Additional services -->
-      <section id="additional" class="mb-14 sm:mb-20 scroll-mt-24">
+    <!-- Copywriting & content services (lavender band) -->
+    <section id="additional" class="scroll-mt-20 border-y border-border bg-indigo-50/70">
+      <div class="max-w-[1120px] w-[90%] mx-auto py-14 sm:py-20">
         <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight mb-2">Copywriting &amp; content services</h2>
         <p class="mb-6 text-sm text-muted-foreground">
           Prices vary based on the size and shape of the engagement. Get in touch and we can work
@@ -271,10 +274,12 @@ const breadcrumbSchema = {
         >
           See writing samples →
         </a>
-      </section>
+      </div>
+    </section>
 
-      <!-- Contact -->
-      <section id="contact" class="scroll-mt-24">
+    <!-- Contact (light band) -->
+    <section id="contact" class="scroll-mt-20 border-t border-border bg-muted/30">
+      <div class="max-w-[1120px] w-[90%] mx-auto py-14 sm:py-20">
         <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight">
           Need a more customized solution?
         </h2>
@@ -283,14 +288,14 @@ const breadcrumbSchema = {
           for your needs. Just tell me what you're working on and we'll work it out together.
         </p>
         <ContactPanel client:visible />
-      </section>
 
-      <div class="mt-12 flex justify-center">
-        <a href="#" class="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
-          ↑ Back to top
-        </a>
+        <div class="mt-12 flex justify-center">
+          <a href="#" class="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
+            ↑ Back to top
+          </a>
+        </div>
       </div>
-    </div>
+    </section>
 
     <SiteFooter />
   </main>

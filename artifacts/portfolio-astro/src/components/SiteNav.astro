@@ -25,6 +25,19 @@ const { active, sections = [] } = Astro.props as Props;
 const linkBase = "rounded-lg px-3 py-1.5 text-sm font-medium transition-colors";
 const linkFor = (href: string) =>
   `${linkBase} ${active === href ? "bg-muted text-foreground" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`;
+
+// The Portfolio nav item is always a hover dropdown. On pages that pass their
+// own `sections` (Portfolio index + case studies) it lists those as same-page
+// #anchors; everywhere else it falls back to the Portfolio sub-areas so the menu
+// is available site-wide.
+const portfolioMenu = [
+  { href: "/portfolio#case-studies", label: "UX case studies" },
+  { href: "/portfolio#writing-samples", label: "Writing samples" },
+  { href: "/portfolio#skills", label: "Skills" },
+  { href: "/portfolio#tools", label: "Tools" },
+];
+const portfolioDropdown =
+  sections.length > 0 ? sections.map((s) => ({ href: `#${s.id}`, label: s.label })) : portfolioMenu;
 ---
 
 <header
@@ -45,7 +58,7 @@ const linkFor = (href: string) =>
       <nav class="ml-auto hidden items-center gap-1 sm:flex">
         {
           navLinks.map((link) =>
-            link.href === "/portfolio" && sections.length > 0 ? (
+            link.href === "/portfolio" ? (
               <div class="group relative">
                 <a href={link.href} class={`${linkFor(link.href)} inline-flex items-center gap-1`}>
                   {link.label}
@@ -54,8 +67,8 @@ const linkFor = (href: string) =>
                 {/* pt-2 bridges the gap so hover survives moving to the menu */}
                 <div class="invisible absolute left-0 top-full z-50 w-64 translate-y-1 pt-2 opacity-0 transition-all duration-150 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
                   <div class="overflow-hidden rounded-xl border border-border bg-background p-1.5 shadow-xl">
-                    {sections.map((s) => (
-                      <a href={`#${s.id}`} class="block rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
+                    {portfolioDropdown.map((s) => (
+                      <a href={s.href} class="block rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
                         {s.label}
                       </a>
                     ))}
@@ -99,22 +112,22 @@ const linkFor = (href: string) =>
       hidden
       class="flex flex-col gap-1 border-t border-border py-3 sm:hidden"
     >
-      {navLinks.map((link) => <a href={link.href} class={linkFor(link.href)}>{link.label}</a>)}
-      {
-        sections.length > 0 && (
+      {navLinks.map((link) =>
+        link.href === "/portfolio" ? (
           <>
-            <div class="my-1 h-px bg-border"></div>
-            {sections.map((s) => (
-              <a
-                href={`#${s.id}`}
-                class="rounded-lg px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-              >
-                {s.label}
-              </a>
-            ))}
+            <a href={link.href} class={linkFor(link.href)}>{link.label}</a>
+            <div class="ml-3 flex flex-col gap-1 border-l border-border pl-3">
+              {portfolioDropdown.map((s) => (
+                <a href={s.href} class="rounded-lg px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
+                  {s.label}
+                </a>
+              ))}
+            </div>
           </>
-        )
-      }
+        ) : (
+          <a href={link.href} class={linkFor(link.href)}>{link.label}</a>
+        ),
+      )}
       <a
         href={BOOKING_URL}
         target="_blank"

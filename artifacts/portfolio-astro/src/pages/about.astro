@@ -2,9 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import SiteNav from "../components/SiteNav.astro";
 import SiteFooter from "../components/SiteFooter.astro";
-
-const BOOKING_URL =
-  "https://calendar.google.com/calendar/appointments/schedules/AcZssZ2i1JtJLb7GAUKgfIkvBWBvA1qn5-ZBOsxF3_x0nwVFNrpr2_w_xmdqhNFxRUZc2G6Eg0bM5-Ld";
+import ContactPanel from "../components/ContactPanel.tsx";
 
 const title = "About Vernon Laquindanum — Content Designer & Writer";
 const description =
@@ -193,23 +191,14 @@ const A = "font-medium text-foreground underline decoration-muted-foreground/40 
         <h2 class="text-[24px] sm:text-[32px] font-bold tracking-tight">
           I think this is the beginning of a beautiful partnership
         </h2>
-        <p class="mt-3 max-w-2xl text-[15px] sm:text-[17px] leading-relaxed text-muted-foreground">
-          Think we'd make a good team? Book an intro call now and we'll work on a solution together.
+        <p class="mt-3 mb-6 max-w-2xl text-pretty text-[15px] sm:text-[17px] leading-relaxed text-muted-foreground">
+          Think we'd make a good team? Send a message below or book an intro call, and we'll work on a solution together.
         </p>
-        <div class="mt-6 flex flex-wrap gap-3">
-          <a
-            href={BOOKING_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-4 sm:px-5 py-2 sm:py-2.5 text-sm font-medium text-white transition-colors hover:bg-indigo-700"
-          >
-            Book a call
-          </a>
-          <a
-            href="/services"
-            class="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-4 sm:px-5 py-2 sm:py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted"
-          >
-            See my services →
+        <ContactPanel client:visible />
+
+        <div class="mt-12 flex justify-center">
+          <a href="#" class="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
+            ↑ Back to top
           </a>
         </div>
       </div>
