@@ -1,0 +1,18 @@
+---
+// One stat / sentiment card. `value` is emphasized in `color`; the label sits
+// above and an optional description below (or as children).
+interface Props {
+  label: string;
+  value: string;
+  /** Accent hex for the value line. */
+  color?: string;
+  desc?: string;
+}
+const { label, value, color = "#0f172a", desc } = Astro.props;
+---
+<div class="rounded-lg border border-border bg-card p-4">
+  <p class="mb-2 text-xs font-medium uppercase tracking-widest text-muted-foreground">{label}</p>
+  <p class="mb-1 text-sm font-semibold" style={`color:${color}`}>{value}</p>
+  {desc && <p class="text-xs leading-relaxed text-muted-foreground">{desc}</p>}
+  <slot />
+</div>

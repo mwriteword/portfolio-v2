@@ -2,9 +2,9 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "portfolio-astro",
+      "name": "portfolio-redesign",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["--filter", "@workspace/portfolio-astro", "dev", "--port", "4321"],
+      "runtimeArgs": ["--filter", "@workspace/portfolio-astro", "run", "dev", "--port", "4321"],
       "port": 4321
     }
   ]

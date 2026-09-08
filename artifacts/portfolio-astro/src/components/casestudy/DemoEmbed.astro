@@ -1,0 +1,54 @@
+---
+// Click-to-load embedded demo. The iframe is only mounted on click — the
+// embedded app autofocuses a field on load, which would otherwise yank the
+// page's scroll position down to it. Light-themed.
+interface Props {
+  src: string;
+  /** Aspect ratio as bottom-padding percentage (default 62.5% = 16:10). */
+  ratio?: string;
+  /** Accent hex for the play button. */
+  accent?: string;
+  /** Label for the "open live" link below the frame. */
+  liveLabel?: string;
+}
+const { src, ratio = "62.5%", accent = "#0891b2", liveLabel = "Open the live demo ↗" } = Astro.props;
+---
+
+<div class="not-prose my-4">
+  <div
+    class="relative w-full overflow-hidden rounded-lg border border-border bg-muted"
+    style={`padding-bottom:${ratio}`}
+    data-demo
+    data-demo-src={src}
+  >
+    <button
+      type="button"
+      data-demo-load
+      aria-label="Load interactive demo"
+      class="group absolute inset-0 flex flex-col items-center justify-center gap-3 transition-colors hover:bg-black/5"
+    >
+      <span class="flex h-14 w-14 items-center justify-center rounded-full text-white transition-transform group-hover:scale-105" style={`background-color:${accent}`}>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+      </span>
+      <span class="text-sm font-medium text-muted-foreground group-hover:text-foreground">Load interactive demo</span>
+    </button>
+  </div>
+  <p class="mt-2 text-xs text-muted-foreground">
+    <a href={src} target="_blank" rel="noopener noreferrer" class="underline underline-offset-2" style={`color:${accent}`}>{liveLabel}</a>
+  </p>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-demo]").forEach((wrap) => {
+    wrap.querySelector("[data-demo-load]")?.addEventListener("click", () => {
+      const src = wrap.getAttribute("data-demo-src");
+      if (!src) return;
+      const iframe = document.createElement("iframe");
+      iframe.src = src;
+      iframe.title = "Interactive demo";
+      iframe.setAttribute("allow", "clipboard-write");
+      iframe.className = "absolute inset-0 w-full h-full";
+      wrap.replaceChildren(iframe);
+    });
+  });
+</script>

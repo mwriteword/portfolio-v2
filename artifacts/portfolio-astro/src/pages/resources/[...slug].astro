@@ -1,9 +1,9 @@
 ---
 import { getCollection, render } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
-import WritingNav from "../../components/WritingNav.astro";
+import SiteNav from "../../components/SiteNav.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
-import { services } from "../../../../portfolio/src/content/services";
+import { services } from "../../data/services";
 
 export async function getStaticPaths() {
   const entries = await getCollection("resources", ({ data }) => !data.draft);
@@ -70,7 +70,7 @@ const showUpdated = d.dateModified && d.dateModified.getTime() !== d.datePublish
 
 <Layout title={`${d.title} — Vernon Laquindanum`} description={d.description} path={path} jsonLd={jsonLd} ogImage={d.ogImage}>
   <main class="min-h-screen bg-background text-foreground">
-    <WritingNav active="/resources" />
+    <SiteNav active="/resources" />
 
     <div class="max-w-[760px] w-[90%] mx-auto pt-6 pb-12 sm:pt-8 sm:pb-20">
       <!-- Breadcrumbs -->

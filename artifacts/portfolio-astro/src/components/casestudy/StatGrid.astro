@@ -1,0 +1,15 @@
+---
+// Grid of <Stat> cards (sentiment breakdowns, result metrics). Columns adapt.
+interface Props {
+  cols?: 2 | 3 | 4;
+}
+const { cols = 4 } = Astro.props;
+const grid = {
+  2: "sm:grid-cols-2",
+  3: "sm:grid-cols-3",
+  4: "min-[480px]:grid-cols-2 sm:grid-cols-4",
+}[cols];
+---
+<div class={`not-prose my-6 grid grid-cols-1 ${grid} gap-4`}>
+  <slot />
+</div>

@@ -79,7 +79,7 @@ function ContactForm() {
             required
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
-            placeholder="Your name"
+            placeholder="Can I ask... your name?"
             className={fieldClass}
           />
         </div>
@@ -93,14 +93,14 @@ function ContactForm() {
             required
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
-            placeholder="you@company.com"
+            placeholder="You've got mail. Or rather, you will very soon."
             className={fieldClass}
           />
         </div>
       </div>
       <div className="mt-4">
         <label htmlFor="message" className="mb-1.5 block text-sm font-medium text-foreground">
-          Describe your problem or project
+          Description
         </label>
         <textarea
           id="message"
@@ -108,7 +108,7 @@ function ContactForm() {
           rows={5}
           value={form.message}
           onChange={(e) => setForm({ ...form, message: e.target.value })}
-          placeholder="Tell me where your users are getting stuck."
+          placeholder="Help me, Words by Vern. You're my only hope."
           className={fieldClass}
         />
       </div>
@@ -124,7 +124,7 @@ function ContactForm() {
       <button
         type="submit"
         disabled={submitting}
-        className="mt-5 inline-flex items-center justify-center rounded-lg bg-slate-900 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-slate-700 disabled:opacity-60"
+        className="mt-5 inline-flex items-center justify-center rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-indigo-700 disabled:opacity-60"
       >
         {submitting ? "Sending…" : "Send message"}
       </button>

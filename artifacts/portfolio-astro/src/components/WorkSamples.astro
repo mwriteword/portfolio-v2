@@ -1,7 +1,8 @@
 ---
-// Expandable sample grid. Tiles render in a grid; clicking one reveals a
-// full-width panel with the sample's media + body. All panel bodies render into
-// the DOM (crawlable) — the script only toggles visibility.
+// Writing-sample grid. Tiles render in a grid; a discrete sample opens its
+// details in a modal, while a link-out tile (href) navigates to a detail page.
+// All modal bodies render into the DOM (crawlable) — the script only toggles
+// visibility.
 export interface Sample {
   id: string;
   title: string;
@@ -11,9 +12,18 @@ export interface Sample {
   full?: string;
   video?: string;
   imageTop?: boolean;
-  bodyHtml: string;
+  /** Render the thumbnail contained + padded (for logos) instead of cover-cropped. */
+  thumbnailContain?: boolean;
+  /** Filter categories this sample belongs to (for the optional filter bar). */
+  filters?: string[];
+  /** When set, the tile links to this detail page instead of opening a modal. */
+  href?: string;
+  /** Modal body (HTML). Not needed for link-out (href) tiles. */
+  bodyHtml?: string;
 }
-const { samples } = Astro.props as { samples: Sample[] };
+// `filterGroups` (optional) renders a filter button row above the grid; tiles
+// show/hide by their `filters`. Omit it for a plain, unfiltered grid.
+const { samples, filterGroups } = Astro.props as { samples: Sample[]; filterGroups?: string[] };
 const gradients = [
   "from-blue-500/25 to-indigo-500/10",
   "from-emerald-500/25 to-teal-500/10",
@@ -24,67 +34,101 @@ const gradients = [
 ];
 ---
 
-<div data-ws class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+<div data-ws-root>
   {
-    samples.map((s, i) => (
-      <button type="button" data-ws-tile={s.id} aria-expanded="false" class="ws-tile group flex flex-col overflow-hidden rounded-xl border border-border bg-card text-left transition-colors hover:bg-muted">
-        <div class={`aspect-[4/3] w-full overflow-hidden bg-gradient-to-br ${gradients[i % gradients.length]}`}>
-          {s.image && (
-            <img src={s.image} alt={s.title} class={`h-full w-full object-cover ${s.imageTop ? "object-top" : ""}`} onerror="this.style.display='none'" />
-          )}
-        </div>
-        <div class="flex items-start justify-between gap-2 p-4">
-          <div>
-            <span class="text-xs font-medium uppercase tracking-wide text-muted-foreground">{s.category}</span>
-            <h3 class="mt-1 font-semibold">{s.title}</h3>
-            <p class="mt-1.5 text-sm text-muted-foreground">{s.preview}</p>
-          </div>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ws-arrow mt-0.5 shrink-0 text-muted-foreground transition-transform group-hover:text-foreground"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
-        </div>
-      </button>
-    ))
+    filterGroups && filterGroups.length > 0 && (
+      <div data-ws-filters class="mb-6 flex flex-wrap items-center gap-2">
+        <span class="mr-1 text-sm font-medium text-muted-foreground">Filter by:</span>
+        {["All", ...filterGroups].map((f, i) => (
+          <button
+            type="button"
+            data-ws-filter={f}
+            aria-pressed={i === 0 ? "true" : "false"}
+            class={`ws-filter rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors ${i === 0 ? "border-transparent bg-indigo-600 text-white" : "border-border text-muted-foreground hover:bg-muted hover:text-foreground"}`}
+          >
+            {f}
+          </button>
+        ))}
+      </div>
+    )
   }
+  <div data-ws class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
   {
-    samples.map((s, i) => (
-      <div data-ws-panel={s.id} hidden class="col-span-full overflow-hidden rounded-xl border border-border bg-card">
-        <div class="grid gap-6 p-5 sm:p-6 lg:grid-cols-2">
-          <div class={`aspect-[16/10] w-full overflow-hidden rounded-lg bg-gradient-to-br ${gradients[i % gradients.length]}`}>
-            {
-              s.video ? (
-                <video src={s.video} poster={s.image} controls preload="metadata" class="h-full w-full object-cover" />
-              ) : s.image ? (
-                <button type="button" data-zoomable data-src={s.full ?? s.image} data-alt={s.title} aria-label={`Expand image: ${s.title}`} class="group block h-full w-full cursor-zoom-in">
-                  <img src={s.image} alt={s.title} class={`h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03] ${s.imageTop ? "object-top" : ""}`} onerror="this.style.display='none'" />
-                </button>
-              ) : null
-            }
+    samples.map((s, i) => {
+      const cls = "ws-tile group flex flex-col overflow-hidden rounded-xl border border-border bg-card text-left transition-colors hover:bg-muted";
+      const filters = (s.filters ?? []).join("|");
+      const imgCls = s.thumbnailContain
+        ? "h-full w-full object-contain p-8"
+        : `h-full w-full object-cover ${s.imageTop ? "object-top" : ""}`;
+      const body = (
+        <>
+          <div class={`aspect-[4/3] w-full overflow-hidden bg-gradient-to-br ${gradients[i % gradients.length]}`}>
+            {s.image && <img src={s.image} alt={s.title} class={imgCls} onerror="this.style.display='none'" />}
           </div>
-          <div class="flex flex-col">
-            <div class="flex items-start justify-between gap-4">
+          <div class="flex items-start justify-between gap-2 p-4">
+            <div>
               <span class="text-xs font-medium uppercase tracking-wide text-muted-foreground">{s.category}</span>
-              <button type="button" data-ws-close aria-label="Close" class="-m-1 rounded-md p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-              </button>
+              <h3 class="mt-1 font-semibold">{s.title}</h3>
+              <p class="mt-1.5 text-sm text-muted-foreground">{s.preview}</p>
             </div>
-            <h3 class="mt-2 text-xl font-semibold">{s.title}</h3>
-            <div class="mt-3 space-y-3 text-sm leading-relaxed text-muted-foreground [&_a]:font-medium [&_a]:text-primary [&_a:hover]:underline [&_em]:italic [&_ul]:list-disc [&_ul]:space-y-1 [&_ul]:pl-5" set:html={s.bodyHtml} />
+            {/* The diagonal arrow signals "navigates away" — only on link-out tiles. */}
+            {s.href && (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0 text-muted-foreground transition-colors group-hover:text-foreground"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+            )}
+          </div>
+        </>
+      );
+      return s.href ? (
+        <a href={s.href} data-ws-item data-filters={filters} class={cls}>{body}</a>
+      ) : (
+        <button type="button" data-ws-item data-ws-tile={s.id} data-filters={filters} aria-haspopup="dialog" aria-expanded="false" class={cls}>{body}</button>
+      );
+    })
+  }
+  {/* Modals — one per discrete (non-href) sample; opened by its tile. */}
+  {
+    samples.filter((s) => !s.href).map((s, i) => (
+      <div data-ws-panel={s.id} hidden class="fixed inset-0 z-[90] flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
+        <div role="dialog" aria-modal="true" aria-label={s.title} class="relative flex max-h-[90vh] w-full max-w-5xl flex-col overflow-hidden rounded-2xl border border-border bg-background shadow-2xl">
+          <button type="button" data-ws-close aria-label="Close" class="absolute right-3 top-3 z-10 rounded-md bg-background/70 p-1.5 text-muted-foreground backdrop-blur transition-colors hover:bg-muted hover:text-foreground">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+          <div class="min-h-0 flex-1 overflow-y-auto">
+            <div class="grid gap-6 p-5 sm:p-6 sm:pr-8 lg:grid-cols-2">
+              <div class={`aspect-[16/10] w-full overflow-hidden rounded-lg bg-gradient-to-br ${gradients[i % gradients.length]}`}>
+                {
+                  s.video ? (
+                    <video src={s.video} poster={s.image} controls preload="metadata" class="h-full w-full object-cover" />
+                  ) : s.image ? (
+                    <button type="button" data-zoomable data-src={s.full ?? s.image} data-alt={s.title} aria-label={`Expand image: ${s.title}`} class="group block h-full w-full cursor-zoom-in">
+                      <img src={s.image} alt={s.title} class={`h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03] ${s.imageTop ? "object-top" : ""}`} onerror="this.style.display='none'" />
+                    </button>
+                  ) : null
+                }
+              </div>
+              <div class="flex flex-col">
+                <span class="text-xs font-medium uppercase tracking-wide text-muted-foreground">{s.category}</span>
+                <h3 class="mt-2 text-xl font-semibold">{s.title}</h3>
+                <div class="mt-3 space-y-3 text-sm leading-relaxed text-muted-foreground [&_a]:font-medium [&_a]:text-primary [&_a:hover]:underline [&_em]:italic [&_ul]:list-disc [&_ul]:space-y-1 [&_ul]:pl-5" set:html={s.bodyHtml} />
+              </div>
+            </div>
           </div>
         </div>
       </div>
     ))
   }
+  </div>
 </div>
 
 <script>
   document.querySelectorAll<HTMLElement>("[data-ws]").forEach((group) => {
     const tiles = group.querySelectorAll<HTMLElement>("[data-ws-tile]");
     const panels = group.querySelectorAll<HTMLElement>("[data-ws-panel]");
+    const lock = (on: boolean) => document.documentElement.classList.toggle("overflow-hidden", on);
     const closeAll = () => {
       panels.forEach((p) => p.setAttribute("hidden", ""));
-      tiles.forEach((t) => {
-        t.setAttribute("aria-expanded", "false");
-        t.querySelector(".ws-arrow")?.classList.remove("rotate-90");
-      });
+      tiles.forEach((t) => t.setAttribute("aria-expanded", "false"));
+      lock(false);
     };
     tiles.forEach((t) => {
       t.addEventListener("click", () => {
@@ -96,11 +140,42 @@ const gradients = [
         if (!isOpen) {
           panel.removeAttribute("hidden");
           t.setAttribute("aria-expanded", "true");
-          t.querySelector(".ws-arrow")?.classList.add("rotate-90");
-          panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          lock(true);
         }
       });
     });
     group.querySelectorAll("[data-ws-close]").forEach((btn) => btn.addEventListener("click", closeAll));
+    // Backdrop click (on the overlay itself, not the dialog) closes.
+    panels.forEach((p) => p.addEventListener("click", (e) => { if (e.target === p) closeAll(); }));
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeAll(); });
+  });
+
+  // Optional filter bar: show/hide tiles by their data-filters.
+  document.querySelectorAll<HTMLElement>("[data-ws-root]").forEach((root) => {
+    const filterBar = root.querySelector<HTMLElement>("[data-ws-filters]");
+    if (!filterBar) return;
+    const grid = root.querySelector<HTMLElement>("[data-ws]");
+    const tiles = grid?.querySelectorAll<HTMLElement>("[data-ws-item]") ?? [];
+    const panels = grid?.querySelectorAll<HTMLElement>("[data-ws-panel]") ?? [];
+    const buttons = filterBar.querySelectorAll<HTMLElement>("[data-ws-filter]");
+    const apply = (active: string) => {
+      buttons.forEach((b) => {
+        const on = b.dataset.wsFilter === active;
+        b.setAttribute("aria-pressed", String(on));
+        b.classList.toggle("bg-indigo-600", on);
+        b.classList.toggle("text-white", on);
+        b.classList.toggle("border-transparent", on);
+        b.classList.toggle("border-border", !on);
+        b.classList.toggle("text-muted-foreground", !on);
+      });
+      panels.forEach((p) => p.setAttribute("hidden", ""));
+      document.documentElement.classList.remove("overflow-hidden");
+      tiles.forEach((t) => {
+        t.setAttribute("aria-expanded", "false");
+        const cats = (t.dataset.filters || "").split("|").filter(Boolean);
+        t.toggleAttribute("hidden", !(active === "All" || cats.includes(active)));
+      });
+    };
+    buttons.forEach((b) => b.addEventListener("click", () => apply(b.dataset.wsFilter || "All")));
   });
 </script>

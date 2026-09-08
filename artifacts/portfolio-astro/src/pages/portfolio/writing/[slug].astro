@@ -1,0 +1,28 @@
+---
+import { getCollection, render } from "astro:content";
+import WritingSampleLayout from "../../../layouts/WritingSampleLayout.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("writingSamples", ({ data }) => !data.draft);
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const d = entry.data;
+const { Content } = await render(entry);
+const path = `/portfolio/writing/${entry.id}`;
+---
+
+<WritingSampleLayout
+  title={d.title}
+  eyebrow={d.eyebrow}
+  client={d.client}
+  role={d.role}
+  date={d.date}
+  accent={d.accent}
+  summary={d.summary}
+  description={d.summary}
+  path={path}
+>
+  <Content />
+</WritingSampleLayout>

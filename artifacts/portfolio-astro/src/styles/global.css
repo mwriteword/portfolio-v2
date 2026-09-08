@@ -6,12 +6,10 @@
    downloaded, so there is no font-loading event and no fallback → web-font swap
    flash — the class of jank NordPass was exposing simply cannot occur. */
 
-/* Design tokens ported from artifacts/portfolio/src/index.css. The freelance
-   (Writing) side of the site is light-only, so this slice carries the light
-   palette; the dark palette + mode-transition can move over when the interactive
-   ModeToggle island is ported. Keeping the token names identical means the ported
-   markup's utility classes (bg-background, text-muted-foreground, …) resolve the
-   same way they do in the current app. */
+/* Design tokens for the unified site. Since the redesign merged the two former
+   "worlds" into one light theme (no mode toggle / color-wipe), this is a single
+   light palette. Utility classes across the site (bg-background,
+   text-muted-foreground, …) resolve against these HSL custom properties. */
 
 @theme inline {
   --color-background: hsl(var(--background));
