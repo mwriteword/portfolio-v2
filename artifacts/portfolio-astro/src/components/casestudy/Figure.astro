@@ -1,0 +1,45 @@
+---
+// Case-study image with alignment + optional caption. Click-to-zoom is wired to
+// the shared <Lightbox /> via the [data-zoomable] delegation (same contract as
+// ZoomableImage). `align` controls how surrounding prose wraps:
+//   left / right — floats to that side (~45% width), text wraps beside it
+//   center       — centered block, constrained width
+//   full         — full column width (default)
+// `width` optionally overrides the width via inline style (e.g. "60%").
+interface Props {
+  src: string;
+  alt: string;
+  caption?: string;
+  align?: "left" | "right" | "center" | "full";
+  width?: string;
+}
+const { src, alt, caption, align = "full", width } = Astro.props;
+
+// Static class literals so Tailwind's JIT detects them.
+const wrapCls: Record<string, string> = {
+  left: "float-left mr-6 mb-4 w-[45%] max-w-[480px]",
+  right: "float-right ml-6 mb-4 w-[45%] max-w-[480px]",
+  center: "mx-auto my-6 w-[70%]",
+  full: "my-6 w-full",
+};
+const style = width ? `width:${width};max-width:100%` : undefined;
+---
+
+<figure class={`not-prose ${wrapCls[align]}`} style={style}>
+  <button
+    type="button"
+    data-zoomable
+    data-src={src}
+    data-alt={alt}
+    aria-label={`Expand image: ${alt}`}
+    class="group block w-full cursor-zoom-in overflow-hidden rounded-lg border border-border"
+  >
+    <img
+      src={src}
+      alt={alt}
+      class="w-full transition-transform duration-300 ease-out group-hover:scale-[1.03]"
+      onerror="this.closest('figure').style.display='none'"
+    />
+  </button>
+  {caption && <figcaption class="mt-2 text-xs leading-relaxed text-muted-foreground">{caption}</figcaption>}
+</figure>

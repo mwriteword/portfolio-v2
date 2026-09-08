@@ -1,0 +1,141 @@
+---
+// Unified site nav for the merged Portfolio + Services site. One light nav on
+// every page — no mode toggle, no color-wipe. Links + CTA are real, crawlable
+// anchors; the mobile hamburger and the optional "On this page" dropdown are
+// progressive enhancement via the inline script at the bottom.
+const BOOKING_URL =
+  "https://calendar.google.com/calendar/appointments/schedules/AcZssZ2i1JtJLb7GAUKgfIkvBWBvA1qn5-ZBOsxF3_x0nwVFNrpr2_w_xmdqhNFxRUZc2G6Eg0bM5-Ld";
+
+const navLinks = [
+  { href: "/", label: "Home" },
+  { href: "/services", label: "Services" },
+  { href: "/portfolio", label: "Portfolio" },
+  { href: "/about", label: "About" },
+];
+
+interface Props {
+  /** Href of the current top-level section, e.g. "/portfolio", for active state. */
+  active?: string;
+  /** In-page section anchors for the current page (id → #id link). Case studies
+   *  pass these to keep an in-page jump nav. */
+  sections?: { id: string; label: string }[];
+}
+const { active, sections = [] } = Astro.props as Props;
+
+const linkBase = "rounded-lg px-3 py-1.5 text-sm font-medium transition-colors";
+const linkFor = (href: string) =>
+  `${linkBase} ${active === href ? "bg-muted text-foreground" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`;
+---
+
+<header
+  class="sticky top-0 z-30 border-b border-border bg-background/80 backdrop-blur"
+  data-site-nav
+>
+  <div class="max-w-[1120px] w-[90%] mx-auto">
+    <div class="flex h-12 items-center gap-3">
+      <a
+        href="/"
+        class="shrink-0 text-sm font-semibold text-foreground transition-colors hover:text-primary"
+      >
+        <span class="sm:hidden">V.L.</span>
+        <span class="hidden sm:inline">Vernon Laquindanum</span>
+      </a>
+
+      <!-- Desktop — inline links (Portfolio carries the section menu on hover) + CTA -->
+      <nav class="ml-auto hidden items-center gap-1 sm:flex">
+        {
+          navLinks.map((link) =>
+            link.href === "/portfolio" && sections.length > 0 ? (
+              <div class="group relative">
+                <a href={link.href} class={`${linkFor(link.href)} inline-flex items-center gap-1`}>
+                  {link.label}
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform duration-150 group-hover:rotate-180"><polyline points="6 9 12 15 18 9" /></svg>
+                </a>
+                {/* pt-2 bridges the gap so hover survives moving to the menu */}
+                <div class="invisible absolute left-0 top-full z-50 w-64 translate-y-1 pt-2 opacity-0 transition-all duration-150 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
+                  <div class="overflow-hidden rounded-xl border border-border bg-background p-1.5 shadow-xl">
+                    {sections.map((s) => (
+                      <a href={`#${s.id}`} class="block rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
+                        {s.label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <a href={link.href} class={linkFor(link.href)}>{link.label}</a>
+            ),
+          )
+        }
+
+        <span class="ml-1">
+          <a
+            href={BOOKING_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-lg bg-indigo-600 px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-indigo-700"
+          >
+            Book a call
+          </a>
+        </span>
+      </nav>
+
+      <!-- Mobile — hamburger -->
+      <button
+        type="button"
+        data-nav-toggle
+        aria-expanded="false"
+        aria-controls="site-mobile-menu"
+        aria-label="Menu"
+        class="ml-auto inline-flex h-9 w-9 items-center justify-center rounded-lg text-foreground transition-colors hover:bg-muted sm:hidden"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <nav
+      id="site-mobile-menu"
+      hidden
+      class="flex flex-col gap-1 border-t border-border py-3 sm:hidden"
+    >
+      {navLinks.map((link) => <a href={link.href} class={linkFor(link.href)}>{link.label}</a>)}
+      {
+        sections.length > 0 && (
+          <>
+            <div class="my-1 h-px bg-border"></div>
+            {sections.map((s) => (
+              <a
+                href={`#${s.id}`}
+                class="rounded-lg px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              >
+                {s.label}
+              </a>
+            ))}
+          </>
+        )
+      }
+      <a
+        href={BOOKING_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="mt-1 inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-indigo-700"
+      >
+        Book a call
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Progressive enhancement. The nav is fully usable without JS — every link is
+  // a real anchor. This only toggles the collapsed mobile menu; the desktop
+  // Portfolio section menu is pure CSS hover/focus-within.
+  const navToggle = document.querySelector<HTMLButtonElement>("[data-nav-toggle]");
+  const mobileMenu = document.getElementById("site-mobile-menu");
+  navToggle?.addEventListener("click", () => {
+    const opening = mobileMenu?.hasAttribute("hidden");
+    mobileMenu?.toggleAttribute("hidden", !opening);
+    navToggle.setAttribute("aria-expanded", String(!!opening));
+  });
+</script>

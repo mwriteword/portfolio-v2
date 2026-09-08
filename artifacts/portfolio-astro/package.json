@@ -29,6 +29,7 @@
     "lightningcss-darwin-arm64": "^1.33.0"
   },
   "dependencies": {
+    "@astrojs/mdx": "^7.0.8",
     "@vercel/analytics": "^2.0.1"
   }
 }

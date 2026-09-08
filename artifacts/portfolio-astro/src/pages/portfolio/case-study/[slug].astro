@@ -1,0 +1,37 @@
+---
+import { getCollection, render } from "astro:content";
+import CaseStudyLayout from "../../../layouts/CaseStudyLayout.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("caseStudies", ({ data }) => !data.draft);
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const d = entry.data;
+const { Content, headings } = await render(entry);
+
+// Derive the in-page section nav from the body's H2 headings — no hand-kept list.
+const sections = headings
+  .filter((h) => h.depth === 2)
+  .map((h) => ({ id: h.slug, label: h.text }));
+
+const path = `/portfolio/case-study/${entry.id}`;
+---
+
+<CaseStudyLayout
+  title={d.title}
+  tagline={d.tagline}
+  description={d.description ?? d.summary}
+  path={path}
+  role={d.role}
+  company={d.company}
+  timeline={d.timeline}
+  collaborators={d.collaborators}
+  skills={d.skills}
+  accent={d.accent}
+  summary={d.summary}
+  sections={sections}
+>
+  <Content />
+</CaseStudyLayout>
