@@ -4,7 +4,6 @@ import Layout from "../layouts/Layout.astro";
 import SiteNav from "../components/SiteNav.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import ContactPanel from "../components/ContactPanel.tsx";
-import { services } from "../data/services";
 
 const AVATAR_SRC = "/images/avatar/illustration.png";
 const LINKEDIN_URL = "https://linkedin.com/in/vjtlaq";
@@ -78,6 +77,26 @@ const snippets = [
   "If you need clear, high-quality writing, look no further.",
 ];
 
+// Expertise / philosophy trio shown before the About section. Icons are inline
+// Lucide-style strokes (matching the carousel chevrons) so this needs no JS.
+const expertise = [
+  {
+    title: "Judgment",
+    body: "Knowing what each screen should say and why, then making sure each string delivers.",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`,
+  },
+  {
+    title: "Governance",
+    body: "Creating rules, processes, and standards so growth doesn't mean the words grow out of sync.",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>`,
+  },
+  {
+    title: "Strategy",
+    body: "Planning out the language, structure, and organization against business needs before anything is written.",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>`,
+  },
+];
+
 const professionalService = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
@@ -135,55 +154,7 @@ const professionalService = {
       </div>
     </section>
 
-    <!-- 3 — Writing services (offerings master-detail) -->
-    <section id="services" class="scroll-mt-20">
-      <div class="max-w-[1120px] w-[90%] mx-auto py-14 sm:py-20">
-        <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight">Writing services</h2>
-        <p class="mt-2 mb-8 max-w-3xl text-pretty text-muted-foreground">These are just a few of my UX content specialities. You can always book a call and we'll work out a customized solution together.</p>
-        <div id="offerings-preview" class="grid gap-8 lg:grid-cols-[300px_1fr] lg:gap-14">
-          <div>
-            <nav class="flex flex-col gap-1">
-              {
-                services.map((s, i) => (
-                  <button
-                    type="button"
-                    data-off-btn={i}
-                    style={`--svc-accent:${s.accent}`}
-                    class="off-btn group flex w-full items-baseline gap-3 rounded-r-lg border-l-[3px] border-transparent px-4 py-3 text-left transition-colors"
-                  >
-                    <span class="off-num font-mono text-xs tabular-nums text-muted-foreground/50 transition-colors">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span class="off-title text-[17px] font-medium leading-snug text-muted-foreground transition-colors group-hover:text-foreground">
-                      {s.title}
-                    </span>
-                  </button>
-                ))
-              }
-            </nav>
-            <a href="/services" class="mt-5 ml-4 inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline">
-              View all services →
-            </a>
-          </div>
-          <div class="lg:pt-2">
-            {
-              services.map((s, i) => (
-                <div class="off-panel" data-off-panel={i} hidden={i !== 0}>
-                  <p class="text-xs font-semibold uppercase tracking-wide" style={`color:${s.accent}`}>{s.eyebrow}</p>
-                  <h3 class="mt-2 text-2xl font-bold tracking-tight">{s.title}</h3>
-                  <p class="mt-3 max-w-2xl text-[17px] leading-relaxed text-muted-foreground">{s.summary}</p>
-                  <a href={`/services#${s.slug}`} class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold underline-offset-4 hover:underline" style={`color:${s.accent}`}>
-                    More about this service →
-                  </a>
-                </div>
-              ))
-            }
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 4 — Featured case studies (lavender band) -->
+    <!-- 3 — Featured case studies (lavender band) -->
     <section class="border-y border-border bg-indigo-50/70">
       <div class="max-w-[1120px] w-[90%] mx-auto py-14 sm:py-20">
         <div class="mb-8 flex items-end justify-between gap-4">
@@ -204,6 +175,31 @@ const professionalService = {
                   <p class="mt-1.5 text-sm leading-relaxed text-muted-foreground">{s.data.tagline}</p>
                 </div>
               </a>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 — Expertise (philosophy trio) -->
+    <section id="expertise" class="scroll-mt-20 border-b border-border">
+      <div class="max-w-[1120px] w-[90%] mx-auto py-14 sm:py-20">
+        <div class="mx-auto max-w-5xl text-center">
+          <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight">My expertise</h2>
+          <p class="mt-2 text-pretty text-muted-foreground">
+            Content design can mean a lot of different things, but these areas are where I add the most value.
+          </p>
+        </div>
+        <div class="mt-10 grid gap-8 sm:grid-cols-3 sm:gap-10">
+          {
+            expertise.map((e) => (
+              <div class="flex flex-col items-center text-center">
+                <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
+                  <Fragment set:html={e.icon} />
+                </span>
+                <h3 class="mt-4 text-[17px] font-semibold tracking-tight">{e.title}</h3>
+                <p class="mt-2 max-w-xs text-[15px] leading-relaxed text-muted-foreground">{e.body}</p>
+              </div>
             ))
           }
         </div>
@@ -280,7 +276,7 @@ const professionalService = {
     <section id="contact" class="scroll-mt-20">
       <div class="max-w-[1120px] w-[90%] mx-auto py-14 sm:py-20">
         <h2 class="mb-2 text-[20px] sm:text-[24px] font-semibold tracking-tight">Get in touch</h2>
-        <p class="mb-6 max-w-2xl text-pretty text-sm text-muted-foreground">
+        <p class="mb-6 max-w-5xl text-pretty text-muted-foreground">
           Think we'd make a good team? Send a message below or book an intro call now and we'll work on a solution together.
         </p>
         <ContactPanel client:visible />
@@ -298,16 +294,6 @@ const professionalService = {
 </Layout>
 
 <style>
-  .off-btn.is-active {
-    border-left-color: var(--svc-accent);
-    background-color: color-mix(in srgb, var(--svc-accent) 8%, transparent);
-  }
-  .off-btn.is-active .off-num,
-  .off-btn.is-active .off-title {
-    color: var(--svc-accent);
-    font-weight: 600;
-  }
-
   @keyframes marquee {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
@@ -320,24 +306,6 @@ const professionalService = {
 </style>
 
 <script>
-  // Offerings preview: hover/focus/click a rail item to reveal its panel.
-  const preview = document.getElementById("offerings-preview");
-  if (preview) {
-    const btns = preview.querySelectorAll<HTMLElement>("[data-off-btn]");
-    const panels = preview.querySelectorAll<HTMLElement>("[data-off-panel]");
-    const show = (idx: string) => {
-      btns.forEach((b) => b.classList.toggle("is-active", b.dataset.offBtn === idx));
-      panels.forEach((p) => p.toggleAttribute("hidden", p.dataset.offPanel !== idx));
-    };
-    btns.forEach((b) => {
-      const idx = b.dataset.offBtn!;
-      b.addEventListener("mouseenter", () => show(idx));
-      b.addEventListener("focus", () => show(idx));
-      b.addEventListener("click", () => show(idx));
-    });
-    show("0");
-  }
-
   // Recommendations carousel: prev/next scroll the track by one card.
   const rec = document.getElementById("rec-carousel");
   if (rec) {
