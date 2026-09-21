@@ -1,0 +1,20 @@
+---
+// Two labeled columns that stack on mobile (e.g. "Business needs" / "User
+// needs"). Each column is passed via a named slot: `a` and `b`, with the
+// heading set through `labelA` / `labelB`.
+interface Props {
+  labelA: string;
+  labelB: string;
+}
+const { labelA, labelB } = Astro.props;
+---
+<div class="not-prose my-6 grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-10">
+  <div>
+    <p class="mb-2 text-xs font-medium uppercase tracking-widest text-muted-foreground">{labelA}</p>
+    <div class="text-[15px] leading-relaxed text-foreground [&>p+p]:mt-3"><slot name="a" /></div>
+  </div>
+  <div>
+    <p class="mb-2 text-xs font-medium uppercase tracking-widest text-muted-foreground">{labelB}</p>
+    <div class="text-[15px] leading-relaxed text-foreground [&>p+p]:mt-3"><slot name="b" /></div>
+  </div>
+</div>

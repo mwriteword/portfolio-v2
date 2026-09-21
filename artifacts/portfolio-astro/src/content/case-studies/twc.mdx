@@ -27,6 +27,7 @@ order: 2
 
 import Figure from "../../components/casestudy/Figure.astro";
 import Gallery from "../../components/casestudy/Gallery.astro";
+import Split from "../../components/casestudy/Split.astro";
 
 export const O = "/images/atlassian/onboarding";
 export const modalVariants = [
@@ -49,46 +50,32 @@ export const cards = [
   { src: "/images/atlassian/cards/card-9.png", title: "Collaborate with teams", description: "Collaborate with more teams and unlock the power of your teammates.", cta: "Try Teams" },
 ];
 
-At the peak of my time managing 4 separate product areas as the sole content designer on the team, I was unexpectedly made the content lead on a Growth project. This project was a joint effort between Atlassian Home (one of my 4 product areas) and the Growth team, and I was originally meant to be supporting a content designer from Growth. But for some reason (which I never fully learned), the Growth content designer was moved to another project and I was asked to take over and lead content design for the onboarding.
+## Context
 
-It's never easy taking over a project mid-stream, but it did give me a chance to build a fresh content strategy, which is exactly what this project needed.
-
-## Project highlights
-
-<div class="not-prose mx-auto my-6 max-w-[620px]">
-  <div class="aspect-video w-full overflow-hidden rounded-lg border border-border">
-    <iframe class="h-full w-full border-0" src="https://embed.figma.com/deck/3hLyEHEUyLrz25CqQmS79Y/?embed-host=share" title="TWC onboarding project highlights presentation" allowfullscreen></iframe>
-  </div>
-</div>
-
-To support the launch of Teamwork Collection (TWC), a new app bundle consisting of Jira, Confluence, and Loom, we worked with designers from Growth to deliver an onboarding experience in Atlassian Home. I led and delivered all the content for this project, including:
-
-- End user content strategy, contributed back to the overall content strategy for TWC.
-- Email content to notify users of app access.
-- UI copy for the entire flows.
-- Content variants across email and modal content (20+ modal variants condensed to 6 to alleviate engineering load).
-- Onboarding spotlights on Home, plus app-specific onboarding for Goals, Projects, and Teams apps (other platform apps I was responsible for).
-- Script for onboarding hero video.
-
-## Background and context
-
-In an attempt to alleviate longstanding confusion around which Atlassian apps should be used for what purpose and when, the product organization began grouping apps into bundles called "collections." Teamwork Collection was the first one to be announced, consisting of Atlassian's core collaboration apps: Jira, Confluence, and Loom.
+In an attempt to alleviate longstanding confusion around which Atlassian apps should be used for what purpose and when, the product organization began grouping apps into bundles called "collections." Teamwork Collection (TWC) was the first one to be announced, consisting of Atlassian's core collaboration apps: Jira, Confluence, and Loom. For its launch, the central Growth team owned the onboarding experience, which they wanted to live in Atlassian Home — the app squarely positioned as the "hub" between all Atlassian apps.
 
 <Figure src={`${O}/twc-bundle.png`} alt="Atlassian app ecosystem diagram showing how apps are grouped by team type" caption="Unfortunately none of the versions I could find of this visual actually spell out the app name. But maybe that's the point because the visible labels more directly answer the question, 'What do I use these for?'" align="center" />
 
-For Teamwork Collection's launch, the central growth team was tasked with the onboarding experience which they wanted to live in Atlassian Home since that's what was squarely positioned as the "hub" app between all Atlassian apps. Jira, Confluence, and Loom all had their own individual onboarding experiences, and while a consolidated, TWC onboarding was planned, the initial onboarding would be a general intro to each app through Atlassian Home.
+<Split labelA="Business needs" labelB="User needs">
+  <p slot="a">Growth needed a launch onboarding for the new bundle, anchored in Atlassian Home. But the existing TWC content strategy was written for buyers, admins, and decision makers — so the content produced so far leaned heavily on marketing, since TWC was largely a pricing-and-packaging change.</p>
+  <p slot="b">The people actually being onboarded were end users simply gaining access to new apps. Net-new users were overwhelmed by unfamiliar tooling; existing users were resistant to yet another change. Neither needed a sales pitch — they needed relevant, useful orientation to get working.</p>
+</Split>
 
-There were meant to be 4 of us working on this: one content + product design duo from Home and one duo from Growth, with the latter leading the design work. But a couple months into the project, design leadership asked me to take over as the content lead and work on content strategy and delivery on my own.
+## Approach
 
-I never got the full story about what happened, nor did I really ask or seek it out. All my manager told me was that the content just wasn't getting to where we needed it to be and so they wanted me to take over. If I had to guess, it was because a lot of what the Growth content designer had written thus far leaned heavily into marketing content, which made sense because the overarching content strategy for TWC was predominantly sales-focused. And that was ultimately the problem: the existing content strategy was written for _buyers_, not _end users_. We needed to focus the onboarding away from the marketing and actually deliver content that's relevant to the users getting these apps for the first time.
+At the peak of my time managing 4 separate product areas as the sole content designer on the team, I was unexpectedly made the content lead on this Growth project. It was a joint effort between Atlassian Home (one of my 4 product areas) and the Growth team, and I was originally meant to support a content designer from Growth. A couple of months in, design leadership asked me to take over and lead content design for the onboarding on my own.
 
-## The end(user)game strategy
+I never got the full story about what happened, nor did I really seek it out. All my manager told me was that the content just wasn't getting to where we needed it to be. If I had to guess, it was because a lot of what had been written so far leaned heavily into marketing — which made sense, because the overarching content strategy for TWC was predominantly sales-focused. And that was ultimately the problem: **the existing content strategy was written for _buyers_, not _end users_.** We needed to focus the onboarding away from the marketing and actually deliver content relevant to the people getting these apps for the first time.
 
-The first thing I did was write a new content strategy for this particular project. The existing TWC content strategy was written for buyers, admins, and general decision makers, so it made sense that the other content designer's work leaned heavily toward marketing. Since TWC was mostly a pricing and packaging change, there wasn't much need for an end user onboarding strategy since access to apps was the only thing really changing.
+It's never easy taking over a project mid-stream, but it did give me the chance to build a fresh content strategy — which is exactly what this project needed.
 
-One thing I advocated for in particular was avoiding mention of "Teamwork Collection" in both the onboarding and general end user experience. The name of the collection made sense for the buyer personas, but for users gaining access to new apps, the name of the bundle that their boss's boss's boss's boss bought would at best be trivial and at worst confusing. The actual end users don't need to understand what exactly TWC is — only that they have access to new Atlassian tools.
+### The end(user)game strategy
 
-I centered the content strategy around the "new tool access" message, with two key audience segments:
+The first thing I did was write a new content strategy for this particular project. Since TWC was mostly a pricing and packaging change, there hadn't been much need for an end-user onboarding strategy — access to apps was the only thing really changing. I centered the new strategy around the "new tool access" message.
+
+One thing I advocated for in particular was avoiding mention of "Teamwork Collection" in both the onboarding and general end-user experience. The name of the collection made sense for the buyer personas, but for users gaining access to new apps, the name of the bundle that their boss's boss's boss's boss bought would at best be trivial and at worst confusing. The actual end users don't need to understand what exactly TWC is — only that they have access to new Atlassian tools.
+
+I built the strategy around two key audience segments:
 
 <div class="not-prose my-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
   <div class="rounded-xl border border-border bg-card p-6">
@@ -113,9 +100,26 @@ I centered the content strategy around the "new tool access" message, with two k
   </div>
 </div>
 
-## Modal overwhelming
+## My work
 
-One of the key parts of the onboarding experience was the modal, which would display either the first time a user lands in Home after gaining TWC access or after clicking the link in the email. This would potentially be their first in-app experience with their new apps and we wanted to target the modal content to the user experience as much as possible. But to actually target the content to the exact granularity we wanted would mean over 20 modal variants — to which the lead engineer said, "No."
+I led and delivered all the content for this project, contributing back to the overall TWC content strategy along the way. What I owned end to end:
+
+- End-user content strategy, contributed back to the overall content strategy for TWC.
+- Email content to notify users of app access.
+- UI copy for the entire flows.
+- Content variants across email and modal content (20+ modal variants condensed to 6 to alleviate engineering load).
+- Onboarding spotlights on Home, plus app-specific onboarding for Goals, Projects, and Teams apps (other platform apps I was responsible for).
+- Script for the onboarding hero video.
+
+<div class="not-prose mx-auto my-6 max-w-[620px]">
+  <div class="aspect-video w-full overflow-hidden rounded-lg border border-border">
+    <iframe class="h-full w-full border-0" src="https://embed.figma.com/deck/3hLyEHEUyLrz25CqQmS79Y/?embed-host=share" title="TWC onboarding project highlights presentation" allowfullscreen></iframe>
+  </div>
+</div>
+
+### Modal overwhelming
+
+One of the key parts of the onboarding experience was the modal, which would display either the first time a user lands in Home after gaining TWC access or after clicking the link in the email. This would potentially be their first in-app experience with their new apps, and we wanted to target the modal content to the user's exact circumstances as much as possible. But to hit the granularity we wanted would have meant over 20 modal variants — to which the lead engineer said, "No."
 
 <Gallery>
   <Figure src={`${O}/newusermodal.png`} alt="New user modal" caption="The new user modal focuses on aspirational language with scannable, single-line definitions of each core app." align="full" />
@@ -142,7 +146,7 @@ Our work on this modal also established a new pattern for spotlight modals, repl
 
 <Figure src={`${O}/trello-example.png`} alt="Trello example showing the new modal pattern's scalability" caption="I found this Trello example in the wild, which incidentally does a great job showing the pattern's scalability with its expandable bullet sections and individual CTAs." align="center" />
 
-## HubSpot(lights)
+### HubSpot(lights)
 
 <Gallery cols={3}>
   <Figure src={`${O}/spotlight-1.png`} alt="Atlassian Home onboarding spotlight — step 1" align="full" />
@@ -152,13 +156,13 @@ Our work on this modal also established a new pattern for spotlight modals, repl
 
 With the spotlights, we wanted them to be fairly straightforward without treading the same ground as the modal before it. Since it's onboarding for a bundle of apps as well, the spotlights served to orient the user on the core purpose of Atlassian Home, plus the platform components that they would be able to access from any app. The second spotlight in particular highlights the primary way users can navigate between the apps they just heard about in the modal and any other Atlassian apps they have access to.
 
-## The deck of onboarding cards
+### The deck of onboarding cards
 
 Another prominent feature of the onboarding was a series of cards outlining individual app/experience onboarding and tasks they could complete as part of exploring their new apps:
 
 <Figure src={`${O}/home-carousel-highlight.png`} alt="Atlassian Home showing the Getting started card carousel highlighted" align="full" />
 
-In order to align with the aspect of "clear tool definitions", the bolded headline of each card needed to explain the core action/function of an app in exactly one line. I landed on the format of _[verb] [object] with [app]_ plus a short body to describe the core benefit.
+In order to align with the aspect of "clear tool definitions," the bolded headline of each card needed to explain the core action/function of an app in exactly one line. I landed on the format of _[verb] [object] with [app]_ plus a short body to describe the core benefit.
 
 <div class="not-prose my-6 rounded-xl bg-slate-100 p-4">
   <p class="mb-3 text-sm font-semibold text-slate-700">Getting started</p>
@@ -176,7 +180,7 @@ In order to align with the aspect of "clear tool definitions", the bolded headli
   </div>
 </div>
 
-## Bonus round: the onboarding video script
+### Final deliverables: the onboarding hero video
 
 You might've noticed in the Home screens above that one of the onboarding cards mentions a video. The thought, in our early planning, was that we would plug in whatever standard "What is Teamwork Collection?" type video to help users understand. The only problem was that existing assets were also very heavily marketing focused and weren't actively helpful for end users.
 
@@ -186,4 +190,15 @@ For the onboarding, we wanted something closer to a demo that shows why these ap
   <video src="/videos/twc-onboarding-video.mp4" controls preload="metadata" class="w-full rounded-lg border border-border"></video>
 </div>
 
-I wrote several drafts and iterations based on stakeholder feedback, partnering with both the lead TWC content designer and a copywriter from the creative/brand team to align with Atlassian's brand voice. We did have to include a mention of TWC since the caveat was that, while it was made for the onboarding, it would need to have flexibility to be used in other contexts. So what we ended up with had to work well for all audiences, and ended up being a nice blend of marketing and user-focused content.
+I wrote several drafts and iterations based on stakeholder feedback, partnering with both the lead TWC content designer and a copywriter from the creative/brand team to align with Atlassian's brand voice. We did have to include a mention of TWC, since the caveat was that — while it was made for the onboarding — it would need flexibility to be used in other contexts. So what we ended up with had to work well for all audiences, and became a nice blend of marketing and user-focused content.
+
+## Results & impact
+
+This was a launch-onboarding content system rather than an experiment, so the impact reads less as a single metric and more as what shipped and what it unblocked:
+
+- **A content strategy reframed for end users.** I reset the onboarding away from the buyer- and sales-focused messaging it had inherited, centering it on a "new tool access" message and deliberately dropping the "Teamwork Collection" name from the end-user experience.
+- **20+ modal variants down to 6.** By solving the targeting problem with content rather than engineering, I cut the modal matrix to a build the lead engineer could actually ship — while still covering the segments that mattered.
+- **A new, scalable spotlight-modal pattern.** The work replaced the design system's old benefits-modal with a 2-column format built to scale, and I authored its content guidance — character counts, suggestions, and do's/don'ts — for future teams to reuse.
+- **A full onboarding system, delivered for launch.** Modals, Home spotlights, the "Getting started" card deck, notification emails, and the hero video script all shipped under one consistent, end-user voice.
+
+Taking over a project mid-stream is never comfortable, but it turned into the clearest argument I've made for separating end-user content from marketing — and a reminder that a content designer's leverage often shows up as a scoping decision (20 → 6) long before it shows up as a single line of copy.

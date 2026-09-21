@@ -1,0 +1,14 @@
+---
+// Tinted note box with a leading emoji/icon — mirrors Notion's callout block.
+// Body content (and any embeds) passed as children.
+interface Props {
+  icon?: string;
+}
+const { icon = "💡" } = Astro.props;
+---
+<div class="not-prose my-6 flex gap-3 rounded-lg border border-border bg-muted/50 px-5 py-4">
+  <span aria-hidden="true" class="select-none text-lg leading-6">{icon}</span>
+  <div class="text-sm leading-relaxed text-muted-foreground [&_a]:underline [&_a]:underline-offset-2 [&>*+*]:mt-3">
+    <slot />
+  </div>
+</div>

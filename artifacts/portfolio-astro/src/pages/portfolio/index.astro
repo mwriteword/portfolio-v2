@@ -55,7 +55,7 @@ const dotStyle = (dot: { color: string; half?: boolean }) =>
 
 <Layout title={title} description={description} path="/portfolio" jsonLd={[collectionSchema]}>
   <main class="min-h-screen bg-background text-foreground">
-    <SiteNav active="/portfolio" sections={jumpSections} />
+    <SiteNav active="/portfolio" />
 
     <!-- Header band -->
     <section class="bg-indigo-50/70 border-b border-border">
@@ -92,7 +92,7 @@ const dotStyle = (dot: { color: string; half?: boolean }) =>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" style={`color:${d.accent}`} set:html={icons[s.id] ?? icons["goal-types"]} />
                   </div>
                   <div class="min-w-0 flex-1">
-                    <p class="truncate font-medium text-foreground">{d.title}</p>
+                    <p class="line-clamp-2 font-medium text-foreground">{d.title}</p>
                     <p class="mt-0.5 text-xs text-slate-600">{d.company}</p>
                     <!-- Phone: tags wrap below (no hover to reveal the tagline) -->
                     <div class="mt-2 flex flex-wrap gap-1.5 sm:hidden">

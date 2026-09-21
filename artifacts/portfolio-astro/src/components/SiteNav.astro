@@ -1,8 +1,10 @@
 ---
+import { getCollection } from "astro:content";
+
 // Unified site nav for the merged Portfolio + Services site. One light nav on
 // every page — no mode toggle, no color-wipe. Links + CTA are real, crawlable
-// anchors; the mobile hamburger and the optional "On this page" dropdown are
-// progressive enhancement via the inline script at the bottom.
+// anchors; the mobile hamburger and the Portfolio dropdown are progressive
+// enhancement via the inline script at the bottom.
 const BOOKING_URL =
   "https://calendar.google.com/calendar/appointments/schedules/AcZssZ2i1JtJLb7GAUKgfIkvBWBvA1qn5-ZBOsxF3_x0nwVFNrpr2_w_xmdqhNFxRUZc2G6Eg0bM5-Ld";
 
@@ -16,28 +18,34 @@ const navLinks = [
 interface Props {
   /** Href of the current top-level section, e.g. "/portfolio", for active state. */
   active?: string;
-  /** In-page section anchors for the current page (id → #id link). Case studies
-   *  pass these to keep an in-page jump nav. */
-  sections?: { id: string; label: string }[];
 }
-const { active, sections = [] } = Astro.props as Props;
+const { active } = Astro.props as Props;
 
 const linkBase = "rounded-lg px-3 py-1.5 text-sm font-medium transition-colors";
 const linkFor = (href: string) =>
   `${linkBase} ${active === href ? "bg-muted text-foreground" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`;
 
-// The Portfolio nav item is always a hover dropdown. On pages that pass their
-// own `sections` (Portfolio index + case studies) it lists those as same-page
-// #anchors; everywhere else it falls back to the Portfolio sub-areas so the menu
-// is available site-wide.
+// The Portfolio nav item is a hover dropdown that mirrors the portfolio's own
+// sections site-wide. "UX case studies" nests the individual case-study pages
+// (each is its own page), pulled from the content collection so the menu stays
+// in sync as studies are added.
+const studies = (
+  await getCollection("caseStudies", ({ data }) => !data.draft && data.order < 10)
+).sort((a, b) => a.data.order - b.data.order);
+
 const portfolioMenu = [
-  { href: "/portfolio#case-studies", label: "UX case studies" },
+  {
+    href: "/portfolio#case-studies",
+    label: "UX case studies",
+    children: studies.map((s) => ({
+      href: `/portfolio/case-study/${s.id}`,
+      label: s.data.title,
+    })),
+  },
   { href: "/portfolio#writing-samples", label: "Writing samples" },
   { href: "/portfolio#skills", label: "Skills" },
   { href: "/portfolio#tools", label: "Tools" },
 ];
-const portfolioDropdown =
-  sections.length > 0 ? sections.map((s) => ({ href: `#${s.id}`, label: s.label })) : portfolioMenu;
 ---
 
 <header
@@ -65,12 +73,23 @@ const portfolioDropdown =
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform duration-150 group-hover:rotate-180"><polyline points="6 9 12 15 18 9" /></svg>
                 </a>
                 {/* pt-2 bridges the gap so hover survives moving to the menu */}
-                <div class="invisible absolute left-0 top-full z-50 w-64 translate-y-1 pt-2 opacity-0 transition-all duration-150 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
+                <div class="invisible absolute left-0 top-full z-50 w-72 translate-y-1 pt-2 opacity-0 transition-all duration-150 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
                   <div class="overflow-hidden rounded-xl border border-border bg-background p-1.5 shadow-xl">
-                    {portfolioDropdown.map((s) => (
-                      <a href={s.href} class="block rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
-                        {s.label}
-                      </a>
+                    {portfolioMenu.map((s) => (
+                      <>
+                        <a href={s.href} class="block rounded-lg px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted">
+                          {s.label}
+                        </a>
+                        {s.children && (
+                          <div class="mb-1 ml-3 flex flex-col border-l border-border pl-2">
+                            {s.children.map((c) => (
+                              <a href={c.href} class="block rounded-lg px-3 py-1.5 text-[13px] leading-snug text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
+                                {c.label}
+                              </a>
+                            ))}
+                          </div>
+                        )}
+                      </>
                     ))}
                   </div>
                 </div>
@@ -117,10 +136,21 @@ const portfolioDropdown =
           <>
             <a href={link.href} class={linkFor(link.href)}>{link.label}</a>
             <div class="ml-3 flex flex-col gap-1 border-l border-border pl-3">
-              {portfolioDropdown.map((s) => (
-                <a href={s.href} class="rounded-lg px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
-                  {s.label}
-                </a>
+              {portfolioMenu.map((s) => (
+                <>
+                  <a href={s.href} class="rounded-lg px-3 py-1.5 text-sm font-medium text-foreground transition-colors hover:bg-muted">
+                    {s.label}
+                  </a>
+                  {s.children && (
+                    <div class="ml-3 flex flex-col border-l border-border pl-3">
+                      {s.children.map((c) => (
+                        <a href={c.href} class="rounded-lg px-3 py-1.5 text-[13px] leading-snug text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
+                          {c.label}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </>
               ))}
             </div>
           </>
