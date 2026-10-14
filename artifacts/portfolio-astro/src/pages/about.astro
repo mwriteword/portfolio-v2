@@ -39,51 +39,64 @@ const A = "font-medium text-foreground underline decoration-muted-foreground/40 
         <h1 class="mt-4 font-bold tracking-tight text-[40px] sm:text-[56px] lg:text-[64px] leading-[1.05]">
           Hello! You can call me Vern.
         </h1>
+        <nav aria-label="On this page" class="mt-6">
+          <ul class="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm font-medium">
+            <li><a href="#origin-story" class="text-muted-foreground transition-colors hover:text-foreground">Origin story</a></li>
+            <li aria-hidden="true" class="text-muted-foreground/40">•</li>
+            <li><a href="#work-history" class="text-muted-foreground transition-colors hover:text-foreground">Work history</a></li>
+            <li aria-hidden="true" class="text-muted-foreground/40">•</li>
+            <li><a href="#non-work-stuff" class="text-muted-foreground transition-colors hover:text-foreground">Non-work stuff</a></li>
+          </ul>
+        </nav>
       </div>
     </section>
 
-    <!-- 1 — Intro (white; photo floats right) -->
-    <section>
+    <!-- 1 — Origin story (white; photo floats left) -->
+    <section id="origin-story" class="scroll-mt-20">
       <div class="max-w-[1120px] w-[90%] mx-auto py-14 sm:py-20 flow-root">
-        <figure class="mb-6 w-full md:mb-3 md:w-[240px] lg:w-[280px] md:float-right md:ml-8">
-          <img src="/images/avatar/illustration.png" alt="Vernon Laquindanum" class="w-full rounded-lg" />
-        </figure>
-        <p class="text-[17px] sm:text-[19px] leading-relaxed text-foreground">
-          I've been writing professionally for 12 years across a lot of different contexts and roles.
-          In that time, it's always been the same job: deliver the right message at the right time for
-          the right person.
-        </p>
-        <div class="mt-4 space-y-4 text-[15px] sm:text-[17px] leading-relaxed text-muted-foreground">
-          <p>
-            The cost of getting that message wrong is often higher than it seems. When SaaS products
-            typically start up, staffing for UX content isn't usually a priority. Which makes sense at
-            the time: between marketing specialists, product managers, and designers, they can usually
-            write enough of the interface copy to ship the MVP.
-          </p>
-          <p>
-            But that lack of consistency in the content isn't truly felt until the product has already
-            begun growing its surfaces and developing new features past the minimum requirements.
-            That's when inconsistent content starts to cost real money via support tickets and
-            continued user drop-off.
-          </p>
-          <p>
-            I've seen firsthand how this can happen in software products. I've been on teams with a
-            very real need to wrangle all of the errant content and introduce consistency at scale.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 2 — Career (lavender band; photo floats left) -->
-    <section class="border-y border-border bg-indigo-50/70">
-      <div class="max-w-[1120px] w-[90%] mx-auto py-14 sm:py-20 flow-root">
-        <h2 class="mb-6 text-[24px] sm:text-[32px] font-bold tracking-tight">
-          From agency to in-house to freelance
-        </h2>
+        <h2 class="mb-6 text-[24px] sm:text-[32px] font-bold tracking-tight">Origin story</h2>
         <figure class="mb-6 w-full md:mb-3 md:w-[300px] lg:w-[340px] md:float-left md:mr-8">
           <img src="/images/about/laughing.jpg" alt="Vern laughing" class="w-full rounded-lg" />
           <figcaption class="mt-2 text-xs italic text-muted-foreground">This is me laughing at a joke you told me.</figcaption>
         </figure>
+        <div class="space-y-4 text-[15px] sm:text-[17px] leading-relaxed text-muted-foreground">
+          <p>
+            I grew up in the San Francisco Bay Area in the early 90's, where my older brother and I
+            would go over to the neighbor's house to play <em>Battletoads! in Battlemaniacs</em> or
+            watch an episode of <em>The Simpsons</em>, which our parents wouldn't let us watch. We moved
+            to Sacramento when I was 8 years old, and lived there throughout high school. It was at this
+            time that I started writing short stories and poetry, which were about as good as you would
+            expect from a 14 year old emo kid living in the suburbs.
+          </p>
+          <p>
+            In college, I switched my major to English after realizing that becoming a psychiatrist
+            meant needing to take (and pass) both science and math classes. I planned to go straight to
+            grad school and teach, less for stereotypical reasons and more because I actually really
+            enjoying teaching and mentoring. But my then-girlfriend (now wife) encouraged me to find
+            work in the industry first before going down the teaching route.
+          </p>
+          <p>
+            I remember being parked at some place downtown, eating fast food in my car after a night of
+            drinking. Right in front of us was a brightly lit ad for some energy drink. I don't remember
+            the ad itself, but I do remember saying disparaging things about the tagline on the ad.
+            That's when she said, "Well, you could write it better."
+          </p>
+          <div class="space-y-2 border-l-2 border-indigo-200 pl-4">
+            <p>"Yeah, I know I could."</p>
+            <p>"No, I mean like. You could write it better, but as your job."</p>
+            <p>"People get paid to write that junk?"</p>
+            <p>"Yeah, it's called marketing. <em>You</em> could get paid to write that junk."</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 — Work history (lavender band) -->
+    <section id="work-history" class="scroll-mt-20 border-y border-border bg-indigo-50/70">
+      <div class="max-w-[1120px] w-[90%] mx-auto py-14 sm:py-20 flow-root">
+        <h2 class="mb-6 text-[24px] sm:text-[32px] font-bold tracking-tight">
+          How I got paid to write
+        </h2>
         <div class="space-y-4 text-[15px] sm:text-[17px] leading-relaxed text-muted-foreground">
           <p>
             I started my career as a copywriter working at a performance marketing agency called
@@ -96,7 +109,8 @@ const A = "font-medium text-foreground underline decoration-muted-foreground/40 
             After a few years, I moved to Opower, an energy efficiency company that was acquired by
             Oracle Utilities about a year before I joined. Opower was created based on{" "}
             <a href="https://www.apa.org/news/press/releases/2007/09/peerpressure" target="_blank" rel="noopener noreferrer" class={A}>Dr. Robert Cialdini's psychological research into energy conservation</a>, which found that
-            peer pressure actually worked best in getting people to save energy.
+            peer pressure (not monetary savings or environmental impact) actually worked best in getting
+            people to save energy.
           </p>
           <p>
             To do this at scale, Opower's flagship{" "}
@@ -126,16 +140,12 @@ const A = "font-medium text-foreground underline decoration-muted-foreground/40 
             building the systems and governance standards to keep each of them aligned and consistent
             enough despite different audiences, use cases, and growth needs.
           </p>
-          <p class="text-foreground">
-            Now, I'm looking to work with product teams that need help managing their content. I know
-            what that inconsistency costs, and I know how to fix it.
-          </p>
         </div>
       </div>
     </section>
 
-    <!-- 3 — Life outside work (white; photo floats right) -->
-    <section>
+    <!-- 3 — Non-work stuff (white; photo floats right) -->
+    <section id="non-work-stuff" class="scroll-mt-20">
       <div class="max-w-[1120px] w-[90%] mx-auto py-14 sm:py-20 flow-root">
         <h2 class="mb-6 text-[24px] sm:text-[32px] font-bold tracking-tight">When I'm not working</h2>
         <figure class="mb-6 w-full md:mb-3 md:w-[300px] lg:w-[340px] md:float-right md:ml-8">
@@ -161,6 +171,18 @@ const A = "font-medium text-foreground underline decoration-muted-foreground/40 
             being able to teach what I know about food. This has not made them more likely to eat the
             food we actually cook, but we still enjoy doing it.
           </p>
+          <aside class="flex gap-3 rounded-lg border border-border bg-muted/50 p-4 text-foreground">
+            <span aria-hidden="true">📖</span>
+            <p>
+              I've actually been writing about what it's been like{" "}
+              <a href="https://cookingwithkids.substack.com/?utm_source=wordsbyvern&utm_medium=website&utm_campaign=about_page" target="_blank" rel="noopener" class={A}>cooking with my kids on Substack</a>,
+              feel free to follow along!
+            </p>
+          </aside>
+        </div>
+
+        <h3 class="clear-both mt-12 mb-4 text-[20px] sm:text-[24px] font-bold tracking-tight">Other hobbies and the like</h3>
+        <div class="space-y-4 text-[15px] sm:text-[17px] leading-relaxed text-muted-foreground">
           <p>
             I've also played video games my entire life, another passion I'm sharing with my girls. My
             eldest daughter and I have played through all of <em>Princess Peach: Showtime!</em> together,
@@ -169,11 +191,20 @@ const A = "font-medium text-foreground underline decoration-muted-foreground/40 
             know firsthand why Discord calls their communities "Servers."
           </p>
           <p>
-            We've also taken to playing board games and card games with our girls, which brings out a
-            healthy competitiveness in all of us. Our feral second child, however, is still learning how
-            to wait patiently for her turn and how to not immediately bend cards the second we hand them
-            to her. Our current favorites are <em>Sleeping Queens</em>, <em>Hoot, Owl, Hoot!</em>, and{" "}
-            <em>Sushi Go!</em>
+            I've been a long-time <em>Final Fantasy XIV</em> player, which has mostly been casual but
+            I've recently dived into the more difficult endgame content. This includes optimizing my
+            performance in highly difficult boss fights called "Savage Raids," which results in a
+            percentile score comparing my performance against <em>everyone else</em> who has fought that
+            same boss playing the same class as me.
+          </p>
+          <figure>
+            <img src="/images/about/ffxiv-savage.jpg" alt="Savage raid percentile rankings for the Dawntrail expansion, each at the 90th percentile or above" loading="lazy" class="w-full rounded-lg border border-border" />
+            <figcaption class="mt-2 text-xs italic text-muted-foreground">Of these fights in the <em>Dawntrail</em> expansion, I'm in the 90th percentile and above of players who have done it.</figcaption>
+          </figure>
+          <p>
+            It feels odd to include this on my website, but I'm actually really proud of these
+            accomplishments. But also this is my website, and this is the about section. I can write
+            whatever I want, right?
           </p>
           <p>
             And if I'm not doing any of these things, I've somehow found time to sneak away to my local
