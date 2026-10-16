@@ -14,10 +14,10 @@ const title = "Vernon Laquindanum — UX Writing & Content Design";
 const description =
   "I make complex B2B SaaS easier to use by writing clear interface copy and creating systems that scale with the product.";
 
-// Featured case studies: the first two (by order) from the collection.
-const featured = (await getCollection("caseStudies", ({ data }) => !data.draft && data.order < 10))
-  .sort((a, b) => a.data.order - b.data.order)
-  .slice(0, 2);
+// Featured case studies: hand-picked, in display order.
+const featuredIds = ["goal-types", "bls-emails"];
+const featured = (await getCollection("caseStudies", ({ id, data }) => !data.draft && featuredIds.includes(id)))
+  .sort((a, b) => featuredIds.indexOf(a.id) - featuredIds.indexOf(b.id));
 
 const logos = [
   { src: "/images/logos/atlassian.svg", alt: "Atlassian" },
